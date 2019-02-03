@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '极坐标系下的堆叠柱状图';
+
+option = {
+    angleAxis: {
+    },
+    radiusAxis: {
+        type: 'category',
+        data: ['周一', '周二', '周三', '周四'],
+        z: 10
+    },
+    tooltip: {},
+    polar: {
+    },
+    series: [{
+        type: 'bar',
+        data: [
+            {
+                name: '提交入党申请书',
+                value: 9.1,
+            },
+        ],
+        coordinateSystem: 'polar',
+        {#name: 'A',#}
+        stack: 'a'
+    }, {
+        type: 'bar',
+        data: [
+            {
+                name: '第一次考察',
+                value: 6
+            }
+        ],
+        coordinateSystem: 'polar',
+        {#name: 'B',#}
+        stack: 'a'
+    }, {
+        type: 'bar',
+        data: [2, 2, 3, 4],
+        coordinateSystem: 'polar',
+        {#name: 'C',#}
+        stack: 'a'
+    }]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

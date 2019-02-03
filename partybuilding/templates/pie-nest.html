@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '嵌套环形图';
+
+option = {
+
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data:['直达','营销广告','搜索引擎','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']
+    },
+    series: [
+        {
+            name:'入党申请',
+            type:'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
+            roam: false,
+
+            label: {
+                normal: {
+                    position: 'inner'
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:6, name:'入党申请', selected:true},
+                {value:12, name:'入党积极分子'},
+                {value:3, name:'重点发展对象'},
+                {value:3, name:'预备党员'},
+                {value:12, name:'预备党员转正'},
+            ]
+        },
+        {
+            name:'入党申请',
+            type:'pie',
+            radius: ['40%', '55%'],
+            label: {
+                normal: {
+                    position: 'inner'
+                }
+            },
+            /*labelLine: {
+                normal: {
+                    show: false
+                }
+            },*/
+            data:[
+                {value:1, name:'提交入党申请书'},
+                {value:1, name:'党支部支委谈话'},
+                {value:6, name:'半年考察'},
+            ]
+        },
+        {
+            name:'入党积极分子',
+            type:'pie',
+            radius: ['60%', '70%'],
+            label: {
+                normal: {
+                    position: 'inner'
+                }
+            },
+            /*labelLine: {
+                normal: {
+                    show: false
+                }
+            },*/
+            data:[
+                {value:1, name:'党员或群团组织推荐'},
+                {value:1, name:'支委会讨论'},
+                {value:0.8, name:'支部大会讨论'},
+                {value:0.8, name:'指派2名培养联系人'},
+                {value:5, name:'第一次考察谈话'},
+                {value:5, name:'第二次考察谈话'},
+            ]
+        }
+    ]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

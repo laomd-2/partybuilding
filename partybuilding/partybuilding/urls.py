@@ -13,12 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# from django.contrib import admin
+import xadmin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+
+
+xadmin.autodiscover()
+from xadmin.plugins import xversion
+xversion.register_models()
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('process/', include('processJoining.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # path('admin/', admin.site.urls),
+    path('xadmin/', xadmin.site.urls),
+    path('process/', include('info.urls'))
+]
