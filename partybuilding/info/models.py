@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 
 
@@ -15,8 +14,8 @@ class NullableDateField(models.DateField):
 
 class Member(models.Model):
     branch_name = models.CharField(max_length=50, db_index=True, verbose_name='支部名称（全称）')
-    netid = models.IntegerField(primary_key=True, verbose_name='学号')
-    name = models.CharField(max_length=30, db_index=True, verbose_name='姓名')
+    netid = models.CharField('学号', max_length=8, primary_key=True)
+    name = models.CharField('姓名', max_length=20, db_index=True)
     birth_date = models.DateField(max_length=10, verbose_name='出生时间')
     gender = models.CharField(max_length=1, verbose_name='性别', choices=[('男', '男'), ('女', '女')], default='男')
     group = models.CharField(max_length=20, verbose_name='民族')

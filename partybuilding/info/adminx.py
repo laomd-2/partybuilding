@@ -3,10 +3,10 @@ from .models import Member
 
 
 class MemberAdmin(object):
-    list_display = ['netid', 'name', 'application_date']
-    search_fields = ['netid']
-    list_editable = ['netid', 'name', 'application_date']
-    list_filter = ['netid']
+    list_display = ['username', 'name', 'application_date']
+    search_fields = ['name']
+    list_editable = ['application_date']
+    list_filter = ['name']
 
 
 xadmin.site.register(Member, MemberAdmin)
