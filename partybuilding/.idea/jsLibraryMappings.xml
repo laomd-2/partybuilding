@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{echarts, ht, ht-animation, ht-form, index, points}" />
+    <file url="file://$PROJECT_DIR$" libraries="{china, dataTool, ecStat, echarts, echarts-gl, ht, ht-animation, ht-form, index, jquery-3.3.1, points}" />
   </component>
 </project>

@@ -8,105 +8,96 @@
        <div id="container" style="height: 100%"></div>
        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
        <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
        <script type="text/javascript">
 var dom = document.getElementById("container");
 var myChart = echarts.init(dom);
 var app = {};
 option = null;
-myChart.showLoading();
-$.get("{% static 'les-miserables.gexf' %}", function (xml) {
-    myChart.hideLoading();
 
-    var graph = echarts.dataTool.gexf.parse(xml);
-    var categories = [];
-    for (var i = 0; i < 9; i++) {
-        categories[i] = {
-            name: '类目' + i
-        };
-    }
+function load() {
+    myChart.showLoading();
+    $.get("{% static 'les-miserables.gexf' %}", function (xml) {
+        myChart.hideLoading();
 
-    var links = [];
-
-    graph.nodes.forEach(function (node) {
-        node.itemStyle = null;
-        node.value = node.symbolSize;
-        node.symbolSize /= 1.5;
-        node.label = {
-            normal: {
-                show: node.symbolSize > 30
-            }
-        };
-        node.category = node.attributes.modularity_class;
-        if (node.id > 0) {
-            links[node.id - 1] = {
-                source: node.id - 1,
-                target: node.id
+        var graph = echarts.dataTool.gexf.parse(xml);
+        var categories = [];
+        for (var i = 0; i < 9; i++) {
+            categories[i] = {
+                name: '类目' + i
             };
         }
-    });
-    option = {
-        title: {
-            {#text: 'Les Miserables',#}
-            subtext: 'Default layout',
-            top: 'bottom',
-            left: 'right'
-        },
-        tooltip: {},
-        legend: [{
-            // selectedMode: 'single',
-            data: categories.map(function (a) {
-                return a.name;
-            })
-        }],
-        animationDuration: 1500,
-        animationEasingUpdate: 'quinticInOut',
-        series : [
-            {
-                {#name: 'Les Miserables',#}
-                type: 'graph',
-                layout: 'none',
-                data: graph.nodes,
-                links: links,
-                categories: categories,
-                roam: true,
-                focusNodeAdjacency: true,
-                itemStyle: {
-                    normal: {
-                        borderColor: '#fff',
-                        borderWidth: 1,
-                        shadowBlur: 10,
-                        shadowColor: 'rgba(0, 0, 0, 0.3)'
-                    }
-                },
-                edgeSymbol: ['circle', 'arrow'],
-                label: {
-                    position: 'right',
-                    formatter: '{b}'
-                },
-                lineStyle: {
-                    color: 'source',
-                    curveness: 0.3
-                },
-                emphasis: {
+
+        var links = [];
+
+        graph.nodes.forEach(function (node) {
+            node.itemStyle = null;
+            node.value = node.symbolSize;
+            node.symbolSize /= 1.5 * window.screen.availWidth / document.body.clientWidth;
+            node.label = {
+                normal: {
+                    show: node.symbolSize > 15
+                }
+            };
+            node.category = node.attributes.modularity_class;
+            if (node.id > 0) {
+                links[node.id - 1] = {
+                    source: node.id - 1,
+                    target: node.id
+                };
+            }
+        });
+        option = {
+            tooltip: {},
+            animationDuration: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series : [
+                {
+                    {#name: 'Les Miserables',#}
+                    type: 'graph',
+                    layout: 'none',
+                    data: graph.nodes,
+                    links: links,
+                    categories: categories,
+                    roam: false,
+                    focusNodeAdjacency: true,
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 1,
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.3)'
+                        }
+                    },
+                    edgeSymbol: ['circle', 'arrow'],
+                    label: {
+                        position: 'right',
+                        formatter: '{b}'
+                    },
                     lineStyle: {
-                        width: 10
+                        color: 'source',
+                        curveness: 0.3
+                    },
+                    emphasis: {
+                        lineStyle: {
+                            width: 10
+                        }
                     }
                 }
-            }
-        ]
-    };
+            ]
+        };
 
-    myChart.setOption(option);
-}, 'xml');;
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
+        myChart.setOption(option);
+    }, 'xml');
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+}
+
+load();
+window.onresize = function () {
+    myChart.resize();
+    load();
 }
        </script>
    </body>

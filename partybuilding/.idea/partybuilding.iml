@@ -22,6 +22,11 @@
     <orderEntry type="library" name="points" level="application" />
     <orderEntry type="library" name="index" level="application" />
     <orderEntry type="library" name="echarts" level="application" />
+    <orderEntry type="library" name="jquery-3.3.1" level="application" />
+    <orderEntry type="library" name="echarts-gl" level="application" />
+    <orderEntry type="library" name="ecStat" level="application" />
+    <orderEntry type="library" name="dataTool" level="application" />
+    <orderEntry type="library" name="china" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
