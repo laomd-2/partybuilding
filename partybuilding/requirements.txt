@@ -1,2 +1,2 @@
-django==2.0
+django >= 2.0.10
 git+git://github.com/sshwsfc/xadmin.git@django2

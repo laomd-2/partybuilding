@@ -25,12 +25,13 @@ SECRET_KEY = '&mo_nd_-mjwxmzja^fsa+ui_$_$8*1-m)!8cvua)b1jk2*xc1y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'import_export',
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'django.contrib.admin',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
-    'rules'
+    'rules',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -74,7 +75,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-        },
+        }
     },
 ]
 
