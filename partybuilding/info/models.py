@@ -48,10 +48,8 @@ class Member(models.Model):
 
     class Meta:
         ordering = ('branch_name', 'netid')
-        verbose_name = '党支部成员'
+        verbose_name = '个人信息'
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.branch_name + ' ' + self.name
-
-

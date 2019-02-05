@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'import_export',
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
+    'teaching.apps.TeachingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
         'USER': 'root',
-        # 'PASSWORD': 'laomadong',
+        'PASSWORD': 'laomadong',
     }
 }
 

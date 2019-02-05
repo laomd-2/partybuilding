@@ -1,5 +1,5 @@
 # import pymysql
-#
+
 # pymysql.install_as_MySQLdb()
 
-default_app_config='info.apps.InfoConfig'
+default_app_config = 'info.apps.InfoConfig'
