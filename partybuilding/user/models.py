@@ -18,7 +18,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('邮箱'), blank=True)
     is_staff = models.BooleanField(
         _('是否支部成员'),
-        default=False,
+        default=True,
         help_text=_('Designates whether the user can log into this admin site.'),
     )
     is_active = models.BooleanField(
@@ -37,8 +37,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email']
 
     class Meta:
-        verbose_name = _('用户')
-        verbose_name_plural = _('用户')
+        verbose_name = _('我的账号')
+        verbose_name_plural = _('我的账号')
         abstract = True
 
     def clean(self):

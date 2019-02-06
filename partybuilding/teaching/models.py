@@ -15,4 +15,4 @@ class Credit(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return "%s %s: %s %s" % (self.date, self.activity, self.netid, self.credit)
+        return "%s: %s" % (self.activity, self.netid)

@@ -10,9 +10,16 @@ class CreditAdmin(object):
     list_display = [field.name for field in Credit._meta.get_fields()][1:]
     list_display_links = ('netid', )
     search_fields = ['date', 'netid__name', 'netid__netid']
-    list_filter = ['date', 'netid']
+
     # model_icon = 'fa fa-info'
     list_per_page = 15
+    aggregate_fields = {"credit": "sum"}
+
+    @property
+    def list_filter(self):
+        if self.request.user.has_perm('teaching.change_credit'):  # 支书
+            return ['date', 'activity']
+        return ['date']
 
     @property
     def list_editable(self):
@@ -21,10 +28,9 @@ class CreditAdmin(object):
         return []
 
     def get_readonly_fields(self):
-        readonly = self.list_display[:]
         if self.request.user.has_perm('teaching.change_credit'):  # 支书
-            readonly.pop()
-        return readonly
+            return []
+        return self.list_display
 
     def queryset(self):
         if not self.request.user.is_superuser:  # 判断是否是超级用户

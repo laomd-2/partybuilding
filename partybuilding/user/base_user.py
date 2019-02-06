@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import (
     check_password, is_password_usable, make_password,
 )
 from django.db import models
+from django.utils import timezone
 from django.utils.crypto import get_random_string, salted_hmac
 from django.utils.translation import gettext_lazy as _
 from .validators import DigitUsernameValidator
@@ -25,7 +26,7 @@ class AbstractBaseUser(models.Model):
     )
 
     password = models.CharField(_('password'), max_length=128)
-    last_login = models.DateTimeField(_('last login'), blank=True, null=True)
+    last_login = models.DateTimeField(_('last login'), default=timezone.now)
 
     is_active = True
 

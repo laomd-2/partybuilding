@@ -22,15 +22,33 @@ class BaseSetting(object):
 class UserAdmin(object):
     list_display = ['username', 'email', 'is_active', 'is_staff']
     search_fields = ['username']
-    list_editable = ['username', 'is_active', 'is_staff', 'is_superuser']
+
     list_filter = ['username']
     model_icon = 'fa fa-user'
+    exclude = ('is_superuser', 'date_joined', 'user_permissions')
+
+    @property
+    def list_editable(self):
+        if self.request.user.is_superuser:
+            return [field.name for field in User._meta.get_fields()]
+        if self.request.user.has_perm('user.add_user'):  # 支书
+            return UserAdmin.list_display[1:]
+        return ['email']
+
+    def get_readonly_fields(self):
+        if self.request.user.is_superuser:
+            return []
+        if self.request.user.has_perm('user.add_user'):  # 支书
+            return ['last_login']
+        return ['groups', 'username', 'password', 'is_staff', 'is_active', 'last_login']
 
     def queryset(self):
         if not self.request.user.is_superuser:  # 判断是否是超级用户
             member = Member.objects.get(netid=self.request.user)
-            colleges = Member.objects.filter(branch_name=member.branch_name)  # 找到该model 里该用户创建的数据
-            return self.model.objects.filter(username__in=[college.netid for college in colleges])
+            if self.request.user.has_perm('user.add_user'):  # 支书
+                colleges = Member.objects.filter(branch_name=member.branch_name)  # 找到该model 里该用户创建的数据
+                return self.model.objects.filter(username__in=[college.netid for college in colleges])
+            return self.model.objects.filter(username=member.netid)  # 普通成员
         return self.model.objects.all()
 
 
