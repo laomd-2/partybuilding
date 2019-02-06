@@ -1,16 +1,17 @@
 import xadmin
 from xadmin.layout import Main, TabHolder, Tab, Row, Fieldset
-from .models import Member
+from .models import Branch, Member
 from .resources import MemberResource
 
 
-def take_every(alist, step=1):
-    end = len(alist)
-    for i in range(0, end, step):
-        if i < end - 1:
-            yield alist[i], alist[i + 1]
-        else:
-            yield alist[i]
+class BranchAdmin(object):
+    list_display = ['id', 'branch_name']
+    list_display_links = ['branch_name']
+    search_fields = ['branch_name']
+    list_filter = ['branch_name']
+    model_icon = 'fa fa-users'
+    list_per_page = 15
+    list_editable = list_display[1:]
 
 
 class MemberAdmin(object):
@@ -41,11 +42,15 @@ class MemberAdmin(object):
 
     def queryset(self):
         if not self.request.user.is_superuser:  # 判断是否是超级用户
-            member = Member.objects.get(netid=self.request.user)
-            if self.request.user.has_perm('info.add_member'):   # 支书
-                return self.model.objects.filter(branch_name=member.branch_name)
-            return self.model.objects.filter(netid=member.netid, branch_name=member.branch_name)    # 普通成员
+            try:
+                member = Member.objects.get(netid=self.request.user)
+                if self.request.user.has_perm('info.add_member'):  # 支书
+                    return self.model.objects.filter(branch=member.branch)
+                return self.model.objects.filter(netid=member.netid, branch=member.branch)  # 普通成员
+            except:
+                return self.model.objects.filter(netid="")
         return self.model.objects.all()
 
 
+xadmin.site.register(Branch, BranchAdmin)
 xadmin.site.register(Member, MemberAdmin)

@@ -46,7 +46,7 @@ class UserAdmin(object):
         if not self.request.user.is_superuser:  # 判断是否是超级用户
             member = Member.objects.get(netid=self.request.user)
             if self.request.user.has_perm('user.add_user'):  # 支书
-                colleges = Member.objects.filter(branch_name=member.branch_name)  # 找到该model 里该用户创建的数据
+                colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
                 return self.model.objects.filter(username__in=[college.netid for college in colleges])
             return self.model.objects.filter(username=member.netid)  # 普通成员
         return self.model.objects.all()

@@ -12,8 +12,21 @@ class NullableDateField(models.DateField):
         super().__init__(verbose_name, name, auto_now, auto_now_add, **kwargs)
 
 
+class Branch(models.Model):
+    branch_name = models.CharField('支部名称', unique=True, max_length=50)
+    date_create = NullableDateField('成立日期')
+
+    class Meta:
+        ordering = ('branch_name', )
+        verbose_name = '党支部'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.branch_name
+
+
 class Member(models.Model):
-    branch_name = models.CharField(max_length=50, db_index=True, verbose_name='支部名称（全称）')
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='支部')
     netid = models.CharField('学号', max_length=8, primary_key=True)
     name = models.CharField('姓名', max_length=20, db_index=True)
     birth_date = models.DateField(max_length=10, verbose_name='出生时间')
@@ -47,9 +60,9 @@ class Member(models.Model):
     fullmember_approval_date = NullableDateField(verbose_name='正式党员时间（党委批准）')
 
     class Meta:
-        ordering = ('branch_name', 'netid')
+        ordering = ('branch', 'netid', )
         verbose_name = '个人信息'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.branch_name + ' ' + self.name
+        return self.branch.branch_name + ' ' + self.name

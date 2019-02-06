@@ -2,5 +2,4 @@ django-crispy-forms
 django >= 2.0.10
 pymysql
 mysqlclient
-rules
 git+git://github.com/sshwsfc/xadmin.git@django2
