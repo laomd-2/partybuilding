@@ -16,11 +16,11 @@ Including another URLconf
 # from django.contrib import admin
 import xadmin
 from django.urls import path, include
-
+from user.views import RegisterView
 
 xadmin.autodiscover()
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', xadmin.site.urls),
-    path('info/', include('info.urls'))
+    path('register/', RegisterView.as_view(), name='register')
 ]

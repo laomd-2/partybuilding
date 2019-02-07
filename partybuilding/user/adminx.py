@@ -1,4 +1,5 @@
 import xadmin
+from xadmin.views.website import LoginView
 from .models import User
 from info.models import Member
 from xadmin import views
