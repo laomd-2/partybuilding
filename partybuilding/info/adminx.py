@@ -27,13 +27,15 @@ class MemberAdmin(object):
     list_per_page = 15
     list_editable = list_display[1:]
 
+    phases = dict()
+    phases['基本信息'] = fields[:8]
+    phases['阶段1：入党考察'] = fields[8:17]
+    phases['阶段2：预备党员'] = fields[17:26]
+    phases['阶段3：正式党员'] = fields[26:]
+    wizard_form_list = phases.items()
     form_layout = (
         Main(
-            # TabHolder(Tab('基本',
-            Fieldset('基本信息', *fields[:8]),
-            Fieldset('阶段1：入党考察', *fields[8:17]),
-            Fieldset('阶段2：预备党员', *fields[17:26]),
-            Fieldset('阶段3：正式党员', *fields[26:])
+            *[Fieldset(k, *v) for k, v in wizard_form_list]
         )
     )
 
