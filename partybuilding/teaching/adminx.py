@@ -36,9 +36,12 @@ class CreditAdmin(object):
 
     def queryset(self):
         if not self.request.user.is_superuser:  # 判断是否是超级用户
-            m = Member.objects.get(netid=self.request.user)
-            if self.request.user.has_perm('user.add_user'):  # 支书
-                colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
-                return self.model.objects.filter(member__netid__in=[college.netid for college in colleges])
-            return self.model.objects.filter(member__netid=m.netid)  # 普通成员
+            try:
+                m = Member.objects.get(netid=self.request.user)
+                if self.request.user.has_perm('user.add_user'):  # 支书
+                    colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
+                    return self.model.objects.filter(member__netid__in=[college.netid for college in colleges])
+                return self.model.objects.filter(member__netid=m.netid)  # 普通成员
+            except:
+                return self.model.objects.filter(member__netid=self.request.user)
         return self.model.objects.all()

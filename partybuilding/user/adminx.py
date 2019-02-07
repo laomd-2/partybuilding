@@ -1,8 +1,20 @@
 import xadmin
-from xadmin.views.website import LoginView
 from .models import User
 from info.models import Member
 from xadmin import views
+from django.contrib.auth.models import Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    try:
+        g = Group.objects.get(name='普通成员')
+        if created:
+            instance.groups.add(g)
+    except:
+        pass
 
 
 @xadmin.sites.register(views.CommAdminView)
@@ -47,11 +59,14 @@ class UserAdmin(object):
 
     def queryset(self):
         if not self.request.user.is_superuser:  # 判断是否是超级用户
-            member = Member.objects.get(netid=self.request.user)
-            if self.request.user.has_perm('user.add_user'):  # 支书
-                colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
-                return self.model.objects.filter(username__in=[college.netid for college in colleges])
-            return self.model.objects.filter(username=member.netid)  # 普通成员
+            try:
+                member = Member.objects.get(netid=self.request.user)
+                if self.request.user.has_perm('user.add_user'):  # 支书
+                    colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
+                    return self.model.objects.filter(username__in=[college.netid for college in colleges])
+            except:
+                pass
+            return self.model.objects.filter(username=self.request.user)  # 普通成员
         return self.model.objects.all()
 
 
