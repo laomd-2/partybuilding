@@ -19,9 +19,6 @@ from django.urls import path, include
 
 
 xadmin.autodiscover()
-from xadmin.plugins import xversion
-xversion.register_models()
-
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', xadmin.site.urls),

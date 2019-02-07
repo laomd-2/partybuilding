@@ -1,45 +1,44 @@
 import xadmin
+
 from info.models import Member
-from .models import Credit
-from .resources import CreditResource
+from .models import Activity, TakePartIn
+from .resources import ActivityResource, CreditResource
 
 
-class CreditAdmin(object):
-    import_export_args = {'import_resource_class': CreditResource}
+@xadmin.sites.register(Activity)
+class ActivityAdmin(object):
+    import_export_args = {'import_resource_class': ActivityResource}
 
-    list_display = [field.name for field in Credit._meta.get_fields()][1:]
-    list_display_links = ('netid', )
-    search_fields = ['date', 'netid__name', 'netid__netid']
+    filter_horizontal = ('Branch',)  # 关联表
+    style_fields = {'branch': 'm2m_transfer'}
+    search_fields = ['name', 'date']
+
+    list_display = [field.name for field in Activity._meta.fields][1:]
+    list_editable = list_display
+    list_display_links = ('name', )
+    list_filter = search_fields
+    list_per_page = 15
 
     # model_icon = 'fa fa-info'
+
+
+@xadmin.sites.register(TakePartIn)
+class CreditAdmin(object):
+    import_export_args = {'import_resource_class': CreditResource}
+    search_fields = ['activity__name', 'activity__date', 'member__name']
+
+    list_display = ['member', 'activity', 'activity_credit']
+    list_display_links = (None,)
+    list_filter = search_fields
     list_per_page = 15
-    aggregate_fields = {"credit": "sum"}
 
-    @property
-    def list_filter(self):
-        if self.request.user.has_perm('teaching.change_credit'):  # 支书
-            return ['date', 'activity']
-        return ['date']
-
-    @property
-    def list_editable(self):
-        if self.request.user.has_perm('teaching.change_credit'):  # 支书
-            return ['credit']
-        return []
-
-    def get_readonly_fields(self):
-        if self.request.user.has_perm('teaching.change_credit'):  # 支书
-            return []
-        return self.list_display
+    # model_icon = 'fa fa-info'
 
     def queryset(self):
         if not self.request.user.is_superuser:  # 判断是否是超级用户
-            member = Member.objects.get(netid=self.request.user)
-            if self.request.user.has_perm('teaching.change_credit'):   # 支书
-                colleages = Member.objects.filter(branch_name=member.branch_name)
-                return self.model.objects.filter(netid__in=[c.netid for c in colleages])
-            return self.model.objects.filter(netid=member.netid)    # 普通成员
+            m = Member.objects.get(netid=self.request.user)
+            if self.request.user.has_perm('user.add_user'):  # 支书
+                colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
+                return self.model.objects.filter(member__netid__in=[college.netid for college in colleges])
+            return self.model.objects.filter(member__netid=m.netid)  # 普通成员
         return self.model.objects.all()
-
-
-xadmin.site.register(Credit, CreditAdmin)

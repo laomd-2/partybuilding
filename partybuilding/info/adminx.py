@@ -4,6 +4,7 @@ from .models import Branch, Member
 from .resources import MemberResource
 
 
+@xadmin.sites.register(Branch)
 class BranchAdmin(object):
     list_display = ['id', 'branch_name']
     list_display_links = ['branch_name']
@@ -14,6 +15,7 @@ class BranchAdmin(object):
     list_editable = list_display[1:]
 
 
+@xadmin.sites.register(Member)
 class MemberAdmin(object):
     import_export_args = {'import_resource_class': MemberResource}
 
@@ -50,7 +52,3 @@ class MemberAdmin(object):
             except:
                 return self.model.objects.filter(netid="")
         return self.model.objects.all()
-
-
-xadmin.site.register(Branch, BranchAdmin)
-xadmin.site.register(Member, MemberAdmin)

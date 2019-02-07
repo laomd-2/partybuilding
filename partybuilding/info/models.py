@@ -13,12 +13,12 @@ class NullableDateField(models.DateField):
 
 
 class Branch(models.Model):
-    branch_name = models.CharField('支部名称', unique=True, max_length=50)
+    branch_name = models.CharField('组织名称', unique=True, max_length=50)
     date_create = NullableDateField('成立日期')
 
     class Meta:
         ordering = ('branch_name', )
-        verbose_name = '党支部'
+        verbose_name = '基层组织'
         verbose_name_plural = verbose_name
 
     def __str__(self):

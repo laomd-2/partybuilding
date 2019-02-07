@@ -4,6 +4,7 @@ from info.models import Member
 from xadmin import views
 
 
+@xadmin.sites.register(views.CommAdminView)
 class GlobalSettings(object):
     site_title = "SDCS党建信息管理系统"
     # 系统名称
@@ -13,6 +14,7 @@ class GlobalSettings(object):
     #  将菜单栏收起来
 
 
+@xadmin.sites.register(views.BaseAdminView)
 class BaseSetting(object):
     # 设置主题功能
     enable_themes = True
@@ -54,5 +56,3 @@ class UserAdmin(object):
 
 xadmin.site.unregister(User)
 xadmin.site.register(User, UserAdmin)
-xadmin.site.register(views.CommAdminView, GlobalSettings)
-xadmin.site.register(views.BaseAdminView, BaseSetting)

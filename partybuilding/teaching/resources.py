@@ -1,9 +1,16 @@
 from import_export import resources
-from .models import Credit
+from .models import Activity, TakePartIn
+
+
+class ActivityResource(resources.ModelResource):
+    class Meta:
+        model = Activity
+        skip_unchanged = True
+        import_id_fields = ('name', 'branch', 'date')
 
 
 class CreditResource(resources.ModelResource):
     class Meta:
-        model = Credit
+        model = TakePartIn
         skip_unchanged = True
-        import_id_fields = ('netid', 'activity')
+        import_id_fields = ('member__netid', 'activity__id')
