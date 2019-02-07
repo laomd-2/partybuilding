@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '&mo_nd_-mjwxmzja^fsa+ui_$_$8*1-m)!8cvua)b1jk2*xc1y'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
-
 
 # Application definition
 
@@ -82,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'partybuilding.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -94,7 +91,6 @@ DATABASES = {
         'PASSWORD': 'laomadong',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -114,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -128,7 +123,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -138,3 +132,13 @@ STATICFILES_DIRS = (
 )
 
 AUTH_USER_MODEL = 'user.User'
+
+# 邮件配置
+EMAIL_HOST = 'smtp.exmail.qq.com'  # SMTP地址
+EMAIL_PORT = 465
+DEFAULT_FROM_EMAIL = 'laomd@mail2.sysu.edu.cn'  # 用户收到邮件显示的邮箱
+EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 我自己的邮箱
+EMAIL_HOST_PASSWORD = 'Laomadong2016'  # 我的邮箱密码
+# EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+EMAIL_USE_SSL = True
+SERVER_EMAIL = 'laomd@mail2.sysu.edu.cn'

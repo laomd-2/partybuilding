@@ -37,10 +37,6 @@ class TakePartIn(models.Model):
         return self.activity.credit
     activity_credit.short_description = '活动学时'
 
-    def sum(self):
-        return self.activity.all().aggregate(Sum('credit'))
-    sum.short_description = '总学时'
-
     class Meta:
         unique_together = ('activity', 'member')
         ordering = ('activity', 'member')
