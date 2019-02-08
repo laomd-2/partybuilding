@@ -32,7 +32,7 @@ class IndexView(Dashboard):
             for event, date in dates:
                 if date:
                     important_dates.setdefault(date.year, [])
-                    important_dates[date.year].append((date, event))
+                    important_dates[date.year].append((date, event.strip('时间')))
             events = OrderedDict()
             for k in sorted(important_dates.keys(), reverse=True):
                 events[k] = sorted(important_dates[k], key=lambda x: x[0], reverse=True)

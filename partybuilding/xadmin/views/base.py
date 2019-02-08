@@ -495,7 +495,6 @@ class ModelAdminView(CommAdminView):
         self.app_label = self.model._meta.app_label
         self.model_name = self.model._meta.model_name
         self.model_info = (self.app_label, self.model_name)
-
         super(ModelAdminView, self).__init__(request, *args, **kwargs)
 
     @filter_hook

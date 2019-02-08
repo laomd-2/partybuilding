@@ -35,8 +35,21 @@
     {% csrf_token %}
 
     <p>
-      {% trans "This importer will import the following fields: " %}
-      <code>{{ fields|join:", " }}</code>
+      {% trans "上传时请使用第二行的表头: " %}
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            {% for field in fields %}
+              <th>{{ field }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+      <tr>
+        {% for field in names %}
+          <td>{{ field }}</td>
+        {% endfor %}
+      </tr>
+      </table>
     </p>
 
     <fieldset class="module aligned">
@@ -91,7 +104,8 @@
     <thead>
       <tr>
         <th></th>
-        {% for field in result.diff_headers %}
+{#        {% for field in result.diff_headers %}#}
+        {% for field in fields %}
           <th>{{ field }}</th>
         {% endfor %}
       </tr>
@@ -110,9 +124,11 @@
         {% endif %}
       </td>
       {% for field in row.diff %}
-      <td>
-        {{ field }}
-      </td>
+        {% if not forloop.first or not ignore_id %}
+          <td>
+            {{ field }}
+          </td>
+        {% endif %}
       {% endfor %}
     </tr>
     {% endfor %}

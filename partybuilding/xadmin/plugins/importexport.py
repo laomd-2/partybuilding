@@ -38,6 +38,7 @@ class FooAdmin(object):
 ++++++++++++++++
 More info about django-import-export please refer https://github.com/django-import-export/django-import-export
 """
+from collections import OrderedDict
 from datetime import datetime
 from django.template import loader
 from xadmin.plugins.utils import get_context_dict
@@ -176,7 +177,9 @@ class ImportView(ImportBaseView):
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
+        raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
+        context['names'] = [f.name for f in self.model._meta.get_fields() if f.name != 'id' and f.name in raw_fields]
+        context['fields'] = [f.verbose_name for f in self.model._meta.get_fields() if f.name != 'id' and f.name in raw_fields]
 
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
@@ -247,8 +250,9 @@ class ImportView(ImportBaseView):
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
-
+        raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
+        context['fields'] = [f.verbose_name for f in self.model._meta.fields if f.name != 'id' and f.name in raw_fields]
+        context['ignore_id'] = result.diff_headers[0] == 'id'
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
                                 context)

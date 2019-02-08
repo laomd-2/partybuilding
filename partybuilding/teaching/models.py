@@ -8,7 +8,7 @@ class Activity(models.Model):
     name = models.CharField('活动名称', max_length=100)
     date = models.DateTimeField('活动时间', default=timezone.now)
     credit = models.FloatField('学时数', choices=((i / 2, i / 2) for i in range(1, 41)))
-    branch = models.ManyToManyField(Branch, verbose_name='主/承方')
+    branch = models.ManyToManyField(Branch, verbose_name='主/承办党支部')
 
     class Meta:
         unique_together = ('name', 'date')
@@ -21,8 +21,8 @@ class Activity(models.Model):
 
 
 class TakePartIn(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='党建活动')
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员学号')
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='党建活动ID')
 
     def name(self):
         return self.member.name

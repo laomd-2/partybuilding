@@ -2,12 +2,12 @@ import xadmin
 
 from info.models import Member
 from .models import Activity, TakePartIn
-from .resources import ActivityResource, CreditResource
+from .resources import CreditResource
 
 
 @xadmin.sites.register(Activity)
 class ActivityAdmin(object):
-    import_export_args = {'import_resource_class': ActivityResource}
+    # import_export_args = {'import_resource_class': ActivityResource}
 
     filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
