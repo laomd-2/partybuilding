@@ -9,6 +9,7 @@
   {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
   <title>{% block title %}{% endblock %}</title>
 
+  <link rel="stylesheet" href="/static/css/about.css">
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "xadmin/css/rtl.css" %}{% endblock %}" />{% endif %}
   {% vendor 'bootstrap.css' %}
   {% if site_theme %}
@@ -22,7 +23,7 @@
   {% block extrastyle %}{% endblock %}
   {% vendor 'jquery.js' %}
   {% url 'xadmin:index' as indexurl %}
-  <link rel="stylesheet" href="/static/css/about.css">
+
   <script src="/static/js/jquery.min_v1.0.js" type="text/javascript"></script>
   <script>
   $(function(){

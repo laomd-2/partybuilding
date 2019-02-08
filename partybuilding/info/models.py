@@ -69,3 +69,14 @@ class Member(models.Model):
     def important_dates(self):
         return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields
                 if field.name != 'birth_date' and isinstance(field, models.DateField)]
+
+
+class Application(models.Model):
+    netid = models.CharField('学号', max_length=8)
+    application_type = models.CharField('申请成为', max_length=20, choices=(
+        ('入党申请人', '入党申请'),
+        ('入党积极分子', '入党积极分子'),
+        ('重点发展对象', '重点发展对象'),
+        ('预备党员', '预备党员'),
+        ('正式党员', '正式党员')
+    ))
