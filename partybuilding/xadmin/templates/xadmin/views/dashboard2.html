@@ -25,37 +25,19 @@
 {% endblock %}
 
 {% block content %}
-{#<div class="dashboard row">#}
-{#  {% for c in columns %}#}
-{#  <div class="{{ c.0 }} column">#}
-{#    {% for widget in c.1 %}#}
-{#      {{ widget.widget|safe }}#}
-{#    {% endfor %}#}
-{#  </div>#}
-{#  {% endfor %}#}
-{#</div>#}
-
-<div class="box">
-	<ul class="event_year">
-    {% for year in events.keys %}
-      <li><label for="{{ year }}">{{ year }}</label></li>
+<div class="dashboard row">
+  {% for c in columns %}
+  <div class="{{ c.0 }} column">
+    {% for widget in c.1 %}
+      {{ widget.widget|safe }}
     {% endfor %}
-	</ul>
-
-  <ul class="event_list">
-
-      {% for year, event in events.items %}
-        <div>
-          <h3 id="{{ year }}">{{ year }}</h3>
-          {% for date, e in event %}
-            <li>
-            <span>{{ date.month }}月{{ date.day }}日</span>
-            <p><span>{{ e }}</span></p>
-            </li>
-          {% endfor %}
-        </div>
-      {% endfor %}
-  </ul>
+  </div>
+  {% endfor %}
+</div>
+<div>
+  {% for date in important_dates %}
+    <p>{{ date }}</p>
+  {% endfor %}
 </div>
 
 <input type='hidden' id='_portal_key' value='{{ portal_key }}' />

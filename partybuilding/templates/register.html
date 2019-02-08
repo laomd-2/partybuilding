@@ -49,7 +49,8 @@
         <div class="controls clearfix">
         <div class="input-group input-group-lg">
           <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-          <input class="form-control input-lg" id="id_username" maxlength="254" name="username" type="text" placeholder="{% trans "Username" %}">
+          <input class="form-control input-lg" id="id_username" maxlength="254" autocomplete="new-text" name="username"
+                 type="text" placeholder="{% trans "Username" %}">
         </div>
         {% for error in form.username.errors %}
             <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ error }}</p>
@@ -61,7 +62,8 @@
         <div class="controls clearfix">
         <div class="input-group input-group-lg">
           <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-          <input class="form-control input-lg" id="id_password" name="password" type="password" placeholder="{% trans "Password" %}">
+          <input class="form-control input-lg" id="id_password" autocomplete="new-password" name="password"
+                 type="password" placeholder="{% trans "Password" %}">
         </div>
         {% for error in form.password.errors %}
             <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ error }}</p>

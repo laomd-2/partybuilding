@@ -18,7 +18,7 @@ class AbstractBaseUser(models.Model):
         _('学号'),
         max_length=8,
         primary_key=True,
-        help_text=_('Required. 8 characters or fewer. digits only.'),
+        help_text=_('中山大学NetID，至多8位数字。'),
         validators=[username_validator],
         error_messages={
             'unique': _("A user with that username already exists."),
@@ -41,12 +41,16 @@ class AbstractBaseUser(models.Model):
     class Meta:
         abstract = True
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__username = str(self.get_username())
+
     def get_username(self):
         "Return the identifying username for this User"
         return getattr(self, self.USERNAME_FIELD)
 
     def __str__(self):
-        return self.get_username()
+        return self.get_username() or self.__username
 
     def clean(self):
         setattr(self, self.USERNAME_FIELD, self.normalize_username(self.get_username()))
@@ -58,7 +62,7 @@ class AbstractBaseUser(models.Model):
             self._password = None
 
     def natural_key(self):
-        return (self.get_username(),)
+        return (self.get_username(), )
 
     @property
     def is_anonymous(self):

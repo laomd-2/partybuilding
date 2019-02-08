@@ -12,6 +12,9 @@ from xadmin.forms import AdminAuthenticationForm
 from xadmin.models import UserSettings
 from xadmin.layout import FormHelper
 
+from info.models import Member
+from collections import OrderedDict
+
 
 class IndexView(Dashboard):
     title = _("Main Dashboard")
@@ -19,6 +22,25 @@ class IndexView(Dashboard):
 
     def get_page_id(self):
         return 'home'
+
+    def get_context(self):
+        context = super(IndexView, self).get_context()
+        try:
+            me = Member.objects.get(netid=self.request.user.username)
+            dates = me.important_dates()
+            important_dates = dict()
+            for event, date in dates:
+                if date:
+                    important_dates.setdefault(date.year, [])
+                    important_dates[date.year].append((date, event))
+            events = OrderedDict()
+            for k in sorted(important_dates.keys(), reverse=True):
+                events[k] = sorted(important_dates[k], key=lambda x: x[0], reverse=True)
+            print(events)
+            context.update({'events': events})
+        except:
+            pass
+        return context
 
 
 class UserSettingView(BaseAdminView):

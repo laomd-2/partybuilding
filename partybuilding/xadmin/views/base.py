@@ -590,7 +590,7 @@ class ModelAdminView(CommAdminView):
         return ('view' not in self.remove_permissions) and (self.user.has_perm('%s.%s' % (self.app_label, view_codename)) or
                                                             self.user.has_perm('%s.%s' % (self.app_label, change_codename)))
 
-    def has_add_permission(self):
+    def has_add_permission(self, request=None, obj=None):
         codename = get_permission_codename('add', self.opts)
         return ('add' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
 

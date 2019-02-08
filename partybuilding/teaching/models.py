@@ -1,7 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.db.models import Sum
 from django.utils import timezone
-
 from info.models import Member, Branch
 
 
@@ -18,7 +17,7 @@ class Activity(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return "%s(%s)" % (self.name, self.date)
 
 
 class TakePartIn(models.Model):

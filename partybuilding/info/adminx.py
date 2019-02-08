@@ -1,9 +1,13 @@
+from django.contrib.admin import ModelAdmin
+from django.contrib.auth import get_permission_codename
+from django.db.models.options import Options
+
 import xadmin
 from xadmin.layout import Main, TabHolder, Tab, Row, Fieldset
 from .models import Branch, Member
 from .resources import MemberResource
 
-
+ModelAdmin
 @xadmin.sites.register(Branch)
 class BranchAdmin(object):
     list_display = ['id', 'branch_name']
@@ -14,6 +18,13 @@ class BranchAdmin(object):
     list_per_page = 15
     list_editable = list_display[1:]
 
+    # def has_delete_permission(self, request=None, obj=None):
+    #     if request is None:
+    #         return False
+    #     has = request.user.is_superuser
+    #     print('def has_delete_permission', has)
+    #     return has
+
 
 @xadmin.sites.register(Member)
 class MemberAdmin(object):
@@ -22,10 +33,15 @@ class MemberAdmin(object):
     fields = [field.name for field in Member._meta.fields]
     list_display = fields[1:8]
     search_fields = ['name']
-    list_filter = ['name']
+    list_filter = ['name', 'application_date',
+                   'activist_date',
+                   'key_develop_person_date',
+                   'first_branch_conference',
+                   'second_branch_conference']
     model_icon = 'fa fa-info'
-    list_per_page = 15
+    list_per_page = 10
     list_editable = list_display[1:]
+    # relfield_style = 'fk_ajax'
 
     phases = dict()
     phases['基本信息'] = fields[:8]
@@ -45,7 +61,7 @@ class MemberAdmin(object):
         return []
 
     def queryset(self):
-        if not self.request.user.is_superuser:  # 判断是否是超级用户
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是超级用户
             try:
                 member = Member.objects.get(netid=self.request.user)
                 if self.request.user.has_perm('info.add_member'):  # 支书

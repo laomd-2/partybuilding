@@ -9,13 +9,12 @@ from .resources import ActivityResource, CreditResource
 class ActivityAdmin(object):
     import_export_args = {'import_resource_class': ActivityResource}
 
-    filter_horizontal = ('Branch',)  # 关联表
-    style_fields = {'branch': 'm2m_transfer'}
+    filter_vertical = ('Branch',)  # 关联表
+    # style_fields = {'branch': 'm2m_transfer'}
     search_fields = ['name', 'date']
 
-    list_display = [field.name for field in Activity._meta.fields][1:]
-    list_editable = list_display
-    list_display_links = ('name', )
+    list_display = [field.name for field in Activity._meta.fields]
+    list_editable = list_display[1:]
     list_filter = search_fields
     list_per_page = 15
 
@@ -35,10 +34,10 @@ class CreditAdmin(object):
     # model_icon = 'fa fa-info'
 
     def queryset(self):
-        if not self.request.user.is_superuser:  # 判断是否是超级用户
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是超级用户
             try:
                 m = Member.objects.get(netid=self.request.user)
-                if self.request.user.has_perm('user.add_user'):  # 支书
+                if self.request.user.has_perm('info.add_member'):  # 支书
                     colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
                     return self.model.objects.filter(member__netid__in=[college.netid for college in colleges])
                 return self.model.objects.filter(member__netid=m.netid)  # 普通成员

@@ -13,4 +13,4 @@ class CreditResource(resources.ModelResource):
     class Meta:
         model = TakePartIn
         skip_unchanged = True
-        import_id_fields = ('member__netid', 'activity__id')
+        import_id_fields = ('member', 'activity')

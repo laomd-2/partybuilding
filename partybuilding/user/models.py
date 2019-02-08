@@ -36,7 +36,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['email']
 
-    class Meta:
+    class Meta(AbstractBaseUser.Meta):
         verbose_name = _('我的账号')
         verbose_name_plural = _('我的账号')
         abstract = True
