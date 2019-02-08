@@ -64,7 +64,7 @@ class UserAdmin(object):
 
     def queryset(self):
         # User.objects.get(username='000001').delete()
-        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是超级用户
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
             try:
                 member = Member.objects.get(netid=self.request.user)
                 if self.request.user.has_perm('info.add_member'):  # 支书

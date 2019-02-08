@@ -34,7 +34,7 @@ class CreditAdmin(object):
     # model_icon = 'fa fa-info'
 
     def queryset(self):
-        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是超级用户
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
             try:
                 m = Member.objects.get(netid=self.request.user)
                 if self.request.user.has_perm('info.add_member'):  # 支书
