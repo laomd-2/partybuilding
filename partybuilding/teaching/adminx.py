@@ -21,8 +21,7 @@ class ActivityAdmin(object):
     list_editable = list_display[1:]
     list_filter = search_fields
     list_per_page = 15
-
-    # model_icon = 'fa fa-info'
+    model_icon = 'fa fa-users'
 
     def queryset(self):
         if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
@@ -45,7 +44,7 @@ class CreditAdmin(object):
     list_filter = search_fields
     list_per_page = 15
 
-    # model_icon = 'fa fa-info'
+    model_icon = 'fa fa-bar-chart'
 
     def queryset(self):
         if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员

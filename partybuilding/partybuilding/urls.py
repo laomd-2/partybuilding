@@ -25,11 +25,9 @@ xadmin.autodiscover()
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', xadmin.site.urls),
+    url(r'^static/(?P<path>.*)$',
+        static.serve, {'document_root': settings.STATIC_ROOT},
+        name='static'),
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register')
 ]
-
-if not settings.DEBUG:
-    urlpatterns.append(url(r'^static/(?P<path>.*)$',
-                           static.serve, {'document_root': settings.STATIC_ROOT},
-                           name='static'))

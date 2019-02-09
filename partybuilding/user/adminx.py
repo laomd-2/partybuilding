@@ -39,7 +39,7 @@ class UserAdmin(object):
     search_fields = ['username']
 
     list_filter = ['username']
-    model_icon = 'fa fa-user'
+    model_icon = 'fa fa-vcard'
 
     @property
     def exclude(self):

@@ -11,13 +11,27 @@ class NullableDateField(models.DateField):
         super().__init__(verbose_name, name, auto_now, auto_now_add, **kwargs)
 
 
+class School(models.Model):
+    name = models.CharField('名称', unique=True, max_length=50)
+
+    class Meta:
+        ordering = ('name', )
+        verbose_name = '学院'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
 class Branch(models.Model):
-    branch_name = models.CharField('组织名称', unique=True, max_length=50)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name='学院ID')
+    branch_name = models.CharField('名称', unique=True, max_length=50)
     date_create = NullableDateField('成立日期')
 
     class Meta:
+        unique_together = ('school', 'branch_name')
         ordering = ('branch_name', )
-        verbose_name = '基层组织'
+        verbose_name = '党支部'
         verbose_name_plural = verbose_name
 
     def __str__(self):

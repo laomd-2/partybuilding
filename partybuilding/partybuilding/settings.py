@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
         'USER': 'root',
-        # 'PASSWORD': 'laomadong',
+        'PASSWORD': 'laomadong',
     }
 }
 
@@ -128,8 +128,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # SECURE_SSL_REDIRECT = True
 
@@ -141,6 +140,6 @@ EMAIL_PORT = 465
 DEFAULT_FROM_EMAIL = 'laomd@mail2.sysu.edu.cn'  # 用户收到邮件显示的邮箱
 EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 我自己的邮箱
 EMAIL_HOST_PASSWORD = 'Laomadong2016'  # 我的邮箱密码
-# EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+# EMAIL_USE_TLS = True  # 与SMTP 服务器通信时，是否启动TLS链接(安全链接)。默认是false
 EMAIL_USE_SSL = True
 SERVER_EMAIL = 'laomd@mail2.sysu.edu.cn'

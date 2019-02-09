@@ -1,20 +1,26 @@
-from django.contrib.admin import ModelAdmin
-from django.contrib.auth import get_permission_codename
-from django.db.models.options import Options
-
 import xadmin
 from xadmin.layout import Main, TabHolder, Tab, Row, Fieldset
-from .models import Branch, Member
+from .models import School, Branch, Member
 from .resources import MemberResource
 
-ModelAdmin
+
+@xadmin.sites.register(School)
+class SchoolAdmin(object):
+    list_display = ['id', 'name']
+    list_display_links = ['name']
+    search_fields = ['name']
+    model_icon = 'fa fa-university'
+    list_per_page = 15
+    list_editable = list_display[1:]
+
+
 @xadmin.sites.register(Branch)
 class BranchAdmin(object):
     list_display = ['id', 'branch_name']
     list_display_links = ['branch_name']
     search_fields = ['branch_name']
     list_filter = ['branch_name']
-    model_icon = 'fa fa-users'
+    model_icon = 'fa fa-user'
     list_per_page = 15
     list_editable = list_display[1:]
 
