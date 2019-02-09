@@ -46,9 +46,11 @@ class RegisterView(LoginView):
                 return self.get(request)
 
             pass_word = request.POST.get('password', None)
+            email = request.POST.get('email', None)
             # 实例化一个user_profile对象
             user_profile = User()
             user_profile.username = user_name
+            user_profile.email = email
             user_profile.is_active = user_profile.is_staff = True
             # 对保存到数据库的密码加密
             user_profile.password = make_password(pass_word)

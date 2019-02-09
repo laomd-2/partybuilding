@@ -14,13 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
+from django.conf import settings
+from django.conf.urls import url, static
+from django.urls import path
+from django.views.generic.base import RedirectView
 import xadmin
-from django.urls import path, include
 from user.views import RegisterView
 
 xadmin.autodiscover()
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', xadmin.site.urls),
+    url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.jpg')),
     path('register/', RegisterView.as_view(), name='register')
 ]

@@ -13,7 +13,7 @@ class ActivityAdmin(object):
     # style_fields = {'branch': 'm2m_transfer'}
     search_fields = ['name', 'date']
 
-    list_display = [field.name for field in Activity._meta.fields]
+    list_display = [field.name for field in Activity._meta.fields] + ['get_branches']
     list_editable = list_display[1:]
     list_filter = search_fields
     list_per_page = 15

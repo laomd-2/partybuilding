@@ -36,7 +36,6 @@ class IndexView(Dashboard):
             events = OrderedDict()
             for k in sorted(important_dates.keys(), reverse=True):
                 events[k] = sorted(important_dates[k], key=lambda x: x[0], reverse=True)
-            print(events)
             context.update({'events': events})
         except:
             pass

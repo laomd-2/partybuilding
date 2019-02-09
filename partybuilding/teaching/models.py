@@ -16,6 +16,10 @@ class Activity(models.Model):
         verbose_name = '党建活动'
         verbose_name_plural = verbose_name
 
+    def get_branches(self):
+        return ','.join([str(b) for b in self.branch.all()])
+    get_branches.short_description = '主/承办党支部'
+
     def __str__(self):
         return "%s(%s)" % (self.name, self.date)
 

@@ -69,6 +69,19 @@
         </div>
       </div>
 
+      <div id="div_id_email" class="row{% if form.email.errors %} has-error{% endif %}">
+        <div class="controls clearfix">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+          <input class="form-control input-lg" id="id_email" maxlength="254" autocomplete="new-text" name="email"
+                 type="email" placeholder="{% trans "邮箱地址" %}">
+        </div>
+        {% for error in form.email.errors %}
+            <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ error }}</p>
+        {% endfor %}
+        </div>
+      </div>
+
       <div id="div_id_password" class="row{% if form.password.errors %} has-error{% endif %}">
         <div class="controls clearfix">
         <div class="input-group input-group-lg">
