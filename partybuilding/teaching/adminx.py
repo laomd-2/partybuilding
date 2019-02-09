@@ -1,5 +1,7 @@
-import xadmin
+from django.core.exceptions import ObjectDoesNotExist
 
+import xadmin
+from django.db.models import Q
 from info.models import Member
 from .models import Activity, TakePartIn
 from .resources import CreditResource
@@ -14,11 +16,23 @@ class ActivityAdmin(object):
     search_fields = ['name', 'date']
 
     list_display = [field.name for field in Activity._meta.fields] + ['get_branches']
+    list_display.remove('visualable_others')
+
     list_editable = list_display[1:]
     list_filter = search_fields
     list_per_page = 15
 
     # model_icon = 'fa fa-info'
+
+    def queryset(self):
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
+            try:
+                m = Member.objects.get(netid=self.request.user)
+                return self.model.objects.filter(Q(branch__id__contains=m.branch.id) |
+                                                 Q(visualable_others=True)).distinct()  # 普通成员
+            except ObjectDoesNotExist:
+                return self.model.objects.none()
+        return self.model.objects.all().distinct()
 
 
 @xadmin.sites.register(TakePartIn)

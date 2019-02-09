@@ -8,6 +8,7 @@ class Activity(models.Model):
     name = models.CharField('活动名称', max_length=100)
     date = models.DateTimeField('活动时间', default=timezone.now)
     credit = models.FloatField('学时数', choices=((i / 2, i / 2) for i in range(1, 41)))
+    visualable_others = models.BooleanField('其他支部可见', default=False)
     branch = models.ManyToManyField(Branch, verbose_name='主/承办党支部')
 
     class Meta:
@@ -18,6 +19,7 @@ class Activity(models.Model):
 
     def get_branches(self):
         return ','.join([str(b) for b in self.branch.all()])
+
     get_branches.short_description = '主/承办党支部'
 
     def __str__(self):
