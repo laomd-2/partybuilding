@@ -44,18 +44,18 @@
       {% view_block 'form_top' %}
 
       {% include 'bootstrap3/errors.html' %}
+
+      {% block messages %}
       {% if messages %}
-        <div class="alert alert-block alert-danger">
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-{#                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}#}
-              {{ message }}
-            </li>
-            {% endfor %}
-        </ul>
+        {% for message in messages %}
+        <div class="alert alert-dismissable{% if message.tags %} {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}{% endif %}">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message|safe }}
         </div>
+        {% endfor %}
       {% endif %}
+      {% endblock messages %}
+
       <div id="div_id_username" class="row{% if form.username.errors %} has-error{% endif %}">
         <div class="controls clearfix">
         <div class="input-group input-group-lg">

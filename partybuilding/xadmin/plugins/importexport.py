@@ -177,7 +177,10 @@ class ImportView(ImportBaseView):
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
+        if hasattr(self.model, 'necessary_fields'):
+            raw_fields = self.model.necessary_fields()
+        else:
+            raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
         context['names'] = [f.name for f in self.model._meta.get_fields() if f.name != 'id' and f.name in raw_fields]
         context['fields'] = [f.verbose_name for f in self.model._meta.get_fields() if f.name != 'id' and f.name in raw_fields]
 
@@ -250,9 +253,13 @@ class ImportView(ImportBaseView):
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
+        if hasattr(self.model, 'necessary_fields'):
+            raw_fields = self.model.necessary_fields()
+        else:
+            raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
         context['fields'] = [f.verbose_name for f in self.model._meta.fields if f.name != 'id' and f.name in raw_fields]
         context['ignore_id'] = result.diff_headers[0] == 'id'
+        context['len'] = len(context['fields']) + int(context['ignore_id'])
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
                                 context)

@@ -1,5 +1,7 @@
+from django.contrib import messages
 import xadmin
-from xadmin.layout import Main, TabHolder, Tab, Row, Fieldset
+from user.models import get_bind_member
+from xadmin.layout import Main, Fieldset
 from .models import School, Branch, Member
 from .resources import MemberResource
 
@@ -23,13 +25,6 @@ class BranchAdmin(object):
     model_icon = 'fa fa-user'
     list_per_page = 15
     list_editable = list_display[1:]
-
-    # def has_delete_permission(self, request=None, obj=None):
-    #     if request is None:
-    #         return False
-    #     has = request.user.is_superuser
-    #     print('def has_delete_permission', has)
-    #     return has
 
 
 @xadmin.sites.register(Member)
@@ -68,11 +63,26 @@ class MemberAdmin(object):
 
     def queryset(self):
         if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
-            try:
-                member = Member.objects.get(netid=self.request.user)
+            member = get_bind_member(self.request.user)
+            if member is None:
+                return self.model.objects.none()
+            else:
                 if self.request.user.has_perm('info.add_member'):  # 支书
                     return self.model.objects.filter(branch=member.branch)
                 return self.model.objects.filter(netid=member.netid, branch=member.branch)  # 普通成员
-            except:
-                return self.model.objects.filter(netid="")
         return self.model.objects.all()
+
+    def save_models(self):
+        if hasattr(self, 'new_obj'):
+            obj = self.new_obj
+            if self.request.user.is_superuser:
+                obj.save()
+            else:
+                member = get_bind_member(self.request.user)
+                if member is None or obj.branch != member.branch:
+                    messages.error(self.request, '%s失败，您不是%s的书记。' %
+                                   ('添加' if self.org_obj is None else '修改', obj.branch))
+                    if self.org_obj is None:
+                        obj.delete()
+                else:
+                    obj.save()

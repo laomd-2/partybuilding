@@ -1,8 +1,9 @@
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-
 import xadmin
 from django.db.models import Q
 from info.models import Member
+from user.models import get_bind_member
 from .models import Activity, TakePartIn
 from .resources import CreditResource
 
@@ -18,7 +19,6 @@ class ActivityAdmin(object):
     list_display = [field.name for field in Activity._meta.fields] + ['get_branches']
     list_display.remove('visualable_others')
 
-    list_editable = list_display[1:]
     list_filter = search_fields
     list_per_page = 15
     model_icon = 'fa fa-users'
@@ -33,18 +33,44 @@ class ActivityAdmin(object):
                 return self.model.objects.none()
         return self.model.objects.all().distinct()
 
+    def save_models(self):
+        obj = self.new_obj
+        if not self.request.user.is_superuser:
+            member = get_bind_member(self.request.user)
+            branches = map(int, self.request.POST['branch'].split(' '))
+            if member is None or member.branch.id not in branches:
+                if self.org_obj is None:
+                    messages.warning(self.request, '您添加了其他党支部的活动。')
+                else:
+                    messages.error(self.request, '修改失败，您不是%s的书记。' %
+                                   '或'.join([str(b) for b in obj.branch.all()]))
+                    return
+        obj.save()
+        for t in TakePartIn.objects.filter(activity_id=obj.id):
+            t.credit = obj.credit
+            t.date = obj.date
+            t.save()
+
 
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(object):
     import_export_args = {'import_resource_class': CreditResource}
-    search_fields = ['activity__name', 'activity__date', 'member__name']
+    search_fields = ['activity__name', 'date', 'member__name']
 
-    list_display = ['member', 'activity', 'activity_credit']
+    list_display = ['member', 'activity', 'date', 'credit']
     list_display_links = (None,)
     list_filter = search_fields
     list_per_page = 15
 
     model_icon = 'fa fa-bar-chart'
+    exclude = ['date', 'credit']
+    aggregate_fields = {"credit": "sum"}
+
+    # data_charts = {
+    #     "user_count": {'title': "学时统计", "x-field": "date", "y-field": "credit",
+    #                    "order": ('date',)
+    #                    }
+    # }
 
     def queryset(self):
         if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员

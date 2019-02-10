@@ -123,11 +123,14 @@
           {% trans "Update" %}
         {% endif %}
       </td>
+
       {% for field in row.diff %}
-        {% if not forloop.first or not ignore_id %}
-          <td>
-            {{ field }}
-          </td>
+        {% if forloop.counter0 < len %}
+          {% if not forloop.first or not ignore_id %}
+            <td>
+              {{ field }}
+            </td>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </tr>

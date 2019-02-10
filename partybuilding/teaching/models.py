@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.utils import timezone
 from info.models import Member, Branch
@@ -23,24 +22,14 @@ class Activity(models.Model):
     get_branches.short_description = '主/承办党支部'
 
     def __str__(self):
-        return "%s(%s)" % (self.name, self.date)
+        return "%s%s" % (self.name, ("(" + str(self.id) + ")") if self.id else '')
 
 
 class TakePartIn(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员学号')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='党建活动ID')
-
-    def name(self):
-        return self.member.name
-    name.short_description = '姓名'
-
-    def activity_name(self):
-        return self.activity.name
-    activity_name.short_description = '活动名称'
-
-    def activity_credit(self):
-        return self.activity.credit
-    activity_credit.short_description = '活动学时'
+    date = models.DateTimeField('活动时间', null=True)
+    credit = models.FloatField('学时数', null=True)
 
     class Meta:
         unique_together = ('activity', 'member')
@@ -50,3 +39,7 @@ class TakePartIn(models.Model):
 
     def __str__(self):
         return "%s: %s" % (self.activity, self.member)
+
+    @staticmethod
+    def necessary_fields():
+        return ['member', 'activity']

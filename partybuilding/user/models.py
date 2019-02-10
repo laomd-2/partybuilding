@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from info.models import Member
 from .base_user import AbstractBaseUser
 
 
@@ -59,3 +60,10 @@ class User(AbstractUser):
     """
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+
+
+def get_bind_member(user):
+    try:
+        return Member.objects.get(netid=user)
+    except:
+        return None
