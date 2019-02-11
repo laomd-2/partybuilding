@@ -11,8 +11,10 @@ BEFORE INSERT ON teaching_takepartin
 FOR EACH ROW 
 BEGIN 
 	DECLARE L_date datetime;
+	DECLARE L_date2 datetime;
 	DECLARE L_credit real;
-	SELECT date, credit INTO L_date, L_credit FROM teaching_activity WHERE id=NEW.activity_id;
+	SELECT date, end_time, credit INTO L_date, L_date2, L_credit FROM teaching_activity WHERE id=NEW.activity_id;
 	SET NEW.date = L_date;
-    SET NEW.credit = L_credit;
+	SET NEW.end_time = L_date2;
+  SET NEW.credit = L_credit;
 END//

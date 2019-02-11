@@ -1,5 +1,6 @@
 django-crispy-forms
 django >= 2.0.10
+django-phonenumber-field
+django-credit-cards
 pymysql
 mysqlclient
-git+git://github.com/sshwsfc/xadmin.git@django2

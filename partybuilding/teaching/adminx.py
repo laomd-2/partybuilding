@@ -11,15 +11,19 @@ from .resources import CreditResource
 @xadmin.sites.register(Activity)
 class ActivityAdmin(object):
     # import_export_args = {'import_resource_class': ActivityResource}
-
     filter_vertical = ('Branch',)  # 关联表
-    # style_fields = {'branch': 'm2m_transfer'}
-    search_fields = ['name', 'date']
+    style_fields = {'branch': 'm2m_transfer'}
 
-    list_display = [field.name for field in Activity._meta.fields] + ['get_branches']
-    list_display.remove('visualable_others')
+    base_list_display = ['name', 'date', 'end_time', 'credit', 'get_branches']
 
-    list_filter = search_fields
+    def get_list_display(self):
+        res = self.base_list_display
+        if self.request.user.has_perm('info.add_member') or self.request.user.has_perm('info.add_branch'):
+            return ['id'] + res
+        return res
+
+    list_filter = ['name', 'date', 'end_time', 'credit']
+    search_fields = ['name']
     list_per_page = 15
     model_icon = 'fa fa-users'
 
@@ -49,6 +53,7 @@ class ActivityAdmin(object):
         for t in TakePartIn.objects.filter(activity_id=obj.id):
             t.credit = obj.credit
             t.date = obj.date
+            t.end_time = obj.end_time
             t.save()
 
 
@@ -57,7 +62,7 @@ class CreditAdmin(object):
     import_export_args = {'import_resource_class': CreditResource}
     search_fields = ['activity__name', 'date', 'member__name']
 
-    list_display = ['member', 'activity', 'date', 'credit']
+    list_display = ['member', 'activity', 'date', 'end_time', 'credit']
     list_display_links = (None,)
     list_filter = search_fields
     list_per_page = 15

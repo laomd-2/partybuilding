@@ -34,7 +34,7 @@
 {#  </div>#}
 {#  {% endfor %}#}
 {#</div>#}
-  <div class="page">
+{#  <div class="page">#}
 <div class="box">
 	<ul class="event_year">
     {% for year in events.keys %}
@@ -56,6 +56,6 @@
       {% endfor %}
   </ul>
 </div>
-</div>
+{#</div>#}
 <input type='hidden' id='_portal_key' value='{{ portal_key }}' />
 {% endblock %}

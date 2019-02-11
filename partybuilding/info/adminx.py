@@ -26,14 +26,23 @@ class BranchAdmin(object):
     list_per_page = 15
     list_editable = list_display[1:]
 
+    def queryset(self):
+        if not self.request.user.is_superuser:  # 判断是否是管理员
+            member = get_bind_member(self.request.user)
+            if member is None:
+                return self.model.objects.none()
+            else:
+                return self.model.objects.filter(school__id=member.branch.school.id)
+        return self.model.objects.all()
+
 
 @xadmin.sites.register(Member)
 class MemberAdmin(object):
     import_export_args = {'import_resource_class': MemberResource}
 
     fields = [field.name for field in Member._meta.fields]
-    list_display = fields[1:8]
-    search_fields = ['name']
+    list_display = ['netid', 'name', 'birth_date', 'gender', 'major_in']
+    search_fields = ['netid', 'name']
     list_filter = ['name', 'application_date',
                    'activist_date',
                    'key_develop_person_date',
@@ -45,10 +54,10 @@ class MemberAdmin(object):
     # relfield_style = 'fk_ajax'
 
     phases = dict()
-    phases['基本信息'] = fields[:8]
-    phases['阶段1：入党考察'] = fields[8:17]
-    phases['阶段2：预备党员'] = fields[17:26]
-    phases['阶段3：正式党员'] = fields[26:]
+    phases['基本信息'] = fields[:10]
+    phases['阶段1：入党考察'] = fields[10:19]
+    phases['阶段2：预备党员'] = fields[19:28]
+    phases['阶段3：正式党员'] = fields[28:]
     wizard_form_list = phases.items()
     form_layout = (
         Main(
@@ -58,7 +67,11 @@ class MemberAdmin(object):
 
     def get_readonly_fields(self):
         if not self.request.user.has_perm('info.add_member'):  # 普通成员
-            return ['branch_name', 'netid'] + self.fields[8:]
+            res = ['branch', 'netid'] + self.phases['阶段1：入党考察'] + \
+                   self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
+            res.remove('youth_league_date')
+            res.remove('constitution_group_date')
+            return res
         return []
 
     def queryset(self):

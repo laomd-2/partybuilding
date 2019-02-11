@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+from creditcards.models import CardNumberField
 # Create your models here.
 
 
@@ -25,17 +28,22 @@ class School(models.Model):
 
 class Branch(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name='学院ID')
-    branch_name = models.CharField('名称', unique=True, max_length=50)
+    branch_name = models.CharField('名称', max_length=50)
     date_create = NullableDateField('成立日期')
 
     class Meta:
-        unique_together = ('school', 'branch_name')
         ordering = ('branch_name', )
         verbose_name = '党支部'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.branch_name
+        return "%s(%s)" % (self.branch_name, self.school)
+
+    def validate_unique(self, exclude=None):
+        qs = Branch.objects.filter(school=self.school)
+        # if self.pk is None:
+        if qs.filter(branch_name=self.branch_name).exists():
+            raise ValidationError("%s的%s已存在。" % (self.school, self.branch_name))
 
 
 class Member(models.Model):
@@ -45,7 +53,9 @@ class Member(models.Model):
     birth_date = models.DateField(max_length=10, verbose_name='出生时间')
     gender = models.CharField(max_length=1, verbose_name='性别', choices=[('男', '男'), ('女', '女')], default='男')
     group = models.CharField(max_length=20, verbose_name='民族')
-    place_birth = models.CharField(max_length=50, verbose_name='籍贯')
+    family_address = models.CharField(max_length=50, verbose_name='家庭住址')
+    phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True)
+    credit_card_id = CardNumberField(verbose_name='身份证号码', null=True, blank=True)
     major_in = models.CharField(max_length=30, verbose_name='当前专业（全称）')
 
     youth_league_date = NullableDateField(verbose_name='加入共青团时间')

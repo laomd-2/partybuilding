@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import (
 )
 from django.db import models
 from django.utils import timezone
-from django.utils.crypto import get_random_string, salted_hmac
+from django.utils.crypto import salted_hmac
 from django.utils.translation import gettext_lazy as _
 from .validators import DigitUsernameValidator
 
@@ -15,10 +15,10 @@ class AbstractBaseUser(models.Model):
     username_validator = DigitUsernameValidator()
 
     username = models.CharField(
-        _('学号'),
+        '学号',
         max_length=8,
         primary_key=True,
-        help_text=_('中山大学NetID，至多8位数字。'),
+        help_text='中山大学NetID，至多8位数字。',
         validators=[username_validator],
         error_messages={
             'unique': _("A user with that username already exists."),

@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&mo_nd_-mjwxmzja^fsa+ui_$_$8*1-m)!8cvua)b1jk2*xc1y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
+    'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,6 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
+
+PHONENUMBER_DEFAULT_REGION = 'CN'
 
 USE_I18N = True
 
