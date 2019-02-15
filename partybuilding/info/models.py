@@ -53,9 +53,9 @@ class Member(models.Model):
     birth_date = models.DateField(max_length=10, verbose_name='出生时间')
     gender = models.CharField(max_length=1, verbose_name='性别', choices=[('男', '男'), ('女', '女')], default='男')
     group = models.CharField(max_length=20, verbose_name='民族')
-    family_address = models.CharField(max_length=50, verbose_name='家庭住址')
+    family_address = models.CharField(max_length=50, verbose_name='家庭住址', null=True, blank=True)
     phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True)
-    credit_card_id = CardNumberField(verbose_name='身份证号码', null=True, blank=True)
+    credit_card_id = models.CharField(verbose_name='身份证号码', null=True, blank=True, max_length=50)
     major_in = models.CharField(max_length=30, verbose_name='当前专业（全称）')
 
     youth_league_date = NullableDateField(verbose_name='加入共青团时间')
@@ -114,3 +114,22 @@ class Application(models.Model):
         ('预备党员', '预备党员'),
         ('正式党员', '正式党员')
     ))
+
+
+class Dependency(models.Model):
+    all_dates = [(f.name, f.verbose_name) for f in Member._meta.fields if isinstance(f, models.DateField)]
+    from_1 = models.CharField('from', choices=all_dates, max_length=50)
+    to = models.CharField('to', choices=all_dates, max_length=50)
+    days = models.IntegerField('周期', choices=[(30, '1个月'), (60, '2个月'),
+                                              (90, '3个月'), (180, '半年'),
+                                              (365, '1年'), (18*365, '18年')] +
+                               [(d + 1, "%d天" % (d + 1)) for d in range(10)])
+
+    class Meta:
+        unique_together = ('from_1', 'to')
+        ordering = ('from_1', 'to', 'days')
+        verbose_name = '发展流程依赖'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "%s->%s: %d" % (self.from_1, self.to, self.days)

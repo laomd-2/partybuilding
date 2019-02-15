@@ -12,7 +12,7 @@ from .resources import CreditResource
 class ActivityAdmin(object):
     # import_export_args = {'import_resource_class': ActivityResource}
     # filter_vertical = ('Branch',)  # 关联表
-    style_fields = {'branch': 'm2m_transfer'}
+    # style_fields = {'branch': 'm2m_transfer'}
 
     base_list_display = ['name', 'date', 'end_time', 'credit', 'get_branches']
 

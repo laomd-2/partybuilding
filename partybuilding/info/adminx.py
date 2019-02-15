@@ -2,7 +2,7 @@ from django.contrib import messages
 import xadmin
 from user.models import get_bind_member
 from xadmin.layout import Main, Fieldset
-from .models import School, Branch, Member
+from .models import School, Branch, Member, Dependency
 from .resources import MemberResource
 
 
@@ -27,13 +27,25 @@ class BranchAdmin(object):
     list_editable = list_display[1:]
 
     def queryset(self):
-        if not self.request.user.is_superuser:  # 判断是否是管理员
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
             member = get_bind_member(self.request.user)
             if member is None:
                 return self.model.objects.none()
             else:
-                return self.model.objects.filter(school__id=member.branch.school.id)
+                return self.model.objects.filter(school=member.branch.school)
         return self.model.objects.all()
+
+
+@xadmin.sites.register(Dependency)
+class DependencyAdmin(object):
+    list_display = ['from_1', 'to', 'days']
+    list_editable = list_display
+
+    def get_list_display_links(self):
+        if self.request.user.has_perm('info.add_branch'):
+            return ['from_1']
+        else:
+            return [None, ]
 
 
 @xadmin.sites.register(Member)
@@ -41,10 +53,7 @@ class MemberAdmin(object):
     import_export_args = {'import_resource_class': MemberResource}
 
     fields = [field.name for field in Member._meta.fields]
-    list_display = fields[1:]
-    list_display.remove('family_address')
-    list_display.remove('credit_card_id')
-    list_display.remove('phone_number')
+    list_display = fields[1:6]
     search_fields = ['netid', 'name']
     list_filter = ['name', 'application_date',
                    'activist_date',
@@ -91,20 +100,42 @@ class MemberAdmin(object):
             qs = self.model.objects.all()
         return qs
 
+    @staticmethod
+    def check(obj):
+        errors = []
+        for dep in Dependency.objects.all():
+            from_ = getattr(obj, dep.from_1)
+            to = getattr(obj, dep.to)
+            if from_ and to:
+                delta = to - from_
+                if delta.days < dep.days:
+                    errors.append((dep.from_1, dep.to, delta.days, dep.days))
+        return errors
+
     def save_models(self):
         if hasattr(self, 'new_obj'):
             obj = self.new_obj
-            if self.request.user.is_superuser:
-                obj.save()
+            errors = self.check(obj)
+            if errors and self.org_obj is None:
+                for e in errors:
+                    messages.error(self.request,
+                                   "%s到%s需要%d天，而%s只用了%d天。"
+                                   % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
+                                      Member._meta.get_field(e[1]).verbose_name.strip('时间'),
+                                      e[3], obj, e[2]))
+                obj.delete()
             else:
-                member = get_bind_member(self.request.user)
-                if member is None or obj.branch != member.branch:
-                    messages.error(self.request, '%s失败，您不是%s的书记。' %
-                                   ('添加' if self.org_obj is None else '修改', obj.branch))
-                    if self.org_obj is None:
-                        obj.delete()
-                else:
+                if self.request.user.is_superuser:
                     obj.save()
+                else:
+                    member = get_bind_member(self.request.user)
+                    if member is None or obj.branch != member.branch:
+                        messages.error(self.request, '%s失败，您不是%s的书记。' %
+                                       ('添加' if self.org_obj is None else '修改', obj.branch))
+                        if self.org_obj is None:
+                            obj.delete()
+                    else:
+                        obj.save()
 
     @property
     def datas(self):
