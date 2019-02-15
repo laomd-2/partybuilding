@@ -1,8 +1,8 @@
-from import_export import resources
+from common import resources
 from .models import Member
 
 
-class MemberResource(resources.ModelResource):
+class MemberResource(resources.MyResource):
     class Meta:
         model = Member
         skip_unchanged = True

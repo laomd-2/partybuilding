@@ -35,7 +35,7 @@
     {% csrf_token %}
 
     <p>
-      {% trans "上传时请使用第二行的表头: " %}
+      {% trans "此次导入以下字段: " %}
       <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
@@ -44,11 +44,11 @@
             {% endfor %}
           </tr>
         </thead>
-      <tr>
-        {% for field in names %}
-          <td>{{ field }}</td>
-        {% endfor %}
-      </tr>
+{#      <tr>#}
+{#        {% for field in names %}#}
+{#          <td>{{ field }}</td>#}
+{#        {% endfor %}#}
+{#      </tr>#}
       </table>
     </p>
 

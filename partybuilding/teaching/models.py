@@ -27,8 +27,8 @@ class Activity(models.Model):
 
 
 class TakePartIn(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员学号')
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='党建活动ID')
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='党建活动')
     date = models.DateTimeField('开始时间', null=True)
     end_time = models.DateTimeField('结束时间', null=True)
     credit = models.FloatField('学时数', null=True)
@@ -44,4 +44,15 @@ class TakePartIn(models.Model):
 
     @staticmethod
     def necessary_fields():
+        return ['member', 'activity']
+
+    @staticmethod
+    def export_field_map():
+        fields = dict()
+        fields['支部成员ID'] = 'member'
+        fields['党建活动ID'] = 'activity'
+        return fields
+
+    @staticmethod
+    def foreign_keys():
         return ['member', 'activity']

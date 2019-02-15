@@ -27,12 +27,12 @@ class School(models.Model):
 
 
 class Branch(models.Model):
-    school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name='学院ID')
+    school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name='学院')
     branch_name = models.CharField('名称', max_length=50)
     date_create = NullableDateField('成立日期')
 
     class Meta:
-        ordering = ('branch_name', )
+        ordering = ('id', )
         verbose_name = '党支部'
         verbose_name_plural = verbose_name
 
@@ -47,7 +47,7 @@ class Branch(models.Model):
 
 
 class Member(models.Model):
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='支部ID')
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='党支部')
     netid = models.CharField('学号', max_length=8, primary_key=True)
     name = models.CharField('姓名', max_length=20, db_index=True)
     birth_date = models.DateField(max_length=10, verbose_name='出生时间')
@@ -93,6 +93,16 @@ class Member(models.Model):
     def important_dates(self):
         return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields
                 if field.name != 'birth_date' and isinstance(field, models.DateField)]
+
+    @staticmethod
+    def foreign_keys():
+        return ['branch']
+
+    @staticmethod
+    def export_field_map():
+        fields = {f.verbose_name: f.name for f in Member._meta.fields}
+        fields['党支部ID'] = 'branch'
+        return fields
 
 
 class Application(models.Model):

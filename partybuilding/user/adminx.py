@@ -35,6 +35,7 @@ class BaseSetting(object):
 
 
 class UserAdmin(object):
+    say_hello = True
     list_display = ['username', 'email', 'is_active', 'is_staff']
     search_fields = ['username']
 

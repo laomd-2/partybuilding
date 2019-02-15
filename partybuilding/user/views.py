@@ -41,6 +41,9 @@ class RegisterView(LoginView):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get('username', None)
+            if not user_name.isdigit():
+                # messages.error(request, '学号只能是数字。')
+                return self.get(request)
             if User.objects.filter(username=user_name):
                 messages.error(request, '账号已存在，请通过邮件找回密码。')
                 return self.get(request)

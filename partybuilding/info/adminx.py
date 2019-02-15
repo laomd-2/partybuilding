@@ -18,7 +18,7 @@ class SchoolAdmin(object):
 
 @xadmin.sites.register(Branch)
 class BranchAdmin(object):
-    list_display = ['id', 'branch_name']
+    list_display = ['id', 'school', 'branch_name']
     list_display_links = ['branch_name']
     search_fields = ['branch_name']
     list_filter = ['branch_name']
@@ -41,7 +41,10 @@ class MemberAdmin(object):
     import_export_args = {'import_resource_class': MemberResource}
 
     fields = [field.name for field in Member._meta.fields]
-    list_display = ['netid', 'name', 'birth_date', 'gender', 'major_in']
+    list_display = fields[1:]
+    list_display.remove('family_address')
+    list_display.remove('credit_card_id')
+    list_display.remove('phone_number')
     search_fields = ['netid', 'name']
     list_filter = ['name', 'application_date',
                    'activist_date',
@@ -68,7 +71,7 @@ class MemberAdmin(object):
     def get_readonly_fields(self):
         if not self.request.user.has_perm('info.add_member'):  # 普通成员
             res = ['branch', 'netid'] + self.phases['阶段1：入党考察'] + \
-                   self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
+                  self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
             res.remove('youth_league_date')
             res.remove('constitution_group_date')
             return res
@@ -78,12 +81,15 @@ class MemberAdmin(object):
         if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
             member = get_bind_member(self.request.user)
             if member is None:
-                return self.model.objects.none()
+                qs = self.model.objects.none()
             else:
                 if self.request.user.has_perm('info.add_member'):  # 支书
-                    return self.model.objects.filter(branch=member.branch)
-                return self.model.objects.filter(netid=member.netid, branch=member.branch)  # 普通成员
-        return self.model.objects.all()
+                    qs = self.model.objects.filter(branch=member.branch)
+                else:
+                    qs = self.model.objects.filter(netid=member.netid, branch=member.branch)  # 普通成员
+        else:
+            qs = self.model.objects.all()
+        return qs
 
     def save_models(self):
         if hasattr(self, 'new_obj'):
@@ -99,3 +105,31 @@ class MemberAdmin(object):
                         obj.delete()
                 else:
                     obj.save()
+
+    @property
+    def datas(self):
+        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
+            qs = self.model.objects.all()
+        else:
+            member = get_bind_member(self.request.user)
+            if member is None:
+                qs = self.model.objects.none()
+            else:
+                qs = self.model.objects.filter(branch=member.branch)
+        grades = dict()
+        identities = ['application_date',
+                      'activist_date',
+                      'key_develop_person_date',
+                      'first_branch_conference',
+                      'second_branch_conference']
+        identities.reverse()
+        for member in qs:
+            grade = member.netid[:2]
+            grades.setdefault(grade, [0, 0, 0, 0, 0])
+            for i, identity in enumerate(identities):
+                if getattr(member, identity) is not None:
+                    grades[grade][i] += 1
+                    break
+        xadix = list(grades.keys())
+        xadix.sort(reverse=True)
+        return xadix, [grades[k] for k in xadix]

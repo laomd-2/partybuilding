@@ -1,4 +1,4 @@
-from import_export import resources
+from common import resources
 from .models import Activity, TakePartIn
 
 
@@ -9,7 +9,7 @@ from .models import Activity, TakePartIn
 #         import_id_fields = ('name', 'branch', 'date')
 #
 
-class CreditResource(resources.ModelResource):
+class CreditResource(resources.MyResource):
     class Meta:
         model = TakePartIn
         skip_unchanged = True

@@ -181,8 +181,10 @@ class ImportView(ImportBaseView):
             raw_fields = self.model.necessary_fields()
         else:
             raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
-        context['names'] = [f.name for f in self.model._meta.get_fields() if f.name != 'id' and f.name in raw_fields]
-        context['fields'] = [f.verbose_name for f in self.model._meta.get_fields() if f.name != 'id' and f.name in raw_fields]
+        meta = self.model._meta
+        foreigns = self.model.foreign_keys()
+        context['fields'] = [(meta.get_field(f).verbose_name + ('ID' if f in foreigns else ''))
+                             for f in raw_fields if f != 'id']
 
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
@@ -257,7 +259,9 @@ class ImportView(ImportBaseView):
             raw_fields = self.model.necessary_fields()
         else:
             raw_fields = [f.column_name for f in resource.get_user_visible_fields()]
-        context['fields'] = [f.verbose_name for f in self.model._meta.fields if f.name != 'id' and f.name in raw_fields]
+        foreigns = self.model.foreign_keys()
+        context['fields'] = [(self.model._meta.get_field(f).verbose_name + ('ID' if f in foreigns else ''))
+                             for f in raw_fields if f != 'id']
         context['ignore_id'] = result.diff_headers[0] == 'id'
         context['len'] = len(context['fields']) + int(context['ignore_id'])
         request.current_app = self.admin_site.name
