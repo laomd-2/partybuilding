@@ -53,7 +53,7 @@ class MemberAdmin(object):
     import_export_args = {'import_resource_class': MemberResource}
 
     fields = [field.name for field in Member._meta.fields]
-    list_display = fields[1:6]
+    list_display = fields[1:8] + ['major_in']
     search_fields = ['netid', 'name']
     list_filter = ['name', 'application_date',
                    'activist_date',
@@ -62,7 +62,7 @@ class MemberAdmin(object):
                    'second_branch_conference']
     model_icon = 'fa fa-info'
     list_per_page = 10
-    list_editable = list_display[1:]
+    list_editable = fields[2:10]
     # relfield_style = 'fk_ajax'
 
     phases = dict()

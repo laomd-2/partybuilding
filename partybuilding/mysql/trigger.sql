@@ -4,7 +4,7 @@
 -- from takepartin T, info_member M, teaching_activity A
 -- where T.member_id=M.netid and T.activity_id=A.id with check option;
 
-
+DROP TRIGGER IF EXISTS TRI_Credit_INSERT;
 DELIMITER //
 CREATE TRIGGER TRI_Credit_INSERT 
 BEFORE INSERT ON teaching_takepartin
@@ -14,7 +14,9 @@ BEGIN
 	DECLARE L_date2 datetime;
 	DECLARE L_credit real;
 	SELECT date, end_time, credit INTO L_date, L_date2, L_credit FROM teaching_activity WHERE id=NEW.activity_id;
-	SET NEW.date = L_date;
-	SET NEW.end_time = L_date2;
+-- 	SET NEW.date = L_date;
+-- 	SET NEW.end_time = L_date2;
   SET NEW.credit = L_credit;
 END//
+
+DELIMITER ;

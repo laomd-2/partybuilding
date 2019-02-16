@@ -11,7 +11,7 @@ class HelloWorldPlugin(BaseAdminPlugin):
 
     # context 即为 TemplateContext， nodes 参数包含了其他插件的返回内容。
     # 您可以直接返回 HTML 片段，或是将内容加入到 nodes 参数中
-    def block_results_bottom(self, context, nodes):
+    def block_results_top(self, context, nodes):
         return '''<div id="container2" style="height: 100%"></div>
         <script type="text/javascript">
     var dom = document.getElementById("container2");

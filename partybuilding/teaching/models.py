@@ -29,8 +29,8 @@ class Activity(models.Model):
 class TakePartIn(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='党建活动')
-    date = models.DateTimeField('开始时间', null=True)
-    end_time = models.DateTimeField('结束时间', null=True)
+    # date = models.DateTimeField('开始时间', null=True)
+    # end_time = models.DateTimeField('结束时间', null=True)
     credit = models.FloatField('学时数', null=True, choices=((i / 2, i / 2) for i in range(41)),
                                default=0)
 

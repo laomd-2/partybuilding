@@ -36,7 +36,7 @@ class BaseSetting(object):
 
 class UserAdmin(object):
     say_hello = True
-    list_display = ['username', 'email', 'is_active', 'is_staff']
+    list_display = ['username', 'email', 'is_active', 'is_staff', 'last_login']
     search_fields = ['username']
 
     list_filter = ['username']
