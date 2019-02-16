@@ -39,7 +39,7 @@ class ActivityAdmin(object):
 
     def save_models(self):
         obj = self.new_obj
-        if not self.request.user.is_superuser:
+        if not self.request.user.has_perm('info.add_branch'):
             member = get_bind_member(self.request.user)
             branches = map(int, self.request.POST['branch'].split(' '))
             if member is None or member.branch.id not in branches:
@@ -50,11 +50,11 @@ class ActivityAdmin(object):
                                    '或'.join([str(b) for b in obj.branch.all()]))
                     return
         obj.save()
-        for t in TakePartIn.objects.filter(activity_id=obj.id):
-            t.credit = obj.credit
-            t.date = obj.date
-            t.end_time = obj.end_time
-            t.save()
+        # for t in TakePartIn.objects.filter(activity_id=obj.id):
+        #     t.credit = obj.credit
+        #     t.date = obj.date
+        #     t.end_time = obj.end_time
+        #     t.save()
 
 
 @xadmin.sites.register(TakePartIn)
@@ -63,12 +63,11 @@ class CreditAdmin(object):
     search_fields = ['activity__name', 'date', 'member__name']
 
     list_display = ['member', 'activity', 'date', 'end_time', 'credit']
-    list_display_links = (None,)
     list_filter = search_fields
     list_per_page = 15
 
     model_icon = 'fa fa-bar-chart'
-    exclude = ['date', 'credit']
+    exclude = ['date', 'end_time']
     aggregate_fields = {"credit": "sum"}
 
     # data_charts = {
@@ -88,3 +87,13 @@ class CreditAdmin(object):
             except:
                 return self.model.objects.filter(member__netid=self.request.user)
         return self.model.objects.all()
+
+    def save_models(self):
+        obj = self.new_obj
+        if not self.request.user.has_perm('info.add_branch'):
+            member = get_bind_member(self.request.user)
+            branches = obj.activity.branch.all()
+            if member is None or member.branch not in branches and obj.credit != obj.activity.credit:
+                messages.error(self.request, '您不能修改其他党支部的活动学时。')
+                return
+        obj.save()

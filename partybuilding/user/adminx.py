@@ -60,7 +60,7 @@ class UserAdmin(object):
         if self.request.user.has_perm('info.add_branch'):
             return []
         if self.request.user.has_perm('info.add_member'):  # 支书
-            return ['groups', 'username', 'last_login']
+            return ['username', 'last_login']
         return ['groups', 'username', 'is_staff', 'is_active', 'last_login']
 
     def queryset(self):
