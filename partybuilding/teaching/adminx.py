@@ -61,11 +61,6 @@ class ActivityAdmin(object):
                                    '或'.join([str(b) for b in obj.branch.all()]))
                     return
         obj.save()
-        # for t in TakePartIn.objects.filter(activity_id=obj.id):
-        #     t.credit = obj.credit
-        #     t.date = obj.date
-        #     t.end_time = obj.end_time
-        #     t.save()
 
 
 @xadmin.sites.register(TakePartIn)
