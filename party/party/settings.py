@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -23,23 +22,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'user.apps.UserConfig',
+    'info.apps.InfoConfig',
+    'teaching.apps.TeachingConfig',
+    'suit',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user.apps.UserConfig',
-    'info.apps.InfoConfig',
-    'teaching.apps.TeachingConfig'
 ]
 
 MIDDLEWARE = [
@@ -72,7 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'party.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -124,9 +123,17 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'SDCS党建信息系统',
+    'HEADER_DATE_FORMAT': 'l, j. F Y',  # Saturday, 16th March 2013
+    'HEADER_TIME_FORMAT': 'H:i',  # 18:42
+    'SHOW_REQUIRED_ASTERISK': True,
+    'SEARCH_URL': '',
+    'MENU_OPEN_FIRST_CHILD': True
+}

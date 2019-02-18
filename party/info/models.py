@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from creditcards.models import CardNumberField
 # Create your models here.
 
 
@@ -41,9 +40,9 @@ class Branch(models.Model):
 
     def validate_unique(self, exclude=None):
         qs = Branch.objects.filter(school=self.school)
-        # if self.pk is None:
-        if qs.filter(branch_name=self.branch_name).exists():
-            raise ValidationError("%s的%s已存在。" % (self.school, self.branch_name))
+        if self.pk is None:
+            if qs.filter(branch_name=self.branch_name).exists():
+                raise ValidationError("%s的%s已存在。" % (self.school, self.branch_name))
 
 
 class Member(models.Model):

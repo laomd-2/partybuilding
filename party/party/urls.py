@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views import static
 from django.conf import settings
 
+
 urlpatterns = [
+    # path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    # url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('', admin.site.urls),
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]
