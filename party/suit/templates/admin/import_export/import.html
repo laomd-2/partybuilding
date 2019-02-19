@@ -1,7 +1,7 @@
 {% extends "admin/import_export/base.html" %}
 {% load url from suit_compat %}
 {% load i18n admin_urls import_export_tags %}
-
+{% load bootstrap4 %}
 {% block breadcrumbs_last %}
     {% trans "Import" %}
 {% endblock %}
@@ -10,7 +10,7 @@
 
     {% if not confirm_form %}
         <form action="{{ form_url }}" method="POST" id="{% firstof opts.model_name opts.module_name %}_form" enctype="multipart/form-data" class="form-horizontal">
-            {% csrf_token %}
+            {% csrf_token %}{% bootstrap_form form %}
 
 
             <div class="alert alert-info">
@@ -89,7 +89,7 @@
 
     {% if confirm_form %}
         <form action="{% url opts|admin_urlname:"process_import" %}" method="POST">
-            {% csrf_token %}
+            {% csrf_token %}{% bootstrap_form form %}
             {{ confirm_form.as_p }}
             <input class="btn btn-success" name="confirm" type="submit" value="{% trans "Confirm import" %}">
         </form>

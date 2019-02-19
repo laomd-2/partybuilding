@@ -1,6 +1,6 @@
 {% extends "admin/filer/base_site.html" %}
 {% load i18n %}
-
+{% load bootstrap4 %}
 {% block breadcrumbs %}
 {% include "admin/filer/breadcrumbs.html" %}
 {% endblock %}
@@ -26,7 +26,7 @@
         </div>
     {% endif %}
 {% else %}
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post">{% csrf_token %}{% bootstrap_form form %}
     <div class="alert alert-error alert-block">{% blocktrans %}<p>Are you sure you want to delete the selected files and/or folders? All of the following objects and their related items will be deleted:</p>{% endblocktrans %}
     {% for deletable_object in deletable_objects %}
         <ul>{{ deletable_object|unordered_list }}</ul>

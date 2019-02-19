@@ -1,8 +1,10 @@
 {% load filer_admin_tags %}
 {% load i18n %}
+{% load bootstrap4 %}
 <div id="toolbar">
     <form id="changelist-search" action="." method="get" class="form-inline">
         {% csrf_token %}
+    {% bootstrap_form form %}
         <div class="search-container">
             {% if is_popup %}
                 <input type="hidden" name="_popup" value="1" />

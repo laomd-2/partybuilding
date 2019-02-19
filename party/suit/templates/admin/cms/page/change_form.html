@@ -1,6 +1,7 @@
 {% extends "admin/change_form.html" %}
 {% load i18n admin_modify cms_tags cms_admin %}
 {% load url from suit_compat %}
+{% load bootstrap4 %}
 {% block title %}{% trans "Change a page" %}{% endblock %}
 
 {% block extrahead %}
@@ -75,7 +76,9 @@
 
 <div id="content-main" class="inner-two-columns">
 
-  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="?language={{ language }}{%if request.GET.target %}&amp;target={{ request.GET.target }}{% endif %}&amp;{%if request.GET.target %}position={{ request.GET.position }}{% endif %}" method="post" id="page_form" class="form-horizontal">{% csrf_token %}{% block form_top %}{% endblock %}
+  <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="?language={{ language }}{%if request.GET.target %}&amp;target={{ request.GET.target }}{% endif %}&amp;{%if request.GET.target %}position={{ request.GET.position }}{% endif %}" method="post" id="page_form" class="form-horizontal">{% csrf_token %}
+    {% bootstrap_form form %}
+    {% block form_top %}{% endblock %}
     {{ adminForm.fields.parent }}
 
   <div class="inner-right-column">

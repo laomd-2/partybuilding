@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_static admin_list admin_urls suit_list suit_tags %}
+{% load bootstrap4 %}
 {% load url from suit_compat %}
 
 {% block extrastyle %}
@@ -90,7 +91,7 @@
 
         <form id="changelist-form" action="" method="post"
             {% if cl.formset.is_multipart %}
-              enctype="multipart/form-data"{% endif %} class="form-inline" novalidate>{% csrf_token %}
+              enctype="multipart/form-data"{% endif %} class="form-inline" novalidate>{% csrf_token %}{% bootstrap_form form %}
           {% if cl.formset %}
             <div>{{ cl.formset.management_form }}</div>
           {% endif %}

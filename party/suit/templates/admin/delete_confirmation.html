@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls %}
+{% load bootstrap4 %}
 {% load url from suit_compat %}
 
 {% block breadcrumbs %}
@@ -44,7 +45,7 @@
   {% else %}
 
     {% block delete_form %}
-      <form action="" method="post">{% csrf_token %}
+      <form action="" method="post">{% csrf_token %}{% bootstrap_form form %}
         <div class="alert alert-block alert-error">
           <h4 class="alert-heading">{% trans 'Delete' %} {% trans opts.verbose_name %}?</h4>
           <p>

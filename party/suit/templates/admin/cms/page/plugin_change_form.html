@@ -1,6 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_modify cms_admin %}
 {% load url from suit_compat %}
+{% load bootstrap4 %}
 {% block extrahead %}{{ block.super }}
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}suit/css/djangocms.css">
@@ -90,7 +91,9 @@
  
 {% block content %}<div id="content-main">
 {% block top %}{% if preview %}<div class="plugin-preview">{% render_plugin plugin %}</div>{% endif %}{% endblock %}
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" class="form-horizontal">{% csrf_token %}{% block form_top %}{% endblock %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" class="form-horizontal">{% csrf_token %}
+  {% bootstrap_form form %}
+  {% block form_top %}{% endblock %}
 <div>
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 {% if save_on_top %}{% submit_row %}{% endif %}

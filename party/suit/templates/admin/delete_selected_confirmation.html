@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n l10n admin_urls %}
+{% load bootstrap4 %}
 {% load url from suit_compat %}
 
 {% block breadcrumbs %}
@@ -40,7 +41,7 @@
     {% endif %}
   {% else %}
 
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post">{% csrf_token %}{% bootstrap_form form %}
       {% for obj in queryset %}
         <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}"/>
       {% endfor %}

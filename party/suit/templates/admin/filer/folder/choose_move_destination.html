@@ -1,6 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n filer_admin_tags %}
-
+{% load bootstrap4 %}
 {% block breadcrumbs %}
 {% include "admin/filer/breadcrumbs.html" %}
 {% endblock %}
@@ -17,7 +17,7 @@
 {% if not to_move %}
     <div class="alert alert-info">{% blocktrans %}There are no files and/or folders available to move.{% endblocktrans %}</div>
 {% else %}
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post">{% csrf_token %}{% bootstrap_form form %}
         <div class="alert alert-info alert-block">{% blocktrans %}The following files and/or folders will be moved to a destination folder (retaining their tree structure):{% endblocktrans %}
             <ul>{{ to_move|unordered_list }}</ul>
             {% for f in files_queryset %}

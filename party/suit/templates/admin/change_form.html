@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_static admin_modify suit_tags admin_urls %}
+{% load bootstrap4 %}
 {% load url from suit_compat %}
 
 {% block extrahead %}{{ block.super }}
@@ -84,7 +85,7 @@
 
     <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post"
           id="{% firstof opts.model_name opts.module_name %}_form" class="form-horizontal" novalidate>
-
+    {% bootstrap_form form %}
       <div class="inner-right-column">
 
         <div class="box save-box">

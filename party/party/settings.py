@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
-    'suit',
+    # 'suit',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'DjangoUeditor',
+    'xadmin',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -135,5 +138,12 @@ SUIT_CONFIG = {
     'HEADER_TIME_FORMAT': 'H:i',  # 18:42
     'SHOW_REQUIRED_ASTERISK': True,
     'SEARCH_URL': '',
-    'MENU_OPEN_FIRST_CHILD': True
+    'MENU_OPEN_FIRST_CHILD': True,
+    'MENU_ICONS': {
+        'sites': 'icon-leaf',
+        'auth': 'icon-lock',
+        'info': 'icon-flag',
+        'teaching': 'icon-star',
+        'user': 'icon-user'
+    },
 }

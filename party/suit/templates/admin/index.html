@@ -49,6 +49,7 @@
 
 
 {% block sidebar %}
+  {% if user.is_superuser %}
   <div id="content-related">
     <div class="module" id="recent-actions-module">
       <h4 class="italic-title">{% trans 'My Actions' %}</h4>
@@ -88,4 +89,5 @@
       {% endif %}
     </div>
   </div>
+  {% endif %}
 {% endblock %}

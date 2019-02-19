@@ -14,15 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
+# from django.contrib import admin
 from django.urls import path, include
 from django.views import static
 from django.conf import settings
+import xadmin
+xadmin.autodiscover()
 
 
 urlpatterns = [
-    # path('grappelli/', include('grappelli.urls')), # grappelli URLS
-    # url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('', admin.site.urls),
+    path('', xadmin.site.urls),
+    # path('ueditor/', include('DjangoUeditor.urls')),
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]

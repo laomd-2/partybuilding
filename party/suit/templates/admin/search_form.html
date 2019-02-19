@@ -1,8 +1,10 @@
 {% load i18n admin_static suit_list admin_list suit_tags %}
+{% load bootstrap4 %}
 {% if cl.search_fields or cl.has_filters %}
   {% suit_bc_value 1.5 'pop' 1.6 '_popup' as POPUP_VAR %}
   <div id="toolbar" class="clearfix">
     <form id="changelist-search" action="" method="get" class="form-inline">
+    {% bootstrap_form form %}
       <div class="search-container">
         {% if cl.search_fields %}
           <input type="text" size="40" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" placeholder="{% block search_placeholder %}{% trans 'keyword'|capfirst %}{% endblock %}"{{ cl.query|yesno:' class=active,' }}>&nbsp;
