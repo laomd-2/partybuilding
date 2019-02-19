@@ -324,8 +324,138 @@
       <change afterPath="$PROJECT_DIR$/../partybuilding/xadmin/.tx/config" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../partybuilding/xadmin/plugins/ueditor.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../partybuilding/xadmin/static/xadmin/component.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/views/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/compat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/admin/css/forms.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/cms/css/pages.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/img/glyphicons-halflings-white-shadow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/img/glyphicons-halflings-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/img/glyphicons-halflings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/css/djangocms.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/css/filer.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/css/suit.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/ajax-loader.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/bg_left_white.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/bg_pattern.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/cc_active_nav.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/drag-handle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/glyphicons-halflings-white-nav.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/img/glyphicons-halflings-white-shadow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/djangocms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/jquery-1.8.3.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/jquery-2.2.4.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/jquery.autosize-min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/sortables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/suit-form-confirm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/js/suit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/djangocms.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/djangocms/list.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/filer.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/footer.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/header.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/left-column.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/mixins.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/print.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/sticky-footer.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/suit.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/actionlist.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/box.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/breadcrumb.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/calendar.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/datepicker.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/form.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/left-nav.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/list.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/login.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/pagination.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/table.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/ui/tabs.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/static/suit/less/variables.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/403.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/500.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/actions.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/app_index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/auth/user/add_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/auth/user/change_password.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/base_site.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/change_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/change_list_results.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/cms/page/change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/cms/page/change_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/cms/page/includes/fieldset.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/cms/page/plugin_change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/cms/page/widgets/plugin_item.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/date_hierarchy.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/delete_confirmation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/delete_selected_confirmation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/edit_inline/stacked.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/edit_inline/tabular.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/actions.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/breadcrumbs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/delete_confirmation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/delete_selected_files_confirmation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/choose_copy_destination.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/choose_images_resize_options.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/choose_move_destination.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/choose_rename_format.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/directory_listing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/directory_table.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/folder/new_folder_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/image/change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/tools/clipboard/clipboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/tools/clipboard/clipboard_item_rows.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filer/tools/search_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/filter.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/import_export/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/import_export/change_list_export.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/import_export/change_list_import.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/import_export/change_list_import_export.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/import_export/export.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/import_export/import.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/includes/fieldset.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/mptt_change_list_results.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/object_history.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/page_submit_line.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/pagination.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/search_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/admin/submit_line.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/registration/logged_out.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/registration/password_change_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/reversion/change_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/reversion/object_history.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/reversion/recover_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/reversion/recover_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/reversion/revision_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/suit/error_base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/suit/form_as_fieldset.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/suit/includes/change_form_includes.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templates/suit/menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templatetags/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/DjangoUeditor/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templatetags/suit_compat.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templatetags/suit_list.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templatetags/suit_menu.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/templatetags/suit_tags.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/watch_less.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/suit/widgets.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/adminx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/.idea/partybuilding.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/.idea/partybuilding.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/info/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/info/adminx.py" afterDir="false" />
@@ -453,7 +583,7 @@
       <change beforePath="$PROJECT_DIR$/../partybuilding/static/admin/js/vendor/xregexp/LICENSE.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/static/admin/js/vendor/xregexp/xregexp.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/static/admin/js/vendor/xregexp/xregexp.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../partybuilding/static/ueditor/dialogs/wordimage/imageUploader.swf" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/DjangoUeditor/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../partybuilding/static/ueditor/dialogs/wordimage/imageUploader.swf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/static/ueditor/third-party/snapscreen/UEditorSnapscreen.exe" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/static/ueditor/third-party/video-js/font/vjs.eot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/static/ueditor/third-party/video-js/font/vjs.ttf" beforeDir="false" />
@@ -596,7 +726,7 @@
         <entry file="file://$PROJECT_DIR$/info/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="112">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -607,11 +737,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="375">
+              <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/party/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -640,13 +779,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/base.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="231">
-              <caret line="39" column="27" lean-forward="true" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+              <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/info/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="134" column="19" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -755,9 +906,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/registration/password_reset_confirm.html" />
-        <option value="$PROJECT_DIR$/templates/registration/password_change_form.html" />
-        <option value="$PROJECT_DIR$/templates/registration/password_reset_form.html" />
         <option value="$PROJECT_DIR$/templates/admin/delete_selected_confirmation.html" />
         <option value="$PROJECT_DIR$/templates/admin/delete_confirmation.html" />
         <option value="$PROJECT_DIR$/templates/admin/search_form.html" />
@@ -802,10 +950,13 @@
         <option value="$PROJECT_DIR$/xadmin/views/edit.py" />
         <option value="$PROJECT_DIR$/info/adminx.py" />
         <option value="$PROJECT_DIR$/teaching/adminx.py" />
-        <option value="$PROJECT_DIR$/user/adminx.py" />
         <option value="$PROJECT_DIR$/xadmin/plugins/actions.py" />
         <option value="$PROJECT_DIR$/xadmin/views/base.py" />
         <option value="$PROJECT_DIR$/common/base.py" />
+        <option value="$PROJECT_DIR$/party/__init__.py" />
+        <option value="$PROJECT_DIR$/party/adminx.py" />
+        <option value="$PROJECT_DIR$/user/adminx.py" />
+        <option value="$PROJECT_DIR$/info/models.py" />
       </list>
     </option>
   </component>
@@ -834,7 +985,12 @@
             <path>
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="info" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -921,7 +1077,7 @@
       <workItem from="1550500048863" duration="4177000" />
       <workItem from="1550507821193" duration="16565000" />
       <workItem from="1550556686431" duration="8000" />
-      <workItem from="1550556819409" duration="15837000" />
+      <workItem from="1550556819409" duration="17032000" />
     </task>
     <task id="LOCAL-00001" summary="使用django2.1和suit重构系统">
       <created>1550511156165</created>
@@ -944,11 +1100,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550574753941</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="django2.1使用xadmin">
+      <created>1550575279383</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1550575279383</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69350000" />
+    <option name="totallyTimeSpent" value="70545000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -963,12 +1126,12 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25416037" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25416037" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1021,8 +1184,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="django2.1使用xadmin" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/Program Files/Conda/Lib/site-packages/suit/templates/admin/base_site.html" />
-    <entry file="file://D:/Program Files/Conda/Lib/site-packages/suit/templates/admin/import_export/base.html" />
     <entry file="file://D:/Program Files/Conda/Lib/site-packages/suit/templates/admin/import_export/import.html" />
     <entry file="file://$PROJECT_DIR$/suit/static/cms/css/pages.css">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1038,16 +1199,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/info/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" column="58" selection-start-line="2" selection-start-column="58" selection-end-line="2" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1301,32 +1452,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/info/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="263">
           <caret line="124" selection-start-line="124" selection-end-line="124" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1358,12 +1489,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/info/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/adminx.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
-          <caret line="39" column="27" lean-forward="true" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+          <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="134" column="19" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
           </folding>
         </state>
       </provider>

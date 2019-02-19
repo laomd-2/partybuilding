@@ -1,5 +1,4 @@
 from common.base import AdminObject
-from django.contrib.auth import get_permission_codename
 from .models import User
 from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
@@ -7,6 +6,7 @@ from django.dispatch import receiver
 from .models import User
 from info.models import Member
 import xadmin
+from xadmin import views
 
 
 @receiver(post_save, sender=User)
@@ -62,6 +62,21 @@ class UserAdmin(AdminObject):
 
 xadmin.site.unregister(User)
 xadmin.site.register(User, UserAdmin)
-# admin.site.site_header = 'SDCS党建信息管理系统'
-# admin.site.site_title = 'SDCS党建信息管理系统'
-# admin.site.site_footer = "版权所有@SDCS计算机本科生第二党支部"
+
+
+@xadmin.sites.register(views.CommAdminView)
+class GlobalSettings(object):
+    site_title = "SDCS党建信息管理系统"
+    # 系统名称
+    site_footer = "版权所有@SDCS计算机本科生第二党支部"
+    # 底部版权栏
+    # menu_style = "accordion"
+    #  将菜单栏收起来
+
+
+@xadmin.sites.register(views.BaseAdminView)
+class BaseSetting(object):
+    # 设置主题功能
+    enable_themes = True
+    use_bootswatch = True
+    menu_style = 'accordion'

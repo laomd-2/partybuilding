@@ -116,13 +116,14 @@ class Application(models.Model):
 
 
 class Dependency(models.Model):
-    all_dates = [(f.name, f.verbose_name) for f in Member._meta.fields if isinstance(f, models.DateField)]
-    from_1 = models.CharField('from', choices=all_dates, max_length=50)
-    to = models.CharField('to', choices=all_dates, max_length=50)
-    days = models.IntegerField('周期', choices=[(30, '1个月'), (60, '2个月'),
-                                              (90, '3个月'), (180, '半年'),
-                                              (365, '1年'), (18*365, '18年')] +
-                               [(d + 1, "%d天" % (d + 1)) for d in range(10)])
+    all_dates = {f.name: f.verbose_name for f in Member._meta.fields if isinstance(f, models.DateField)}
+    days_mapping = dict([(30, '1个月'), (60, '2个月'),
+                         (90, '3个月'), (180, '半年'),
+                         (365, '1年'), (18 * 365, '18年')] +
+                        [(d + 1, "%d天" % (d + 1)) for d in range(10)])
+    from_1 = models.CharField('from', choices=all_dates.items(), max_length=50)
+    to = models.CharField('to', choices=all_dates.items(), max_length=50)
+    days = models.IntegerField('周期', choices=days_mapping.items())
 
     class Meta:
         unique_together = ('from_1', 'to')
@@ -131,4 +132,5 @@ class Dependency(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return "%s->%s: %d" % (self.from_1, self.to, self.days)
+        return "%s→%s: %s" % (self.all_dates[self.from_1], self.all_dates[self.to],
+                               self.days_mapping[self.days])
