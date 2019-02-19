@@ -1,5 +1,5 @@
 from common.base import AdminObject
-from .models import User
+from .models import User, get_bind_member
 from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -7,6 +7,7 @@ from .models import User
 from info.models import Member
 import xadmin
 from xadmin import views
+from common.rules import *
 
 
 @receiver(post_save, sender=User)
@@ -26,7 +27,8 @@ class UserAdmin(AdminObject):
     list_filter = ['is_active', 'is_staff', 'last_login']
     model_icon = 'fa fa-vcard'
 
-    def get_exclude(self):
+    @property
+    def exclude(self):
         if self.request.user.is_superuser:
             return []
         return ['is_superuser', 'date_joined', 'user_permissions', 'password']
@@ -39,25 +41,46 @@ class UserAdmin(AdminObject):
     #     return ['email']
 
     def get_readonly_fields(self):
-        if self.request.user.has_perm('info.add_branch'):
-            return []
-        if self.request.user.has_perm('info.add_member'):  # 支书
-            return ['username', 'last_login']
+        if is_school_admin(self.request.user):
+            return ['username', 'is_staff', 'is_active', 'last_login']
+        if is_branch_manager(self.request.user):  # 支书
+            return ['groups', 'username', 'last_login']
         return ['groups', 'username', 'is_staff', 'is_active', 'last_login']
 
     def queryset(self):
         qs = self.model._default_manager.get_queryset()
-        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是管理员
-            try:
-                member = Member.objects.get(netid=self.request.user)
-                if self.request.user.has_perm('info.add_member'):  # 支书
-                    colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
-                    return qs.filter(username__in=[college.netid for college in colleges])
-            except Exception as e:
-                print(e)
-                pass
-            return qs.filter(username=self.request.user)  # 普通成员
+        if not is_school_admin(self.request.user):  # 判断是否是管理员
+            member = self.bind_member
+            if member is None:
+                return qs.none()
+            if is_branch_manager(self.request.user):  # 支书
+                colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
+                return qs.filter(username__in=[college.netid for college in colleges])
+            elif is_member(self.request.user):
+                return qs.filter(username=self.request.user)  # 普通成员
         return qs
+
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if obj is None or self.request.user == obj or is_school_admin(self.request.user):
+                return True
+            if is_branch_manager(self.request.user):
+                m = self.bind_member
+                m2 = get_bind_member(obj)
+                return m is not None and m2 is not None and m.branch == m2.branch
+        return False
+
+    def has_delete_permission(self, request=None, obj=None):
+        if super().has_delete_permission(request, obj):
+            if is_school_admin(self.request.user) or request is None and obj is None:
+                return True
+            elif obj is None:
+                obj = request
+            if is_branch_manager(self.request.user):
+                m = self.bind_member
+                m2 = get_bind_member(obj)
+                return m is not None and m2 is not None and m.branch == m2.branch
+        return False
 
 
 xadmin.site.unregister(User)

@@ -7,7 +7,7 @@
   {% block top-nav %}
   <div id="top-nav" class="navbar navbar-xs navbar-inverse navbar-fixed-top">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/xadmin">{% block branding %}{{ site_title }}{% endblock %}</a>
+      <a class="navbar-brand" href="#">{% block branding %}{{ site_title }}{% endblock %}</a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
@@ -86,17 +86,23 @@
 
       {% block messages %}
       {% if messages %}
+        {% set stop_loop = "" %}
         {% for message in messages %}
-        <div class="alert alert-dismissable{% if message.tags %} {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}{% endif %}">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          {{ message|safe }}
-        </div>
+          {% if stop_loop %}{% else %}  {# 错误之后的message不显示 #}
+          <div class="alert alert-dismissable{% if message.tags %} {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}{% endif %}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message|safe }}
+            {% if message.tags == 'error' %}
+              {% set stop_loop = "true" %}
+            {% endif %}
+          </div>
+          {% endif %}
         {% endfor %}
       {% endif %}
       {% endblock messages %}
 
       {% block content %}
-      {{ content }}
+        {{ content }}
       {% endblock %}
     </div>
   </div>

@@ -1,9 +1,10 @@
 from django.contrib import messages
 from info.resources import MemberResource
 from user.models import get_bind_member
+from xadmin.layout import Main, Fieldset
 from .models import School, Branch, Member, Dependency
 import xadmin
-from .rules import *
+from common.rules import *
 from common.base import AdminObject
 
 
@@ -18,20 +19,14 @@ class SchoolAdmin(AdminObject):
 
 @xadmin.sites.register(Branch)
 class BranchAdmin(AdminObject):
-    list_display = ['id', 'school', 'branch_name']
+    list_display = ['id', 'school', 'branch_name', 'date_create']
     list_display_links = ['branch_name']
     search_fields = ['branch_name']
     list_filter = ['school__name']
     model_icon = 'fa fa-user'
     list_per_page = 15
 
-    def get_readonly_fields(self):
-        if not self.request.user.has_perm('info.add_branch'):
-            member = get_bind_member(self.request.user)
-            if member is None or member.branch != self.org_obj:
-                return ['school', 'branch_name', 'date_create']
-            return ['school']
-        return []
+    readonly_fields = ['school']
 
     def queryset(self):
         qs = self.model._default_manager.get_queryset()
@@ -46,6 +41,14 @@ class BranchAdmin(AdminObject):
                 return qs.none()
             else:
                 return qs.filter(school=member.branch.school)
+
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if is_school_admin(self.request.user) or obj is None:
+                return True
+            m = self.bind_member
+            return m is not None and m.branch == obj
+        return False
 
 
 @xadmin.sites.register(Member)
@@ -67,25 +70,21 @@ class MemberAdmin(AdminObject):
     phases['阶段2：预备党员'] = fields_[19:28]
     phases['阶段3：正式党员'] = fields_[28:]
 
-    fieldsets = [
-        (k, {
-            # 'classes': ('suit-tab', 'suit-tab-' + k,),
-            'classes': ('grp-collapse grp-closed',),
-            'fields': v
-        }) for k, v in phases.items()
-    ]
+    wizard_form_list = phases.items()
 
-    # suit_form_tabs = [(k, k) for k in phases]
+    form_layout = (
+        Main(
+            *[Fieldset(k, *v) for k, v in wizard_form_list]
+        )
+    )
 
     def get_search_fields(self):
-        if self.request.user.has_perm('info.add_member') or \
-                self.request.user.has_perm('info.add_branch'):
+        if is_admin(self.request.user):
             return ['netid', 'name']
         return []
 
     def get_list_filter(self):
-        if self.request.user.has_perm('info.add_member') or \
-                self.request.user.has_perm('info.add_branch'):
+        if is_admin(self.request.user):
             return ['application_date',
                     'activist_date',
                     'key_develop_person_date',
@@ -94,7 +93,10 @@ class MemberAdmin(AdminObject):
         return []
 
     def get_readonly_fields(self):
-        if not self.request.user.has_perm('info.add_member'):  # 普通成员
+        if is_member(self.request.user):  # 普通成员
+            m = self.bind_member
+            if m is None or m.netid != self.org_obj.netid:
+                return self.fields_
             res = ['branch', 'netid'] + self.phases['阶段1：入党考察'] + \
                   self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
             res.remove('youth_league_date')
@@ -129,26 +131,46 @@ class MemberAdmin(AdminObject):
                     errors.append((dep.from_1, dep.to, delta.days, dep.days))
         return errors
 
-    def save_model(self, obj, form, change):
-        if obj is not None:
-            errors = self.check_dep(obj)
-            for e in errors:
-                messages.error(self.request,
-                               "%s到%s需要%d天，而%s只用了%d天。"
-                               % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
-                                  Member._meta.get_field(e[1]).verbose_name.strip('时间'),
-                                  e[3], obj, e[2]))
-                break
-            else:
-                if self.request.user.is_superuser:
-                    obj.save()
+    def save_models(self):
+        if hasattr(self, 'new_obj'):
+            obj = self.new_obj
+            if obj is not None:
+                errors = self.check_dep(obj)
+                for e in errors:
+                    messages.error(self.request,
+                                   "%s到%s需要%d天，而%s只用了%d天。"
+                                   % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
+                                      Member._meta.get_field(e[1]).verbose_name.strip('时间'),
+                                      e[3], obj, e[2]))
+                    break
                 else:
-                    member = get_bind_member(self.request.user)
-                    if member is None or obj.branch != member.branch:
-                        messages.error(self.request, '%s失败，您不是%s的书记。' %
-                                       ('添加' if obj is None else '修改', obj.branch))
-                    else:
+                    if self.request.user.is_superuser:
                         obj.save()
+                    else:
+                        member = get_bind_member(self.request.user)
+                        if member is None or obj.branch != member.branch:
+                            messages.error(self.request, '%s失败，您不是%s的书记。' %
+                                           ('添加' if self.org_obj is None else '修改', obj.branch))
+                            if self.org_obj is None:
+                                obj.delete()
+                        else:
+                            obj.save()
+
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if obj is None or self.request.user.is_superuser:
+                return True
+            else:
+                m = self.bind_member
+                if m is not None:
+                    if is_branch_admin(self.request.user):
+                        return m.branch == obj.branch
+                    elif is_member(self.request.user):
+                        return m.netid == obj.netid
+        return False
+
+    def has_view_permission(self, obj=None):
+        return self.has_change_permission(obj)
 
 
 @xadmin.sites.register(Dependency)

@@ -1,6 +1,4 @@
-from django.contrib import admin
 from django.contrib import messages
-from django.contrib.auth import get_permission_codename
 from django.core.exceptions import ObjectDoesNotExist
 from common.base import AdminObject
 from django.db.models import Q
@@ -8,6 +6,7 @@ from info.models import Member
 from user.models import get_bind_member
 from .models import Activity, TakePartIn
 from .resources import CreditResource
+from common.rules import *
 import xadmin
 
 
@@ -42,6 +41,20 @@ class ActivityAdmin(AdminObject):
                     return ['name', 'date', 'end_time', 'credit', 'visualable_others', 'branch']
             return []
 
+    def save_models(self):
+        obj = self.new_obj
+        if not is_school_admin(self.request.user):
+            member = get_bind_member(self.request.user)
+            branches = map(int, self.request.POST['branch'].split(' '))
+            if member is None or member.branch.id not in branches:
+                if self.org_obj is None:
+                    messages.warning(self.request, '您添加了其他党支部的活动。')
+                else:
+                    messages.error(self.request, '修改失败，您不是%s的书记。' %
+                                   '或'.join([str(b) for b in obj.branch.all()]))
+                    return
+        obj.save()
+
     def queryset(self):
         if not self.request.user.has_perm('info.add_branch'):  # 判断是否是党辅
             try:
@@ -52,18 +65,31 @@ class ActivityAdmin(AdminObject):
                 return self.model.objects.none()
         return self.model.objects.all().distinct()
 
-    def save_model(self, obj, form, change):
-        if not self.request.user.has_perm('info.add_branch'):
-            member = get_bind_member(self.request.user)
-            branches = map(int, self.request.POST['branch'].split(' '))
-            if member is None or member.branch.id not in branches:
-                if obj is None:
-                    messages.warning(self.request, '您添加了其他党支部的活动。')
-                else:
-                    messages.error(self.request, '修改失败，您不是%s的书记。' %
-                                   '或'.join([str(b) for b in obj.branch.all()]))
-                    return
-        obj.save()
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if is_school_admin(self.request.user) or obj is None:
+                return True
+            m = self.bind_member
+            return m is not None and m.branch in obj.branch.all()
+        return False
+
+    def has_delete_permission(self, request=None, obj=None):
+        if super().has_delete_permission(request, obj):
+            if is_school_admin(self.request.user) or request is None and obj is None:
+                return True
+            elif obj is None:
+                obj = request
+            m = self.bind_member
+            return m is not None and m.branch in obj.branch.all()
+        return False
+
+    def has_view_permission(self, obj=None):
+        if super().has_view_permission(obj):
+            if is_school_admin(self.request.user) or obj is None or obj.visualable_others:
+                return True
+            m = self.bind_member
+            return m is not None and m.branch in obj.branch.all()
+        return False
 
 
 @xadmin.sites.register(TakePartIn)
@@ -95,16 +121,23 @@ class CreditAdmin(AdminObject):
             return self.model.objects.filter(member=m)  # 普通成员
         return self.model.objects.all()
 
-    def save_model(self, obj, form, change):
+    def save_models(self):
         obj = self.new_obj
-        if not self.request.user.has_perm('info.add_branch'):
+        if not is_school_admin(self.request.user):
             member = get_bind_member(self.request.user)
             branches = obj.activity.branch.all()
-            if member is None or member.branch not in branches and obj.credit != obj.activity.credit:
-                obj.credit = obj.activity.credit
+            if member is None or member.branch not in branches:
+                if self.org_obj is None:
+                    messages.error(self.request, '失败，请联系%s的支书来添加。' % ('或'.join(map(str, branches))))
+                    return
+                else:
+                    obj.credit = obj.activity.credit
+        if self.org_obj is None:
+            obj.credit = obj.activity.credit
         obj.save()
 
-    def get_exclude(self):
+    @property
+    def exclude(self):
         obj = self.org_obj
         if obj is None:
             return ['credit']
@@ -122,3 +155,21 @@ class CreditAdmin(AdminObject):
                 if member is None or member.branch not in branches:
                     return ['member', 'activity', 'credit']
             return ['member', 'activity']
+
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if is_school_admin(self.request.user) or obj is None:
+                return True
+            m = self.bind_member
+            return m is not None and m.branch == obj.member.branch
+        return False
+
+    def has_delete_permission(self, request=None, obj=None):
+        if super().has_delete_permission(request, obj):
+            if is_school_admin(self.request.user) or request is None and obj is None:
+                return True
+            elif obj is None:
+                obj = request
+            m = self.bind_member
+            return m is not None and m.branch == obj.member.branch
+        return False
