@@ -42,8 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'DjangoUeditor',
     'xadmin',
-    'crispy_forms'
+    'crispy_forms',
+    'rules'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,6 +1,5 @@
-from django.contrib import admin
+from common.base import AdminObject
 from django.contrib.auth import get_permission_codename
-
 from .models import User
 from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
@@ -20,7 +19,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         pass
 
 
-class UserAdmin(object):
+class UserAdmin(AdminObject):
     list_display = ['username', 'email', 'is_active', 'is_staff', 'last_login']
     search_fields = ['username']
 
@@ -59,10 +58,6 @@ class UserAdmin(object):
                 pass
             return qs.filter(username=self.request.user)  # 普通成员
         return qs
-
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
 
 
 xadmin.site.unregister(User)

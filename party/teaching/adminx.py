@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
 from django.core.exceptions import ObjectDoesNotExist
-from import_export.admin import ImportExportModelAdmin
+from common.base import AdminObject
 from django.db.models import Q
 from info.models import Member
 from user.models import get_bind_member
@@ -12,7 +12,7 @@ import xadmin
 
 
 @xadmin.sites.register(Activity)
-class ActivityAdmin(object):
+class ActivityAdmin(AdminObject):
     # import_export_args = {'import_resource_class': ActivityResource}
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
@@ -65,13 +65,9 @@ class ActivityAdmin(object):
                     return
         obj.save()
 
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
-
 
 @xadmin.sites.register(TakePartIn)
-class CreditAdmin(object):
+class CreditAdmin(AdminObject):
     resource_class = CreditResource
     search_fields = ['activity__name', 'activity__date', 'member__name']
 
@@ -126,7 +122,3 @@ class CreditAdmin(object):
                 if member is None or member.branch not in branches:
                     return ['member', 'activity', 'credit']
             return ['member', 'activity']
-
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))

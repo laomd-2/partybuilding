@@ -16,7 +16,7 @@ class AbstractBaseUser(models.Model):
 
     username = models.CharField(
         '学号',
-        max_length=8,
+        max_length=50,
         primary_key=True,
         help_text='中山大学NetID，至多8位数字。',
         validators=[username_validator],

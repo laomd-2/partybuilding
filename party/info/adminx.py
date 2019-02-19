@@ -1,27 +1,23 @@
-from django.contrib import admin, messages
-from django.contrib.auth import get_permission_codename
-from import_export.admin import ImportExportModelAdmin
+from django.contrib import messages
 from info.resources import MemberResource
 from user.models import get_bind_member
 from .models import School, Branch, Member, Dependency
 import xadmin
+from .rules import *
+from common.base import AdminObject
 
 
 @xadmin.sites.register(School)
-class SchoolAdmin(object):
+class SchoolAdmin(AdminObject):
     list_display = ['id', 'name']
     list_display_links = ['name']
     search_fields = ['name']
     model_icon = 'fa fa-university'
     list_per_page = 15
 
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
-
 
 @xadmin.sites.register(Branch)
-class BranchAdmin(object):
+class BranchAdmin(AdminObject):
     list_display = ['id', 'school', 'branch_name']
     list_display_links = ['branch_name']
     search_fields = ['branch_name']
@@ -32,7 +28,7 @@ class BranchAdmin(object):
     def get_readonly_fields(self):
         if not self.request.user.has_perm('info.add_branch'):
             member = get_bind_member(self.request.user)
-            if member is None or member.branch != obj:
+            if member is None or member.branch != self.org_obj:
                 return ['school', 'branch_name', 'date_create']
             return ['school']
         return []
@@ -51,14 +47,11 @@ class BranchAdmin(object):
             else:
                 return qs.filter(school=member.branch.school)
 
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
-
 
 @xadmin.sites.register(Member)
-class MemberAdmin(object):
-    resource_class = MemberResource
+class MemberAdmin(AdminObject):
+    guarded_model = True
+    import_export_args = {'import_resource_class': MemberResource}
 
     fields_ = [field.name for field in Member._meta.fields]
     list_display = fields_[1:5] + ['phone_number', 'major_in']
@@ -111,15 +104,17 @@ class MemberAdmin(object):
 
     def queryset(self):
         qs = self.model._default_manager.get_queryset()
-        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是党辅
+        if not is_school_admin(self.request.user):  # 判断是否是党辅
             member = get_bind_member(self.request.user)
             if member is None:
                 return qs.none()
             else:
-                if self.request.user.has_perm('info.add_member'):  # 支书
+                if is_branch_manager(self.request.user):  # 支书
                     return qs.filter(branch=member.branch)
-                else:
+                elif is_member(self.request.user):
                     return qs.filter(netid=member.netid, branch=member.branch)  # 普通成员
+                else:
+                    return qs.none()
         return qs
 
     @staticmethod
@@ -155,13 +150,9 @@ class MemberAdmin(object):
                     else:
                         obj.save()
 
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
-
 
 @xadmin.sites.register(Dependency)
-class DependencyAdmin(object):
+class DependencyAdmin(AdminObject):
     list_display = ['from_1', 'to', 'days']
     list_editable = ['days']
 
@@ -170,7 +161,3 @@ class DependencyAdmin(object):
             return ['from_1']
         else:
             return [None, ]
-
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
