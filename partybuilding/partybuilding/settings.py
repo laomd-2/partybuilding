@@ -35,20 +35,20 @@ INSTALLED_APPS = [
     'teaching.apps.TeachingConfig',
     'phonenumber_field',
     'django.contrib.admin',
+    'xadmin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'sslserver',
-    'xadmin',
     'crispy_forms',
     # 'reversion',
-    # 'rules',
+    'rules',
 ]
 
 AUTHENTICATION_BACKENDS = (
-    # 'rules.permissions.ObjectPermissionBackend',
+    'rules.permissions.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -138,11 +138,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 AUTH_USER_MODEL = 'user.User'
 
 # 邮件配置
-EMAIL_HOST = 'smtp.exmail.qq.com'  # SMTP地址
-EMAIL_PORT = 465
-DEFAULT_FROM_EMAIL = 'laomd@mail2.sysu.edu.cn'  # 用户收到邮件显示的邮箱
-EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 我自己的邮箱
-EMAIL_HOST_PASSWORD = 'Laomadong2016'  # 我的邮箱密码
+EMAIL_HOST = 'smtp.qq.com'  # SMTP地址
+EMAIL_PORT = 25
+DEFAULT_FROM_EMAIL = '965524991@qq.com'  # 用户收到邮件显示的邮箱
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL  # 我自己的邮箱
+EMAIL_HOST_PASSWORD = 'mamzwfdrxcgbbeah'  # 第三方登陆的授权码
 # EMAIL_USE_TLS = True  # 与SMTP 服务器通信时，是否启动TLS链接(安全链接)。默认是false
 EMAIL_USE_SSL = True
-SERVER_EMAIL = 'laomd@mail2.sysu.edu.cn'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
