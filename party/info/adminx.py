@@ -26,7 +26,10 @@ class BranchAdmin(AdminObject):
     model_icon = 'fa fa-user'
     list_per_page = 15
 
-    readonly_fields = ['school']
+    def get_readonly_fields(self):
+        if self.org_obj is None:
+            return []
+        return ['school']
 
     def queryset(self):
         qs = self.model._default_manager.get_queryset()
@@ -170,7 +173,17 @@ class MemberAdmin(AdminObject):
         return False
 
     def has_view_permission(self, obj=None):
-        return self.has_change_permission(obj)
+        if super().has_view_permission(obj):
+            if obj is None or is_school_admin(self.request.user):
+                return True
+            else:
+                m = self.bind_member
+                if m is not None:
+                    if is_branch_manager(self.request.user):
+                        return m.branch == obj.branch
+                    elif is_member(self.request.user):
+                        return m.netid == obj.netid
+        return False
 
 
 @xadmin.sites.register(Dependency)

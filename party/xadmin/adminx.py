@@ -13,7 +13,7 @@ class objectsAdmin(object):
     hidden_menu = True
 
 
-class UserSettingsAdmin(object):
+class UserSettingsAdmin:
     def has_delete_permission(self, request=None, obj=None):
         codename = get_permission_codename('delete', self.opts)
         return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
@@ -28,6 +28,11 @@ class LogAdmin(object):
             return "<a href='%s'>%s</a>" % (admin_url, _('Admin Object'))
         else:
             return ''
+
+    def has_delete_permission(self, request=None, obj=None):
+        codename = get_permission_codename('delete', self.opts)
+        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
+
     link.short_description = ""
     link.allow_tags = True
     link.is_column = False

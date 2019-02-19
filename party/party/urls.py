@@ -18,7 +18,10 @@ from django.conf.urls import url
 from django.urls import path, include
 from django.views import static
 from django.conf import settings
+from django.views.generic import RedirectView
 import xadmin
+from user.views import RegisterView
+
 xadmin.autodiscover()
 
 
@@ -26,4 +29,6 @@ urlpatterns = [
     path('', xadmin.site.urls),
     # path('ueditor/', include('DjangoUeditor.urls')),
     url(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
+    path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
+    path('register/', RegisterView.as_view(), name='register')
 ]

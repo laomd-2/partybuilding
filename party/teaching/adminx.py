@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import get_permission_codename
 from django.core.exceptions import ObjectDoesNotExist
 from common.base import AdminObject
 from django.db.models import Q
@@ -80,7 +81,7 @@ class ActivityAdmin(AdminObject):
             elif obj is None:
                 obj = request
             m = self.bind_member
-            return m is not None and m.branch in obj.branch.all()
+            return is_branch_manager(self.request.user) and m is not None and m.branch in obj.branch.all()
         return False
 
     def has_view_permission(self, obj=None):
@@ -165,7 +166,9 @@ class CreditAdmin(AdminObject):
         return False
 
     def has_delete_permission(self, request=None, obj=None):
-        if super().has_delete_permission(request, obj):
+        codename = get_permission_codename('delete', self.opts)
+        if ('delete' not in self.remove_permissions) and \
+           self.user.has_perm('%s.%s' % (self.app_label, codename)):
             if is_school_admin(self.request.user) or request is None and obj is None:
                 return True
             elif obj is None:

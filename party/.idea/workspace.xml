@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f2cc620-99be-4f30-bff5-3a5a95e46f90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/rules.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/base.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/info/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info/rules.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teaching/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templatetags/xadmin_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templatetags/xadmin_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,7 +34,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="231">
@@ -50,10 +47,37 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/party/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+              <folding>
+                <element signature="e#629#661#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/register.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/views.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/forms.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="175" lean-forward="true" selection-start-line="166" selection-start-column="4" selection-end-line="175" />
+            <state relative-caret-position="231">
+              <caret line="83" column="54" selection-start-line="83" selection-start-column="54" selection-end-line="83" selection-end-column="54" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -62,22 +86,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/rules.py">
+        <entry file="file://$PROJECT_DIR$/info/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="194">
+              <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/info/adminx.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xadmin/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="46" column="53" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="53" />
+            <state relative-caret-position="231">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -192,9 +216,7 @@
         <option value="$PROJECT_DIR$/import_export/templates/admin/import_export/import.html" />
         <option value="$PROJECT_DIR$/import_export/templates/admin/import_export/export.html" />
         <option value="$PROJECT_DIR$/xadmin/plugins/ueditor.py" />
-        <option value="$PROJECT_DIR$/party/urls.py" />
         <option value="$PROJECT_DIR$/xadmin/views/delete.py" />
-        <option value="$PROJECT_DIR$/xadmin/adminx.py" />
         <option value="$PROJECT_DIR$/xadmin/plugins/__init__.py" />
         <option value="$PROJECT_DIR$/user/base_user.py" />
         <option value="D:/Program Files/Conda/Lib/site-packages/xplugin_guardian/admin.py" />
@@ -209,12 +231,14 @@
         <option value="$PROJECT_DIR$/xadmin/views/website.py" />
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" />
         <option value="$PROJECT_DIR$/static/css/about.css" />
-        <option value="$PROJECT_DIR$/common/base.py" />
         <option value="$PROJECT_DIR$/party/settings.py" />
         <option value="$PROJECT_DIR$/common/rules.py" />
-        <option value="$PROJECT_DIR$/teaching/adminx.py" />
-        <option value="$PROJECT_DIR$/info/adminx.py" />
         <option value="$PROJECT_DIR$/user/adminx.py" />
+        <option value="$PROJECT_DIR$/party/urls.py" />
+        <option value="$PROJECT_DIR$/common/base.py" />
+        <option value="$PROJECT_DIR$/info/adminx.py" />
+        <option value="$PROJECT_DIR$/teaching/adminx.py" />
+        <option value="$PROJECT_DIR$/xadmin/adminx.py" />
       </list>
     </option>
   </component>
@@ -240,6 +264,16 @@
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="info" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="xadmin" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -263,11 +297,11 @@
       <recent name="E:\党建\系统\party\static\admin\js" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\党建\系统\party\xadmin\templates\xadmin\views" />
+      <recent name="E:\党建\系统\party\user" />
+      <recent name="E:\党建\系统\party" />
       <recent name="E:\党建\系统\party\xadmin\templates\xadmin" />
       <recent name="E:\党建\系统\party\xadmin\templatetags" />
-      <recent name="E:\党建\系统\party\xadmin\static" />
-      <recent name="E:\党建\系统\party\xadmin\templates\xadmin\views" />
-      <recent name="E:\党建\系统\party\xadmin\static\xadmin\vendor" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -362,11 +396,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550581471732</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="极其精细的权限控制">
+      <created>1550594227854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1550594227854</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82787000" />
+    <option name="totallyTimeSpent" value="84646000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -379,13 +420,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25416037" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25416037" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.3295082" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -436,13 +478,10 @@
     <MESSAGE value="使用django2.1和suit重构系统" />
     <MESSAGE value="django2.1使用xadmin" />
     <MESSAGE value="about.css更改" />
-    <option name="LAST_COMMIT_MESSAGE" value="about.css更改" />
+    <MESSAGE value="极其精细的权限控制" />
+    <option name="LAST_COMMIT_MESSAGE" value="极其精细的权限控制" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/suit/admin.py" />
-    <entry file="file://$PROJECT_DIR$/info/admin.py" />
-    <entry file="file://$PROJECT_DIR$/party/apps.py" />
-    <entry file="file://$PROJECT_DIR$/templates/admin/auth/user/add_form.html" />
     <entry file="file://D:/Program Files/Conda/Lib/site-packages/django/template/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
@@ -478,16 +517,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teaching/admin.py" />
-    <entry file="file://$PROJECT_DIR$/party/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="25" column="10" selection-start-line="25" selection-start-column="10" selection-end-line="25" selection-end-column="10" />
-          <folding>
-            <element signature="e#629#661#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Program Files/Conda/Lib/site-packages/django/contrib/admin/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
@@ -525,16 +554,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4966">
           <caret line="338" column="8" selection-start-line="338" selection-start-column="8" selection-end-line="338" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="41" column="35" lean-forward="true" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -687,26 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/rules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1296" />
@@ -722,19 +721,21 @@
     <entry file="file://$PROJECT_DIR$/xadmin/templatetags/xadmin_tags.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/info/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="46" column="53" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="53" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
+    <entry file="file://$PROJECT_DIR$/user/views.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/login.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="175" lean-forward="true" selection-start-line="166" selection-start-column="4" selection-end-line="175" />
+        <state relative-caret-position="544">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#629#661#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -745,6 +746,56 @@
           <caret line="81" column="81" selection-start-line="81" selection-start-column="81" selection-end-line="81" selection-end-column="81" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/rules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/forms.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="83" column="54" selection-start-line="83" selection-start-column="54" selection-end-line="83" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
