@@ -1,4 +1,7 @@
 from __future__ import absolute_import
+
+from collections import OrderedDict
+
 from django.utils.translation import ugettext as _
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
@@ -6,6 +9,7 @@ from django.contrib.auth.views import LoginView as login
 from django.contrib.auth.views import LogoutView as logout
 from django.http import HttpResponse
 
+from info.models import Member
 from .base import BaseAdminView, filter_hook
 from .dashboard import Dashboard
 from xadmin.forms import AdminAuthenticationForm
@@ -19,6 +23,24 @@ class IndexView(Dashboard):
 
     def get_page_id(self):
         return 'home'
+
+    def get_context(self):
+        context = super(IndexView, self).get_context()
+        try:
+            me = Member.objects.get(netid=self.request.user.username)
+            dates = me.important_dates()
+            important_dates = dict()
+            for event, date in dates:
+                if date:
+                    important_dates.setdefault(date.year, [])
+                    important_dates[date.year].append((date, event.strip('时间')))
+            events = OrderedDict()
+            for k in sorted(important_dates.keys(), reverse=True):
+                events[k] = sorted(important_dates[k], key=lambda x: x[0], reverse=True)
+            context.update({'events': events})
+        except:
+            pass
+        return context
 
 
 class UserSettingView(BaseAdminView):
