@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.contrib import messages
 from info.resources import MemberResource
 from user.models import get_bind_member
@@ -56,7 +58,6 @@ class BranchAdmin(AdminObject):
 
 @xadmin.sites.register(Member)
 class MemberAdmin(AdminObject):
-    guarded_model = True
     import_export_args = {'import_resource_class': MemberResource}
 
     fields_ = [field.name for field in Member._meta.fields]
@@ -81,12 +82,66 @@ class MemberAdmin(AdminObject):
         )
     )
 
-    def get_search_fields(self):
+    @property
+    def data_charts(self):
+        m = get_bind_member(self.request.user)
+        if m is None:
+            return None
+        my_charts = {
+            'fenbu': {
+                'title': '党支部成员分布',
+            }
+        }
+        dates = OrderedDict([
+            ('second_branch_conference', '正式党员'),
+            ('first_branch_conference', '预备党员'),
+            ('key_develop_person_date', '重点发展对象'),
+            ('activist_date', '入党积极分子'),
+            ('application_date', '入党申请人')
+        ])
+
+        fenbu = dict()
+        for obj in self.model.objects.all():
+            grade = obj.netid[:2]
+            fenbu.setdefault(grade, OrderedDict([(k, 0) for k in dates.values()]))
+            for d in dates:
+                if getattr(obj, d):
+                    fenbu[grade][dates[d]] += 1
+                    break
+        grades = list(sorted(fenbu.keys()))
+        option = {
+            'angleAxis': {
+            },
+            'radiusAxis': {
+                'type': 'category',
+                'data': [g + '级' for g in grades],
+                'z': 10
+            },
+            'polar': {
+            },
+            'series': [{
+                'type': 'bar',
+                'data': [fenbu[g][name] for g in grades],
+                'coordinateSystem': 'polar',
+                'name': name,
+                'stack': 'a'
+            } for name in dates.values()],
+            'legend': {
+                'show': True,
+                'data': list(dates.values())
+            }
+        }
+        my_charts['fenbu']['option'] = option
+        return my_charts
+
+    @property
+    def search_fields(self):
         if is_admin(self.request.user):
             return ['netid', 'name']
         return []
 
-    def get_list_filter(self):
+    @property
+    def list_filter(self):
         if is_admin(self.request.user):
             return ['application_date',
                     'activist_date',
@@ -131,33 +186,32 @@ class MemberAdmin(AdminObject):
             if from_ and to:
                 delta = to - from_
                 if delta.days < dep.days:
-                    errors.append((dep.from_1, dep.to, delta.days, dep.days))
+                    errors.append((dep.from_1, dep.to, delta.days, dep.days_mapping[dep.days]))
         return errors
 
     def save_models(self):
         if hasattr(self, 'new_obj'):
             obj = self.new_obj
-            if obj is not None:
-                errors = self.check_dep(obj)
-                for e in errors:
-                    messages.error(self.request,
-                                   "%s到%s需要%d天，而%s只用了%d天。"
-                                   % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
-                                      Member._meta.get_field(e[1]).verbose_name.strip('时间'),
-                                      e[3], obj, e[2]))
-                    break
+            errors = self.check_dep(obj)
+            msg = messages.error if self.org_obj is None else messages.warning
+            for e in errors:
+                msg(self.request, "%s到%s需要%s，而%s只用了%d天。"
+                    % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
+                       Member._meta.get_field(e[1]).verbose_name.strip('时间'),
+                       e[3], obj, e[2]))
+                if self.org_obj is None:
+                    return
+            if self.request.user.is_superuser:
+                obj.save()
+            else:
+                member = self.bind_member
+                if member is None or obj.branch != member.branch:
+                    messages.error(self.request, '%s失败，您不是%s的书记。' %
+                                   ('添加' if self.org_obj is None else '修改', obj.branch))
+                    if self.org_obj is None:
+                        obj.delete()
                 else:
-                    if self.request.user.is_superuser:
-                        obj.save()
-                    else:
-                        member = get_bind_member(self.request.user)
-                        if member is None or obj.branch != member.branch:
-                            messages.error(self.request, '%s失败，您不是%s的书记。' %
-                                           ('添加' if self.org_obj is None else '修改', obj.branch))
-                            if self.org_obj is None:
-                                obj.delete()
-                        else:
-                            obj.save()
+                    obj.save()
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):

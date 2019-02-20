@@ -32,13 +32,14 @@ class UserAdmin(AdminObject):
         if self.request.user.is_superuser:
             return []
         return ['is_superuser', 'date_joined', 'user_permissions', 'password']
-    #
-    # def get_list_editable(self, **kwargs):
-    #     if self.request.user.has_perm('info.add_branch'):
-    #         return [field.name for field in User._meta.get_fields()]
-    #     if self.request.user.has_perm('info.add_member'):  # 支书
-    #         return UserAdmin.list_display[1:]
-    #     return ['email']
+
+    @property
+    def list_editable(self):
+        if is_school_manager(self.request.user):
+            return []
+        if is_branch_admin(self.request.user):  # 支书
+            return ['email', 'is_staff', 'is_active']
+        return ['email']
 
     def get_readonly_fields(self):
         if is_school_admin(self.request.user):
@@ -52,7 +53,7 @@ class UserAdmin(AdminObject):
         if not is_school_admin(self.request.user):  # 判断是否是管理员
             member = self.bind_member
             if member is None:
-                return qs.none()
+                return qs.filter(username=self.request.user)
             if is_branch_manager(self.request.user):  # 支书
                 colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
                 return qs.filter(username__in=[college.netid for college in colleges])

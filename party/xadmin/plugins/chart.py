@@ -63,7 +63,7 @@ class ChartWidget(ModelBaseWidget):
 
     # Media
     def media(self):
-        return self.vendor('flot.js', 'xadmin.plugin.charts.js')
+        return self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
 
 
 class JSONEncoder(DjangoJSONEncoder):
@@ -91,7 +91,9 @@ class ChartsPlugin(BaseAdminPlugin):
 
     # Media
     def get_media(self, media):
-        return media + self.vendor('flot.js', 'xadmin.plugin.charts.js')
+        return media + \
+               self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
+               # self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
 
     # Block Views
     def block_results_top(self, context, nodes):
@@ -115,46 +117,11 @@ class ChartsView(ListAdminView):
     def get(self, request, name):
         if name not in self.data_charts:
             return HttpResponseNotFound()
-
         self.chart = self.data_charts[name]
-
-        self.x_field = self.chart['x-field']
-        y_fields = self.chart['y-field']
-        self.y_fields = (
-            y_fields,) if type(y_fields) not in (list, tuple) else y_fields
-
-        datas = [{"data":[], "label": force_text(label_for_field(
-            i, self.model, model_admin=self))} for i in self.y_fields]
-
-        self.make_result_list()
-
-        for obj in self.result_list:
-            xf, attrs, value = lookup_field(self.x_field, obj, self)
-            for i, yfname in enumerate(self.y_fields):
-                yf, yattrs, yv = lookup_field(yfname, obj, self)
-                datas[i]["data"].append((value, yv))
-
-        option = {'series': {'lines': {'show': True}, 'points': {'show': False}},
-                  'grid': {'hoverable': True, 'clickable': True}}
-        try:
-            xfield = self.opts.get_field(self.x_field)
-            if type(xfield) in (models.DateTimeField, models.DateField, models.TimeField):
-                option['xaxis'] = {'mode': "time", 'tickLength': 5}
-                if type(xfield) is models.DateField:
-                    option['xaxis']['timeformat'] = "%y/%m/%d"
-                elif type(xfield) is models.TimeField:
-                    option['xaxis']['timeformat'] = "%H:%M:%S"
-                else:
-                    option['xaxis']['timeformat'] = "%y/%m/%d %H:%M:%S"
-        except Exception:
-            pass
-
-        option.update(self.chart.get('option', {}))
-
-        content = {'data': datas, 'option': option}
+        content = {'option': self.chart['option']}
         result = json.dumps(content, cls=JSONEncoder, ensure_ascii=False)
-
         return HttpResponse(result)
+
 
 site.register_plugin(ChartsPlugin, ListAdminView)
 site.register_modelview(r'^chart/(.+)/$', ChartsView, name='%s_%s_chart')

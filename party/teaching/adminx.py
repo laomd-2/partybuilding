@@ -1,3 +1,6 @@
+import datetime
+from collections import OrderedDict
+
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
 from django.core.exceptions import ObjectDoesNotExist
@@ -95,32 +98,28 @@ class ActivityAdmin(AdminObject):
 
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(AdminObject):
-    resource_class = CreditResource
+    import_export_args = {'import_resource_class': CreditResource}
     search_fields = ['activity__name', 'activity__date', 'member__name']
 
     list_display = ['member', 'activity', 'credit']
     list_filter = ['activity__date', 'credit']
     list_per_page = 15
+    # style_fields = {'activity__name': 'fk-ajax'}
 
     model_icon = 'fa fa-bar-chart'
     aggregate_fields = {"credit": "sum"}
 
-    # data_charts = {
-    #     "user_count": {'title': "学时统计", "x-field": "date", "y-field": "credit",
-    #                    "order": ('date',)
-    #                    }
-    # }
-
     def queryset(self):
-        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是党辅
+        qs = self.model._default_manager.get_queryset()
+        if not is_school_admin(self.request.user):  # 判断是否是党辅
             m = get_bind_member(self.request.user)
             if m is None:
-                return self.model.objects.none()
-            if self.request.user.has_perm('info.add_member'):  # 支书
+                return qs.none()
+            if is_branch_manager(self.request.user):  # 支书
                 colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
-                return self.model.objects.filter(member__in=colleges)
-            return self.model.objects.filter(member=m)  # 普通成员
-        return self.model.objects.all()
+                return qs.filter(member__in=colleges)
+            return qs.filter(member=m)  # 普通成员
+        return qs
 
     def save_models(self):
         obj = self.new_obj
@@ -136,6 +135,65 @@ class CreditAdmin(AdminObject):
         if self.org_obj is None:
             obj.credit = obj.activity.credit
         obj.save()
+
+    @property
+    def data_charts(self):
+        m = get_bind_member(self.request.user)
+        if m is None:
+            return None
+        all_take = self.model.objects.filter(member=m)  # 普通成员
+        if not all_take:
+            return None
+        now = datetime.datetime.now()
+        my_charts = {
+            'takepartin': {
+                'title': '%d各月份学时概览' % now.year,
+            }
+        }
+        months = OrderedDict((i + 1, 0) for i in range(12))
+        for t in all_take:
+            d = t.activity.date
+            if d.year == now.year:
+                months[d.month] += t.credit
+        option = {
+            'color': ['#3398DB'],
+            'tooltip': {
+                'trigger': 'axis',
+                'axisPointer': { 
+                    'type': 'shadow'
+                }
+            },
+            'grid': {
+                'left': '3%',
+                'right': '4%',
+                'bottom': '3%',
+                'containLabel': True
+            },
+            'xAxis': [
+                {
+                    'type': 'category',
+                    'data': ['%d月' % m for m in months],
+                    'axisTick': {
+                        'alignWithLabel': True
+                    }
+                }
+            ],
+            'yAxis': [
+                {
+                    'type': 'value'
+                }
+            ],
+            'series': [
+                {
+                    'name': '%d各月份学时概览' % now.year,
+                    'type': 'bar',
+                    'barWidth': '60%',
+                    'data': list(months.values())
+                }
+            ]
+        }
+        my_charts['takepartin']['option'] = option
+        return my_charts
 
     @property
     def exclude(self):
