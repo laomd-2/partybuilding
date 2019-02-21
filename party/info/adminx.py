@@ -110,26 +110,47 @@ class MemberAdmin(AdminObject):
                     break
         grades = list(sorted(fenbu.keys()))
         option = {
-            'angleAxis': {
+            'tooltip': {
+                'trigger': 'axis',
+                'axisPointer': {
+                'type': 'shadow'
+                }
             },
-            'radiusAxis': {
-                'type': 'category',
-                'data': [g + '级' for g in grades],
-                'z': 10
+            'toolbox': {
+                'feature': {
+                    'saveAsImage': {'show': True}
+                }
             },
-            'polar': {
-            },
-            'series': [{
-                'type': 'bar',
-                'data': [fenbu[g][name] for g in grades],
-                'coordinateSystem': 'polar',
-                'name': name,
-                'stack': 'a'
-            } for name in dates.values()],
             'legend': {
-                'show': True,
                 'data': list(dates.values())
-            }
+            },
+            'grid': {
+                'left': '3%',
+                'right': '4%',
+                'bottom': '3%',
+                'containLabel': True
+            },
+            'xAxis': {
+                'type': 'value'
+            },
+            'yAxis': {
+                'type': 'category',
+                'data': [g + '级' for g in grades]
+            },
+            'series': [
+                {
+                    'name': name,
+                    'type': 'bar',
+                    'stack': '总量',
+                    'label': {
+                        'normal': {
+                            'show': False,
+                            'position': 'insideRight'
+                        }
+                    },
+                    'data': [fenbu[g][name] for g in grades]
+                } for name in dates.values()
+            ]
         }
         my_charts['fenbu']['option'] = option
         return my_charts

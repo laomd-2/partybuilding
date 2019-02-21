@@ -20,7 +20,7 @@ class ActivityAdmin(AdminObject):
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 
-    list_display = ['name', 'date', 'end_time', 'credit', 'get_branches']
+    list_display = ['name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
 
     # def get_list_display(self):
     #     res = self.base_list_display
@@ -28,7 +28,7 @@ class ActivityAdmin(AdminObject):
     #         return ['id'] + res
     #     return res
 
-    list_filter = ['date', 'end_time', 'credit']
+    list_filter = ['date', 'end_time', 'atv_type', 'credit']
     search_fields = ['name']
     list_per_page = 15
     model_icon = 'fa fa-users'
@@ -42,7 +42,7 @@ class ActivityAdmin(AdminObject):
                 member = get_bind_member(self.request.user)
                 branches = obj.branch.all()
                 if member is None or member.branch not in branches:
-                    return ['name', 'date', 'end_time', 'credit', 'visualable_others', 'branch']
+                    return [f.name for f in self.model._meta.fields]
             return []
 
     def save_models(self):
@@ -102,7 +102,7 @@ class CreditAdmin(AdminObject):
     search_fields = ['activity__name', 'activity__date', 'member__name']
 
     list_display = ['member', 'activity', 'credit']
-    list_filter = ['activity__date', 'credit']
+    list_filter = ['activity__date', 'activity__atv_type', 'credit']
     list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
 
@@ -147,49 +147,55 @@ class CreditAdmin(AdminObject):
         now = datetime.datetime.now()
         my_charts = {
             'takepartin': {
-                'title': '%d各月份学时概览' % now.year,
+                'title': '%d年各月份学时概览' % now.year,
             }
         }
-        months = OrderedDict((i + 1, 0) for i in range(12))
+        months = OrderedDict((i + 1, {c: 0 for c in Activity.atv_type_choices}) for i in range(now.month))
         for t in all_take:
             d = t.activity.date
-            if d.year == now.year:
-                months[d.month] += t.credit
+            if d.year == now.year and d.month in months:
+                months[d.month][t.activity.atv_type] += t.credit
         option = {
-            'color': ['#3398DB'],
             'tooltip': {
                 'trigger': 'axis',
-                'axisPointer': { 
-                    'type': 'shadow'
+                'axisPointer': {
+                    'type': 'cross',
+                    'crossStyle': {
+                        'color': '#999'
+                    }
                 }
             },
-            'grid': {
-                'left': '3%',
-                'right': '4%',
-                'bottom': '3%',
-                'containLabel': True
+            'toolbox': {
+                'feature': {
+                    'magicType': {'show': True, 'type': ['line', 'bar']},
+                    'restore': {'show': True},
+                    'saveAsImage': {'show': True}
+                }
+            },
+            'legend': {
+                'data': Activity.atv_type_choices
             },
             'xAxis': [
                 {
                     'type': 'category',
-                    'data': ['%d月' % m for m in months],
-                    'axisTick': {
-                        'alignWithLabel': True
+                    'data': ['%d月' % m for m in months.keys()],
+                    'axisPointer': {
+                        'type': 'shadow'
                     }
                 }
             ],
             'yAxis': [
                 {
-                    'type': 'value'
-                }
+                    'type': 'value',
+                    'name': '学时数'
+                },
             ],
             'series': [
                 {
-                    'name': '%d各月份学时概览' % now.year,
+                    'name': name,
                     'type': 'bar',
-                    'barWidth': '60%',
-                    'data': list(months.values())
-                }
+                    'data': [v[name] for v in months.values()]
+                } for name in Activity.atv_type_choices
             ]
         }
         my_charts['takepartin']['option'] = option
@@ -226,7 +232,7 @@ class CreditAdmin(AdminObject):
     def has_delete_permission(self, request=None, obj=None):
         codename = get_permission_codename('delete', self.opts)
         if ('delete' not in self.remove_permissions) and \
-           self.user.has_perm('%s.%s' % (self.app_label, codename)):
+                self.user.has_perm('%s.%s' % (self.app_label, codename)):
             if is_school_admin(self.request.user) or request is None and obj is None:
                 return True
             elif obj is None:

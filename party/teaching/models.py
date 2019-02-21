@@ -7,6 +7,10 @@ class Activity(models.Model):
     name = models.CharField('主题', max_length=100)
     date = models.DateTimeField('开始时间', default=timezone.now)
     end_time = models.DateTimeField('结束时间', default=timezone.now)
+    atv_type_choices = ['集中学习', '集中教育', '个人自学', '其他']
+    atv_type = models.CharField('活动类型', choices=[
+        (t, t) for t in atv_type_choices
+    ], default='集中学习', max_length=10)
     credit = models.FloatField('学时数', choices=((i / 2, i / 2) for i in range(41)),
                                default=0)
     visualable_others = models.BooleanField('其他支部可见', default=False)
