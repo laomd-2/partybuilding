@@ -36,7 +36,16 @@
 
     <p>
       {% trans "This importer will import the following fields: " %}
-      <code>{{ fields|join:", " }}</code>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            {% for field in headers %}
+              <th>{{ field }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+      </table>
+{#      <code>{{ fields|join:", " }}</code>#}
     </p>
 
     <fieldset class="module aligned">
@@ -91,7 +100,7 @@
     <thead>
       <tr>
         <th></th>
-        {% for field in result.diff_headers %}
+        {% for field in headers %}
           <th>{{ field }}</th>
         {% endfor %}
       </tr>
@@ -110,9 +119,13 @@
         {% endif %}
       </td>
       {% for field in row.diff %}
-      <td>
-        {{ field }}
-      </td>
+        {% if forloop.counter0 < len %}
+          {% if not forloop.first or not ignore_id %}
+            <td>
+              {{ field }}
+            </td>
+          {% endif %}
+        {% endif %}
       {% endfor %}
     </tr>
     {% endfor %}
