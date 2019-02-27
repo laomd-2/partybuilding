@@ -14,8 +14,9 @@ class Activity(models.Model):
     credit = models.FloatField('学时数', default=0, choices=sorted([(0.1, 0.1), (0.2, 0.2)] + [
         (i / 2, i / 2) for i in range(41)
     ]))
-    visualable_others = models.BooleanField('其他支部可见', default=False)
+    cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
     branch = models.ManyToManyField(Branch, verbose_name='主/承办党支部')
+    visualable_others = models.BooleanField('其他支部可见', default=False)
 
     class Meta:
         unique_together = ('name', 'date')
@@ -36,9 +37,7 @@ class TakePartIn(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='会议/活动')
     # date = models.DateTimeField('开始时间', null=True)
     # end_time = models.DateTimeField('结束时间', null=True)
-    credit = models.FloatField('学时数', null=True, default=0, choices=sorted([(0.1, 0.1), (0.2, 0.2)] + [
-        (i / 2, i / 2) for i in range(41)
-    ]))
+    credit = models.FloatField('学时数', null=True, default=0)
 
     class Meta:
         unique_together = ('activity', 'member')
@@ -63,3 +62,8 @@ class TakePartIn(models.Model):
     @staticmethod
     def foreign_keys():
         return ['member', 'activity']
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.activity.cascade and self.credit != self.activity.credit:
+            return
+        super().save(force_insert, force_update, using, update_fields)

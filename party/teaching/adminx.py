@@ -51,6 +51,10 @@ class ActivityAdmin(AdminObject):
                                    '或'.join([str(b) for b in obj.branch.all()]))
                     return
         obj.save()
+        if obj.cascade:
+            for o in TakePartIn.objects.filter(activity=obj):
+                o.credit = obj.credit
+                o.save()
 
     def queryset(self):
         return get_visuable_activities(self.request.user)
@@ -86,7 +90,6 @@ class ActivityAdmin(AdminObject):
 class CreditAdmin(AdminObject):
     import_export_args = {'import_resource_class': CreditResource}
     search_fields = ['activity__name', 'activity__date', 'member__name']
-    list_editable = ['credit']
     list_display = ['member', 'activity', 'credit']
     list_filter = ['activity', 'activity__date', 'activity__atv_type', 'credit']
     list_per_page = 15
@@ -94,6 +97,13 @@ class CreditAdmin(AdminObject):
 
     model_icon = 'fa fa-bar-chart'
     aggregate_fields = {"credit": "sum"}
+
+    @property
+    def list_editable(self):
+        if is_admin(self.request.user):
+            return ['activity', 'credit']
+        else:
+            return []
 
     def queryset(self):
         qs = self.model._default_manager.get_queryset()
@@ -113,13 +123,15 @@ class CreditAdmin(AdminObject):
             member = self.bind_member
             branches = obj.activity.branch.all()
             if member is None or member.branch not in branches:
-                if self.org_obj is None:
-                    messages.error(self.request, '失败，请联系%s的支书来添加。' % ('或'.join(map(str, branches))))
-                    return
-                else:
-                    obj.credit = obj.activity.credit
+                messages.error(self.request, '失败，请联系%s的支书来%s添加。' % ('或'.join(map(str, branches)),
+                                                                    '添加' if self.org_obj is None else '修改'))
+                return
         if self.org_obj is None:
             obj.credit = obj.activity.credit
+        else:
+            if obj.activity.cascade and obj.credit != obj.activity.credit:
+                messages.error(self.request, '修改失败，该会议/活动的学时数是级联更新的。')
+                return
         obj.save()
 
     @property
@@ -230,9 +242,7 @@ class CreditAdmin(AdminObject):
     def formfield_for_dbfield(self, db_field, **kwargs):
         if not self.request.user.is_superuser:
             if db_field.name == "activity":
-                print('activity')
                 kwargs["queryset"] = get_visuable_activities(self.request.user)
             elif db_field.name == 'member':
-                print('members')
                 kwargs["queryset"] = get_visuable_members(self.request.user)
         return super().formfield_for_dbfield(db_field, **kwargs)

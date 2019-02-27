@@ -2,76 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f2cc620-99be-4f30-bff5-3a5a95e46f90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/user_util.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/django_compat.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/exceptions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/fields.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/formats/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/formats/base_formats.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/instance_loaders.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ar/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ar/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/bg/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/bg/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ca/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ca/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/cs/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/cs/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/de/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/de/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/es/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/es/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/es_AR/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/es_AR/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/fr/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/it/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/it/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ja/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ja/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/pl/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/pl/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/pt_BR/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/pt_BR/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ru/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/sk/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/sk/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/zh_Hans/LC_MESSAGES/django.mo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/locale/zh_Hans/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/mixins.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/resources.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/results.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/signals.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/static/import_export/action_formats.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/static/import_export/import.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/change_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/change_list_export.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/change_list_export_item.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/change_list_import.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/change_list_import_export.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/change_list_import_item.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/export.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templates/admin/import_export/import.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/templatetags/import_export_tags.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/tmp_storages.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/import_export/widgets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/resources.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teaching/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/adminx.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teaching/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../partybuilding/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../partybuilding/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -92,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/party/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
-              <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -109,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="235" column="30" selection-start-line="235" selection-start-column="30" selection-end-line="235" selection-end-column="30" />
+            <state relative-caret-position="311">
+              <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -121,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/teaching/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="-560">
+              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -260,16 +194,16 @@
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/widgets/list.html" />
         <option value="$PROJECT_DIR$/xadmin/views/list.py" />
         <option value="$PROJECT_DIR$/common/resources.py" />
-        <option value="$PROJECT_DIR$/teaching/models.py" />
         <option value="$PROJECT_DIR$/info/resources.py" />
         <option value="$PROJECT_DIR$/info/models.py" />
-        <option value="$PROJECT_DIR$/party/settings.py" />
         <option value="$PROJECT_DIR$/user/models.py" />
         <option value="$PROJECT_DIR$/user/user_util.py" />
         <option value="$PROJECT_DIR$/common/base.py" />
         <option value="$PROJECT_DIR$/info/adminx.py" />
         <option value="$PROJECT_DIR$/user/adminx.py" />
         <option value="$PROJECT_DIR$/common/user_util.py" />
+        <option value="$PROJECT_DIR$/party/settings.py" />
+        <option value="$PROJECT_DIR$/teaching/models.py" />
         <option value="$PROJECT_DIR$/teaching/adminx.py" />
       </list>
     </option>
@@ -295,11 +229,6 @@
             <path>
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="party" type="b2602c69:ProjectViewProjectNode" />
-              <item name="party" type="462c0819:PsiDirectoryNode" />
-              <item name="teaching" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -396,7 +325,7 @@
       <workItem from="1551184440952" duration="1116000" />
       <workItem from="1551192663386" duration="6137000" />
       <workItem from="1551239316814" duration="4076000" />
-      <workItem from="1551280391729" duration="2872000" />
+      <workItem from="1551280391729" duration="6658000" />
     </task>
     <task id="LOCAL-00001" summary="使用django2.1和suit重构系统">
       <created>1550511156165</created>
@@ -468,11 +397,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550728049754</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="formfield_for_dbfield控制下拉框的外键取值">
+      <created>1551283547664</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1551283547664</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151638000" />
+    <option name="totallyTimeSpent" value="155424000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -485,7 +421,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28441754" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -524,7 +459,8 @@
     <MESSAGE value="极其精细的权限控制" />
     <MESSAGE value="绘图插件" />
     <MESSAGE value="导入提示中文表头" />
-    <option name="LAST_COMMIT_MESSAGE" value="导入提示中文表头" />
+    <MESSAGE value="formfield_for_dbfield控制下拉框的外键取值" />
+    <option name="LAST_COMMIT_MESSAGE" value="formfield_for_dbfield控制下拉框的外键取值" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/xadmin/plugins/__init__.py">
@@ -873,26 +809,26 @@
     <entry file="file://$PROJECT_DIR$/party/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
-          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="235" column="30" selection-start-line="235" selection-start-column="30" selection-end-line="235" selection-end-column="30" />
+        <state relative-caret-position="311">
+          <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-560">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
