@@ -3,11 +3,10 @@ from collections import OrderedDict
 
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
-from django.core.exceptions import ObjectDoesNotExist
 from common.base import AdminObject
-from django.db.models import Q
+
+from common.user_util import get_visuable_activities, get_bind_member, get_visuable_members
 from info.models import Member
-from user.models import get_bind_member
 from .models import Activity, TakePartIn
 from .resources import CreditResource
 from common.rules import *
@@ -20,14 +19,8 @@ class ActivityAdmin(AdminObject):
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 
-    list_display = ['name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
-
-    # def get_list_display(self):
-    #     res = self.base_list_display
-    #     if self.request.user.has_perm('info.add_member') or self.request.user.has_perm('info.add_branch'):
-    #         return ['id'] + res
-    #     return res
-
+    list_display = ['id', 'name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
+    list_display_links = ['name']
     list_filter = ['date', 'end_time', 'atv_type', 'credit']
     search_fields = ['name']
     list_per_page = 15
@@ -39,7 +32,7 @@ class ActivityAdmin(AdminObject):
             return []
         else:
             if not self.request.user.has_perm('info.add_branch'):
-                member = get_bind_member(self.request.user)
+                member = self.bind_member
                 branches = obj.branch.all()
                 if member is None or member.branch not in branches:
                     return [f.name for f in self.model._meta.fields]
@@ -48,7 +41,7 @@ class ActivityAdmin(AdminObject):
     def save_models(self):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
-            member = get_bind_member(self.request.user)
+            member = self.bind_member
             branches = map(int, self.request.POST['branch'].split(' '))
             if member is None or member.branch.id not in branches:
                 if self.org_obj is None:
@@ -60,14 +53,7 @@ class ActivityAdmin(AdminObject):
         obj.save()
 
     def queryset(self):
-        if not self.request.user.has_perm('info.add_branch'):  # 判断是否是党辅
-            try:
-                m = Member.objects.get(netid=self.request.user)
-                return self.model.objects.filter(Q(branch__id__contains=m.branch.id) |
-                                                 Q(visualable_others=True)).distinct()
-            except ObjectDoesNotExist:
-                return self.model.objects.none()
-        return self.model.objects.all().distinct()
+        return get_visuable_activities(self.request.user)
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):
@@ -100,9 +86,9 @@ class ActivityAdmin(AdminObject):
 class CreditAdmin(AdminObject):
     import_export_args = {'import_resource_class': CreditResource}
     search_fields = ['activity__name', 'activity__date', 'member__name']
-
+    list_editable = ['credit']
     list_display = ['member', 'activity', 'credit']
-    list_filter = ['activity__date', 'activity__atv_type', 'credit']
+    list_filter = ['activity', 'activity__date', 'activity__atv_type', 'credit']
     list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
 
@@ -112,7 +98,7 @@ class CreditAdmin(AdminObject):
     def queryset(self):
         qs = self.model._default_manager.get_queryset()
         if not is_school_admin(self.request.user):  # 判断是否是党辅
-            m = get_bind_member(self.request.user)
+            m = self.bind_member
             if m is None:
                 return qs.none()
             if is_branch_manager(self.request.user):  # 支书
@@ -124,7 +110,7 @@ class CreditAdmin(AdminObject):
     def save_models(self):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
-            member = get_bind_member(self.request.user)
+            member = self.bind_member
             branches = obj.activity.branch.all()
             if member is None or member.branch not in branches:
                 if self.org_obj is None:
@@ -215,7 +201,7 @@ class CreditAdmin(AdminObject):
             return []
         else:
             if not self.request.user.has_perm('info.add_branch'):
-                member = get_bind_member(self.request.user)
+                member = self.bind_member
                 branches = obj.activity.branch.all()
                 if member is None or member.branch not in branches:
                     return ['member', 'activity', 'credit']
@@ -240,3 +226,13 @@ class CreditAdmin(AdminObject):
             m = self.bind_member
             return m is not None and m.branch == obj.member.branch
         return False
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if not self.request.user.is_superuser:
+            if db_field.name == "activity":
+                print('activity')
+                kwargs["queryset"] = get_visuable_activities(self.request.user)
+            elif db_field.name == 'member':
+                print('members')
+                kwargs["queryset"] = get_visuable_members(self.request.user)
+        return super().formfield_for_dbfield(db_field, **kwargs)

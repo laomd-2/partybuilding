@@ -24,3 +24,10 @@ class MyResource(resources.ModelResource):
             dataset[i] = tuple(row)
         dataset.headers = [fields[verbose_name] for verbose_name in dataset.headers]
         super().before_import(dataset, using_transactions, dry_run, **kwargs)
+
+    def get_export_headers(self):
+        headers = super(MyResource, self).get_export_headers()
+        model = self._meta.model
+        foreign_keys = model.foreign_keys()
+        headers_ = [model._meta.get_field(f).verbose_name + ('ID' if f in foreign_keys else '') for f in headers]
+        return headers_

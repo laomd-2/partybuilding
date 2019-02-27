@@ -60,10 +60,3 @@ class User(AbstractUser):
     """
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
-
-
-def get_bind_member(user):
-    try:
-        return Member.objects.get(netid=user)
-    except:
-        return None

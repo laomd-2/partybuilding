@@ -1,5 +1,6 @@
 from common.base import AdminObject
-from .models import User, get_bind_member
+from common.user_util import get_bind_member
+from .models import User
 from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -59,7 +60,10 @@ class UserAdmin(AdminObject):
                 return qs.filter(username__in=[college.netid for college in colleges])
             elif is_member(self.request.user):
                 return qs.filter(username=self.request.user)  # 普通成员
-        return qs
+        if self.request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(is_superuser=False)
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):

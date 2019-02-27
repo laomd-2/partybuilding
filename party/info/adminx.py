@@ -1,8 +1,8 @@
 from collections import OrderedDict
-
 from django.contrib import messages
+
+from common.user_util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
-from user.models import get_bind_member
 from xadmin.layout import Main, Fieldset
 from .models import School, Branch, Member, Dependency
 import xadmin
@@ -41,7 +41,7 @@ class BranchAdmin(AdminObject):
             school = int(self.request.user.username[0])
             return qs.filter(school__id=school)
         else:
-            member = get_bind_member(self.request.user)
+            member = self.bind_member
             if member is None:
                 return qs.none()
             else:
@@ -58,10 +58,11 @@ class BranchAdmin(AdminObject):
 
 @xadmin.sites.register(Member)
 class MemberAdmin(AdminObject):
-    import_export_args = {'import_resource_class': MemberResource}
+    import_export_args = {'import_resource_class': MemberResource,
+                          'export_resource_class': MemberResource}
 
     fields_ = [field.name for field in Member._meta.fields]
-    list_display = fields_[1:5] + ['phone_number', 'major_in']
+    list_display = fields_[1:4] + ['gender', 'phone_number', 'major_in']
 
     model_icon = 'fa fa-info'
     list_per_page = 15
@@ -70,7 +71,7 @@ class MemberAdmin(AdminObject):
 
     phases = dict()
     phases['基本信息'] = fields_[:10]
-    phases['阶段1：入党考察'] = fields_[10:19]
+    phases['阶段1：入党考察'] = fields_[10:191]
     phases['阶段2：预备党员'] = fields_[19:28]
     phases['阶段3：正式党员'] = fields_[28:]
 
@@ -78,7 +79,7 @@ class MemberAdmin(AdminObject):
 
     form_layout = (
         Main(
-            *[Fieldset(k, *v) for k, v in wizard_form_list]
+            *[Fieldset(k, *v) for k, v in phases.items()]
         )
     )
 
@@ -102,7 +103,7 @@ class MemberAdmin(AdminObject):
 
         fenbu = dict()
         for obj in self.model.objects.all():
-            grade = obj.netid[:2]
+            grade = str(obj.netid)[:2]
             fenbu.setdefault(grade, OrderedDict([(k, 0) for k in dates.values()]))
             for d in dates:
                 if getattr(obj, d):
@@ -113,7 +114,7 @@ class MemberAdmin(AdminObject):
             'tooltip': {
                 'trigger': 'axis',
                 'axisPointer': {
-                'type': 'shadow'
+                    'type': 'shadow'
                 }
             },
             'toolbox': {
@@ -164,11 +165,15 @@ class MemberAdmin(AdminObject):
     @property
     def list_filter(self):
         if is_admin(self.request.user):
-            return ['application_date',
-                    'activist_date',
-                    'key_develop_person_date',
-                    'first_branch_conference',
-                    'second_branch_conference']
+            general = ['second_branch_conference',
+                       'first_branch_conference',
+                       'key_develop_person_date',
+                       'activist_date',
+                       'application_date']
+            if is_branch_manager(self.request.user):
+                return general
+            else:
+                return ['branch'] + general
         return []
 
     def get_readonly_fields(self):
@@ -177,26 +182,14 @@ class MemberAdmin(AdminObject):
             if m is None or m.netid != self.org_obj.netid:
                 return self.fields_
             res = ['branch', 'netid'] + self.phases['阶段1：入党考察'] + \
-                  self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
+                   self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
             res.remove('youth_league_date')
             res.remove('constitution_group_date')
             return res
-        return []
+        return ['identity']
 
     def queryset(self):
-        qs = self.model._default_manager.get_queryset()
-        if not is_school_admin(self.request.user):  # 判断是否是党辅
-            member = get_bind_member(self.request.user)
-            if member is None:
-                return qs.none()
-            else:
-                if is_branch_manager(self.request.user):  # 支书
-                    return qs.filter(branch=member.branch)
-                elif is_member(self.request.user):
-                    return qs.filter(netid=member.netid, branch=member.branch)  # 普通成员
-                else:
-                    return qs.none()
-        return qs
+        return get_visuable_members(self.request.user)
 
     @staticmethod
     def check_dep(obj):

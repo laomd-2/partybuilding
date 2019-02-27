@@ -1,5 +1,5 @@
 from django.contrib.auth import get_permission_codename
-from user.models import get_bind_member
+from .user_util import get_bind_member
 
 
 class AdminObject(object):
@@ -12,4 +12,4 @@ class AdminObject(object):
     def has_delete_permission(self, request=None, obj=None):
         codename = get_permission_codename('delete', self.opts)
         return ('delete' not in self.remove_permissions) and \
-               self.user.has_perm('%s.%s' % (self.app_label, codename))
+                self.user.has_perm('%s.%s' % (self.app_label, codename))
