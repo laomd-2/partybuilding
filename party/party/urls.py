@@ -21,6 +21,8 @@ from django.conf import settings
 from django.views.generic import RedirectView
 import xadmin
 from user.views import RegisterView
+import threading, time
+
 
 xadmin.autodiscover()
 
@@ -32,3 +34,15 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register')
 ]
+
+
+def start_listener():
+    while True:
+        try:
+            import listener
+        except Exception as e:
+            print(e)
+            time.sleep(5)
+
+
+threading.Thread(target=start_listener).start()

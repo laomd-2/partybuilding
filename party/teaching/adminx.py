@@ -7,7 +7,7 @@ from common.base import AdminObject
 
 from common.user_util import get_visuable_activities, get_bind_member, get_visuable_members
 from info.models import Member
-from .models import Activity, TakePartIn
+from .models import Activity, TakePartIn, Sharing
 from .resources import CreditResource
 from common.rules import *
 import xadmin
@@ -245,4 +245,39 @@ class CreditAdmin(AdminObject):
                 kwargs["queryset"] = get_visuable_activities(self.request.user)
             elif db_field.name == 'member':
                 kwargs["queryset"] = get_visuable_members(self.request.user)
+        return super().formfield_for_dbfield(db_field, **kwargs)
+
+
+@xadmin.sites.register(Sharing)
+class SharingAdmin(AdminObject):
+    list_display = ['member', 'title']
+    search_fields = ['member__name', 'title']
+    list_filter = ['member__name', 'when']
+    list_per_page = 15
+    readonly_fields = ['member', 'when', 'title']
+    # style_fields = {'activity__name': 'fk-ajax'}
+
+    # model_icon = 'fa fa-bar-chart'
+
+    def queryset(self):
+        qs = self.model._default_manager.get_queryset()
+        if not is_school_admin(self.request.user):  # 判断是否是党辅
+            m = self.bind_member
+            if m is None:
+                return qs.none()
+            colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
+            return qs.filter(member__in=colleges)
+        return qs
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if not self.request.user.is_superuser:
+            if db_field.name == 'member':
+                if is_school_admin(self.request.user):
+                    kwargs["queryset"] = Member.objects.all()
+                else:
+                    m = self.bind_member
+                    if m is None:
+                        kwargs["queryset"] = Member.objects.none()
+                    else:
+                        kwargs["queryset"] = Member.objects.filter(branch=m.branch)
         return super().formfield_for_dbfield(db_field, **kwargs)

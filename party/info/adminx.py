@@ -70,10 +70,10 @@ class MemberAdmin(AdminObject):
     # relfield_style = 'fk_ajax'
 
     phases = dict()
-    phases['基本信息'] = fields_[:10]
-    phases['阶段1：入党考察'] = fields_[10:191]
-    phases['阶段2：预备党员'] = fields_[19:28]
-    phases['阶段3：正式党员'] = fields_[28:]
+    phases['基本信息'] = fields_[:fields_.index('major_in') + 1]
+    phases['阶段1：入党考察'] = fields_[fields_.index('major_in') + 1:fields_.index('graduated_party_school_date') + 1]
+    phases['阶段2：预备党员'] = fields_[fields_.index('graduated_party_school_date') + 1:fields_.index('oach_date') + 1]
+    phases['阶段3：正式党员'] = fields_[fields_.index('oach_date') + 1:]
 
     wizard_form_list = phases.items()
 

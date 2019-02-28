@@ -61,7 +61,7 @@ class Member(models.Model):
     group = models.CharField(max_length=20, verbose_name='民族', null=True, blank=True)
     family_address = models.CharField(max_length=50, verbose_name='家庭住址', null=True, blank=True)
     phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True)
-    credit_card_id = models.CharField(verbose_name='身份证号码', null=True, blank=True, max_length=50)
+    # credit_card_id = models.CharField(verbose_name='身份证号码', null=True, blank=True, max_length=50)
     major_in = models.CharField(max_length=30, verbose_name='当前专业（全称）', null=True, blank=True)
 
     youth_league_date = NullableDateField(verbose_name='加入共青团时间')
