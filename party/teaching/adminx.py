@@ -91,7 +91,7 @@ class CreditAdmin(AdminObject):
     import_export_args = {'import_resource_class': CreditResource}
     search_fields = ['activity__name', 'activity__date', 'member__name']
     list_display = ['member', 'activity', 'credit']
-    list_filter = ['activity', 'activity__date', 'activity__atv_type', 'credit']
+    list_filter = ['member__name', 'activity', 'activity__date', 'activity__atv_type', 'credit']
     list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
 
@@ -240,21 +240,21 @@ class CreditAdmin(AdminObject):
         return False
 
     def formfield_for_dbfield(self, db_field, **kwargs):
-        if not self.request.user.is_superuser:
-            if db_field.name == "activity":
-                kwargs["queryset"] = get_visuable_activities(self.request.user)
-            elif db_field.name == 'member':
-                kwargs["queryset"] = get_visuable_members(self.request.user)
+        if db_field.name == "activity":
+            kwargs["queryset"] = get_visuable_activities(self.request.user)
+        elif db_field.name == 'member':
+            print('member')
+            kwargs["queryset"] = get_visuable_members(self.request.user)
         return super().formfield_for_dbfield(db_field, **kwargs)
 
 
 @xadmin.sites.register(Sharing)
 class SharingAdmin(AdminObject):
-    list_display = ['member', 'title']
+    list_display = ['member', 'title', 'when']
     search_fields = ['member__name', 'title']
     list_filter = ['member__name', 'when']
     list_per_page = 15
-    readonly_fields = ['member', 'when', 'title']
+    readonly_fields = ['member', 'when', 'title', 'impression']
     # style_fields = {'activity__name': 'fk-ajax'}
 
     # model_icon = 'fa fa-bar-chart'

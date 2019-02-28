@@ -73,8 +73,8 @@ class Sharing(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
     when = models.DateTimeField('时间', default=timezone.now)
     title = models.CharField('标题', max_length=100, null=True)
-    impression = models.CharField('学习心得', max_length=200, null=True)
-    added = models.BooleanField('已添加学时', default=False)
+    impression = models.CharField('学习心得', max_length=255, null=True, unique=True)
+    added = models.BooleanField('审核通过', default=False)
 
     class Meta:
         unique_together = ('member', 'title')
