@@ -22,7 +22,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 class UserAdmin(AdminObject):
-    list_display = ['username', 'email', 'is_active', 'is_staff', 'last_login']
+    list_display = ['username', 'get_member', 'email', 'is_active', 'is_staff', 'last_login']
     search_fields = ['username']
 
     list_filter = ['is_active', 'is_staff', 'last_login']

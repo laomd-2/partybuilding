@@ -3,7 +3,7 @@ from .user_util import get_bind_member
 
 
 class AdminObject(object):
-    list_export = []
+    list_export = ('xlsx', 'xls')
 
     @property
     def bind_member(self):

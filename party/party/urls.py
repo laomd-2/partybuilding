@@ -21,7 +21,7 @@ from django.conf import settings
 from django.views.generic import RedirectView
 import xadmin
 from user.views import RegisterView
-import threading, time
+import threading, time, sys
 
 
 xadmin.autodiscover()
@@ -37,7 +37,7 @@ urlpatterns = [
 
 
 def start_listener():
-    while True:
+    while 'runserver' in sys.argv:
         try:
             import listener
         except Exception as e:

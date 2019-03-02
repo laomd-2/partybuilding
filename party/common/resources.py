@@ -29,5 +29,12 @@ class MyResource(resources.ModelResource):
         headers = super(MyResource, self).get_export_headers()
         model = self._meta.model
         foreign_keys = model.foreign_keys()
-        headers_ = [model._meta.get_field(f).verbose_name + ('ID' if f in foreign_keys else '') for f in headers]
+        # headers_ = [model._meta.get_field(f).verbose_name + ('ID' if f in foreign_keys else '') for f in headers]
+        headers_ = []
+        for f in headers:
+            meta = model._meta
+            fields = f.split('__')
+            for f1 in fields[:-1]:
+                meta = meta.get_field(f1).remote_field.model._meta
+            headers_.append(meta.get_field(fields[-1]).verbose_name + ('ID' if f in foreign_keys else ''))
         return headers_

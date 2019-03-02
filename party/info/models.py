@@ -116,7 +116,6 @@ class Member(models.Model):
     @staticmethod
     def necessary_fields():
         fields = list(Member.export_field_map().values())
-        fields.remove('identity')
         return fields
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):

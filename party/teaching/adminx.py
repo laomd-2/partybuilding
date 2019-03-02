@@ -8,14 +8,14 @@ from common.base import AdminObject
 from common.user_util import get_visuable_activities, get_bind_member, get_visuable_members
 from info.models import Member
 from .models import Activity, TakePartIn, Sharing
-from .resources import CreditResource
+from .resources import CreditResource, ActivityResource
 from common.rules import *
 import xadmin
 
 
 @xadmin.sites.register(Activity)
 class ActivityAdmin(AdminObject):
-    # import_export_args = {'import_resource_class': ActivityResource}
+    # import_export_args = {'export_resource_class': ActivityResource}
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 

@@ -261,7 +261,7 @@ class ImportView(ImportBaseView):
         context['ignore_id'] = 'id' in user_v
         context['headers'] = [self.model._meta.get_field(name).verbose_name + ('ID' if name in fk else '')
                               for name in context['fields'] if name != 'id']
-        context['len'] = len(context['headers']) + 1
+        context['len'] = len(context['headers'])
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
                                 context)

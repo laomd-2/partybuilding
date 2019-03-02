@@ -7,3 +7,4 @@ class MemberResource(resources.MyResource):
         model = Member
         skip_unchanged = True
         import_id_fields = ('netid', )
+

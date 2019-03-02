@@ -5,16 +5,17 @@ from teaching.models import Sharing
 from info.models import Member
 from teaching.models import Activity, TakePartIn
 
-
 itchat.auto_login(hotReload=True, enableCmdQR=2)
 
 
 @itchat.msg_register([TEXT, SHARING], isMpChat=True, isGroupChat=True)
 def xuexi_listener(msg):
     now = datetime.datetime.now()
-    zero = now - datetime.timedelta(hours=now.hour, minutes=now.minute, seconds=now.second, microseconds=now.microsecond)
+    zero = now - datetime.timedelta(hours=now.hour, minutes=now.minute, seconds=now.second,
+                                    microseconds=now.microsecond)
     end = zero + datetime.timedelta(hours=24, minutes=0, seconds=0)
     room = msg['User']['NickName']
+
     if room == '计二党支部👉学习群' or room == '计二党支部微信群':
         msg_type = msg['Type']
         from_user = msg['ActualNickName']
@@ -48,15 +49,19 @@ def xuexi_listener(msg):
         else:
             obj.impression = content
         if obj.title and obj.impression:
-            try:
-                count = Sharing.objects.filter(member=obj.member, when__gte=zero, when__lt=end, added=True).count()
-                if count < 2:
-                    credit = TakePartIn.objects.get(member=obj.member, activity=xuexi)
-                    credit.credit += xuexi.credit
+            if not obj.member.first_branch_conference and \
+                    not obj.member.second_branch_conference:
+                try:
+                    count = Sharing.objects.filter(member=obj.member, when__gte=zero, when__lt=end, added=True).count()
+                    if count < 2:
+                        credit = TakePartIn.objects.get(member=obj.member, activity=xuexi)
+                        credit.credit += xuexi.credit
+                        credit.save()
+                except:
+                    credit = TakePartIn(member=obj.member, activity=xuexi, credit=xuexi.credit)
                     credit.save()
-            except:
-                credit = TakePartIn(member=obj.member, activity=xuexi, credit=xuexi.credit)
-                credit.save()
-            obj.added = True
+                obj.added = True
         obj.save()
+
+
 itchat.run()

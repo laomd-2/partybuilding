@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from common.user_util import get_bind_member
 from info.models import Member
 from .base_user import AbstractBaseUser
 
@@ -60,3 +61,12 @@ class User(AbstractUser):
     """
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+        ordering = ('-last_login', 'username')
+
+    def get_member(self):
+        m = get_bind_member(self)
+        if m is not None:
+            return m.name
+        else:
+            return ''
+    get_member.short_description = '姓名'

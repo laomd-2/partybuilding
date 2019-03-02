@@ -31,6 +31,10 @@ class Activity(models.Model):
     def __str__(self):
         return "%s(%d/%02d/%02d)" % (self.name, self.date.year, self.date.month, self.date.day)
 
+    @staticmethod
+    def foreign_keys():
+        return ['branch']
+
 
 class TakePartIn(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
@@ -41,7 +45,7 @@ class TakePartIn(models.Model):
 
     class Meta:
         unique_together = ('activity', 'member')
-        ordering = ('activity', 'member')
+        ordering = ('activity', '-credit', 'member')
         verbose_name = '学时统计'
         verbose_name_plural = verbose_name
 
@@ -73,13 +77,18 @@ class Sharing(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
     when = models.DateTimeField('时间', default=timezone.now)
     title = models.CharField('标题', max_length=100, null=True)
+    # appname = models.CharField('APP', max_length=50, null=True)
     impression = models.CharField('学习心得', max_length=255, null=True, unique=True)
     added = models.BooleanField('审核通过', default=False)
 
     class Meta:
         unique_together = ('member', 'title')
-        verbose_name = '学习强国打卡'
+        verbose_name = '学习打卡'
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s %s' % (self.member, self.title)
+
+    @staticmethod
+    def foreign_keys():
+        return ['member']
