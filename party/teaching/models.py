@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from info.models import Member, Branch
+import datetime
 
 
 class Activity(models.Model):
@@ -39,9 +40,8 @@ class Activity(models.Model):
 class TakePartIn(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='支部成员')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='会议/活动')
-    # date = models.DateTimeField('开始时间', null=True)
-    # end_time = models.DateTimeField('结束时间', null=True)
     credit = models.FloatField('学时数', null=True, default=0)
+    last_modified = models.DateTimeField('最后修改时间', default=timezone.now)
 
     class Meta:
         unique_together = ('activity', 'member')
@@ -70,6 +70,13 @@ class TakePartIn(models.Model):
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.activity.cascade and self.credit != self.activity.credit:
             return
+        try:
+            old = TakePartIn.objects.get(id=self.id)
+            if old.activity != self.activity or abs(old.credit - self.credit) > 0.001:
+                self.last_modified = datetime.datetime.now()
+        except:
+            pass
+        self.credit = round(self.credit, 1)
         super().save(force_insert, force_update, using, update_fields)
 
 

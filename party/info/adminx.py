@@ -69,12 +69,22 @@ class MemberAdmin(AdminObject):
     # list_editable = list_display[1:]
     # relfield_style = 'fk_ajax'
 
+    fenge = OrderedDict([
+        ('application_date', '基本信息'),
+        ('league_promotion_date_a', '一、申请入党'),
+        ('democratic_appraisal_date', '二、入党积极分子的确定和培养'),
+        ('autobiography_date', '三、发展对象的确定和考察'),
+        ('oach_date', '四、预备党员的吸收'),
+        ('', '五、预备党员的教育考察和转正')])
     phases = dict()
-    phases['基本信息'] = fields_[:fields_.index('major_in') + 1]
-    phases['阶段1：入党考察'] = fields_[fields_.index('major_in') + 1:fields_.index('graduated_party_school_date') + 1]
-    phases['阶段2：预备党员'] = fields_[fields_.index('graduated_party_school_date') + 1:fields_.index('oach_date') + 1]
-    phases['阶段3：正式党员'] = fields_[fields_.index('oach_date') + 1:]
-
+    last = 0
+    for k, v in fenge.items():
+        if k:
+            tmp = fields_.index(k)
+        else:
+            tmp = -1
+        phases[v] = fields_[last: tmp]
+        last = tmp
     wizard_form_list = phases.items()
 
     form_layout = (
@@ -177,16 +187,15 @@ class MemberAdmin(AdminObject):
         return []
 
     def get_readonly_fields(self):
+        res = ['branch', 'netid']
         if is_member(self.request.user):  # 普通成员
             m = self.bind_member
             if m is None or m.netid != self.org_obj.netid:
                 return self.fields_
-            res = ['branch', 'netid'] + self.phases['阶段1：入党考察'] + \
-                   self.phases['阶段2：预备党员'] + self.phases['阶段3：正式党员']
-            res.remove('youth_league_date')
-            res.remove('constitution_group_date')
-            return res
-        return ['identity']
+            for k, v in self.phases.items():
+                if k != '基本信息':
+                    res += v
+        return res
 
     def queryset(self):
         return get_visuable_members(self.request.user)

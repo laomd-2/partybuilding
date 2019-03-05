@@ -1,1 +1,3 @@
-import xadmin
+import pymysql
+
+pymysql.install_as_MySQLdb()

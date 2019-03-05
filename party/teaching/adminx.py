@@ -90,7 +90,7 @@ class ActivityAdmin(AdminObject):
 class CreditAdmin(AdminObject):
     import_export_args = {'import_resource_class': CreditResource}
     search_fields = ['activity__name', 'activity__date', 'member__name']
-    list_display = ['member', 'activity', 'credit']
+    list_display = ['member', 'activity', 'credit', 'last_modified']
     list_filter = ['member__name', 'activity', 'activity__date', 'activity__atv_type', 'credit']
     list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
@@ -106,7 +106,8 @@ class CreditAdmin(AdminObject):
             return []
 
     def queryset(self):
-        qs = self.model._default_manager.get_queryset()
+        now = datetime.datetime.now()
+        qs = self.model._default_manager.get_queryset().filter(activity__date__gte=datetime.datetime(now.year, 1, 1))
         if not is_school_admin(self.request.user):  # 判断是否是党辅
             m = self.bind_member
             if m is None:
@@ -114,7 +115,16 @@ class CreditAdmin(AdminObject):
             if is_branch_manager(self.request.user):  # 支书
                 colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
                 return qs.filter(member__in=colleges)
-            return qs.filter(member=m)  # 普通成员
+            qs = qs.filter(member=m)
+            if m.is_party_member():   # 党员查看全年
+                return qs
+            else:
+                seasons = [datetime.datetime(now.year, m, 1) for m in [3, 6, 9, 12]]
+                seasons.append(datetime.datetime(now.year + 1, 3, 1))
+                for i in range(1, len(seasons)):
+                    if now <= seasons[i]:
+                        return qs.filter(activity__date__gte=seasons[i-1], activity__date__lt=seasons[i])
+            return qs.none()
         return qs
 
     def save_models(self):
@@ -139,10 +149,10 @@ class CreditAdmin(AdminObject):
         m = get_bind_member(self.request.user)
         if m is None:
             return None
-        all_take = self.model.objects.filter(member=m)  # 普通成员
+        now = datetime.datetime.now()
+        all_take = self.model.objects.filter(member=m, activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
         if not all_take:
             return None
-        now = datetime.datetime.now()
         my_charts = {
             'takepartin': {
                 'title': '%d年各月份学时概览' % now.year,
@@ -151,7 +161,7 @@ class CreditAdmin(AdminObject):
         months = OrderedDict((i + 1, {c: 0 for c in Activity.atv_type_choices}) for i in range(now.month))
         for t in all_take:
             d = t.activity.date
-            if d.year == now.year and d.month in months:
+            if d.month in months:
                 months[d.month][t.activity.atv_type] += t.credit
         option = {
             'tooltip': {
@@ -203,7 +213,7 @@ class CreditAdmin(AdminObject):
     def exclude(self):
         obj = self.org_obj
         if obj is None:
-            return ['credit']
+            return ['credit', 'last_modified']
         else:
             return []
 
@@ -212,12 +222,13 @@ class CreditAdmin(AdminObject):
         if obj is None:
             return []
         else:
-            if not self.request.user.has_perm('info.add_branch'):
+            tmp = ['member', 'activity', 'last_modified']
+            if not is_school_admin(self.request.user):
                 member = self.bind_member
                 branches = obj.activity.branch.all()
                 if member is None or member.branch not in branches:
-                    return ['member', 'activity', 'credit']
-            return ['member', 'activity']
+                    return tmp + ['credit']
+            return tmp
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):
@@ -243,7 +254,6 @@ class CreditAdmin(AdminObject):
         if db_field.name == "activity":
             kwargs["queryset"] = get_visuable_activities(self.request.user)
         elif db_field.name == 'member':
-            print('member')
             kwargs["queryset"] = get_visuable_members(self.request.user)
         return super().formfield_for_dbfield(db_field, **kwargs)
 
@@ -254,7 +264,11 @@ class SharingAdmin(AdminObject):
     search_fields = ['member__name', 'title']
     list_filter = ['member__name', 'when']
     list_per_page = 15
-    readonly_fields = ['member', 'when', 'title', 'impression']
+
+    def get_readonly_fields(self):
+        if self.request.user.is_superuser:
+            return []
+        return ['member', 'when', 'title', 'impression']
     # style_fields = {'activity__name': 'fk-ajax'}
 
     # model_icon = 'fa fa-bar-chart'
