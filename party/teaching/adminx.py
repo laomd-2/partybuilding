@@ -89,9 +89,9 @@ class ActivityAdmin(AdminObject):
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(AdminObject):
     import_export_args = {'import_resource_class': CreditResource}
-    search_fields = ['activity__name', 'activity__date', 'member__name']
     list_display = ['member', 'activity', 'credit', 'last_modified']
-    list_filter = ['member__name', 'activity', 'activity__date', 'activity__atv_type', 'credit']
+    list_filter = ['activity__date', 'activity__atv_type', 'credit']
+    search_fields = ['activity__name', 'activity__date', 'member__name', 'member__netid']
     list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
 
@@ -262,7 +262,7 @@ class CreditAdmin(AdminObject):
 class SharingAdmin(AdminObject):
     list_display = ['member', 'title', 'when']
     search_fields = ['member__name', 'title']
-    list_filter = ['member__name', 'when']
+    list_filter = ['when']
     list_per_page = 15
 
     def get_readonly_fields(self):

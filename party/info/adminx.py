@@ -23,8 +23,7 @@ class SchoolAdmin(AdminObject):
 class BranchAdmin(AdminObject):
     list_display = ['id', 'school', 'branch_name', 'date_create']
     list_display_links = ['branch_name']
-    search_fields = ['branch_name']
-    list_filter = ['school__name']
+    search_fields = ['branch_name', 'school__name']
     model_icon = 'fa fa-user'
     list_per_page = 15
 
@@ -187,6 +186,8 @@ class MemberAdmin(AdminObject):
         return []
 
     def get_readonly_fields(self):
+        if self.org_obj is None:
+            return []
         res = ['branch', 'netid']
         if is_member(self.request.user):  # 普通成员
             m = self.bind_member
