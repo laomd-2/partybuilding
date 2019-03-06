@@ -9,7 +9,7 @@ itchat.auto_login(hotReload=True, enableCmdQR=2)
 
 
 def get_activity(title, now):
-    if '三十讲' in title or '第' in title[:4] and '讲' in title[:4]:
+    if '三十讲' in title or '第' == title[0] and '讲' in title[2:5]:
         try:
             return Activity.objects.get(name='习近平三十讲', date__lte=now, end_time__gte=now)
         except:
