@@ -24,7 +24,7 @@ class BranchAdmin(AdminObject):
     list_display = ['id', 'school', 'branch_name', 'date_create']
     list_display_links = ['branch_name']
     search_fields = ['branch_name', 'school__name']
-    model_icon = 'fa fa-user'
+    model_icon = 'fa fa-flag'
     list_per_page = 15
 
     def get_readonly_fields(self):
@@ -72,7 +72,7 @@ class MemberAdmin(AdminObject):
         ('application_date', '基本信息'),
         ('league_promotion_date_a', '一、申请入党'),
         ('democratic_appraisal_date', '二、入党积极分子的确定和培养'),
-        ('autobiography_date', '三、发展对象的确定和考察'),
+        ('recommenders_date', '三、发展对象的确定和考察'),
         ('oach_date', '四、预备党员的吸收'),
         ('', '五、预备党员的教育考察和转正')])
     phases = dict()
@@ -268,6 +268,7 @@ class MemberAdmin(AdminObject):
 class DependencyAdmin(AdminObject):
     list_display = ['from_1', 'to', 'days']
     list_editable = ['days']
+    model_icon = 'fa fa-angle-double-right'
 
     def get_list_display_links(self):
         if self.request.user.has_perm('info.add_branch'):

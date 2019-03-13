@@ -63,31 +63,32 @@ class Member(models.Model):
     youth_league_date = NullableDateField(verbose_name='加入共青团时间')
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
 
-    application_date = NullableDateField(verbose_name='递交入党申请书时间')
-    first_talk_date = NullableDateField(verbose_name='首次组织谈话时间')
+    application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致。')
+    first_talk_date = NullableDateField(verbose_name='首次组织谈话时间', help_text='党支部收到入党申请书后，一个月内委派支委与其谈话的时间。')
 
-    league_promotion_date_a = NullableDateField(verbose_name='团支部推优（入党积极分子）时间')
-    activist_date = NullableDateField('确定为入党积极分子时间')
-    contacts = models.CharField(max_length=50, null=True, blank=True, verbose_name='培养联系人')
+    league_promotion_date_a = NullableDateField(verbose_name='推荐/推优（入党积极分子）时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
+    activist_date = NullableDateField('确定为入党积极分子时间', help_text='党支部开会讨论，通过成为入党积极分子的时间。')
+    contacts = models.CharField(max_length=50, null=True, blank=True, verbose_name='培养联系人',
+                                help_text='2名正式党员（正式党员紧缺时也可安排预备党员）。')
 
-    democratic_appraisal_date = NullableDateField(verbose_name='民主评议时间')
-    league_promotion_date = NullableDateField(verbose_name='团支部推优（重点发展对象）时间')
-    key_develop_person_date = NullableDateField(verbose_name='确定为重点发展对象时间')
-    recommenders_date = NullableDateField(verbose_name='确定入党介绍人时间')
-    recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人')
+    democratic_appraisal_date = NullableDateField(verbose_name='民主评议时间', help_text='党支部召开座谈会收集群众意见的时间。')
+    league_promotion_date = NullableDateField(verbose_name='推荐/推优（重点发展对象）时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
+    key_develop_person_date = NullableDateField(verbose_name='确定为重点发展对象时间', help_text='上级党委备案时间，并非党支部开会时间。')
     political_check_date = NullableDateField(verbose_name='政治审查时间')
     graduated_party_school_date = NullableDateField(verbose_name='党校培训结业时间')
 
+    recommenders_date = NullableDateField(verbose_name='确定入党介绍人时间')
+    recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人')
     autobiography_date = NullableDateField(verbose_name='填写自传时间')
     application_form_date = NullableDateField(verbose_name='填写入党志愿书时间')
-    first_branch_conference = NullableDateField(verbose_name='支部大会通过成为预备党员时间')
+    first_branch_conference = NullableDateField(verbose_name='确定为预备党员时间', help_text='支部党员大会通过成为预备党员的时间。')
     pro_conversation_date = NullableDateField(verbose_name='入党谈话时间')
-    talker = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党谈话人')
+    talker = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党谈话人', help_text='学院党委成员或组织员。')
     probationary_approval_date = NullableDateField(verbose_name='党委批准成为预备党员时间')
 
     oach_date = NullableDateField(verbose_name='入党宣誓时间')
-    application_fullmember_date = NullableDateField(verbose_name='递交转正申请书时间')
-    second_branch_conference = NullableDateField(verbose_name='支部大会通过成为正式党员时间')
+    application_fullmember_date = NullableDateField(verbose_name='递交转正申请书时间', help_text='预备党员应提前一个月向党支部递交。')
+    second_branch_conference = NullableDateField(verbose_name='转正时间', help_text='支部党员大会通过成为正式党员的时间。')
     fullmember_approval_date = NullableDateField(verbose_name='党委批准成为正式党员时间')
 
     class Meta:
@@ -140,8 +141,8 @@ class Dependency(models.Model):
                          (90, '3个月'), (180, '半年'),
                          (365, '1年'), (18 * 365, '18年')] +
                         [(d + 1, "%d天" % (d + 1)) for d in range(10)])
-    from_1 = models.CharField('from', choices=all_dates.items(), max_length=50)
-    to = models.CharField('to', choices=all_dates.items(), max_length=50)
+    from_1 = models.CharField('从', choices=all_dates.items(), max_length=50)
+    to = models.CharField('到', choices=all_dates.items(), max_length=50)
     days = models.IntegerField('周期', choices=days_mapping.items())
 
     class Meta:

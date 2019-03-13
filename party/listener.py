@@ -1,11 +1,9 @@
-import itchat
+import wxpy
+import time
 import datetime
-from itchat.content import *
 from teaching.models import Sharing
 from info.models import Member
 from teaching.models import Activity, TakePartIn
-
-itchat.auto_login(hotReload=True, enableCmdQR=2)
 
 
 def get_activity(title, now):
@@ -20,29 +18,27 @@ def get_activity(title, now):
         return None
 
 
-@itchat.msg_register([TEXT, SHARING], isMpChat=True, isGroupChat=True)
-def xuexi_listener(msg):
-    now = datetime.datetime.now()
-    zero = now - datetime.timedelta(hours=now.hour, minutes=now.minute, seconds=now.second,
-                                    microseconds=now.microsecond)
-    end = zero + datetime.timedelta(hours=24, minutes=0, seconds=0)
-    room = msg['User']['NickName']
-
-    if room == '计二党支部👉学习群' or room == '党建系统测试群':
-        msg_type = msg['Type']
-        from_user = msg['ActualNickName']
-        content = msg['Content']
-        if len(content) < 50:
-            return
-
-        if msg_type == SHARING:
-            content = content[content.find('<title>') + 7: content.find('</title>')]
+while True:
+    bot = wxpy.Bot(cache_path=True, console_qr=2)
+    daka = bot.groups().search('计二党支部')
+    test = bot.groups().search('测试群')
+    @bot.register(daka + test, [wxpy.SHARING, wxpy.TEXT], except_self=False)
+    def on_msg(msg):
+        now = datetime.datetime.now()
+        zero = now - datetime.timedelta(hours=now.hour, minutes=now.minute, seconds=now.second,
+                                        microseconds=now.microsecond)
+        end = zero + datetime.timedelta(hours=24, minutes=0, seconds=0)
+        msg_type = msg.type
+        from_user = msg.member.name
+        content = msg.text
+        
+        if msg_type == wxpy.SHARING:
             if Sharing.objects.filter(member__name=from_user, title=content):
                 return
         else:
             if len(content) > 255:
                 content = content[:252] + '...'
-            if Sharing.objects.filter(impression=content):
+            if len(content) < 50 or Sharing.objects.filter(impression=content):
                 return
         try:
             obj = Sharing.objects.get(added=False, member__name=from_user, when__gte=zero, when__lt=end)
@@ -53,7 +49,7 @@ def xuexi_listener(msg):
             except Exception as e:
                 # itchat.send('学时记录失败了~请先修改备注为姓名。', msg['FromUserName'])
                 return
-        if msg_type == SHARING:
+        if msg_type == wxpy.SHARING:
             obj.title = content
         else:
             obj.impression = content
@@ -64,8 +60,8 @@ def xuexi_listener(msg):
                 if xuexi is not None:
                     try:
                         count = Sharing.objects.filter(member=obj.member,
-                                                       when__gte=zero,
-                                                       when__lt=end, added=True).count()
+                                                    when__gte=zero,
+                                                    when__lt=end, added=True).count()
                         if count < 4:
                             credit = TakePartIn.objects.get(member=obj.member, activity=xuexi)
                             credit.credit += xuexi.credit
@@ -75,6 +71,4 @@ def xuexi_listener(msg):
                         credit.save()
                     obj.added = True
         obj.save()
-
-
-itchat.run()
+    bot.join()

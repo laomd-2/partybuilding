@@ -1,8 +1,10 @@
 import datetime
-from collections import OrderedDict
+from collections import OrderedDict, Counter
 
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
+from django.db.models import Sum
+
 from common.base import AdminObject
 
 from common.user_util import get_visuable_activities, get_bind_member, get_visuable_members
@@ -86,6 +88,112 @@ class ActivityAdmin(AdminObject):
         return False
 
 
+def get_season(now):
+    seasons = [datetime.datetime(now.year, m, 1) for m in [3, 6, 9, 12]]
+    seasons.append(datetime.datetime(now.year + 1, 3, 1))
+    for i in range(1, len(seasons)):
+        if now < seasons[i]:
+            return seasons[i - 1], seasons[i]
+
+
+def get_monthly_credit(all_take, month):
+    months = OrderedDict((i + 1, {c: 0 for c in Activity.atv_type_choices}) for i in range(month))
+    for t in all_take:
+        d = t.activity.date
+        if d.month in months:
+            months[d.month][t.activity.atv_type] += t.credit
+    option = {
+        'tooltip': {
+            'trigger': 'axis',
+            'axisPointer': {
+                'type': 'cross',
+                'crossStyle': {
+                    'color': '#999'
+                }
+            }
+        },
+        'toolbox': {
+            'feature': {
+                'magicType': {'show': True, 'type': ['line', 'bar']},
+                'restore': {'show': True},
+                'saveAsImage': {'show': True}
+            }
+        },
+        'legend': {
+            'data': Activity.atv_type_choices
+        },
+        'xAxis': [
+            {
+                'type': 'category',
+                'data': ['%d月' % m for m in months.keys()],
+                'axisPointer': {
+                    'type': 'shadow'
+                }
+            }
+        ],
+        'yAxis': [
+            {
+                'type': 'value',
+                'name': '学时数'
+            },
+        ],
+        'series': [
+            {
+                'name': name,
+                'type': 'bar',
+                'data': [v[name] for v in months.values()]
+            } for name in Activity.atv_type_choices
+        ]
+    }
+    return option
+
+
+def get_credit(all_take, members):
+    credit_sum = Counter()
+    for m in members:
+        credit_sum[m] = 0
+    for r in all_take:
+        credit_sum[r.member] += r.credit
+    credit_sum = list(credit_sum.items())
+    credit_sum.sort(key=lambda x: x[1], reverse=True)
+    option = {
+        'tooltip': {
+            'trigger': 'axis',
+            'axisPointer': {
+                'type': 'shadow'
+            }
+        },
+        'toolbox': {
+            'feature': {
+                'magicType': {'show': True, 'type': ['line', 'bar']},
+                'restore': {'show': True},
+                'saveAsImage': {'show': True}
+            }
+        },
+        # 'grid': {
+        #     'left': '3%',
+        #     'right': '4%',
+        #     'bottom': '3%',
+        #     'containLabel': True
+        # },
+        'xAxis': {
+            'type': 'category',
+            'data': [x[0].name for x in credit_sum],
+            'axisLabel': {
+                'rotate': 45
+            }
+        },
+        'yAxis': {
+            'type': 'value'
+        },
+        'series': [{
+            'data': [x[1] for x in credit_sum],
+            'type': 'bar'
+        }]
+    }
+    return option
+
+
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(AdminObject):
     import_export_args = {'import_resource_class': CreditResource}
@@ -116,15 +224,11 @@ class CreditAdmin(AdminObject):
                 colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
                 return qs.filter(member__in=colleges)
             qs = qs.filter(member=m)
-            if m.is_party_member():   # 党员查看全年
+            if m.is_party_member():  # 党员查看全年
                 return qs
             else:
-                seasons = [datetime.datetime(now.year, m, 1) for m in [3, 6, 9, 12]]
-                seasons.append(datetime.datetime(now.year + 1, 3, 1))
-                for i in range(1, len(seasons)):
-                    if now <= seasons[i]:
-                        return qs.filter(activity__date__gte=seasons[i-1], activity__date__lt=seasons[i])
-            return qs.none()
+                season = get_season(now)
+                return qs.filter(activity__date__gte=season[0], activity__date__lt=season[1])
         return qs
 
     def save_models(self):
@@ -150,63 +254,29 @@ class CreditAdmin(AdminObject):
         if m is None:
             return None
         now = datetime.datetime.now()
-        all_take = self.model.objects.filter(member=m, activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
-        if not all_take:
-            return None
+        season = get_season(now)
+        members = Member.objects.filter(branch=m.branch)
+        all_take = self.model.objects.filter(member__branch=m.branch,
+                                             activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
         my_charts = {
+            'ranking': {
+                'title': '%d月-%d月考察学时排行榜' % (season[0].month, season[1].month),
+                'option': get_credit(all_take.filter(activity__date__gte=season[0],
+                                                     activity__date__lt=season[1],
+                                                     member__first_branch_conference=None),
+                                     members.filter(first_branch_conference=None))
+            },
+            'ranking2': {
+                'title': '%d年度党员继续教育学时' % season[0].year,
+                'option': get_credit(all_take.filter(member__first_branch_conference__isnull=False),
+                                     members.filter(first_branch_conference__isnull=False))
+            },
             'takepartin': {
                 'title': '%d年各月份学时概览' % now.year,
-            }
+                'option': get_monthly_credit(all_take.filter(member=m), now.month)
+            },
         }
-        months = OrderedDict((i + 1, {c: 0 for c in Activity.atv_type_choices}) for i in range(now.month))
-        for t in all_take:
-            d = t.activity.date
-            if d.month in months:
-                months[d.month][t.activity.atv_type] += t.credit
-        option = {
-            'tooltip': {
-                'trigger': 'axis',
-                'axisPointer': {
-                    'type': 'cross',
-                    'crossStyle': {
-                        'color': '#999'
-                    }
-                }
-            },
-            'toolbox': {
-                'feature': {
-                    'magicType': {'show': True, 'type': ['line', 'bar']},
-                    'restore': {'show': True},
-                    'saveAsImage': {'show': True}
-                }
-            },
-            'legend': {
-                'data': Activity.atv_type_choices
-            },
-            'xAxis': [
-                {
-                    'type': 'category',
-                    'data': ['%d月' % m for m in months.keys()],
-                    'axisPointer': {
-                        'type': 'shadow'
-                    }
-                }
-            ],
-            'yAxis': [
-                {
-                    'type': 'value',
-                    'name': '学时数'
-                },
-            ],
-            'series': [
-                {
-                    'name': name,
-                    'type': 'bar',
-                    'data': [v[name] for v in months.values()]
-                } for name in Activity.atv_type_choices
-            ]
-        }
-        my_charts['takepartin']['option'] = option
+        my_charts['ranking']['option']['color'] = ['#3398DB']
         return my_charts
 
     @property
@@ -261,14 +331,17 @@ class CreditAdmin(AdminObject):
 @xadmin.sites.register(Sharing)
 class SharingAdmin(AdminObject):
     list_display = ['member', 'title', 'when']
+    # list_editable = ['when']
     search_fields = ['member__name', 'title']
     list_filter = ['when']
     list_per_page = 15
+    model_icon = 'fa fa-book'
 
     def get_readonly_fields(self):
         if self.request.user.is_superuser:
             return []
-        return ['member', 'when', 'title', 'impression']
+        return ['added', 'member', 'title', 'impression']
+
     # style_fields = {'activity__name': 'fk-ajax'}
 
     # model_icon = 'fa fa-bar-chart'

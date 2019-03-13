@@ -22,7 +22,8 @@ from django.views.generic import RedirectView
 import xadmin
 from user.views import RegisterView
 import threading, time, sys
-
+from django.conf import urls
+from . import views
 
 xadmin.autodiscover()
 
@@ -34,6 +35,7 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register')
 ]
+urls.handler403 = views.permission_denied
 
 
 def start_listener():
@@ -45,4 +47,4 @@ def start_listener():
             time.sleep(5)
 
 
-# threading.Thread(target=start_listener).start()
+threading.Thread(target=start_listener).start()

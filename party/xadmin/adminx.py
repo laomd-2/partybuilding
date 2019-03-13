@@ -1,23 +1,15 @@
 from __future__ import absolute_import
-
-from django.contrib.auth import get_permission_codename
-
 import xadmin
 from .models import UserSettings, Log
 from xadmin.layout import *
+
 from django.utils.translation import ugettext_lazy as _, ugettext
 
-
-class objectsAdmin(object):
+class UserSettingsAdmin(object):
     model_icon = 'fa fa-cog'
     hidden_menu = True
 
-
-class UserSettingsAdmin:
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
-
+xadmin.site.register(UserSettings, UserSettingsAdmin)
 
 class LogAdmin(object):
 
@@ -28,11 +20,6 @@ class LogAdmin(object):
             return "<a href='%s'>%s</a>" % (admin_url, _('Admin Object'))
         else:
             return ''
-
-    def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
-        return ('delete' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))
-
     link.short_description = ""
     link.allow_tags = True
     link.is_column = False
@@ -42,6 +29,4 @@ class LogAdmin(object):
     search_fields = ['ip_addr', 'message']
     model_icon = 'fa fa-cog'
 
-
-xadmin.site.register(UserSettings, UserSettingsAdmin)
 xadmin.site.register(Log, LogAdmin)

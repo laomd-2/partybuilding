@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from info.models import Member, Branch
 import datetime
@@ -89,7 +90,7 @@ class Sharing(models.Model):
     added = models.BooleanField('审核通过', default=False)
 
     class Meta:
-        unique_together = ('member', 'title')
+        ordering = ('-when', )
         verbose_name = '学习打卡'
         verbose_name_plural = verbose_name
 
@@ -99,3 +100,9 @@ class Sharing(models.Model):
     @staticmethod
     def foreign_keys():
         return ['member']
+
+    def validate_unique(self, exclude=None):
+        if self.pk is None:
+            if Sharing.objects.filter(member=self.member, title=self.title).exists():
+                raise ValidationError("%s已经学习过%s。" % (self.member, self.title))
+
