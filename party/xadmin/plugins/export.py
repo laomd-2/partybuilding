@@ -1,6 +1,8 @@
 import io
 import datetime
 import sys
+from collections import OrderedDict
+
 from future.utils import iteritems
 
 from django.http import HttpResponse
@@ -33,8 +35,9 @@ except:
 
 class ExportMenuPlugin(BaseAdminPlugin):
 
-    list_export = ('xlsx', 'xls', 'csv', 'xml', 'json')
-    export_names = {'xlsx': 'Excel 2007', 'xls': 'Excel', 'csv': 'CSV',
+    # list_export = ('xlsx', 'xls', 'csv', 'xml', 'json')
+    list_export = ('xlsx', 'xls')
+    export_names = {'xlsx': 'WPS', 'xls': 'Office Excel', 'csv': 'CSV',
                     'xml': 'XML', 'json': 'JSON'}
 
     def init_request(self, *args, **kwargs):
@@ -73,7 +76,7 @@ class ExportPlugin(BaseAdminPlugin):
         return value
 
     def _get_objects(self, context):
-        headers = [c for c in context['result_headers'].cells if c.export]
+        headers = [c for c in context['result_headers'].cells]
         rows = context['results']
 
         return [dict([
@@ -82,7 +85,6 @@ class ExportPlugin(BaseAdminPlugin):
 
     def _get_datas(self, context):
         rows = context['results']
-
         new_rows = [[self._format_value(o) for o in
             filter(lambda c:getattr(c, 'export', False), r.cells)] for r in rows]
         new_rows.insert(0, [force_text(c.text) for c in context['result_headers'].cells if c.export])
@@ -226,7 +228,6 @@ class ExportPlugin(BaseAdminPlugin):
         file_name = self.opts.verbose_name.replace(' ', '_')
         response['Content-Disposition'] = ('attachment; filename=%s.%s' % (
             file_name, file_type)).encode('utf-8')
-
         response.write(getattr(self, 'get_%s_export' % file_type)(context))
         return response
 
