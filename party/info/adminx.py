@@ -103,11 +103,21 @@ class MemberAdmin(AdminObject):
     @property
     def data_charts(self):
         m = get_bind_member(self.request.user)
-        if m is None:
+        if m is None and not is_admin(self.request.user):
             return None
+        if is_school_manager(self.request.user):
+            school_id = int(self.request.user.username[0])
+            scope = School.objects.get(id=school_id).name
+            objects = self.model.objects.filter(branch__school=school_id)
+        elif self.request.user.is_superuser:
+            scope = ''
+            objects = self.model.objects.all()
+        else:
+            scope = '党支部'
+            objects = self.model.objects.filter(branch=m.branch)
         my_charts = {
             'fenbu': {
-                'title': '党支部成员分布',
+                'title': scope + '成员分布',
             }
         }
         dates = OrderedDict([
@@ -119,7 +129,7 @@ class MemberAdmin(AdminObject):
         ])
 
         fenbu = dict()
-        for obj in self.model.objects.filter(branch=m.branch):
+        for obj in objects:
             grade = str(obj.netid)[:2]
             fenbu.setdefault(grade, OrderedDict(
                 [(k, 0) for k in dates.values()]))

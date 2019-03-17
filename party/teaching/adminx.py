@@ -229,7 +229,11 @@ class CreditAdmin(AdminObject):
             else:
                 season = get_season(now)
                 return qs.filter(activity__date__gte=season[0], activity__date__lt=season[1])
-        return qs
+        if self.request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(member__branch__school=int(self.request.user.username[0]),
+                             member__first_branch_conference__isnull=False)
 
     def save_models(self):
         obj = self.new_obj
@@ -251,32 +255,40 @@ class CreditAdmin(AdminObject):
     @property
     def data_charts(self):
         m = get_bind_member(self.request.user)
-        if m is None:
+        if m is None and not is_school_manager(self.request.user):
             return None
         now = datetime.datetime.now()
         season = get_season(now)
-        members = Member.objects.filter(branch=m.branch)
-        all_take = self.model.objects.filter(member__branch=m.branch,
-                                             activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
-        my_charts = {
-            'ranking': {
-                'title': '%d月-%d月考察学时排行榜' % (season[0].month, season[1].month),
-                'option': get_credit(all_take.filter(activity__date__gte=season[0],
-                                                     activity__date__lt=season[1],
-                                                     member__first_branch_conference=None),
-                                     members.filter(first_branch_conference=None))
-            },
-            'ranking2': {
-                'title': '%d年度党员继续教育学时' % season[0].year,
-                'option': get_credit(all_take.filter(member__first_branch_conference__isnull=False),
-                                     members.filter(first_branch_conference__isnull=False))
-            },
-            'takepartin': {
+
+        my_charts = {}
+        if is_school_manager(self.request.user):
+            school_id = int(self.request.user.username[0])
+            members = Member.objects.filter(branch__school=school_id)
+            all_take = self.model.objects.filter(member__branch__school=school_id,
+                                                 activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
+        else:
+            members = Member.objects.filter(branch=m.branch)
+            all_take = self.model.objects.filter(member__branch=m.branch,
+                                                 activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
+            if m.branch == 1:
+                my_charts['ranking'] = {
+                    'title': '%d月-%d月考察学时排行榜' % (season[0].month, season[1].month),
+                    'option': get_credit(all_take.filter(activity__date__gte=season[0],
+                                                         activity__date__lt=season[1],
+                                                         member__first_branch_conference=None),
+                                         members.filter(first_branch_conference=None))
+                }
+                my_charts['ranking']['option']['color'] = ['#3398DB']
+        my_charts['ranking2'] = {
+            'title': '%d年度党员继续教育学时' % season[0].year,
+            'option': get_credit(all_take.filter(member__first_branch_conference__isnull=False),
+                                 members.filter(first_branch_conference__isnull=False))
+        }
+        if m is not None:
+            my_charts['takepartin'] = {
                 'title': '%d年各月份学时概览' % now.year,
                 'option': get_monthly_credit(all_take.filter(member=m), now.month)
-            },
-        }
-        my_charts['ranking']['option']['color'] = ['#3398DB']
+            }
         return my_charts
 
     @property
