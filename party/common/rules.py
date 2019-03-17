@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 
 @rules.predicate
 def is_branch_manager(user):
-    g = Group.objects.get(name='支书')
+    g = Group.objects.get(name='党支部管理员')
     return g in user.groups.all()
 
 

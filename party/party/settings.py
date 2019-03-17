@@ -138,18 +138,5 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'SDCS党建信息系统',
-    'HEADER_DATE_FORMAT': 'l, j. F Y',  # Saturday, 16th March 2013
-    'HEADER_TIME_FORMAT': 'H:i',  # 18:42
-    'SHOW_REQUIRED_ASTERISK': True,
-    'SEARCH_URL': '',
-    'MENU_OPEN_FIRST_CHILD': True,
-    'MENU_ICONS': {
-        'sites': 'icon-leaf',
-        'auth': 'icon-lock',
-        'info': 'icon-flag',
-        'teaching': 'icon-star',
-        'user': 'icon-user'
-    },
-}
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
+MEDIA_URL = '/upload/' #这个是在浏览器上访问该上传文件的url的前缀

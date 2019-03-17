@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from collections import OrderedDict
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.paginator import InvalidPage, Paginator
+from django.db.models import F
 from django.urls.base import NoReverseMatch
 from django.db import models
 from django.http import HttpResponseRedirect
@@ -233,7 +234,15 @@ class ListAdminView(ModelAdminView):
                 pass
 
         # Then, set queryset ordering.
-        queryset = queryset.order_by(*self.get_ordering())
+        ordering = self.get_ordering()
+
+        for i in range(len(ordering)):
+            o = ordering[i]
+            if o[0] == '-':
+                ordering[i] = F(o[1:]).desc(nulls_last=True)
+            else:
+                ordering[i] = F(o).asc(nulls_last=True)
+        queryset = queryset.order_by(*ordering)
 
         # Return the queryset.
         return queryset
@@ -296,11 +305,11 @@ class ListAdminView(ModelAdminView):
         # Ensure that the primary key is systematically present in the list of
         # ordering fields so we can guarantee a deterministic order across all
         # database backends.
-        pk_name = self.opts.pk.name
-        if not (set(ordering) & set(['pk', '-pk', pk_name, '-' + pk_name])):
-            # The two sets do not intersect, meaning the pk isn't present. So
-            # we add it.
-            ordering.append('-pk')
+        # pk_name = self.opts.pk.name
+        # if not (set(ordering) & set(['pk', '-pk', pk_name, '-' + pk_name])):
+        #     # The two sets do not intersect, meaning the pk isn't present. So
+        #     # we add it.
+        #     ordering.append('-pk')
 
         return ordering
 

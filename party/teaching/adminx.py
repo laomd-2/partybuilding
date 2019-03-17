@@ -340,7 +340,9 @@ class SharingAdmin(AdminObject):
     def get_readonly_fields(self):
         if self.request.user.is_superuser:
             return []
-        return ['added', 'member', 'title', 'impression']
+        if is_admin(self.request.user):
+            return ['member']
+        return ['member', 'added']
 
     # style_fields = {'activity__name': 'fk-ajax'}
 
@@ -368,3 +370,11 @@ class SharingAdmin(AdminObject):
                     else:
                         kwargs["queryset"] = Member.objects.filter(branch=m.branch)
         return super().formfield_for_dbfield(db_field, **kwargs)
+
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if is_admin(self.request.user) or obj is None:
+                return True
+            m = self.bind_member
+            return m is not None and m == obj.member
+        return False

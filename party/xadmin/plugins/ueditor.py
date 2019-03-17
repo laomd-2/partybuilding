@@ -1,5 +1,5 @@
 import xadmin
-from xadmin.views import BaseAdminPlugin, CreateAdminView, ModelFormAdminView, UpdateAdminView
+from xadmin.views import BaseAdminPlugin, CreateAdminView, UpdateAdminView, DetailAdminView
 from DjangoUeditor.models import UEditorField
 from DjangoUeditor.widgets import UEditorWidget
 from django.conf import settings
@@ -30,5 +30,6 @@ class UeditorPlugin(BaseAdminPlugin):
         nodes.append(js)
 
 
+xadmin.site.register_plugin(UeditorPlugin, DetailAdminView)
 xadmin.site.register_plugin(UeditorPlugin, UpdateAdminView)
 xadmin.site.register_plugin(UeditorPlugin, CreateAdminView)

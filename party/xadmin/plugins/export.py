@@ -37,7 +37,7 @@ class ExportMenuPlugin(BaseAdminPlugin):
 
     # list_export = ('xlsx', 'xls', 'csv', 'xml', 'json')
     list_export = ('xlsx', 'xls')
-    export_names = {'xlsx': 'WPS', 'xls': 'Office Excel', 'csv': 'CSV',
+    export_names = {'xlsx': 'WPS Excel', 'xls': 'Office Excel', 'csv': 'CSV',
                     'xml': 'XML', 'json': 'JSON'}
 
     def init_request(self, *args, **kwargs):

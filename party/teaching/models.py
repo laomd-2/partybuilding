@@ -46,7 +46,7 @@ class TakePartIn(models.Model):
 
     class Meta:
         unique_together = ('activity', 'member')
-        ordering = ('activity', '-credit', 'member')
+        ordering = ('-last_modified', '-credit', 'member')
         verbose_name = '学时统计'
         verbose_name_plural = verbose_name
 
@@ -75,7 +75,7 @@ class TakePartIn(models.Model):
             old = TakePartIn.objects.get(id=self.id)
             if old.activity != self.activity or abs(old.credit - self.credit) > 0.001:
                 self.last_modified = datetime.datetime.now()
-        except:
+        except TakePartIn.DoesNotExist:
             pass
         self.credit = round(self.credit, 1)
         super().save(force_insert, force_update, using, update_fields)
@@ -86,7 +86,7 @@ class Sharing(models.Model):
     when = models.DateTimeField('时间', default=timezone.now)
     title = models.CharField('标题', max_length=100, null=True)
     # appname = models.CharField('APP', max_length=50, null=True)
-    impression = models.CharField('学习心得', max_length=255, null=True, unique=True)
+    impression = models.TextField('学习心得', default='')
     added = models.BooleanField('审核通过', default=False)
 
     class Meta:
@@ -103,6 +103,5 @@ class Sharing(models.Model):
 
     def validate_unique(self, exclude=None):
         if self.pk is None:
-            if Sharing.objects.filter(member=self.member, title=self.title).exists():
+            if Sharing.objects.filter(member=self.member, title=self.title):
                 raise ValidationError("%s已经学习过%s。" % (self.member, self.title))
-

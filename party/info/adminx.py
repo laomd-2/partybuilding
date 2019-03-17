@@ -1,13 +1,14 @@
 from collections import OrderedDict
 from django.contrib import messages
-
+from django.db.models import F
 from common.user_util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
-from xadmin.layout import Main, Fieldset
-from .models import School, Branch, Member, Dependency
 import xadmin
+from xadmin.layout import Main, Fieldset
 from common.rules import *
 from common.base import AdminObject
+from .models import School, Branch, Member, Dependency
+from .actions import *
 
 
 @xadmin.sites.register(School)
@@ -21,7 +22,8 @@ class SchoolAdmin(AdminObject):
 
 @xadmin.sites.register(Branch)
 class BranchAdmin(AdminObject):
-    list_display = ['id', 'school', 'branch_name', 'date_create']
+    list_display = ['id', 'school', 'branch_name',
+                    'num_members', 'date_create']
     list_display_links = ['branch_name']
     search_fields = ['branch_name', 'school__name']
     model_icon = 'fa fa-flag'
@@ -57,6 +59,8 @@ class BranchAdmin(AdminObject):
 
 @xadmin.sites.register(Member)
 class MemberAdmin(AdminObject):
+    actions = [ActivistAction, KeyPersonAction,
+               PrememberAction, MemberAction]
     import_export_args = {'import_resource_class': MemberResource,
                           'export_resource_class': MemberResource}
 
@@ -66,15 +70,19 @@ class MemberAdmin(AdminObject):
     model_icon = 'fa fa-info'
     list_per_page = 15
     # list_editable = list_display[1:]
-    # relfield_style = 'fk_ajax'
+    ordering = ['second_branch_conference',
+                'first_branch_conference',
+                'key_develop_person_date',
+                'activist_date',
+                'branch', 'netid']
 
     fenge = OrderedDict([
         ('application_date', '基本信息'),
-        ('league_promotion_date_a', '一、申请入党'),
-        ('democratic_appraisal_date', '二、入党积极分子的确定和培养'),
-        ('recommenders_date', '三、发展对象的确定和考察'),
-        ('oach_date', '四、预备党员的吸收'),
-        ('', '五、预备党员的教育考察和转正')])
+        ('activist_date', '申请入党'),
+        ('democratic_appraisal_date', '入党积极分子的确定和培养'),
+        ('recommenders_date', '发展对象的确定和考察'),
+        ('oach_date', '预备党员的吸收'),
+        ('', '预备党员的教育考察和转正')])
     phases = dict()
     last = 0
     for k, v in fenge.items():
@@ -111,9 +119,10 @@ class MemberAdmin(AdminObject):
         ])
 
         fenbu = dict()
-        for obj in self.model.objects.all():
+        for obj in self.model.objects.filter(branch=m.branch):
             grade = str(obj.netid)[:2]
-            fenbu.setdefault(grade, OrderedDict([(k, 0) for k in dates.values()]))
+            fenbu.setdefault(grade, OrderedDict(
+                [(k, 0) for k in dates.values()]))
             for d in dates:
                 if getattr(obj, d):
                     fenbu[grade][dates[d]] += 1
@@ -196,6 +205,8 @@ class MemberAdmin(AdminObject):
             for k, v in self.phases.items():
                 if k != '基本信息':
                     res += v
+            res.remove('autobiography')
+            res.remove('application_form')
         return res
 
     def queryset(self):
@@ -210,7 +221,8 @@ class MemberAdmin(AdminObject):
             if from_ and to:
                 delta = to - from_
                 if delta.days < dep.days:
-                    errors.append((dep.from_1, dep.to, delta.days, dep.days_mapping[dep.days]))
+                    errors.append((dep.from_1, dep.to, delta.days,
+                                   dep.days_mapping[dep.days]))
         return errors
 
     def save_models(self):

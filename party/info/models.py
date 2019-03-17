@@ -1,7 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.conf import settings
+from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -47,6 +50,15 @@ class Branch(models.Model):
             if qs.filter(branch_name=self.branch_name).exists():
                 raise ValidationError("%s的%s已存在。" % (self.school, self.branch_name))
 
+    def num_members(self):
+        return Member.objects.filter(branch=self).count()
+
+    num_members.short_description = '成员数'
+
+
+def upload_to(instance, filename):
+    return smart_str(instance.netid) + '-' + filename
+
 
 class Member(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='党支部')
@@ -60,13 +72,12 @@ class Member(models.Model):
     phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True)
     # credit_card_id = models.CharField(verbose_name='身份证号码', null=True, blank=True, max_length=50)
     major_in = models.CharField(max_length=30, verbose_name='当前专业（全称）', null=True, blank=True)
-    youth_league_date = NullableDateField(verbose_name='加入共青团时间')
+    youth_league_member = models.BooleanField(verbose_name='团员', default=True)
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
 
     application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致。')
     first_talk_date = NullableDateField(verbose_name='首次组织谈话时间', help_text='党支部收到入党申请书后，一个月内委派支委与其谈话的时间。')
 
-    league_promotion_date_a = NullableDateField(verbose_name='推荐/推优（入党积极分子）时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
     activist_date = NullableDateField('确定为入党积极分子时间', help_text='党支部开会讨论，通过成为入党积极分子的时间。')
     contacts = models.CharField(max_length=50, null=True, blank=True, verbose_name='培养联系人',
                                 help_text='2名正式党员（正式党员紧缺时也可安排预备党员）。')
@@ -79,8 +90,8 @@ class Member(models.Model):
 
     recommenders_date = NullableDateField(verbose_name='确定入党介绍人时间')
     recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人')
-    autobiography_date = NullableDateField(verbose_name='填写自传时间')
-    application_form_date = NullableDateField(verbose_name='填写入党志愿书时间')
+    autobiography = models.FileField(upload_to=upload_to, verbose_name='自传', null=True, blank=True)
+    application_form = models.FileField(upload_to=upload_to, verbose_name='入党志愿', null=True, blank=True)
     first_branch_conference = NullableDateField(verbose_name='确定为预备党员时间', help_text='支部党员大会通过成为预备党员的时间。')
     pro_conversation_date = NullableDateField(verbose_name='入党谈话时间')
     talker = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党谈话人', help_text='学院党委成员或组织员。')
@@ -110,7 +121,6 @@ class Member(models.Model):
     @staticmethod
     def export_field_map():
         fields = OrderedDict()
-        # fields['党支部ID'] = 'branch'
         for f in Member._meta.fields:
             fields[f.verbose_name + ('ID' if f.name in Member.foreign_keys() else '')] = f.name
         return fields

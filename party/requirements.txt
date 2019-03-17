@@ -9,3 +9,6 @@ diff_match_patch
 django-formtools==2.1
 httplib2
 itchat
+pymysql
+xlwt
+xlsxwriter
