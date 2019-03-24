@@ -13,12 +13,12 @@ class Activity(models.Model):
     atv_type = models.CharField('活动类型', choices=[
         (t, t) for t in atv_type_choices
     ], default='集中学习', max_length=10)
-    credit = models.FloatField('学时数', default=0, choices=sorted([(0.1, 0.1), (0.2, 0.2)] + [
-        (i / 2, i / 2) for i in range(41)
-    ]))
-    cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
     branch = models.ManyToManyField(Branch, verbose_name='主/承办党支部')
-    visualable_others = models.BooleanField('其他支部可见', default=False)
+    credit = models.FloatField('学时数', default=0)
+
+    cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
+    visualable_others = models.BooleanField('公开', default=False, help_text='是否向其他支部公开。')
+    active = models.BooleanField('已标记', default=False, help_text='用于批量添加学时。')
 
     class Meta:
         unique_together = ('name', 'date')

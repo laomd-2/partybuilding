@@ -21,12 +21,18 @@ class ActivityAdmin(AdminObject):
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 
-    list_display = ['id', 'name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
+    list_display = ['name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
     list_display_links = ['name']
     list_filter = ['date', 'end_time', 'atv_type', 'credit']
     search_fields = ['name']
     list_per_page = 15
     model_icon = 'fa fa-users'
+
+    @property
+    def exclude(self):
+        if not is_admin(self.request.user):
+            return ['active', 'cascade', 'visualable_others']
+        return []
 
     def get_readonly_fields(self):
         obj = self.org_obj
@@ -270,7 +276,7 @@ class CreditAdmin(AdminObject):
             members = Member.objects.filter(branch=m.branch)
             all_take = self.model.objects.filter(member__branch=m.branch,
                                                  activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
-            if m.branch == 1:
+            if m.branch.id == 1:
                 my_charts['ranking'] = {
                     'title': '%d月-%d月考察学时排行榜' % (season[0].month, season[1].month),
                     'option': get_credit(all_take.filter(activity__date__gte=season[0],

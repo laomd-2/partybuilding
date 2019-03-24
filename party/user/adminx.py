@@ -44,7 +44,7 @@ class UserAdmin(AdminObject):
 
     def get_readonly_fields(self):
         if is_school_admin(self.request.user):
-            return ['username', 'is_staff', 'is_active', 'last_login']
+            return ['username', 'is_staff', 'is_active', 'last_login', 'email']
         if is_branch_manager(self.request.user):  # 支书
             return ['groups', 'username', 'last_login']
         return ['groups', 'username', 'is_staff', 'is_active', 'last_login']

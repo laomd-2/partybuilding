@@ -60,7 +60,7 @@ class BranchAdmin(AdminObject):
 @xadmin.sites.register(Member)
 class MemberAdmin(AdminObject):
     actions = [ActivistAction, KeyPersonAction,
-               PrememberAction, MemberAction]
+               PrememberAction, MemberAction, ActivityAction]
     import_export_args = {'import_resource_class': MemberResource,
                           'export_resource_class': MemberResource}
 
@@ -103,7 +103,7 @@ class MemberAdmin(AdminObject):
     @property
     def data_charts(self):
         m = get_bind_member(self.request.user)
-        if m is None and not is_admin(self.request.user):
+        if m is None and not is_school_admin(self.request.user):
             return None
         if is_school_manager(self.request.user):
             school_id = int(self.request.user.username[0])

@@ -94,11 +94,21 @@ WSGI_APPLICATION = 'party.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'HOST': '47.112.192.168',
         'NAME': 'party',
         'USER': 'sdcscs2',
         'PASSWORD': '000000',
-    }
+    },
+    # 'slave': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'HOST': 'rm-wz95hcwsfywntm609.mysql.rds.aliyuncs.com',
+    #     'NAME': 'party',
+    #     'USER': 'sdcscs2',
+    #     'PASSWORD': '000000',
+    # }
 }
+
+# DATABASE_ROUTERS = ['router.Router']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -139,4 +149,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
-MEDIA_URL = '/upload/' #这个是在浏览器上访问该上传文件的url的前缀
+MEDIA_URL = '/upload/'  # 这个是在浏览器上访问该上传文件的url的前缀
