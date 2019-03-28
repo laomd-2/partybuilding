@@ -27,7 +27,6 @@ while True:
 
     @bot.register(daka + test, [wxpy.SHARING, wxpy.TEXT, wxpy.NOTE], except_self=False)
     def on_msg(msg):
-        print(msg)
         msg_type = msg.type
         from_user = msg.member.name
         now = datetime.datetime.now()
@@ -48,7 +47,6 @@ while True:
                         sharing.impression = ''
                     if sharing.title or sharing.impression:
                         if sharing.added:
-                            print('去掉学时')
                             sharing.added = False
                             xuexi = get_activity(revoked_msg.text, now)
                             credit = TakePartIn.objects.get(member=sharing.member, activity=xuexi)

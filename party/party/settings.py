@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
-    # 'suit',
+    'django_crontab',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -94,21 +94,21 @@ WSGI_APPLICATION = 'party.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '47.112.192.168',
+        # 'HOST': '47.112.192.168',
         'NAME': 'party',
         'USER': 'sdcscs2',
         'PASSWORD': '000000',
     },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'HOST': 'rm-wz95hcwsfywntm609.mysql.rds.aliyuncs.com',
+    #     'HOST': '47.112.202.35',
     #     'NAME': 'party',
     #     'USER': 'sdcscs2',
     #     'PASSWORD': '000000',
     # }
 }
 
-# DATABASE_ROUTERS = ['router.Router']
+# DATABASE_ROUTERS = ['party.router.Router']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -150,3 +150,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 MEDIA_URL = '/upload/'  # 这个是在浏览器上访问该上传文件的url的前缀
+
+CRONJOBS = [
+    # 每天7：00执行
+    # ('*/1 * * * *', 'robot.notice.activist'),
+    ('00 7 1 3,9 *', 'robot.notice.activist'),
+    ('05 7 1 3,9 *', 'robot.notice.key_develop_person'),
+    ('00 7 1 6,12 *', 'robot.notice.pre_party_member'),
+    ('05 7 1 6,12 *', 'robot.notice.party_member'),
+]
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
+EMAIL_HOST_PASSWORD = '*'  # 密码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -1,10 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.conf import settings
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
-from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -57,7 +55,7 @@ class Branch(models.Model):
 
 
 def upload_to(instance, filename):
-    return smart_str(instance.netid) + '-' + filename
+    return smart_str(instance.netid) + '-' + smart_str(filename.encode('utf-8'))
 
 
 class Member(models.Model):
@@ -134,15 +132,21 @@ class Member(models.Model):
         return self.first_branch_conference or self.second_branch_conference
 
 
-class Application(models.Model):
-    netid = models.IntegerField('学号')
-    application_type = models.CharField('申请成为', max_length=20, choices=(
-        ('入党申请人', '入党申请'),
-        ('入党积极分子', '入党积极分子'),
-        ('重点发展对象', '重点发展对象'),
-        ('预备党员', '预备党员'),
-        ('正式党员', '正式党员')
-    ))
+def upload_to2(instance, filename):
+    return smart_str(filename.encode('utf-8'))
+
+
+class Files(models.Model):
+    name = models.CharField('阶段', max_length=50)
+    notice = models.FileField(upload_to=upload_to2, verbose_name='通知')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = '材料'
+        verbose_name_plural = verbose_name
 
 
 class Dependency(models.Model):

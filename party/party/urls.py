@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 # from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.views import static
 from django.conf.urls.static import static as static_
 from django.conf import settings
@@ -27,13 +27,15 @@ import time
 import sys
 from django.conf import urls
 from . import views
+from robot.notice import activist
+
 
 xadmin.autodiscover()
 
 
 urlpatterns = [
     path('', xadmin.site.urls),
-    path('ueditor/', include('DjangoUeditor.urls')),
+                  # path('ueditor/', include('DjangoUeditor.urls')),
     url(r'^static/(?P<path>.*)$', static.serve,
         {'document_root': settings.STATIC_ROOT}, name='static'),
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
@@ -45,9 +47,12 @@ urls.handler403 = views.permission_denied
 def start_listener():
     while 'runserver' in sys.argv:
         try:
-            import listener
+            from robot import daka
         except Exception as e:
             print(e)
             time.sleep(5)
 
-# threading.Thread(target=start_listener).start()
+
+threading.Thread(target=start_listener).start()
+
+# activist()

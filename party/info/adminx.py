@@ -1,13 +1,11 @@
 from collections import OrderedDict
-from django.contrib import messages
-from django.db.models import F
 from common.user_util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
 import xadmin
 from xadmin.layout import Main, Fieldset
 from common.rules import *
 from common.base import AdminObject
-from .models import School, Branch, Member, Dependency
+from .models import School, Branch, Member, Dependency, Files
 from .actions import *
 
 
@@ -297,3 +295,8 @@ class DependencyAdmin(AdminObject):
             return ['from_1']
         else:
             return [None, ]
+
+
+@xadmin.sites.register(Files)
+class FilesAdmin(AdminObject):
+    pass
