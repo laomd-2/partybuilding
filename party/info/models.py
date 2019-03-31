@@ -55,7 +55,7 @@ class Branch(models.Model):
 
 
 def upload_to(instance, filename):
-    return smart_str(instance.netid) + '-' + smart_str(filename.encode('utf-8'))
+    return 'info/' + str(instance.netid) + '/' + smart_str(filename)
 
 
 class Member(models.Model):
@@ -133,12 +133,14 @@ class Member(models.Model):
 
 
 def upload_to2(instance, filename):
-    return smart_str(filename.encode('utf-8'))
+    return instance.name + '/' + smart_str(filename)
 
 
 class Files(models.Model):
-    name = models.CharField('阶段', max_length=50)
+    phases = ['入党积极分子', '重点发展对象', '预备党员(预审前)', '预备党员(预审后)', '正式党员']
+    name = models.CharField('阶段', max_length=50, choices=[(a, a) for a in phases])
     notice = models.FileField(upload_to=upload_to2, verbose_name='通知')
+    files = models.FileField(upload_to=upload_to2, verbose_name='相关材料', null=True, blank=True)
 
     def __str__(self):
         return self.name

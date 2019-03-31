@@ -149,7 +149,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
-MEDIA_URL = '/upload/'  # 这个是在浏览器上访问该上传文件的url的前缀
+MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的前缀
 
 CRONJOBS = [
     # 每天7：00执行
@@ -166,3 +166,5 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = '*'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+HOST_IP = '47.112.*.*'

@@ -2,11 +2,13 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 import datetime, os
 from django.contrib.auth.models import Group
+from django.urls import reverse
+
 from info.models import Member, Files
 from email.header import make_header
 
 
-def send_email(users, title, branch_name, appers, fields):
+def send_email(users, title, branch_name, appers, fields, phase):
     to_emails = [user.email for user in users if user.email]
     if not to_emails or not appers:
         return
@@ -38,19 +40,22 @@ def send_email(users, title, branch_name, appers, fields):
     html_content += """
         </table></p></blockquote>
         <p align="right">中山大学数据科学与计算机学院党建<br />请勿回复</p>
-        <p><b>需要提交的材料请以党建群最新版本为主。</b></p>
     """
     msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, to_emails)
     try:
-        o = Files.objects.get(name='积极分子')
+        o = Files.objects.get(name=Files.phases[phase])
         file = o.notice
         file_name = file.path
         name = file.name
         b = make_header([(name, 'utf-8')]).encode('utf-8')
-        msg.attach(b, open(file_name, 'rb').read())
+        try:
+            msg.attach(b, open(file_name, 'rb').read())
+        except FileNotFoundError:
+            pass
+        html_content += """
+            <p><a href="http://%s%s"><b>%s</b></a></p>
+        """ % (settings.HOST_IP, reverse('media', args=[o.files.name]), o.files.name)
     except Files.DoesNotExist:
-        pass
-    except FileNotFoundError:
         pass
     except Exception as e:
         print(e)
@@ -65,7 +70,7 @@ def first_talk():
 def activist():
     now = datetime.datetime.now()
     # 在2.1或8.1前交申请书
-    end = datetime.datetime(now.year, now.month - 1, 1)
+    end = datetime.datetime(now.year, now.month - 1, 28)
 
     appers = Member.objects.filter(activist_date__isnull=True, application_date__lt=end)
     groups = dict()
@@ -84,7 +89,7 @@ def activist():
     for branch, appers in groups.items():
         if branch in branch_managers:
             send_email(branch_managers[branch], '%d月可接收入党积极分子名单' % now.month, branch.branch_name, appers,
-                       ['application_date'])
+                       ['application_date'], 0)
 
 
 def key_develop_person():
