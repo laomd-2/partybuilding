@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from common.user_util import get_visuable_members, get_bind_member
+from user.util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
 import xadmin
 from xadmin.layout import Main, Fieldset

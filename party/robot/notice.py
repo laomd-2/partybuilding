@@ -1,15 +1,15 @@
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
-import datetime, os
-from django.contrib.auth.models import Group
 from django.urls import reverse
-
 from info.models import Member, Files
 from email.header import make_header
+
+from info.util import get_end_time, group_by_branch, get_branch_managers
 
 
 def send_email(users, title, branch_name, appers, fields, phase):
     to_emails = [user.email for user in users if user.email]
+    print(to_emails)
     if not to_emails or not appers:
         return
 
@@ -19,7 +19,7 @@ def send_email(users, title, branch_name, appers, fields, phase):
     亲爱的%s支书：<br />
         <blockquote>您好，%s如下，请做好相关准备工作：
         <p>
-        <table width="60%%" border="1" cellspacing="0" margin="0 50%%">
+        <table width="80%%" border="1" cellspacing="0" margin="0 50%%">
             <tr>
                 <th>学号</th>
                 <th>姓名</th>
@@ -68,37 +68,52 @@ def first_talk():
 
 
 def activist():
-    now = datetime.datetime.now()
-    # 在2.1或8.1前交申请书
-    end = datetime.datetime(now.year, now.month - 1, 28)
+    # 在2个月前交申请书，即2.1或8.1前
+    end, month = get_end_time(2)
+    groups = group_by_branch(Member.objects.filter(activist_date__isnull=True, application_date__lt=end))
 
-    appers = Member.objects.filter(activist_date__isnull=True, application_date__lt=end)
-    groups = dict()
-    for apper in appers:
-        groups.setdefault(apper.branch, [])
-        groups[apper.branch].append(apper)
-    group = Group.objects.get(name='党支部管理员')
-    managers = group.user_set.all()
-    branch_managers = dict()
-    for manager in managers:
-        branch = Member.objects.get(netid=int(manager.username)).branch
-        if branch.id != 1:
-            continue
-        branch_managers.setdefault(branch, [])
-        branch_managers[branch].append(manager)
+    branch_managers = get_branch_managers()
     for branch, appers in groups.items():
         if branch in branch_managers:
-            send_email(branch_managers[branch], '%d月可接收入党积极分子名单' % now.month, branch.branch_name, appers,
+            send_email(branch_managers[branch], '%d月可接收入党积极分子名单' % month, branch.branch_name, appers,
                        ['application_date'], 0)
 
 
 def key_develop_person():
-    pass
+    end, month = get_end_time(12)
+    groups = group_by_branch(Member.objects.filter(key_develop_person_date__isnull=True,
+                                                   activist_date__lt=end))
+
+    branch_managers = get_branch_managers()
+    for branch, appers in groups.items():
+        if branch in branch_managers:
+            send_email(branch_managers[branch], '%d月可接收重点发展对象名单' % month,
+                       branch.branch_name, appers,
+                       ['application_date', 'activist_date'], 1)
 
 
-def pre_party_member():
-    pass
+def pre_party_member1():
+    end, month = get_end_time(3)
+    groups = group_by_branch(Member.objects.filter(first_branch_conference__isnull=True,
+                                                   key_develop_person_date__lt=end))
+
+    branch_managers = get_branch_managers()
+    for branch, appers in groups.items():
+        if branch in branch_managers:
+            send_email(branch_managers[branch], '%d月可接收预备党员（预审后）名单' % month,
+                       branch.branch_name, appers,
+                       ['application_date', 'activist_date',
+                        'key_develop_person_date', 'graduated_party_school_date'], 3)
 
 
 def party_member():
-    pass
+    end, month = get_end_time(12)
+    groups = group_by_branch(Member.objects.filter(second_branch_conference__isnull=True,
+                                                   first_branch_conference__lt=end))
+
+    branch_managers = get_branch_managers()
+    for branch, appers in groups.items():
+        if branch in branch_managers:
+            send_email(branch_managers[branch], '%d月可转正预备党员名单' % month,
+                       branch.branch_name, appers,
+                       ['application_date', 'first_branch_conference'], 4)

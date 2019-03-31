@@ -3,14 +3,13 @@ from collections import OrderedDict, Counter
 
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
-from django.db.models import Sum
 
 from common.base import AdminObject
 
-from common.user_util import get_visuable_activities, get_bind_member, get_visuable_members
+from user.util import get_visuable_activities, get_bind_member, get_visuable_members
 from info.models import Member
 from .models import Activity, TakePartIn, Sharing
-from .resources import CreditResource, ActivityResource
+from .resources import CreditResource
 from common.rules import *
 import xadmin
 

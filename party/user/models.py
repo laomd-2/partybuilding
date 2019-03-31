@@ -5,7 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from common.user_util import get_bind_member
+from user.util import get_bind_member
 from info.models import Member
 from .base_user import AbstractBaseUser
 

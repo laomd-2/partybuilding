@@ -26,7 +26,7 @@ import time
 import sys
 from django.conf import urls
 from . import views
-from robot.notice import activist
+from robot.notice import pre_party_member1
 
 
 xadmin.autodiscover()
@@ -56,4 +56,4 @@ def start_listener():
 
 threading.Thread(target=start_listener).start()
 
-activist()
+# pre_party_member1()

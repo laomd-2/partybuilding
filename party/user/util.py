@@ -2,7 +2,7 @@ from django.db.models import Q
 
 from info.models import Member
 from teaching.models import Activity
-from .rules import *
+from common.rules import *
 
 
 def get_bind_member(user):
