@@ -56,4 +56,4 @@ def start_listener():
 
 threading.Thread(target=start_listener).start()
 
-# first_talk()
+# write_application()

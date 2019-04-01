@@ -120,6 +120,11 @@ class Member(models.Model):
         return self.application_date + datetime.timedelta(days=30)
     talk_date_end.short_description = '谈话截止时间'
 
+    def write_application_date_end(self):
+        return self.first_branch_conference + datetime.timedelta(days=365 - 31)
+
+    write_application_date_end.short_description = '转正申请截止时间'
+
     @staticmethod
     def foreign_keys():
         return ['branch']
@@ -156,7 +161,6 @@ class Files(models.Model):
     def get_notice(self):
         return mark_safe(
             '<a href="%s/%s">%s</a>' % (settings.MEDIA_URL, self.notice.name, self.notice.name.split('/')[-1]))
-
     get_notice.short_description = '通知'
 
     def get_files(self):

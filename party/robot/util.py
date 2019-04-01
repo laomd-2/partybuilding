@@ -63,7 +63,7 @@ def send_email_to_managers(users, title, appers, fields, phase):
     msg.send()
 
 
-def send_email_to_appliers(title, appliers, fields):
+def send_email_to_appliers(title, appliers, fields, template='notice_member.html'):
     infos = get_infos(fields, appliers)
     context = {
         'title': title,
@@ -82,7 +82,7 @@ def send_email_to_appliers(title, appliers, fields):
             context['name'] = applier.name
             context['applier'] = info
             msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [to_emails])
-            html_content = render_to_string('notice_member.html', context)
+            html_content = render_to_string(template, context)
             msg.attach_alternative(html_content, "text/html")
             msg.send()
         except User.DoesNotExist:
