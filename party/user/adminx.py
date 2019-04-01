@@ -92,7 +92,7 @@ xadmin.site.register(User, UserAdmin)
 
 @xadmin.sites.register(views.CommAdminView)
 class GlobalSettings(object):
-    site_title = "SDCS党建信息管理系统"
+    site_title = "计二党建系统"
     # 系统名称
     site_footer = "版权所有@SDCS计算机本科生第二党支部"
     # 底部版权栏

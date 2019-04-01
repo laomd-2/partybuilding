@@ -5,12 +5,14 @@ from .util import send_email_to_appliers, send_email_to_managers
 
 def first_talk():
     end, month = get_end_time(29)
-    groups = group_by_branch(Member.objects.filter(activist_date__isnull=True, application_date__lt=end))
+    groups = group_by_branch(Member.objects.filter(activist_date__isnull=True, application_date__gte=end))
     branch_managers = get_branch_managers()
+    fields = ['application_date', 'talk_date_end']
     for branch, appers in groups.items():
         if branch in branch_managers:
             send_email_to_managers(branch_managers[branch], '未谈话入党申请人名单', appers,
-                                   ['application_date', 'talk_date_end'], 5)
+                                   fields, 5)
+            send_email_to_appliers('首次组织谈话', appers, fields)
 
 
 def activist():

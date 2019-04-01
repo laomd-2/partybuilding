@@ -38,6 +38,7 @@ class IndexView(Dashboard):
             for k in sorted(important_dates.keys(), reverse=True):
                 events[k] = sorted(important_dates[k], key=lambda x: x[0], reverse=True)
             context.update({'events': events})
+            context['my_info_url'] = '/info/member/%s/update/' % self.request.user.username
         except:
             pass
         return context

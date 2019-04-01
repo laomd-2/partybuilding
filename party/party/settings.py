@@ -164,7 +164,7 @@ EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
-EMAIL_HOST_PASSWORD = '*'  # 密码
+EMAIL_HOST_PASSWORD = 'Laomadong7113'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-HOST_IP = '47.112.*.*'
+HOST_IP = '47.112.192.168'

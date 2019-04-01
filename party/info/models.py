@@ -1,7 +1,9 @@
 import datetime
-
+from django.utils.safestring import mark_safe
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
@@ -116,7 +118,6 @@ class Member(models.Model):
 
     def talk_date_end(self):
         return self.application_date + datetime.timedelta(days=30)
-
     talk_date_end.short_description = '谈话截止时间'
 
     @staticmethod
@@ -151,6 +152,18 @@ class Files(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_notice(self):
+        return mark_safe(
+            '<a href="%s/%s">%s</a>' % (settings.MEDIA_URL, self.notice.name, self.notice.name.split('/')[-1]))
+
+    get_notice.short_description = '通知'
+
+    def get_files(self):
+        return mark_safe(
+            '<a href="%s/%s">%s</a>' % (settings.MEDIA_URL, self.files.name, self.files.name.split('/')[-1]))
+
+    get_files.short_description = '相关材料'
 
     class Meta:
         ordering = ('name',)

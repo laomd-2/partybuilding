@@ -299,4 +299,5 @@ class DependencyAdmin(AdminObject):
 
 @xadmin.sites.register(Files)
 class FilesAdmin(AdminObject):
-    pass
+    list_display = ['name', 'get_notice', 'get_files']
+    model_icon = "fa fa-files-o"
