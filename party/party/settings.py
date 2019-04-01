@@ -153,10 +153,10 @@ MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的�
 
 CRONJOBS = [
     # 每天7：00执行
-    # ('*/1 * * * *', 'robot.notice.activist'),
+    ('00 7 */7 * *', 'robot.notice.first_talk'),
     ('00 7 1 3,9 *', 'robot.notice.activist'),
     ('05 7 1 3,9 *', 'robot.notice.key_develop_person'),
-    ('00 7 1 6,12 *', 'robot.notice.pre_party_member'),
+    ('00 7 1 6,12 *', 'robot.notice.pre_party_member1'),
     ('05 7 1 6,12 *', 'robot.notice.party_member'),
 ]
 

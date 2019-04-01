@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import smart_str
@@ -112,6 +114,11 @@ class Member(models.Model):
         return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields
                 if field.name != 'birth_date' and isinstance(field, models.DateField)]
 
+    def talk_date_end(self):
+        return self.application_date + datetime.timedelta(days=30)
+
+    talk_date_end.short_description = '谈话截止时间'
+
     @staticmethod
     def foreign_keys():
         return ['branch']
@@ -137,7 +144,7 @@ def upload_to2(instance, filename):
 
 
 class Files(models.Model):
-    phases = ['入党积极分子', '重点发展对象', '预备党员(预审前)', '预备党员(预审后)', '正式党员']
+    phases = ['入党积极分子', '重点发展对象', '预备党员(预审前)', '预备党员(预审后)', '正式党员', '首次组织谈话']
     name = models.CharField('阶段', max_length=50, choices=[(a, a) for a in phases])
     notice = models.FileField(upload_to=upload_to2, verbose_name='通知')
     files = models.FileField(upload_to=upload_to2, verbose_name='相关材料', null=True, blank=True)

@@ -4,9 +4,9 @@ from django.contrib.auth.models import Group
 from info.models import Member
 
 
-def get_end_time(month_delta):
+def get_end_time(days):
     now = datetime.datetime.now()
-    delta = datetime.timedelta(days=(month_delta - 1) * 30)
+    delta = datetime.timedelta(days=days)
     return now - delta, now.month
 
 
