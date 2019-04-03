@@ -85,7 +85,7 @@ class Member(models.Model):
                                 help_text='2名正式党员（正式党员紧缺时也可安排预备党员）。')
 
     democratic_appraisal_date = NullableDateField(verbose_name='民主评议时间', help_text='党支部召开座谈会收集群众意见的时间。')
-    league_promotion_date = NullableDateField(verbose_name='推荐/推优（重点发展对象）时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
+    league_promotion_date = NullableDateField(verbose_name='推荐/推优时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
     key_develop_person_date = NullableDateField(verbose_name='确定为重点发展对象时间', help_text='上级党委备案时间，并非党支部开会时间。')
     political_check_date = NullableDateField(verbose_name='政治审查时间')
     graduated_party_school_date = NullableDateField(verbose_name='党校培训结业时间')
@@ -97,12 +97,12 @@ class Member(models.Model):
     first_branch_conference = NullableDateField(verbose_name='确定为预备党员时间', help_text='支部党员大会通过成为预备党员的时间。')
     pro_conversation_date = NullableDateField(verbose_name='入党谈话时间')
     talker = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党谈话人', help_text='学院党委成员或组织员。')
-    probationary_approval_date = NullableDateField(verbose_name='党委批准成为预备党员时间')
+    probationary_approval_date = NullableDateField(verbose_name='党委批准为预备党员时间')
 
     oach_date = NullableDateField(verbose_name='入党宣誓时间')
     application_fullmember_date = NullableDateField(verbose_name='递交转正申请书时间', help_text='预备党员应提前一个月向党支部递交。')
     second_branch_conference = NullableDateField(verbose_name='转正时间', help_text='支部党员大会通过成为正式党员的时间。')
-    fullmember_approval_date = NullableDateField(verbose_name='党委批准成为正式党员时间')
+    fullmember_approval_date = NullableDateField(verbose_name='党委批准为正式党员时间')
 
     class Meta:
         ordering = ('branch', 'netid',)
