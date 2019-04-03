@@ -1,3 +1,4 @@
+import re
 from collections import OrderedDict
 from user.util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
@@ -53,6 +54,12 @@ class BranchAdmin(AdminObject):
             m = self.bind_member
             return m is not None and m.branch == obj
         return False
+
+
+def get_chinese(s):
+    pattern = "[\u4e00-\u9fa5]+"
+    regex = re.compile(pattern)
+    return regex.findall(s)
 
 
 @xadmin.sites.register(Member)
@@ -221,41 +228,90 @@ class MemberAdmin(AdminObject):
         return get_visuable_members(self.request.user)
 
     @staticmethod
-    def check_dep(obj):
+    def check_date_dep(obj: Member, old):
         errors = []
         for dep in Dependency.objects.all():
             from_ = getattr(obj, dep.from_1)
             to = getattr(obj, dep.to)
-            if from_ and to:
+            from_2 = None if old is None else getattr(old, dep.from_1)
+            to2 = None if old is None else getattr(old, dep.to)
+            if (from_ != from_2 or to != to2) and from_ and to:
                 delta = to - from_
                 if delta.days < dep.days:
                     errors.append((dep.from_1, dep.to, delta.days,
                                    dep.days_mapping[dep.days]))
         return errors
 
+    @staticmethod
+    def check_first_talk_date(obj, old: Member):
+        if obj.first_talk_date and obj.application_date:
+            if old is None or (obj.application_date != old.application_date or
+                               obj.first_talk_date != old.first_talk_date):
+                days = (obj.first_talk_date - obj.application_date).days
+                return days < 31
+        return True
+
+    @staticmethod
+    def get_members(names):
+        res = []
+        for name in names:
+            try:
+                res.append(Member.objects.get(name=name))
+            except:
+                pass
+        return res
+
+    def get_old(self):
+        try:
+            return Member.objects.get(netid=self.new_obj.netid)
+        except Member.DoesNotExist:
+            return None
+
     def save_models(self):
         if hasattr(self, 'new_obj'):
             obj = self.new_obj
-            errors = self.check_dep(obj)
-            msg = messages.error if self.org_obj is None else messages.warning
+            old = self.get_old()
+            msg = messages.error
+
+            errors = self.check_date_dep(obj, old)
             for e in errors:
                 msg(self.request, "%s到%s需要%s，而%s只用了%d天。"
                     % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
                        Member._meta.get_field(e[1]).verbose_name.strip('时间'),
                        e[3], obj, e[2]))
-                if self.org_obj is None:
-                    return
-            if self.request.user.is_superuser:
-                obj.save()
             else:
-                member = self.bind_member
-                if member is None or obj.branch != member.branch:
-                    messages.error(self.request, '%s失败，您不是%s的书记。' %
-                                   ('添加' if self.org_obj is None else '修改', obj.branch))
-                    if self.org_obj is None:
-                        obj.delete()
-                else:
+                if not self.check_first_talk_date(obj, old):
+                    msg(self.request, '未在一个月内完成首次组织谈话。')
+                    return
+                persons = self.get_members(get_chinese(str(obj.contacts)))
+                if persons:
+                    for m in persons:
+                        if m.is_real_party_member():
+                            break
+                    else:
+                        if old is None or obj.contacts != old.contacts:
+                            msg(self.request, '培养联系人至少需要一名正式党员。')
+                            return
+                        else:
+                            messages.warning(self.request, '培养联系人至少需要一名正式党员。')
+                for m in self.get_members(get_chinese(str(obj.recommenders))):
+                    if not m.is_real_party_member():
+                        if old is None or obj.recommenders != old.recommenders:
+                            msg(self.request, '入党介绍人%s不是正式党员。' % m.name)
+                            return
+                        else:
+                            messages.warning(self.request, '入党介绍人%s不是正式党员。' % m.name)
+                if self.request.user.is_superuser:
                     obj.save()
+                else:
+                    member = self.bind_member
+                    if member is None or obj.branch != member.branch:
+                        messages.error(self.request, '%s失败，您不是%s的书记。' %
+                                       ('添加' if old is None else '修改', obj.branch))
+                        if old is None:
+                            obj.delete()
+                    else:
+                        obj.save()
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):

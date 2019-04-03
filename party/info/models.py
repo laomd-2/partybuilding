@@ -142,7 +142,10 @@ class Member(models.Model):
         return fields
 
     def is_party_member(self):
-        return self.first_branch_conference or self.second_branch_conference
+        return self.first_branch_conference or self.is_real_party_member()
+
+    def is_real_party_member(self):
+        return self.second_branch_conference
 
 
 def upload_to2(instance, filename):

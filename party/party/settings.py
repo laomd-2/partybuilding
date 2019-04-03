@@ -168,4 +168,4 @@ EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = '*'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-HOST_IP = '47.112.192.*'
+HOST_IP = '47.112.*.*'
