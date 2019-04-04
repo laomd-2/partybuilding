@@ -202,6 +202,7 @@ class MemberAdmin(AdminObject):
                        'first_branch_conference',
                        'key_develop_person_date',
                        'activist_date',
+                       'first_talk_date',
                        'application_date']
             if is_branch_manager(self.request.user):
                 return general
