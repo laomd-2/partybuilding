@@ -96,8 +96,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         # 'HOST': '47.112.192.168',
         'NAME': 'party',
-        'USER': 'sdcscs2',
-        'PASSWORD': '000000',
+        'USER': 'root',
+        'PASSWORD': 'laomadong',
     },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',

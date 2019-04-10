@@ -53,8 +53,7 @@ def start_listener():
             print(e)
             time.sleep(5)
 
-
-threading.Thread(target=start_listener).start()
+# threading.Thread(target=start_listener).start()
 
 # write_application()
 # first_talk()

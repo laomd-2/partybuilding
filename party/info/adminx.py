@@ -62,6 +62,25 @@ def get_chinese(s):
     return regex.findall(s)
 
 
+fenge = OrderedDict([
+        ('application_date', '基本信息'),
+        ('activist_date', '申请入党'),
+        ('democratic_appraisal_date', '入党积极分子的确定和培养'),
+        ('recommenders_date', '发展对象的确定和考察'),
+        ('oach_date', '预备党员的吸收'),
+        ('', '预备党员的教育考察和转正')])
+phases = dict()
+last = 0
+fields_ = [field.name for field in Member._meta.fields]
+for k, v in fenge.items():
+    if k:
+        tmp = fields_.index(k)
+    else:
+        tmp = -1
+    phases[v] = fields_[last: tmp]
+    last = tmp
+
+
 @xadmin.sites.register(Member)
 class MemberAdmin(AdminObject):
     actions = [ActivistAction, KeyPersonAction,
@@ -69,7 +88,6 @@ class MemberAdmin(AdminObject):
     import_export_args = {'import_resource_class': MemberResource,
                           'export_resource_class': MemberResource}
 
-    fields_ = [field.name for field in Member._meta.fields]
     list_display = fields_[1:4] + ['gender', 'phone_number', 'major_in']
 
     model_icon = 'fa fa-info'
@@ -81,22 +99,6 @@ class MemberAdmin(AdminObject):
                 'activist_date',
                 'branch', 'netid']
 
-    fenge = OrderedDict([
-        ('application_date', '基本信息'),
-        ('activist_date', '申请入党'),
-        ('democratic_appraisal_date', '入党积极分子的确定和培养'),
-        ('recommenders_date', '发展对象的确定和考察'),
-        ('oach_date', '预备党员的吸收'),
-        ('', '预备党员的教育考察和转正')])
-    phases = dict()
-    last = 0
-    for k, v in fenge.items():
-        if k:
-            tmp = fields_.index(k)
-        else:
-            tmp = -1
-        phases[v] = fields_[last: tmp]
-        last = tmp
     wizard_form_list = phases.items()
 
     form_layout = (
@@ -210,6 +212,22 @@ class MemberAdmin(AdminObject):
                 return ['branch'] + general
         return []
 
+    @property
+    def list_editable(self):
+        if is_admin(self.request.user):
+            res = []
+            for k, v in phases.items():
+                if k == '基本信息':
+                    res += v[2:]
+                else:
+                    res += v
+            res.remove('autobiography')
+            res.remove('application_form')
+            return res
+        if is_member(self.request.user):  # 普通成员
+            return phases['基本信息'][2:]
+        return []
+
     def get_readonly_fields(self):
         if self.org_obj is None:
             return []
@@ -218,7 +236,7 @@ class MemberAdmin(AdminObject):
             m = self.bind_member
             if m is None or m.netid != self.org_obj.netid:
                 return self.fields_
-            for k, v in self.phases.items():
+            for k, v in phases.items():
                 if k != '基本信息':
                     res += v
             res.remove('autobiography')
