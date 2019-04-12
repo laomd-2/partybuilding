@@ -20,10 +20,9 @@ from django.views import static
 from django.conf import settings
 from django.views.generic import RedirectView
 import xadmin
+from robot.daka.consumer import consume
 from user.views import RegisterView
 import threading
-import time
-import sys
 from django.conf import urls
 from . import views
 from robot.notice import *
@@ -44,16 +43,7 @@ urlpatterns = [
 ]
 urls.handler403 = views.permission_denied
 
-
-def start_listener():
-    while 'runserver' in sys.argv:
-        try:
-            from robot import daka
-        except Exception as e:
-            print(e)
-            time.sleep(5)
-
-# threading.Thread(target=start_listener).start()
+threading.Thread(target=consume).start()
 
 # write_application()
 # first_talk()
