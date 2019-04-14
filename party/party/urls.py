@@ -20,9 +20,7 @@ from django.views import static
 from django.conf import settings
 from django.views.generic import RedirectView
 import xadmin
-from robot.daka.consumer import consume
 from user.views import RegisterView
-import threading
 from django.conf import urls
 from . import views
 from robot.notice import *
@@ -42,8 +40,3 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register')
 ]
 urls.handler403 = views.permission_denied
-
-threading.Thread(target=consume).start()
-
-# write_application()
-# first_talk()
