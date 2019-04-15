@@ -17,7 +17,7 @@ class ViewObject(AdminObject):
     def has_change_permission(self, obj=None):
         return False
 
-    def query_set(self):
+    def queryset(self):
         if is_member(self.request.user):
             m = self.bind_member
             if m is not None:
