@@ -16,10 +16,16 @@ class FirstTalk(models.Model):
         verbose_name_plural = verbose_name
         ordering = ('branch', 'netid')
 
+    @staticmethod
+    def fields():
+        fields = [field.name for field in FirstTalk._meta.fields]
+        headers = [FirstTalk._meta.get_field(field).verbose_name for field in fields]
+        fields.append('talk_date_end')
+        headers.append('谈话截止时间')
+        return fields, headers
+
     def talk_date_end(self):
         return self.application_date + datetime.timedelta(days=30)
-
-    talk_date_end.short_description = '谈话截止时间'
 
 
 class Activist(models.Model):

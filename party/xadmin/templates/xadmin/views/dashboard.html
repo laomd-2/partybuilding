@@ -35,32 +35,26 @@
 {#  {% endfor %}#}
 {#</div>#}
 {#  <div class="page">#}
-    <div>
-        <p><a href="{{ my_info_url }}">修改我的个人信息 >>></a></p>
-    </div>
-    <div>
-        <div class="box">
-            <ul class="event_year">
-                {% for year in events.keys %}
-                    <li><label for="{{ year }}">{{ year }}</label></li>
-                {% endfor %}
-            </ul>
-
-            <ul class="event_list">
-                {% for year, event in events.items %}
-                    <div>
-                        <h3 id="{{ year }}">{{ year }}</h3>
-                        {% for date, e in event %}
-                            <li>
-                                <span><b>{{ date.month }}月{{ date.day }}</b></span>
-                                <p><span>{{ e }}</span></p>
-                            </li>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
 {#</div>#}
+    {% for affair in affairs %}
+        <div>
+            <h3>{{ affair.0 }}</h3>
+            <table class="table table-bordered table-striped table-hover">
+                {% for row in affair.1 %}
+                    <tr>
+                        {% if forloop.first %}
+                            {% for c in row %}
+                                <th>{{ c }}</th>
+                            {% endfor %}
+                        {% else %}
+                            {% for c in row %}
+                                <td>{{ c }}</td>
+                            {% endfor %}
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endfor %}
 <input type='hidden' id='_portal_key' value='{{ portal_key }}' />
 {% endblock %}

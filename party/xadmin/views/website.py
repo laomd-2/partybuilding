@@ -8,13 +8,13 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth.views import LoginView as login
 from django.contrib.auth.views import LogoutView as logout
 from django.http import HttpResponse
-
-from info.models import Member
 from .base import BaseAdminView, filter_hook
 from .dashboard import Dashboard
 from xadmin.forms import AdminAuthenticationForm
 from xadmin.models import UserSettings
 from xadmin.layout import FormHelper
+from notice.models import *
+from notice.views import queryset
 
 
 class IndexView(Dashboard):
@@ -26,21 +26,20 @@ class IndexView(Dashboard):
 
     def get_context(self):
         context = super(IndexView, self).get_context()
-        try:
-            me = Member.objects.get(netid=self.request.user.username)
-            dates = me.important_dates()
-            important_dates = dict()
-            for event, date in dates:
-                if date:
-                    important_dates.setdefault(date.year, [])
-                    important_dates[date.year].append((date, event.strip('时间')))
-            events = OrderedDict()
-            for k in sorted(important_dates.keys(), reverse=True):
-                events[k] = sorted(important_dates[k], key=lambda x: x[0], reverse=True)
-            context.update({'events': events})
-            context['my_info_url'] = '/info/member/%s/update/' % self.request.user.username
-        except:
-            pass
+        affairs = []
+        for model in [FirstTalk, Activist, KeyDevelop, PreMember, FullMember]:
+            query = queryset(self.request, model)
+            if query:
+                if hasattr(model, 'fields'):
+                    fields, header = model.fields()
+                else:
+                    fields = [field.name for field in model._meta.fields]
+                    header = [model._meta.get_field(field).verbose_name for field in fields]
+                result = [header]
+                for q in query:
+                    result.append([getattr(q, field) for field in fields])
+                affairs.append([model._meta.verbose_name, result])
+        context['affairs'] = affairs
         return context
 
 

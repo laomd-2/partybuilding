@@ -345,7 +345,7 @@ class MemberAdmin(AdminObject):
                         return m.netid == obj.netid
         return False
 
-    def has_view_permission(self, obj=None):
+    def phases_permission(self, obj=None):
         if super().has_view_permission(obj):
             if obj is None or is_school_admin(self.request.user):
                 return True
