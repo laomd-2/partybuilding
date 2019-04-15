@@ -1,7 +1,0 @@
-django-crispy-forms
-django >= 2.0.10
-django-phonenumber-field
-phonenumbers
-django-credit-cards
-pymysql
-mysqlclient
