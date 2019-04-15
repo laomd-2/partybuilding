@@ -1,6 +1,9 @@
 # Register your models here.
+from django.contrib.auth import get_permission_codename
+
 import xadmin
 from common.base import AdminObject
+from common.rules import *
 from notice.models import *
 
 
@@ -13,6 +16,29 @@ class ViewObject(AdminObject):
         return False
 
     def has_change_permission(self, obj=None):
+        return False
+
+    def has_view_permission(self, obj=None):
+        view_codename = get_permission_codename('view', self.opts)
+        change_codename = get_permission_codename('change', self.opts)
+
+        permission = ('view' not in self.remove_permissions) and \
+                     (self.user.has_perm('%s.%s' % (self.app_label, view_codename)) or
+                      self.user.has_perm('%s.%s' % (self.app_label, change_codename))
+                      )
+
+        if permission:
+            if is_member(self.request.user):
+                m = self.bind_member
+                return m is not None and self.model.objects.filter(netid=m.netid)
+            elif is_branch_manager(self.request.user):
+                m = self.bind_member
+                return m is not None and self.model.objects.filter(branch=m.branch)
+            elif is_school_manager(self.request.user):
+                school = int(self.request.user.username[0])
+                return self.model.objects.filter(branch__school_id=school)
+            elif self.request.user.is_superuser:
+                return True
         return False
 
 
