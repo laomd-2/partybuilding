@@ -27,11 +27,11 @@ def get_infos(fields, appers):
     return infos
 
 
-def send_email_to_managers(users, title, appers, fields, phase):
+def send_email_to_managers(users, title, branch_name, fields, phase):
     to_emails = [user.email for user in users if user.email]
-    if not to_emails or not appers:
+    if not to_emails:
         return
-    branch_name = appers[0].branch.branch_name
+    # branch_name = appers[0].branch.branch_name
     subject = title
     text_content = ''
 

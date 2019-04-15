@@ -1,11 +1,9 @@
-from info.models import Member
-from info.util import get_end_time, group_by_branch, get_branch_managers
+from info.util import *
 from .util import send_email_to_appliers, send_email_to_managers
 
 
 def first_talk():
-    end, month = get_end_time(29)
-    groups = group_by_branch(Member.objects.filter(activist_date__isnull=True, application_date__gte=end))
+    groups = filter_first_talk()[1]
     branch_managers = get_branch_managers()
     fields = ['application_date', 'talk_date_end']
     for branch, appers in groups.items():
@@ -16,10 +14,7 @@ def first_talk():
 
 
 def activist():
-    # 在2个月前交申请书，即2.1或8.1前
-    end, month = get_end_time(30)
-    groups = group_by_branch(Member.objects.filter(activist_date__isnull=True, application_date__lt=end))
-
+    month, groups = filter_activist()
     branch_managers = get_branch_managers()
     fields = ['application_date']
     for branch, appers in groups.items():
@@ -30,9 +25,7 @@ def activist():
 
 
 def key_develop_person():
-    end, month = get_end_time(11 * 30)
-    groups = group_by_branch(Member.objects.filter(key_develop_person_date__isnull=True,
-                                                   activist_date__lt=end))
+    month, groups = filter_key_develop_person()
     fields = ['application_date', 'activist_date']
     branch_managers = get_branch_managers()
     for branch, appers in groups.items():
@@ -43,10 +36,7 @@ def key_develop_person():
 
 
 def pre_party_member1():
-    end, month = get_end_time(60)
-    groups = group_by_branch(Member.objects.filter(first_branch_conference__isnull=True,
-                                                   graduated_party_school_date__isnull=False,
-                                                   key_develop_person_date__lt=end))
+    month, groups = filter_pre_party_member()
     fields = ['application_date', 'activist_date',
               'key_develop_person_date', 'graduated_party_school_date']
     branch_managers = get_branch_managers()
@@ -58,9 +48,7 @@ def pre_party_member1():
 
 
 def write_application():
-    end, month = get_end_time(10 * 30)
-    groups = group_by_branch(Member.objects.filter(second_branch_conference__isnull=True,
-                                                   first_branch_conference__lt=end))
+    month, groups = filter_write_application()
     branch_managers = get_branch_managers()
     for branch, appers in groups.items():
         if branch in branch_managers:
@@ -71,9 +59,7 @@ def write_application():
 
 
 def party_member():
-    end, month = get_end_time(11 * 30)
-    groups = group_by_branch(Member.objects.filter(second_branch_conference__isnull=True,
-                                                   first_branch_conference__lt=end))
+    month, groups = filter_party_member()
     fields = ['application_date', 'first_branch_conference']
     branch_managers = get_branch_managers()
     for branch, appers in groups.items():

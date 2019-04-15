@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*', ]
 # Application definition
 
 INSTALLED_APPS = [
+    'notice.apps.NoticeConfig',
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
@@ -150,16 +151,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的前缀
-
-CRONJOBS = [
-    # 每天7：00执行
-    ('00 7 */7 * *', 'robot.notice.first_talk'),
-    ('00 7 1 3,9 *', 'robot.notice.activist'),
-    ('05 7 1 3,9 *', 'robot.notice.key_develop_person'),
-    ('00 7 1 4,10 *', 'robot.notice.write_application'),
-    ('00 7 1 6,12 *', 'robot.notice.pre_party_member1'),
-    ('05 7 1 6,12 *', 'robot.notice.party_member'),
-]
 
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com

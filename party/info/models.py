@@ -44,7 +44,7 @@ class Branch(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return "%s(%s)" % (self.branch_name, self.school)
+        return self.branch_name
 
     def validate_unique(self, exclude=None):
         qs = Branch.objects.filter(school=self.school)
@@ -115,10 +115,6 @@ class Member(models.Model):
     def important_dates(self):
         return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields
                 if field.name != 'birth_date' and isinstance(field, models.DateField)]
-
-    def talk_date_end(self):
-        return self.application_date + datetime.timedelta(days=30)
-    talk_date_end.short_description = '谈话截止时间'
 
     def write_application_date_end(self):
         return self.first_branch_conference + datetime.timedelta(days=365 - 31)
