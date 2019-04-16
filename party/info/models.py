@@ -3,7 +3,6 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.urls import reverse
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
@@ -142,6 +141,11 @@ class Member(models.Model):
 
     def is_real_party_member(self):
         return self.second_branch_conference
+
+    def first_talk_end(self):
+        return self.application_date + datetime.timedelta(days=30)
+
+    first_talk_end.short_description = '谈话截止时间'
 
 
 def upload_to2(instance, filename):

@@ -1,78 +1,113 @@
 import datetime
-
-from django.db import models
-
-from info.models import NullableDateField, Branch
+from info.models import Member, Dependency
 
 
-class FirstTalk(models.Model):
-    branch = models.ForeignKey(Branch, verbose_name='党支部', on_delete=models.CASCADE)
-    netid = models.IntegerField('学号', primary_key=True)
-    name = models.CharField('姓名', max_length=20)
-    application_date = NullableDateField(verbose_name='递交入党申请书时间')
+def verbose_name(fields):
+    res = []
+    for field in fields:
+        try:
+            res.append(Member._meta.get_field(field).verbose_name)
+        except:
+            res.append(getattr(Member, field).short_description)
+    return res
 
-    class Meta:
-        verbose_name = '首次组织谈话'
-        verbose_name_plural = verbose_name
-        ordering = ('branch', 'netid')
+
+def get_ym(m1, m2):
+    if m1 > m2:
+        m1, m2 = m2, m1
+    today = datetime.datetime.today()
+    if today.month <= m2:
+        year = today.year
+        if today.month <= m1:
+            month = m1
+        else:
+            month = m2
+    else:
+        year = today.year + 1
+        month = m1
+    return year, month
+
+
+class FirstTalk:
+    fields = ['branch', 'netid', 'name', 'application_date', 'first_talk_end']
+    verbose_name = '首次组织谈话'
 
     @staticmethod
-    def fields():
-        fields = [field.name for field in FirstTalk._meta.fields]
-        headers = [FirstTalk._meta.get_field(field).verbose_name for field in fields]
-        fields.append('talk_date_end')
-        headers.append('谈话截止时间')
-        return fields, headers
-
-    def talk_date_end(self):
-        return self.application_date + datetime.timedelta(days=30)
+    def filter(**kwargs):
+        end = datetime.datetime.today() - datetime.timedelta(days=30)
+        return Member.objects.filter(**kwargs, activist_date__isnull=True,
+                                     application_date__isnull=False,
+                                     application_date__gte=end)
 
 
-class Activist(models.Model):
-    branch = models.ForeignKey(Branch, verbose_name='党支部', on_delete=models.CASCADE)
-    netid = models.IntegerField('学号', primary_key=True)
-    name = models.CharField('姓名', max_length=20)
-    application_date = models.DateField(verbose_name='递交入党申请书时间')
+class Activist:
+    fields = ['branch', 'netid', 'name', 'application_date']
+    verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
 
-    class Meta:
-        verbose_name = '%d月可接收积极分子' % datetime.datetime.now().month
-        verbose_name_plural = verbose_name
-        ordering = ('branch', 'netid')
-
-
-class KeyDevelop(models.Model):
-    branch = models.ForeignKey(Branch, verbose_name='党支部', on_delete=models.CASCADE)
-    netid = models.IntegerField('学号', primary_key=True)
-    name = models.CharField('姓名', max_length=20)
-    activist_date = models.DateField(verbose_name='确定为入党积极分子时间')
-
-    class Meta:
-        verbose_name = '%d月可接收发展对象' % datetime.datetime.now().month
-        verbose_name_plural = verbose_name
-        ordering = ('branch', 'netid')
+    @staticmethod
+    def filter(**kwargs):
+        year, month = get_ym(3, 9)
+        end = datetime.date(year, month, 30)
+        try:
+            days = Dependency.objects.get(from_1='application_date', to='activist_date').days
+            end = end - datetime.timedelta(days=days)
+        except Dependency.DoesNotExist:
+            pass
+        return Member.objects.filter(**kwargs, activist_date__isnull=True,
+                                     application_date__isnull=False,
+                                     application_date__lt=end)
 
 
-class PreMember(models.Model):
-    branch = models.ForeignKey(Branch, verbose_name='党支部', on_delete=models.CASCADE)
-    netid = models.IntegerField('学号', primary_key=True)
-    name = models.CharField('姓名', max_length=20)
-    key_develop_person_date = models.DateField(verbose_name='确定为重点发展对象时间')
+class KeyDevelop:
+    fields = ['branch', 'netid', 'name', 'activist_date']
+    verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
 
-    class Meta:
-        verbose_name = '%d月预备党员预审' % datetime.datetime.now().month
-        verbose_name_plural = verbose_name
-        ordering = ('branch', 'netid')
+    @staticmethod
+    def filter(**kwargs):
+        print(kwargs.items())
+        year, month = get_ym(3, 9)
+        end = datetime.date(year, month, 30)
+        try:
+            days = Dependency.objects.get(from_1='activist_date', to='key_develop_person_date').days
+            end = end - datetime.timedelta(days=days)
+        except Dependency.DoesNotExist:
+            pass
+        return Member.objects.filter(**kwargs, key_develop_person_date__isnull=True,
+                                     activist_date__isnull=False,
+                                     activist_date__lt=end)
 
 
-class FullMember(models.Model):
-    branch = models.ForeignKey(Branch, verbose_name='党支部', on_delete=models.CASCADE)
-    netid = models.IntegerField('学号', primary_key=True)
-    name = models.CharField('姓名', max_length=20)
-    application_date = models.DateField(verbose_name='递交入党申请书时间')
-    first_branch_conference = models.DateField(verbose_name='确定为预备党员时间')
-    application_fullmember_date = models.DateField(verbose_name='递交转正申请书时间')
+class PreMember:
+    fields = ['branch', 'netid', 'name', 'key_develop_person_date']
+    verbose_name = '%d年%d月可接收预备党员' % get_ym(6, 12)
 
-    class Meta:
-        verbose_name = '%d月可转正预备党员' % datetime.datetime.now().month
-        verbose_name_plural = verbose_name
-        ordering = ('branch', 'netid')
+    @staticmethod
+    def filter(**kwargs):
+        year, month = get_ym(6, 12)
+        end = datetime.date(year, month, 30)
+        try:
+            days = Dependency.objects.get(from_1='key_develop_person_date', to='first_branch_conference').days
+            end = end - datetime.timedelta(days=days)
+        except Dependency.DoesNotExist:
+            pass
+        return Member.objects.filter(**kwargs, first_branch_conference__isnull=True,
+                                     key_develop_person_date__isnull=False,
+                                     key_develop_person_date__lt=end)
+
+
+class FullMember:
+    fields = ['branch', 'netid', 'name', 'application_date', 'first_branch_conference', 'application_fullmember_date']
+    verbose_name = '%d年%d月可转正预备党员' % get_ym(6, 12)
+
+    @staticmethod
+    def filter(**kwargs):
+        year, month = get_ym(6, 12)
+        end = datetime.date(year, month, 30)
+        try:
+            days = Dependency.objects.get(from_1='first_branch_conference', to='second_branch_conference').days
+            end = end - datetime.timedelta(days=days)
+        except Dependency.DoesNotExist:
+            pass
+        return Member.objects.filter(**kwargs, second_branch_conference__isnull=True,
+                                     first_branch_conference__isnull=False,
+                                     first_branch_conference__lt=end)

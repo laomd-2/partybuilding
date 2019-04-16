@@ -30,15 +30,12 @@ class IndexView(Dashboard):
         for model in [FirstTalk, Activist, KeyDevelop, PreMember, FullMember]:
             query = queryset(self.request, model)
             if query:
-                if hasattr(model, 'fields'):
-                    fields, header = model.fields()
-                else:
-                    fields = [field.name for field in model._meta.fields]
-                    header = [model._meta.get_field(field).verbose_name for field in fields]
+                fields = model.fields
+                header = verbose_name(fields)
                 result = [header]
                 for q in query:
-                    result.append([getattr(q, field) for field in fields])
-                affairs.append([model._meta.verbose_name, result])
+                    result.append([getattr(q, field) or '空' for field in fields])
+                affairs.append([model.verbose_name, result])
         context['affairs'] = affairs
         return context
 
