@@ -28,7 +28,7 @@ class MyResource(resources.ModelResource):
     def get_export_headers(self):
         headers = super(MyResource, self).get_export_headers()
         model = self._meta.model
-        foreign_keys = model.foreign_keys()
+        foreign_keys = model.foreign_keys() if hasattr(model, 'foreign_keys') else []
         # headers_ = [model._meta.get_field(f).verbose_name + ('ID' if f in foreign_keys else '') for f in headers]
         headers_ = []
         for f in headers:
@@ -49,5 +49,8 @@ class MyResource(resources.ModelResource):
                 value = '否'
             elif value is None:
                 value = ''
-            res.append(str(value).strip('+86'))
+            value = str(value)
+            if value.startswith('+86'):
+                value = value[3:]
+            res.append(value)
         return res

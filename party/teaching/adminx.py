@@ -9,14 +9,18 @@ from common.base import AdminObject
 from user.util import get_visuable_activities, get_bind_member, get_visuable_members
 from info.models import Member
 from .models import Activity, TakePartIn, Sharing
-from .resources import CreditResource
+from .resources import CreditResource, ActivityResource
 from common.rules import *
 import xadmin
 
 
 @xadmin.sites.register(Activity)
 class ActivityAdmin(AdminObject):
-    # import_export_args = {'export_resource_class': ActivityResource}
+    import_export_args = {
+        'import_resource_class': ActivityResource,
+        'export_resource_class': ActivityResource
+    }
+
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 
@@ -201,7 +205,10 @@ def get_credit(all_take, members):
 
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(AdminObject):
-    import_export_args = {'import_resource_class': CreditResource}
+    import_export_args = {
+        'import_resource_class': CreditResource,
+        'export_resource_class': CreditResource
+    }
     list_display = ['member', 'activity', 'credit', 'last_modified']
     list_filter = ['activity__date', 'activity__atv_type', 'credit']
     search_fields = ['activity__name', 'activity__date', 'member__name', 'member__netid']

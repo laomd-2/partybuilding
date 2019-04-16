@@ -17,4 +17,4 @@ class CreditResource(resources.MyResource):
         model = TakePartIn
         skip_unchanged = True
         import_id_fields = ('member', 'activity')
-        exclude = ('id', )
+        exclude = ('id', 'last_modified')

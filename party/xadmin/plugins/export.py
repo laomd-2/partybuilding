@@ -2,6 +2,7 @@ import io
 import datetime
 import sys
 from collections import OrderedDict
+from tempfile import NamedTemporaryFile
 
 from future.utils import iteritems
 
@@ -13,6 +14,8 @@ from django.utils.html import escape
 from django.utils.translation import ugettext as _
 from django.utils.xmlutils import SimplerXMLGenerator
 from django.db.models import BooleanField, NullBooleanField
+from openpyxl import load_workbook
+from tablib import Dataset
 
 from xadmin.plugins.utils import get_context_dict
 from xadmin.sites import site
@@ -57,7 +60,7 @@ class ExportMenuPlugin(BaseAdminPlugin):
 
 
 class ExportPlugin(BaseAdminPlugin):
-
+    excel_template = None
     export_mimes = {'xlsx': 'application/vnd.ms-excel',
                     'xls': 'application/vnd.ms-excel', 'csv': 'text/csv',
                     'xml': 'application/xhtml+xml', 'json': 'application/json'}
@@ -91,46 +94,23 @@ class ExportPlugin(BaseAdminPlugin):
         return new_rows
 
     def get_xlsx_export(self, context):
-        datas = self._get_datas(context)
-        output = io.BytesIO()
-        export_header = (
-            self.request.GET.get('export_xlsx_header', 'off') == 'on')
+        datas = self._get_datas(context)[1:]
+        datas = Dataset(*datas)
         export_data = (
                 self.request.GET.get('all', 'off') == 'on')
 
-        model_name = self.opts.verbose_name
-        book = xlsxwriter.Workbook(output)
-        sheet = book.add_worksheet(
-            u"%s %s" % (_(u'Sheet'), force_text(model_name)))
-        styles = {'datetime': book.add_format({'num_format': 'yyyy-mm-dd hh:mm:ss'}),
-                  'date': book.add_format({'num_format': 'yyyy-mm-dd'}),
-                  'time': book.add_format({'num_format': 'hh:mm:ss'}),
-                  'header': book.add_format({'font': 'name Times New Roman', 'color': 'red', 'bold': 'on', 'num_format': '#,##0.00'}),
-                  'default': book.add_format()}
-        col_width = [0] * len(datas[0])
-        if not export_header:
-            datas = datas[1:]
-        if not export_data:
-            datas = datas[0:1]
-        for rowx, row in enumerate(datas):
-            for colx, value in enumerate(row):
-                if export_header and rowx == 0:
-                    cell_style = styles['header']
-                else:
-                    if isinstance(value, datetime.datetime):
-                        cell_style = styles['datetime']
-                    elif isinstance(value, datetime.date):
-                        cell_style = styles['date']
-                    elif isinstance(value, datetime.time):
-                        cell_style = styles['time']
-                    else:
-                        cell_style = styles['default']
-                sheet.write(rowx, colx, value, cell_style)
-                col_width[colx] = max(col_width[colx], len(str(value).encode('gbk')))
-        for i, width in enumerate(col_width):
-            sheet.set_column(i, i, width)
-        book.close()
-        output.seek(0)
+        workbook_name = self.excel_template
+        wb = load_workbook(workbook_name)
+        if export_data:
+            page = wb.active
+            row_start = page.max_row
+            for row in datas:
+                page.append(row)
+        with NamedTemporaryFile(delete=False) as tmp:
+            wb.save(tmp.name)
+            output = io.BytesIO(tmp.read())
+            output.seek(0)
+        wb.close()
         return output.getvalue()
 
     def get_xls_export(self, context):

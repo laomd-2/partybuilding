@@ -109,7 +109,7 @@ class Member(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return str(self.netid) + ' ' + self.name
+        return str(self.netid) + self.name
 
     def important_dates(self):
         return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields

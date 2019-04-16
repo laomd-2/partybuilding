@@ -401,7 +401,12 @@ class ExportMixin(object):
             else:
                 queryset = self.admin_view.queryset()
         else:
-            queryset = [r['object'] for r in context['results']]
+            queryset = []
+            for r in context['results']:
+                try:
+                    queryset.append(r['object'])
+                except KeyError:
+                    pass
         return queryset
 
     def get_export_data(self, file_format, queryset, *args, **kwargs):
@@ -410,12 +415,7 @@ class ExportMixin(object):
         """
         request = kwargs.pop("request")
         resource_class = self.get_export_resource_class()
-        data: Dataset = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
-        header = kwargs.get('excel_template')
-        if not header:
-            header = kwargs.get('header')
-            if header:
-                data.insert(0, header)
+        data = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
         export_data = file_format.export_data(data, **kwargs)
         return export_data
 
@@ -466,7 +466,7 @@ class ExportPlugin(ExportMixin, BaseAdminPlugin):
             except ValueError:
                 queryset = []
             export_data = self.get_export_data(file_format, queryset,
-                                               header=header, request=self.request,
+                                               request=self.request,
                                                excel_template=self.excel_template)
             content_type = file_format.get_content_type()
             # Django 1.7 uses the content_type kwarg instead of mimetype
