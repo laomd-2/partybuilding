@@ -22,7 +22,7 @@ except ImportError:  # Django<2.0
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.utils.module_loading import import_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_text, escape_uri_path
 from django.views.decorators.http import require_POST
 
 from .forms import (
@@ -368,9 +368,10 @@ class ExportMixin(ImportExportMixinBase):
 
     def get_export_filename(self, file_format):
         date_str = datetime.now().strftime('%Y-%m-%d')
-        filename = "%s-%s.%s" % (self.model.__name__,
+        filename = "%s-%s.%s" % (self.opts.verbose_name,
                                  date_str,
                                  file_format.get_extension())
+        print(filename)
         return filename
 
     def get_export_queryset(self, request):
@@ -441,9 +442,9 @@ class ExportMixin(ImportExportMixinBase):
             export_data = self.get_export_data(file_format, queryset, request=request)
             content_type = file_format.get_content_type()
             response = HttpResponse(export_data, content_type=content_type)
-            response['Content-Disposition'] = 'attachment; filename=%s' % (
-                self.get_export_filename(file_format),
-            )
+            response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(
+                self.get_export_filename(file_format)
+            ))
 
             post_export.send(sender=None, model=self.model)
             return response
@@ -518,9 +519,9 @@ class ExportActionMixin(ExportMixin):
             export_data = self.get_export_data(file_format, queryset, request=request)
             content_type = file_format.get_content_type()
             response = HttpResponse(export_data, content_type=content_type)
-            response['Content-Disposition'] = 'attachment; filename=%s' % (
-                self.get_export_filename(file_format),
-            )
+            response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(
+                self.get_export_filename(file_format)
+            ))
             return response
     export_admin_action.short_description = _(
         'Export selected %(verbose_name_plural)s')

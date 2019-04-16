@@ -38,3 +38,16 @@ class MyResource(resources.ModelResource):
                 meta = meta.get_field(f1).remote_field.model._meta
             headers_.append(meta.get_field(fields[-1]).verbose_name + ('ID' if f in foreign_keys else ''))
         return headers_
+
+    def export_resource(self, obj):
+        res = []
+        for field in self.get_export_fields():
+            value = getattr(obj, field.column_name)
+            if value is True:
+                value = '是'
+            elif value is False:
+                value = '否'
+            elif value is None:
+                value = ''
+            res.append(str(value).strip('+86'))
+        return res

@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.utils.encoding import escape_uri_path
 from django.views.generic.edit import FormView
 from django.utils.timezone import now
 
@@ -48,7 +49,7 @@ class ExportViewMixin(object):
 
     def get_export_filename(self, file_format):
         date_str = now().strftime('%Y-%m-%d')
-        filename = "%s-%s.%s" % (self.model.__name__,
+        filename = "%s-%s.%s" % (self.opts.verbose_name,
                                  date_str,
                                  file_format.get_extension())
         return filename
@@ -80,9 +81,9 @@ class ExportViewFormMixin(ExportViewMixin, FormView):
             response = HttpResponse(export_data, content_type=content_type)
         except TypeError:
             response = HttpResponse(export_data, mimetype=content_type)
-        response['Content-Disposition'] = 'attachment; filename=%s' % (
-            self.get_export_filename(file_format),
-        )
+        response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(
+            self.get_export_filename(file_format)
+        ))
 
         post_export.send(sender=None, model=self.model)
         return response

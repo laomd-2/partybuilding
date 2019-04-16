@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import sys
+
 from django.conf.urls import url
 # from django.contrib import admin
 from django.urls import path, include
@@ -41,3 +43,11 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
 ]
 urls.handler403 = views.permission_denied
+
+if 'runserver' in sys.argv:
+    import threading
+    from robot.daka.producer import producer
+    from robot.daka.consumer import consume
+
+    threading.Thread(target=producer).start()
+    threading.Thread(target=consume).start()

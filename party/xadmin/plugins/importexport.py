@@ -40,6 +40,8 @@ More info about django-import-export please refer https://github.com/django-impo
 """
 from datetime import datetime
 from django.template import loader
+from tablib import Dataset
+
 from xadmin.plugins.utils import get_context_dict
 from xadmin.sites import site
 from xadmin.views import BaseAdminPlugin, ListAdminView, ModelAdminView
@@ -55,7 +57,7 @@ from import_export.forms import (
 from import_export.results import RowResult
 from import_export.signals import post_export, post_import
 try:
-    from django.utils.encoding import force_text
+    from django.utils.encoding import force_text, escape_uri_path
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 from django.utils.translation import ugettext_lazy as _
@@ -333,6 +335,7 @@ class ExportMixin(object):
     resource_class = None
     #: template for change_list view
     change_list_template = None
+    excel_template = None
     import_export_args = {}
     #: template for export view
     # export_template_name = 'xadmin/import_export/export.html'
@@ -371,8 +374,8 @@ class ExportMixin(object):
         return [f for f in self.formats if f().can_export()]
 
     def get_export_filename(self, file_format):
-        date_str = datetime.now().strftime('%Y-%m-%d-%H%M%S')
-        filename = "%s-%s.%s" % (self.opts.verbose_name.encode('utf-8'),
+        date_str = datetime.now().strftime('%Y-%m-%d')
+        filename = "%s-%s.%s" % (self.opts.verbose_name,
                                  date_str,
                                  file_format.get_extension())
         return filename
@@ -407,8 +410,13 @@ class ExportMixin(object):
         """
         request = kwargs.pop("request")
         resource_class = self.get_export_resource_class()
-        data = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
-        export_data = file_format.export_data(data)
+        data: Dataset = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
+        header = kwargs.get('excel_template')
+        if not header:
+            header = kwargs.get('header')
+            if header:
+                data.insert(0, header)
+        export_data = file_format.export_data(data, **kwargs)
         return export_data
 
 
@@ -447,23 +455,28 @@ class ExportPlugin(ExportMixin, BaseAdminPlugin):
             raise PermissionDenied
 
         export_format = self.request.GET.get('file_format')
-
+        header = [self.opts.get_field(field.name).verbose_name for field in self.opts.fields]
         if not export_format:
             messages.warning(self.request, _('You must select an export format.'))
         else:
             formats = self.get_export_formats()
             file_format = formats[int(export_format)]()
-            queryset = self.get_export_queryset(self.request, context)
-            export_data = self.get_export_data(file_format, queryset, request=self.request)
+            try:
+                queryset = self.get_export_queryset(self.request, context)
+            except ValueError:
+                queryset = []
+            export_data = self.get_export_data(file_format, queryset,
+                                               header=header, request=self.request,
+                                               excel_template=self.excel_template)
             content_type = file_format.get_content_type()
             # Django 1.7 uses the content_type kwarg instead of mimetype
             try:
                 response = HttpResponse(export_data, content_type=content_type)
             except TypeError:
                 response = HttpResponse(export_data, mimetype=content_type)
-            response['Content-Disposition'] = 'attachment; filename=%s' % (
-                self.get_export_filename(file_format),
-            )
+            response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(
+                self.get_export_filename(file_format)
+            ))
             post_export.send(sender=None, model=self.model)
             return response
 

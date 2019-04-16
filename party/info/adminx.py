@@ -1,5 +1,9 @@
+import os
 import re
 from collections import OrderedDict
+
+from django.conf import settings
+
 from user.util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
 import xadmin
@@ -84,9 +88,10 @@ for k, v in fenge.items():
 @xadmin.sites.register(Member)
 class MemberAdmin(AdminObject):
     actions = [ActivistAction, KeyPersonAction,
-               PrememberAction, MemberAction, ActivityAction]
+               PrememberAction, MemberAction]
     import_export_args = {'import_resource_class': MemberResource,
                           'export_resource_class': MemberResource}
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/成员信息.xlsx')
 
     list_display = fields_[1:4] + ['gender', 'phone_number', 'major_in']
 

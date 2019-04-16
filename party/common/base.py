@@ -1,9 +1,12 @@
 from django.contrib.auth import get_permission_codename
+
+from import_export.formats import base_formats
 from user.util import get_bind_member
 
 
 class AdminObject(object):
     list_export = ('xlsx',)
+    formats = base_formats.DEFAULT_FORMATS[2:3]
 
     @property
     def bind_member(self):

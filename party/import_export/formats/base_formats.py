@@ -1,10 +1,17 @@
 from __future__ import unicode_literals
+
+import io
+
+from openpyxl import load_workbook
+from tempfile import NamedTemporaryFile
 from django.utils.six import moves
 
 import sys
 import warnings
 import tablib
 from importlib import import_module
+
+from xlsxwriter import Workbook
 
 try:
     from tablib.compat import xlrd
@@ -201,6 +208,18 @@ class XLS(TablibFormat):
 class XLSX(TablibFormat):
     TABLIB_MODULE = 'tablib.formats._xlsx'
     CONTENT_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+
+    def export_data(self, dataset, **kwargs):
+        workbook_name = kwargs.get('excel_template')
+        wb = load_workbook(workbook_name)
+        page = wb.active
+        for row in dataset:
+            page.append(row)
+        with NamedTemporaryFile(delete=False) as tmp:
+            wb.save(tmp.name)
+            output = io.BytesIO(tmp.read())
+        wb.close()
+        return output.read()
 
     def can_import(self):
         return XLSX_IMPORT
