@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 # from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views import static
 from django.conf import settings
 from django.views.generic import RedirectView
@@ -31,12 +31,13 @@ xadmin.autodiscover()
 
 urlpatterns = [
     path('', xadmin.site.urls),
+    url('notice/', include('notice.urls')),
     # path('ueditor/', include('DjangoUeditor.urls')),
     url(r'^static/(?P<path>.*)$', static.serve,
         {'document_root': settings.STATIC_ROOT}, name='static'),
     url(r'^media/(?P<path>.*)$', static.serve,
         {'document_root': settings.MEDIA_ROOT}, name='media'),
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
-    path('register/', RegisterView.as_view(), name='register')
+    path('register/', RegisterView.as_view(), name='register'),
 ]
 urls.handler403 = views.permission_denied

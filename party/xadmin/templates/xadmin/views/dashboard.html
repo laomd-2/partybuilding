@@ -36,23 +36,39 @@
 {#</div>#}
 {#  <div class="page">#}
 {#</div>#}
-
     {% for affair in affairs %}
         <div>
-            <h3>{{ affair.0 }}</h3>
+        <a href="notice/{{ affair.0 }}"><h4>{{ affair.1 }}</h4></a>
+        <div class="results table-responsive">
             <table class="table table-bordered table-striped table-hover">
-                {% for row in affair.1 %}
-                    <tr>
-                        {% if forloop.first %}
+                {% for row in affair.2 %}
+                    {% if forloop.first %}
+                        <thead>
+                        <tr>
                             {% for c in row %}
                                 <th>{{ c }}</th>
                             {% endfor %}
-                        {% else %}
-                            {% for c in row %}
-                                <td>{{ c }}</td>
-                            {% endfor %}
+                        </tr>
+                        </thead>
+                    {% else %}
+                        {% if forloop.counter == 2 %}
+                            <tbody>
                         {% endif %}
+                    <tr>
+                        {% for c in row %}
+                            <td class="nowrap">
+                                {% if forloop.counter == 2 %}
+                                    <a href="info/member/{{ c }}/detail">{{ c }}</a>
+                                {% else %}
+                                    {{ c }}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
                     </tr>
+                    {% if forloop.last %}
+                        </tbody>
+                    {% endif %}
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>

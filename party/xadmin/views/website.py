@@ -35,7 +35,7 @@ class IndexView(Dashboard):
                 result = [header]
                 for q in query:
                     result.append([getattr(q, field) or '空' for field in fields])
-                affairs.append([model.verbose_name, result])
+                affairs.append([model.__name__.lower(), model.verbose_name, result])
         context['affairs'] = affairs
         return context
 

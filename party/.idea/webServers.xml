@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="8f57605d-e41c-443d-a019-3a997bd19f85" name="aliyun" url="http://47.112.202.35">
-        <fileTransfer host="47.112.202.35" port="22" accessType="SFTP">
+      <webServer id="8f57605d-e41c-443d-a019-3a997bd19f85" name="aliyun" url="http://222.200.185.71">
+        <fileTransfer host="222.200.185.71" port="22" rootFolder="/E:/" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
