@@ -1,11 +1,7 @@
 import io
 from django.http import HttpResponse
 from django.utils.encoding import escape_uri_path
-
-
-# Create your views here.
 from xlsxwriter import Workbook
-
 from common.rules import *
 from .models import *
 from user.util import get_bind_member

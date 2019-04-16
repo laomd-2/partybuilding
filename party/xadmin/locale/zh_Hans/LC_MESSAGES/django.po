@@ -903,7 +903,7 @@ msgstr "导出格式"
 #: .\templates\xadmin\blocks\model_list.top_toolbar.exports.html:42
 #: .\templates\xadmin\blocks\model_list.top_toolbar.importexport.export.html:35
 msgid "Export all data."
-msgstr "导出全部数据"
+msgstr "导出已筛选数据"
 
 #: .\templates\xadmin\blocks\model_list.top_toolbar.exports.html:46
 #: .\templates\xadmin\blocks\model_list.top_toolbar.importexport.export.html:39

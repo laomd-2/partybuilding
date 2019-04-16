@@ -95,6 +95,8 @@ class ExportPlugin(BaseAdminPlugin):
         output = io.BytesIO()
         export_header = (
             self.request.GET.get('export_xlsx_header', 'off') == 'on')
+        export_data = (
+                self.request.GET.get('all', 'off') == 'on')
 
         model_name = self.opts.verbose_name
         book = xlsxwriter.Workbook(output)
@@ -105,9 +107,11 @@ class ExportPlugin(BaseAdminPlugin):
                   'time': book.add_format({'num_format': 'hh:mm:ss'}),
                   'header': book.add_format({'font': 'name Times New Roman', 'color': 'red', 'bold': 'on', 'num_format': '#,##0.00'}),
                   'default': book.add_format()}
-
+        col_width = [0] * len(datas[0])
         if not export_header:
             datas = datas[1:]
+        if not export_data:
+            datas = datas[0:1]
         for rowx, row in enumerate(datas):
             for colx, value in enumerate(row):
                 if export_header and rowx == 0:
@@ -122,8 +126,10 @@ class ExportPlugin(BaseAdminPlugin):
                     else:
                         cell_style = styles['default']
                 sheet.write(rowx, colx, value, cell_style)
+                col_width[colx] = max(col_width[colx], len(str(value).encode('gbk')))
+        for i, width in enumerate(col_width):
+            sheet.set_column(i, i, width)
         book.close()
-
         output.seek(0)
         return output.getvalue()
 
@@ -142,7 +148,6 @@ class ExportPlugin(BaseAdminPlugin):
                   'time': xlwt.easyxf(num_format_str='hh:mm:ss'),
                   'header': xlwt.easyxf('font: name Times New Roman, color-index red, bold on', num_format_str='#,##0.00'),
                   'default': xlwt.Style.default_style}
-
         if not export_header:
             datas = datas[1:]
         for rowx, row in enumerate(datas):
