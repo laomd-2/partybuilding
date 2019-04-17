@@ -96,7 +96,7 @@ class MemberAdmin(AdminObject):
     list_display = fields_[1:4] + ['gender', 'phone_number', 'major_in']
 
     model_icon = 'fa fa-info'
-    list_per_page = 15
+
     # list_editable = list_display[1:]
     ordering = ['second_branch_conference',
                 'first_branch_conference',

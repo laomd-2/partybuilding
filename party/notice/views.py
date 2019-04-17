@@ -1,9 +1,14 @@
 import io
+from copy import copy, deepcopy
+
+from django.core.files.temp import NamedTemporaryFile
 from django.http import HttpResponse
 from django.utils.encoding import escape_uri_path
-from xlsxwriter import Workbook
+from openpyxl import load_workbook
+
+from common.base import wrap
 from common.rules import *
-from .models import *
+from .admin import *
 from user.util import get_bind_member
 
 
@@ -24,30 +29,34 @@ def queryset(request, model):
     return Member.objects.none()
 
 
-def export(request, model, filename):
-    filename += '.xlsx'
+def export(request, model):
+    filename = model.verbose_name + '.xlsx'
     qs = queryset(request, model)
-    output = io.BytesIO()
 
-    workbook = Workbook(output, {'in_memory': True})
-    bold = workbook.add_format({'bold': True, 'font_color': 'red'})
-    worksheet = workbook.add_worksheet()
-    col_width = [0] * len(model.fields)
-    header = verbose_name(model.fields)
-    for j, f in enumerate(header):
-        col_width[j] = max(col_width[j], len(f.encode('gbk')))
-        worksheet.write(0, j, f, bold)
-    for i, m in enumerate(qs):
+    work_book = load_workbook(model.excel_template)
+    sheet = work_book.active
+    if model.row > 1:
+        sheet.cell(1, 1, model.verbose_name)
+    for ranges in sheet.merged_cells.ranges:
+        if ranges.min_row >= model.row:
+            sheet.unmerge_cells(str(ranges))
+    style_row = sheet[model.row]
+    new_rows = len(qs)
+    sheet.insert_rows(model.row + 1, new_rows - 1)
+    for i in range(new_rows - 1):
+        for new_ceil, ceil in zip(sheet[model.row + i + 1], style_row):
+            if ceil.has_style:
+                new_ceil._style = deepcopy(ceil._style)
+
+    for i, row in enumerate(qs):
+        sheet.cell(i + model.row, 1, i + 1)
         for j, field in enumerate(model.fields):
-            f = getattr(m, field) or ""
-            if callable(f):
-                f = f()
-            f = str(f)
-            col_width[j] = max(col_width[j], len(f.encode('gbk')))
-            worksheet.write(i + 1, j, f)
-    for i, width in enumerate(col_width):
-        worksheet.set_column(i, i, width)
-    workbook.close()
+            value = getattr(row, field)
+            value = wrap(value)
+            sheet.cell(i + model.row, j + 2, value)
+    with NamedTemporaryFile() as tmp:
+        work_book.save(tmp.name)
+        output = io.BytesIO(tmp.read())
     output.seek(0)
     response = HttpResponse(output.read(),
                             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -57,20 +66,24 @@ def export(request, model, filename):
 
 
 def get_first_talk(request):
-    return export(request, FirstTalk, '首次组织谈话')
+    return export(request, FirstTalk)
 
 
 def get_activist(request):
-    return export(request, Activist, '%d年%d月可接收入党积极分子' % get_ym(3, 9))
+    return export(request, Activist)
 
 
 def get_keydevelop(request):
-    return export(request, KeyDevelop, '%d年%d月可接收重点发展对象' % get_ym(3, 9))
+    return export(request, KeyDevelop)
+
+
+def get_learningclass(request):
+    return export(request, LearningClass)
 
 
 def get_premember(request):
-    return export(request, PreMember, '%d年%d月可接收预备党员' % get_ym(6, 12))
+    return export(request, PreMember)
 
 
 def get_fullmember(request):
-    return export(request, FullMember, '%d年%d月可转正预备党员' % get_ym(6, 12))
+    return export(request, FullMember)

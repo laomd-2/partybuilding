@@ -178,13 +178,8 @@ class ImportView(ImportBaseView):
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        if hasattr(self.model, 'necessary_fields'):
-            context['fields'] = self.model.necessary_fields()
-        else:
-            context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
-        fk = self.model.foreign_keys()
-        context['headers'] = [self.model._meta.get_field(name).verbose_name + ('ID' if name in fk else '')
-                              for name in context['fields']]
+        context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
+        context['headers'] = [self.model._meta.get_field(name).verbose_name for name in context['fields']]
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
                                 context)
@@ -254,15 +249,10 @@ class ImportView(ImportBaseView):
         context['title'] = _("Import") + ' ' + self.opts.verbose_name
         context['form'] = form
         context['opts'] = self.model._meta
-        user_v = [f.column_name for f in resource.get_user_visible_fields()]
-        if hasattr(self.model, 'necessary_fields'):
-            context['fields'] = self.model.necessary_fields()
-        else:
-            context['fields'] = user_v
-        fk = self.model.foreign_keys()
-        context['ignore_id'] = 'id' in user_v
-        context['headers'] = [self.model._meta.get_field(name).verbose_name + ('ID' if name in fk else '')
-                              for name in context['fields'] if name != 'id']
+        context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
+        context['ignore_id'] = 'id' in context['fields']
+        context['headers'] = [self.model._meta.get_field(name).verbose_name for name in context['fields'] if
+                              name != 'id']
         context['len'] = len(context['headers'])
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],

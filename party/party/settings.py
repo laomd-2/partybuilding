@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
-    'django_crontab',
+    'note.apps.NoteConfig',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,20 +84,12 @@ WSGI_APPLICATION = 'party.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        # 'HOST': '47.112.192.168',
         'NAME': 'party',
-        'USER': 'root',
-        'PASSWORD': 'laomadong',
+        'USER': '*',
+        'PASSWORD': '*@party',
     },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -158,4 +150,4 @@ EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = '*'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-HOST_IP = '47.112.*.*'
+HOST_IP = '*.*.*.*'

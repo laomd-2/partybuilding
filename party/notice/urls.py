@@ -20,6 +20,7 @@ urlpatterns = [
     path('firsttalk', get_first_talk),
     path('activist', get_activist),
     path('keydevelop', get_keydevelop),
+    path('learningclass', get_learningclass),
     path('premember', get_premember),
     path('fullmember', get_fullmember)
 ]

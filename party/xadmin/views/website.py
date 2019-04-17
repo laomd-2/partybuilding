@@ -2,18 +2,21 @@ from __future__ import absolute_import
 
 from collections import OrderedDict
 
+from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.views import LoginView as login
 from django.contrib.auth.views import LogoutView as logout
 from django.http import HttpResponse
+
+from common.base import wrap
 from .base import BaseAdminView, filter_hook
 from .dashboard import Dashboard
 from xadmin.forms import AdminAuthenticationForm
 from xadmin.models import UserSettings
 from xadmin.layout import FormHelper
-from notice.models import *
+from notice.admin import *
 from notice.views import queryset
 
 
@@ -27,16 +30,18 @@ class IndexView(Dashboard):
     def get_context(self):
         context = super(IndexView, self).get_context()
         affairs = []
-        for model in [FirstTalk, Activist, KeyDevelop, PreMember, FullMember]:
+        for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
             query = queryset(self.request, model)
             if query:
                 fields = model.fields
                 header = verbose_name(fields)
                 result = [header]
                 for q in query:
-                    result.append([getattr(q, field) or '空' for field in fields])
+                    result.append([wrap(getattr(q, field)) for field in fields])
                 affairs.append([model.__name__.lower(), model.verbose_name, result])
         context['affairs'] = affairs
+        if affairs:
+            messages.info(self.request, '以下表格的信息仅由党员发展的时间节点筛选得到，最终名单以具体工作为准。')
         return context
 
 

@@ -6,8 +6,24 @@ from import_export.formats import base_formats
 from user.util import get_bind_member
 
 
+def wrap(value):
+    if callable(value):
+        value = value()
+    if value is None:
+        value = ''
+    elif value is True:
+        value = '是'
+    elif value is False:
+        value = '否'
+    value = str(value)
+    if value.startswith('+86'):
+        value = value[3:]
+    return value
+
+
 class AdminObject(object):
     list_export = []
+    list_per_page = 15
     formats = base_formats.DEFAULT_FORMATS[2:3]
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/空白.xlsx')
 

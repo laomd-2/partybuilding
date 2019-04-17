@@ -33,8 +33,8 @@ xadmin.autodiscover()
 
 urlpatterns = [
     path('', xadmin.site.urls),
-    url('notice/', include('notice.urls')),
-    # path('ueditor/', include('DjangoUeditor.urls')),
+    path('notice/', include('notice.urls')),
+    path('ueditor/', include('DjangoUeditor.urls')),
     url(r'^static/(?P<path>.*)$', static.serve,
         {'document_root': settings.STATIC_ROOT}, name='static'),
     url(r'^media/(?P<path>.*)$', static.serve,

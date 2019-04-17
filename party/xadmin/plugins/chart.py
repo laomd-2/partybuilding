@@ -96,7 +96,7 @@ class ChartsPlugin(BaseAdminPlugin):
                # self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
 
     # Block Views
-    def block_results_top(self, context, nodes):
+    def block_results_bottom(self, context, nodes):
         context.update({
             'charts': [{"name": name, "title": v['title'], 'url': self.get_chart_url(name, v)} for name, v in self.data_charts.items()],
         })

@@ -1,3 +1,4 @@
+openpyxl
 django==2.1.7
 django-crispy_forms
 rules

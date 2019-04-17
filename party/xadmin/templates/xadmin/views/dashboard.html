@@ -46,7 +46,7 @@
                         <thead>
                         <tr>
                             {% for c in row %}
-                                <th>{{ c }}</th>
+                                <th style="text-align: center">{{ c }}</th>
                             {% endfor %}
                         </tr>
                         </thead>
@@ -56,7 +56,7 @@
                         {% endif %}
                     <tr>
                         {% for c in row %}
-                            <td class="nowrap">
+                            <td class="nowrap" style="text-align: center">
                                 {% if forloop.counter == 2 %}
                                     <a href="info/member/{{ c }}/detail">{{ c }}</a>
                                 {% else %}

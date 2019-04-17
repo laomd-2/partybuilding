@@ -1,4 +1,8 @@
 import datetime
+import os
+
+from django.conf import settings
+
 from info.models import Member, Dependency
 
 
@@ -29,19 +33,24 @@ def get_ym(m1, m2):
 
 
 class FirstTalk:
-    fields = ['branch', 'netid', 'name', 'application_date', 'first_talk_end']
+    row = 3
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/首次组织谈话.xlsx')
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'first_talk_end', 'phone_number']
     verbose_name = '首次组织谈话'
 
     @staticmethod
     def filter(**kwargs):
         end = datetime.datetime.today() - datetime.timedelta(days=30)
         return Member.objects.filter(**kwargs, activist_date__isnull=True,
+                                     first_talk_date__isnull=True,
                                      application_date__isnull=False,
                                      application_date__gte=end)
 
 
 class Activist:
-    fields = ['branch', 'netid', 'name', 'application_date']
+    row = 3
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/入党积极分子.xlsx')
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date']
     verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
 
     @staticmethod
@@ -55,16 +64,18 @@ class Activist:
             pass
         return Member.objects.filter(**kwargs, activist_date__isnull=True,
                                      application_date__isnull=False,
+                                     first_talk_date__isnull=False,
                                      application_date__lt=end)
 
 
 class KeyDevelop:
-    fields = ['branch', 'netid', 'name', 'activist_date']
+    row = 3
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/重点发展对象.xlsx')
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
 
     @staticmethod
     def filter(**kwargs):
-        print(kwargs.items())
         year, month = get_ym(3, 9)
         end = datetime.date(year, month, 30)
         try:
@@ -77,8 +88,31 @@ class KeyDevelop:
                                      activist_date__lt=end)
 
 
+class LearningClass:
+    row = 4
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/党训班报名表.xlsx')
+    fields = ['branch', 'name', 'netid', 'gender', 'group', 'birth_date', 'grade', 'major_in',
+              'application_date', 'phone_number']
+    verbose_name = '%d年%s季学生入党积极分子党校培训报名汇总表' % (get_ym(4, 10)[0], '春' if get_ym(4, 10)[1] == 4 else '秋')
+
+    @staticmethod
+    def filter(**kwargs):
+        year, month = get_ym(4, 10)
+        end = datetime.date(year, month - 1, 30)
+        try:
+            days = Dependency.objects.get(from_1='activist_date', to='key_develop_person_date').days
+            end = end - datetime.timedelta(days=days)
+        except Dependency.DoesNotExist:
+            pass
+        return Member.objects.filter(**kwargs, graduated_party_school_date__isnull=True,
+                                     activist_date__isnull=False,
+                                     activist_date__lt=end)
+
+
 class PreMember:
-    fields = ['branch', 'netid', 'name', 'key_develop_person_date']
+    row = 3
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/预备党员.xlsx')
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'key_develop_person_date']
     verbose_name = '%d年%d月可接收预备党员' % get_ym(6, 12)
 
     @staticmethod
@@ -96,7 +130,10 @@ class PreMember:
 
 
 class FullMember:
-    fields = ['branch', 'netid', 'name', 'application_date', 'first_branch_conference', 'application_fullmember_date']
+    row = 3
+    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/转正.xlsx')
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'first_branch_conference',
+              'application_fullmember_date']
     verbose_name = '%d年%d月可转正预备党员' % get_ym(6, 12)
 
     @staticmethod

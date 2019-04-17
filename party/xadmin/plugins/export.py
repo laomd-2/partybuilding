@@ -1,9 +1,8 @@
 import io
 import datetime
 import sys
-from collections import OrderedDict
-from tempfile import NamedTemporaryFile
 
+from django.core.files.temp import NamedTemporaryFile
 from future.utils import iteritems
 
 from django.http import HttpResponse
@@ -103,10 +102,9 @@ class ExportPlugin(BaseAdminPlugin):
         wb = load_workbook(workbook_name)
         if export_data:
             page = wb.active
-            row_start = page.max_row
             for row in datas:
                 page.append(row)
-        with NamedTemporaryFile(delete=False) as tmp:
+        with NamedTemporaryFile() as tmp:
             wb.save(tmp.name)
             output = io.BytesIO(tmp.read())
             output.seek(0)

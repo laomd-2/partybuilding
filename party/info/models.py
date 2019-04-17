@@ -111,6 +111,11 @@ class Member(models.Model):
     def __str__(self):
         return str(self.netid) + self.name
 
+    def grade(self):
+        return "20%s" % str(self.netid)[:2]
+
+    grade.short_description = '年级'
+
     def important_dates(self):
         return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields
                 if field.name != 'birth_date' and isinstance(field, models.DateField)]
@@ -128,7 +133,7 @@ class Member(models.Model):
     def export_field_map():
         fields = OrderedDict()
         for f in Member._meta.fields:
-            fields[f.verbose_name + ('ID' if f.name in Member.foreign_keys() else '')] = f.name
+            fields[f.verbose_name] = f.name
         return fields
 
     @staticmethod
