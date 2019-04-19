@@ -18,7 +18,6 @@ class Activity(models.Model):
 
     cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
     visualable_others = models.BooleanField('公开', default=False, help_text='是否向其他支部公开。')
-    active = models.BooleanField('已标记', default=False, help_text='用于批量添加学时。')
 
     class Meta:
         unique_together = ('name', 'date')
@@ -60,23 +59,19 @@ class TakePartIn(models.Model):
     @staticmethod
     def export_field_map():
         fields = dict()
-        fields['支部成员ID'] = 'member'
-        fields['会议/活动ID'] = 'activity'
+        fields['支部成员'] = 'member'
+        fields['会议/活动'] = 'activity'
         return fields
 
-    @staticmethod
-    def foreign_keys():
-        return ['member', 'activity']
-
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if self.activity.cascade and self.credit != self.activity.credit:
-            return
         try:
             old = TakePartIn.objects.get(id=self.id)
+            if self.activity.cascade and self.credit != self.activity.credit:
+                return
             if old.activity != self.activity or abs(old.credit - self.credit) > 0.001:
                 self.last_modified = datetime.datetime.now()
         except TakePartIn.DoesNotExist:
-            pass
+            self.credit = Activity.objects.get(id=self.activity_id).credit
         self.credit = round(self.credit, 1)
         super().save(force_insert, force_update, using, update_fields)
 

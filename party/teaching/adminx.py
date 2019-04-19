@@ -34,7 +34,7 @@ class ActivityAdmin(AdminObject):
     @property
     def exclude(self):
         if not is_admin(self.request.user):
-            return ['active', 'cascade', 'visualable_others']
+            return ['cascade', 'visualable_others']
         return []
 
     def get_readonly_fields(self):
