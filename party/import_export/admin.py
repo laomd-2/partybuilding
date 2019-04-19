@@ -293,6 +293,7 @@ class ImportMixin(ImportExportMixinBase):
         context['title'] = _("Import")
         context['form'] = form
         context['opts'] = self.model._meta
+
         context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
 
         request.current_app = self.admin_site.name

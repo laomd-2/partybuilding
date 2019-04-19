@@ -73,24 +73,26 @@
 {% if result %}
 
   {% if result.has_errors %}
-    <h2>{% trans "Errors" %}</h2>
-    <ul>
-      {% for error in result.base_errors  %}
-      <li>
-        {{ error.error }}
-        <div class="traceback">{{ error.traceback|linebreaks }}</div>
-      </li>
-      {% endfor %}
-      {% for line, errors in result.row_errors %}
-        {% for error in errors %}
-          <li>
-            {% trans "Line number" %}: {{ line }} - {{ error.error }}
-            <div><code>{{ error.row.values|join:", " }}</code></div>
-            <div class="traceback">{{ error.traceback|linebreaks }}</div>
-          </li>
-        {% endfor %}
-      {% endfor %}
-    </ul>
+      <script>
+          alert('导入的文件有错，请核对文件表头是否对应，或者信息是否正确。');
+      </script>
+      {#    <ul>#}
+      {#      {% for error in result.base_errors  %}#}
+      {#      <li>#}
+      {#        {{ error.error }}#}
+      {#        <div class="traceback">{{ error.traceback|linebreaks }}</div>#}
+      {#      </li>#}
+      {#      {% endfor %}#}
+      {#      {% for line, errors in result.row_errors %}#}
+      {#        {% for error in errors %}#}
+      {#          <li>#}
+      {#            {% trans "Line number" %}: {{ line }} - {{ error.error }}#}
+      {#            <div><code>{{ error.row.values|join:", " }}</code></div>#}
+      {#            <div class="traceback">{{ error.traceback|linebreaks }}</div>#}
+      {#          </li>#}
+      {#        {% endfor %}#}
+      {#      {% endfor %}#}
+      {#    </ul>#}
   {% else %}
 
   <h2>
