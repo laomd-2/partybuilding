@@ -1,3 +1,5 @@
+from django.db.models import F
+
 from common import resources
 from .models import Member, Branch
 
@@ -13,9 +15,10 @@ class MemberResource(resources.MyResource):
         for i in range(len(dataset)):
             row = list(dataset[i])
             row[0] = Branch.objects.get(branch_name=row[0]).id
+            try:
+                if row[7]:
+                    row[7] = '+86' + str(row[7])
+            except IndexError:
+                pass
             dataset[i] = tuple(row)
         super(MemberResource, self).before_import(dataset, using_transactions, dry_run, **kwargs)
-
-    # def before_import_row(self, row, **kwargs):
-    #     row['branch'] = Branch.objects.get(branch_name=row['branch']).id
-    #     super(MemberResource, self).before_import_row(row, **kwargs)

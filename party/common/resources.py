@@ -1,5 +1,7 @@
 import datetime
 from datetime import date
+
+from django.db.models import F
 from tablib.core import Dataset
 
 from common.base import wrap

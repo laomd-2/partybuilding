@@ -42,9 +42,9 @@ class ActivityAdmin(AdminObject):
         if obj is None:
             return []
         else:
-            if not self.request.user.has_perm('info.add_branch'):
+            if not is_school_admin(self.request.user):
                 member = self.bind_member
-                branches = obj.branch.all()
+                branches = obj.branch.all().all().all()
                 if member is None or member.branch not in branches:
                     return [f.name for f in self.model._meta.fields]
             return []
@@ -54,18 +54,15 @@ class ActivityAdmin(AdminObject):
         if not is_school_admin(self.request.user):
             member = self.bind_member
             branches = map(int, self.request.POST['branch'].split(' '))
-            if member is None or member.branch.id not in branches:
+            if member is None or member['branch_id'] not in branches:
                 if self.org_obj is None:
                     messages.warning(self.request, '您添加了其他党支部的活动。')
                 else:
-                    messages.error(self.request, '修改失败，您不是%s的书记。' %
-                                   '或'.join([str(b) for b in obj.branch.all()]))
+                    messages.error(self.request, '修改失败，权限不足。')
                     return
         obj.save()
         if obj.cascade:
-            for o in TakePartIn.objects.filter(activity=obj):
-                o.credit = obj.credit
-                o.save()
+            TakePartIn.objects.filter(activity_id=obj.id).update(credit=obj.credit)
 
     def queryset(self):
         return get_visuable_activities(self.request.user)
@@ -75,7 +72,7 @@ class ActivityAdmin(AdminObject):
             if is_school_admin(self.request.user) or obj is None:
                 return True
             m = self.bind_member
-            return m is not None and m.branch in obj.branch.all()
+            return m is not None and m['branch_id'] in obj.branch.all().all()
         return False
 
     def has_delete_permission(self, request=None, obj=None):
@@ -85,7 +82,7 @@ class ActivityAdmin(AdminObject):
             elif obj is None:
                 obj = request
             m = self.bind_member
-            return is_branch_manager(self.request.user) and m is not None and m.branch in obj.branch.all()
+            return is_branch_manager(self.request.user) and m is not None and m['branch_id'] in obj.branch.all().all()
         return False
 
     def has_view_permission(self, obj=None):
@@ -93,7 +90,7 @@ class ActivityAdmin(AdminObject):
             if is_school_admin(self.request.user) or obj is None or obj.visualable_others:
                 return True
             m = self.bind_member
-            return m is not None and m.branch in obj.branch.all()
+            return m is not None and m['branch_id'] in obj.branch.all().all()
         return False
 
 
@@ -227,45 +224,40 @@ class CreditAdmin(AdminObject):
 
     def queryset(self):
         now = datetime.datetime.now()
-        qs = self.model._default_manager.get_queryset().filter(activity__date__gte=datetime.datetime(now.year, 1, 1))
         if not is_school_admin(self.request.user):  # 判断是否是党辅
             m = self.bind_member
             if m is None:
-                return qs.none()
+                return self.model.objects.none()
             if is_branch_manager(self.request.user):  # 支书
-                colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
-                return qs.filter(member__in=colleges)
-            qs = qs.filter(member=m)
+                colleges = [mm['netid'] for mm in Member.objects.filter(branch_id=m['branch_id']).values('netid')]
+                return self.model.objects.filter(activity__date__gte=datetime.datetime(now.year, 1, 1),
+                                                 member_id__in=colleges).select_related('member', 'activity')
+            qs = self.model.objects.filter(member_id=m['netid'])
             if m.is_party_member():  # 党员查看全年
-                return qs
+                return qs.select_related('member', 'activity')
             else:
                 season = get_season(now)
-                return qs.filter(activity__date__gte=season[0], activity__date__lt=season[1])
+                return qs.filter(activity__date__gte=season[0], activity__date__lt=season[1]) \
+                    .select_related('member', 'activity')
         if self.request.user.is_superuser:
-            return qs
+            return self.model.objects.all().select_related('member', 'activity')
         else:
-            return qs.filter(member__branch__school=int(self.request.user.username[0]),
-                             member__first_branch_conference__isnull=False)
+            return self.model.objects.filter(member__branch__school_id=int(self.request.user.username[0]),
+                                             member__first_branch_conference__isnull=False)
 
     def save_models(self):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
             member = self.bind_member
             branches = obj.activity.branch.all()
-            if member is None or member.branch not in branches:
-                messages.error(self.request, '失败，请联系%s的支书来%s添加。' % ('或'.join(map(str, branches)),
-                                                                    '添加' if self.org_obj is None else '修改'))
-                return
-        if self.org_obj is None:
-            obj.credit = obj.activity.credit
-        else:
-            if obj.activity.cascade and obj.credit != obj.activity.credit:
-                messages.error(self.request, '修改失败，该会议/活动的学时数是级联更新的。')
+            if member is None or member['branch_id'] not in branches:
+                messages.error(self.request, '%s失败，权限不足。' % ('添加' if self.org_obj is None else '修改'))
                 return
         obj.save()
 
     @property
     def data_charts(self):
+        return None
         m = get_bind_member(self.request.user)
         if m is None and not is_school_manager(self.request.user):
             return None
@@ -275,8 +267,8 @@ class CreditAdmin(AdminObject):
         my_charts = {}
         if is_school_manager(self.request.user):
             school_id = int(self.request.user.username[0])
-            members = Member.objects.filter(branch__school=school_id)
-            all_take = self.model.objects.filter(member__branch__school=school_id,
+            members = Member.objects.filter(branch__school_id=school_id)
+            all_take = self.model.objects.filter(member__branch__school_id=school_id,
                                                  activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
         else:
             members = Member.objects.filter(branch=m.branch)
@@ -319,8 +311,8 @@ class CreditAdmin(AdminObject):
             tmp = ['member', 'activity', 'last_modified']
             if not is_school_admin(self.request.user):
                 member = self.bind_member
-                branches = obj.activity.branch.all()
-                if member is None or member.branch not in branches:
+                branches = [b.id for b in obj.activity.branch.all()]
+                if member is None or member['branch_id'] not in branches:
                     return tmp + ['credit']
             return tmp
 
@@ -329,7 +321,8 @@ class CreditAdmin(AdminObject):
             if is_school_admin(self.request.user) or obj is None:
                 return True
             m = self.bind_member
-            return m is not None and m.branch == obj.member.branch
+            branches = [b.id for b in obj.activity.branch.all()]
+            return m is not None and m['branch_id'] in branches
         return False
 
     def has_delete_permission(self, request=None, obj=None):
@@ -341,7 +334,8 @@ class CreditAdmin(AdminObject):
             elif obj is None:
                 obj = request
             m = self.bind_member
-            return m is not None and m.branch == obj.member.branch
+            branches = [b.id for b in obj.activity.branch.all()]
+            return m is not None and m['branch_id'] in branches
         return False
 
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -373,14 +367,14 @@ class SharingAdmin(AdminObject):
     # model_icon = 'fa fa-bar-chart'
 
     def queryset(self):
-        qs = self.model._default_manager.get_queryset()
+        qs = self.model.objects
         if not is_school_admin(self.request.user):  # 判断是否是党辅
             m = self.bind_member
             if m is None:
                 return qs.none()
-            colleges = Member.objects.filter(branch=m.branch)  # 找到该model 里该用户创建的数据
-            return qs.filter(member__in=colleges)
-        return qs
+            colleges = Member.objects.filter(branch_id=m['branch_id']).values('netid')
+            return qs.filter(member_id__in=[m['netid'] for m in colleges])
+        return qs.all().select_related('member')
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if not self.request.user.is_superuser:
@@ -400,5 +394,5 @@ class SharingAdmin(AdminObject):
             if is_admin(self.request.user) or obj is None:
                 return True
             m = self.bind_member
-            return m is not None and m == obj.member
+            return m is not None and m['branch_id'] == obj.branch_id
         return False

@@ -66,7 +66,7 @@ class User(AbstractUser):
     def get_member(self):
         m = get_bind_member(self)
         if m is not None:
-            return m.name
+            return m['name']
         else:
             return ''
     get_member.short_description = '姓名'

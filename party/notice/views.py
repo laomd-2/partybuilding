@@ -16,11 +16,11 @@ def queryset(request, model):
     if is_member(request.user):
         m = get_bind_member(request.user)
         if m is not None:
-            return model.filter(netid=m.netid)
+            return model.filter(netid=m['netid'])
     elif is_branch_manager(request.user):
         m = get_bind_member(request.user)
         if m is not None:
-            return model.filter(branch=m.branch)
+            return model.filter(branch_id=m['branch_id'])
     elif is_school_manager(request.user):
         school = int(request.user.username[0])
         return model.filter(branch__school_id=school)

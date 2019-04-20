@@ -48,29 +48,26 @@ class UserAdmin(AdminObject):
         return ['groups', 'username', 'is_staff', 'is_active', 'last_login']
 
     def queryset(self):
-        qs = self.model._default_manager.get_queryset()
+        qs = self.model.objects
         if not is_school_admin(self.request.user):  # 判断是否是管理员
             member = self.bind_member
-            if member is None:
+            if member is None or is_member(self.request.user):
                 return qs.filter(username=self.request.user)
             if is_branch_manager(self.request.user):  # 支书
-                colleges = Member.objects.filter(branch=member.branch)  # 找到该model 里该用户创建的数据
-                return qs.filter(username__in=[college.netid for college in colleges])
-            elif is_member(self.request.user):
-                return qs.filter(username=self.request.user)  # 普通成员
+                colleges = Member.objects.filter(branch_id=member['branch_id']).values('netid')
+                return qs.filter(username__in=[college['netid'] for college in colleges])
         if self.request.user.is_superuser:
-            return qs
-        else:
-            return qs.filter(is_superuser=False)
+            return qs.all()
+        return qs.none()
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):
-            if obj is None or self.request.user == obj or is_school_admin(self.request.user):
+            if obj is None or self.request.user == obj.username or is_school_admin(self.request.user):
                 return True
             if is_branch_manager(self.request.user):
                 m = self.bind_member
                 m2 = get_bind_member(obj)
-                return m is not None and m2 is not None and m.branch == m2.branch
+                return m is not None and m2 is not None and m['branch_id'] == m2['branch_id']
         return False
 
     def has_delete_permission(self, request=None, obj=None):
@@ -82,7 +79,7 @@ class UserAdmin(AdminObject):
             if is_branch_manager(self.request.user):
                 m = self.bind_member
                 m2 = get_bind_member(obj)
-                return m is not None and m2 is not None and m.branch == m2.branch
+                return m is not None and m2 is not None and m['branch_id'] == m2['branch_id']
         return False
 
 

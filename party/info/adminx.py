@@ -3,6 +3,7 @@ import re
 from collections import OrderedDict
 
 from django.conf import settings
+from django.db.models import F
 
 from user.util import get_visuable_members, get_bind_member
 from info.resources import MemberResource
@@ -38,25 +39,25 @@ class BranchAdmin(AdminObject):
         return ['school']
 
     def queryset(self):
-        qs = self.model._default_manager.get_queryset()
+        qs = self.model.objects.select_related('school')
         if self.request.user.is_superuser:
-            return qs
-        if self.request.user.has_perm('info.add_branch'):  # 判断是否是党辅
+            return qs.all()
+        if is_school_manager(self.request.user):  # 判断是否是党辅
             school = int(self.request.user.username[0])
-            return qs.filter(school__id=school)
+            return qs.get(id=school).branch_set.all()
         else:
             member = self.bind_member
             if member is None:
                 return qs.none()
-            else:
-                return qs.filter(school=member.branch.school)
+            return qs.filter(id=member['branch_id'])
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):
             if is_school_admin(self.request.user) or obj is None:
                 return True
-            m = self.bind_member
-            return m is not None and m.branch == obj
+            if is_branch_manager(self.request.user):
+                m = self.bind_member
+                return m is not None and m['branch_id'] == obj.id
         return False
 
 
@@ -114,19 +115,21 @@ class MemberAdmin(AdminObject):
 
     @property
     def data_charts(self):
+        return None
         m = get_bind_member(self.request.user)
         if m is None and not is_school_admin(self.request.user):
             return None
         if is_school_manager(self.request.user):
             school_id = int(self.request.user.username[0])
-            scope = School.objects.get(id=school_id).name
-            objects = self.model.objects.filter(branch__school=school_id)
+            school = School.objects.get(id=school_id)
+            scope = school.name
+            objects = self.model.objects.filter(branch__id__in=[branch.id for branch in school.branch_set])
         elif self.request.user.is_superuser:
             scope = ''
             objects = self.model.objects.all()
         else:
             scope = '党支部'
-            objects = self.model.objects.filter(branch=m.branch)
+            objects = self.model.objects.filter(branch__id=m.branch_id)
         my_charts = {
             'fenbu': {
                 'title': scope + '成员分布',
@@ -142,7 +145,7 @@ class MemberAdmin(AdminObject):
 
         fenbu = dict()
         for obj in objects:
-            grade = str(obj.netid)[:2]
+            grade = obj.grade()
             fenbu.setdefault(grade, OrderedDict(
                 [(k, 0) for k in dates.values()]))
             for d in dates:
@@ -239,7 +242,7 @@ class MemberAdmin(AdminObject):
         res = ['branch', 'netid']
         if is_member(self.request.user):  # 普通成员
             m = self.bind_member
-            if m is None or m.netid != self.org_obj.netid:
+            if m is None or m['netid'] != self.org_obj.netid:
                 return self.fields_
             for k, v in phases.items():
                 if k != '基本信息':
@@ -249,7 +252,14 @@ class MemberAdmin(AdminObject):
         return res
 
     def queryset(self):
-        return get_visuable_members(self.request.user)
+        queryset = get_visuable_members(self.request.user)
+        orders = []
+        for o in self.ordering:
+            if o[0] == '-':
+                orders.append(F(o[1:]).desc(nulls_last=True))
+            else:
+                orders.append(F(o).asc(nulls_last=True))
+        return queryset.order_by(*orders)
 
     @staticmethod
     def check_date_dep(obj: Member, old):
@@ -329,9 +339,9 @@ class MemberAdmin(AdminObject):
                     obj.save()
                 else:
                     member = self.bind_member
-                    if member is None or obj.branch != member.branch:
-                        messages.error(self.request, '%s失败，您不是%s的书记。' %
-                                       ('添加' if old is None else '修改', obj.branch))
+                    if member is None or obj.branch_id != member['branch_id']:
+                        messages.error(self.request, '%s失败，您没有此权限。' %
+                                                     '添加' if old is None else '修改')
                         if old is None:
                             obj.delete()
                     else:
@@ -345,9 +355,9 @@ class MemberAdmin(AdminObject):
                 m = self.bind_member
                 if m is not None:
                     if is_branch_admin(self.request.user):
-                        return m.branch == obj.branch
+                        return m['branch_id'] == obj.branch_id
                     elif is_member(self.request.user):
-                        return m.netid == obj.netid
+                        return m['netid'] == obj.netid
         return False
 
     def phases_permission(self, obj=None):
@@ -358,9 +368,9 @@ class MemberAdmin(AdminObject):
                 m = self.bind_member
                 if m is not None:
                     if is_branch_manager(self.request.user):
-                        return m.branch == obj.branch
+                        return m['branch_id'] == obj.branch_id
                     elif is_member(self.request.user):
-                        return m.netid == obj.netid
+                        return m['netid'] == obj.netid
         return False
 
 

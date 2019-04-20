@@ -21,7 +21,7 @@ class NoteAdmin(AdminObject):
         if m is None:
             return Note.objects.none()
         else:
-            return Note.objects.filter(branch=m.branch)
+            return Note.objects.filter(branch_id=m['branch_id'])
 
     def save_models(self):
         if self.org_obj is None:
@@ -29,8 +29,8 @@ class NoteAdmin(AdminObject):
             if m is None:
                 messages.error(self.request, '您不是党支部书记。')
                 return
-            self.new_obj.author = m.name
-            self.new_obj.branch = m.branch
+            self.new_obj.author = m['name']
+            self.new_obj.branch_id = m['branch']
         self.new_obj.save()
 
     def has_change_permission(self, obj=None):
@@ -40,7 +40,7 @@ class NoteAdmin(AdminObject):
             else:
                 m = self.bind_member
                 if m is not None:
-                    return m.name == obj.author
+                    return m['name'] == obj.author
         return False
 
     def has_delete_permission(self, request=None, obj=None):
@@ -50,4 +50,4 @@ class NoteAdmin(AdminObject):
             else:
                 m = self.bind_member
                 if m is not None:
-                    return m.name == obj.author
+                    return m['name'] == obj.author

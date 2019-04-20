@@ -62,7 +62,7 @@ def upload_to(instance, filename):
 
 
 class Member(models.Model):
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='党支部')
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='党支部', db_index=True)
     netid = models.IntegerField('学号', primary_key=True)
     name = models.CharField('姓名', max_length=20, db_index=True)
     birth_date = NullableDateField(max_length=10, verbose_name='出生时间')

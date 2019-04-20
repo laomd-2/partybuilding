@@ -39,6 +39,8 @@ class FooAdmin(object):
 More info about django-import-export please refer https://github.com/django-import-export/django-import-export
 """
 from datetime import datetime
+
+from django.db.models import F
 from django.template import loader
 from tablib import Dataset
 
