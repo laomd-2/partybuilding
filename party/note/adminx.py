@@ -1,6 +1,8 @@
 from django.contrib import admin, messages
 
 # Register your models here.
+from django.contrib.auth import get_permission_codename
+
 import xadmin
 from common.base import AdminObject
 from note.models import Note
@@ -44,10 +46,14 @@ class NoteAdmin(AdminObject):
         return False
 
     def has_delete_permission(self, request=None, obj=None):
-        if super().has_delete_permission(request, obj):
+        codename = get_permission_codename('delete', self.opts)
+        has = ('delete' not in self.remove_permissions) and \
+              self.user.has_perm('%s.%s' % (self.app_label, codename))
+        if has:
             if obj is None or self.request.user.is_superuser:
                 return True
             else:
                 m = self.bind_member
                 if m is not None:
                     return m['name'] == obj.author
+        return False

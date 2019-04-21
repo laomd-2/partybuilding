@@ -113,21 +113,11 @@ class Member(models.Model):
 
     def grade(self):
         return "20%s" % str(self.netid)[:2]
-
     grade.short_description = '年级'
-
-    def important_dates(self):
-        return [(field.verbose_name, getattr(self, field.name)) for field in self._meta.fields
-                if field.name != 'birth_date' and isinstance(field, models.DateField)]
 
     def write_application_date_end(self):
         return self.first_branch_conference + datetime.timedelta(days=365 - 31)
-
     write_application_date_end.short_description = '转正申请截止时间'
-
-    @staticmethod
-    def foreign_keys():
-        return ['branch']
 
     @staticmethod
     def export_field_map():
@@ -137,9 +127,25 @@ class Member(models.Model):
         return fields
 
     @staticmethod
-    def necessary_fields():
-        fields = list(Member.export_field_map().values())
-        return fields
+    def get_phases():
+        fenge = OrderedDict([
+            ('application_date', '基本信息'),
+            ('activist_date', '申请入党'),
+            ('democratic_appraisal_date', '入党积极分子的确定和培养'),
+            ('recommenders_date', '发展对象的确定和考察'),
+            ('oach_date', '预备党员的吸收'),
+            ('', '预备党员的教育考察和转正')])
+        phases = dict()
+        last = 0
+        fields_ = list(Member.export_field_map().values())
+        for k, v in fenge.items():
+            if k:
+                tmp = fields_.index(k)
+            else:
+                tmp = -1
+            phases[v] = fields_[last: tmp]
+            last = tmp
+        return fields_, phases
 
     def is_party_member(self):
         return self.first_branch_conference or self.is_real_party_member()
@@ -149,7 +155,6 @@ class Member(models.Model):
 
     def first_talk_end(self):
         return self.application_date + datetime.timedelta(days=30)
-
     first_talk_end.short_description = '谈话截止时间'
 
 

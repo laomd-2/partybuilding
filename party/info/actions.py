@@ -1,4 +1,3 @@
-from teaching.models import TakePartIn, Activity
 from xadmin.plugins.actions import BaseActionView
 from datetime import datetime
 from django.contrib import messages
@@ -10,13 +9,7 @@ class ActivistAction(BaseActionView):
     description = '确定为入党积极分子'
 
     def do_action(self, queryset):
-        success = []
-        for obj in queryset:
-            if obj.activist_date is None:
-                obj.activist_date = datetime.now()
-                obj.save()
-                success.append(obj.name)
-        messages.success(self.request, '成功确定' + ','.join(success) + '为入党积极分子。')
+        queryset.filter(activist_date__isnull=True).update(activist_date=datetime.now())
 
 
 class KeyPersonAction(BaseActionView):
@@ -25,13 +18,8 @@ class KeyPersonAction(BaseActionView):
     description = '确定为重点发展对象'
 
     def do_action(self, queryset):
-        success = []
-        for obj in queryset:
-            if obj.key_develop_person_date is None:
-                obj.key_develop_person_date = datetime.now()
-                obj.save()
-                success.append(obj.name)
-        messages.success(self.request, '成功确定' + ','.join(success) + '为重点发展对象。')
+        queryset.filter(key_develop_person_date__isnull=True) \
+            .update(key_develop_person_date=datetime.now())
 
 
 class PrememberAction(BaseActionView):
@@ -40,13 +28,8 @@ class PrememberAction(BaseActionView):
     description = '确定为预备党员'
 
     def do_action(self, queryset):
-        success = []
-        for obj in queryset:
-            if obj.first_branch_conference is None:
-                obj.first_branch_conference = datetime.now()
-                obj.save()
-                success.append(obj.name)
-        messages.success(self.request, '成功确定' + ','.join(success) + '为预备党员。')
+        queryset.filter(first_branch_conference__isnull=True) \
+            .update(first_branch_conference=datetime.now())
 
 
 class MemberAction(BaseActionView):
@@ -55,32 +38,5 @@ class MemberAction(BaseActionView):
     description = '确定为正式党员'
 
     def do_action(self, queryset):
-        success = []
-        for obj in queryset:
-            if obj.second_branch_conference is None:
-                obj.second_branch_conference = datetime.now()
-                obj.save()
-                success.append(obj.name)
-        messages.success(self.request, '成功确定' + ','.join(success) + '为正式党员。')
-#
-#
-# class ActivityAction(BaseActionView):
-#     action_name = u'add_credit'
-#     model_perm = 'add'
-#     description = '添加学时'
-#
-#     def do_action(self, queryset):
-#         active_atvs = Activity.objects.filter(active=True)
-#         for atv in active_atvs:
-#             success = []
-#             for obj in queryset:
-#                 try:
-#                     take = TakePartIn(member=obj, activity=atv, credit=atv.credit)
-#                     take.save()
-#                     success.append(obj.name)
-#                 except:
-#                     pass
-#             if success:
-#                 messages.success(self.request,
-#                                  '成功添加' + ','.join(success[:5]) +
-#                                  '等%d人参加' % len(success) + str(atv) + '的学时。')
+        queryset.filter(second_branch_conference__isnull=True) \
+            .update(second_branch_conference=datetime.now())

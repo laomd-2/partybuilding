@@ -1,4 +1,5 @@
 import os
+import re
 
 from django.conf import settings
 from django.contrib.auth import get_permission_codename
@@ -21,6 +22,12 @@ def wrap(value):
     return value
 
 
+def get_chinese(s):
+    pattern = "[\u4e00-\u9fa5]+"
+    regex = re.compile(pattern)
+    return regex.findall(s)
+
+
 class AdminObject(object):
     list_export = []
     list_per_page = 15
@@ -35,7 +42,3 @@ class AdminObject(object):
         codename = get_permission_codename('delete', self.opts)
         return ('delete' not in self.remove_permissions) and \
                 self.user.has_perm('%s.%s' % (self.app_label, codename))
-
-    def has_approve_permission(self):
-        codename = get_permission_codename('approve', self.opts)
-        return ('approve' not in self.remove_permissions) and self.user.has_perm('%s.%s' % (self.app_label, codename))

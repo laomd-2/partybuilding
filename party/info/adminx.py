@@ -10,7 +10,7 @@ from info.resources import MemberResource
 import xadmin
 from xadmin.layout import Main, Fieldset
 from common.rules import *
-from common.base import AdminObject
+from common.base import AdminObject, get_chinese
 from .models import School, Branch, Member, Dependency, Files
 from .actions import *
 
@@ -44,7 +44,7 @@ class BranchAdmin(AdminObject):
             return qs.all()
         if is_school_manager(self.request.user):  # 判断是否是党辅
             school = int(self.request.user.username[0])
-            return qs.get(id=school).branch_set.all()
+            return School.objects.get(id=school).branch_set.all()
         else:
             member = self.bind_member
             if member is None:
@@ -61,29 +61,7 @@ class BranchAdmin(AdminObject):
         return False
 
 
-def get_chinese(s):
-    pattern = "[\u4e00-\u9fa5]+"
-    regex = re.compile(pattern)
-    return regex.findall(s)
-
-
-fenge = OrderedDict([
-        ('application_date', '基本信息'),
-        ('activist_date', '申请入党'),
-        ('democratic_appraisal_date', '入党积极分子的确定和培养'),
-        ('recommenders_date', '发展对象的确定和考察'),
-        ('oach_date', '预备党员的吸收'),
-        ('', '预备党员的教育考察和转正')])
-phases = dict()
-last = 0
-fields_ = [field.name for field in Member._meta.fields]
-for k, v in fenge.items():
-    if k:
-        tmp = fields_.index(k)
-    else:
-        tmp = -1
-    phases[v] = fields_[last: tmp]
-    last = tmp
+fields_, phases = Member.get_phases()
 
 
 @xadmin.sites.register(Member)
@@ -93,18 +71,13 @@ class MemberAdmin(AdminObject):
     import_export_args = {'import_resource_class': MemberResource,
                           'export_resource_class': MemberResource}
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/成员信息.xlsx')
-
     list_display = fields_[1:4] + ['gender', 'phone_number', 'major_in']
-
     model_icon = 'fa fa-info'
-
-    # list_editable = list_display[1:]
     ordering = ['second_branch_conference',
                 'first_branch_conference',
                 'key_develop_person_date',
                 'activist_date',
                 'branch', 'netid']
-
     wizard_form_list = phases.items()
 
     form_layout = (
@@ -115,7 +88,6 @@ class MemberAdmin(AdminObject):
 
     @property
     def data_charts(self):
-        return None
         m = get_bind_member(self.request.user)
         if m is None and not is_school_admin(self.request.user):
             return None
@@ -123,13 +95,13 @@ class MemberAdmin(AdminObject):
             school_id = int(self.request.user.username[0])
             school = School.objects.get(id=school_id)
             scope = school.name
-            objects = self.model.objects.filter(branch__id__in=[branch.id for branch in school.branch_set])
+            objects = self.model.objects.filter(branch_id__in=[branch.id for branch in school.branch_set.all()])
         elif self.request.user.is_superuser:
             scope = ''
             objects = self.model.objects.all()
         else:
             scope = '党支部'
-            objects = self.model.objects.filter(branch__id=m.branch_id)
+            objects = self.model.objects.filter(branch_id=m['branch_id'])
         my_charts = {
             'fenbu': {
                 'title': scope + '成员分布',
@@ -358,19 +330,8 @@ class MemberAdmin(AdminObject):
                         return m['branch_id'] == obj.branch_id
                     elif is_member(self.request.user):
                         return m['netid'] == obj.netid
-        return False
-
-    def phases_permission(self, obj=None):
-        if super().has_view_permission(obj):
-            if obj is None or is_school_admin(self.request.user):
-                return True
-            else:
-                m = self.bind_member
-                if m is not None:
-                    if is_branch_manager(self.request.user):
-                        return m['branch_id'] == obj.branch_id
-                    elif is_member(self.request.user):
-                        return m['netid'] == obj.netid
+                elif is_school_manager(self.request.user):
+                    return obj.branch.school_id == int(self.request.user.username[0])
         return False
 
 
