@@ -1,6 +1,5 @@
 from xadmin.plugins.actions import BaseActionView
 from datetime import datetime
-from django.contrib import messages
 
 
 class ActivistAction(BaseActionView):
@@ -40,3 +39,15 @@ class MemberAction(BaseActionView):
     def do_action(self, queryset):
         queryset.filter(second_branch_conference__isnull=True) \
             .update(second_branch_conference=datetime.now())
+
+
+class MergeBranchAction(BaseActionView):
+    action_name = u'merge_branch'
+    description = '合并所选的 党支部'
+
+    def do_action(self, queryset):
+        target = queryset.first().id
+        queryset = queryset.exclude(id=target)
+        for branch in queryset:
+            branch.member_set.all().update(branch_id=target)
+        queryset.delete()

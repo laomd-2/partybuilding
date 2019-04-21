@@ -201,7 +201,7 @@ class Dependency(models.Model):
     class Meta:
         unique_together = ('from_1', 'to')
         ordering = ('from_1', 'to', 'days')
-        verbose_name = '发展流程依赖'
+        verbose_name = '流程依赖'
         verbose_name_plural = verbose_name
 
     def __str__(self):

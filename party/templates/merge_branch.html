@@ -1,0 +1,23 @@
+{% extends 'xadmin/base_site.html' %}
+{% load i18n %}
+
+{% load xadmin_tags %}
+
+{% block nav_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="alert alert-warning">请选择一个合并后的党支部：</div>
+    <ul class="model_ul">{{ branches|unordered_list }}</ul>
+    <form action="" method="post">{% csrf_token %}
+        <div>
+            <input type="hidden" name="post" value="yes"/>
+            {% view_block 'form_fields' %}
+            <div class="form-actions well well-sm">
+                <input class="btn btn-danger btn-lg" type="submit" value="{% trans "Yes, I'm sure" %}"/>
+                <a class="btn btn-default pull-right" onclick="javascript:history.back();">{% trans 'Cancel' %}</a>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

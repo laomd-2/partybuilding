@@ -26,6 +26,7 @@ class SchoolAdmin(AdminObject):
 
 @xadmin.sites.register(Branch)
 class BranchAdmin(AdminObject):
+    actions = [MergeBranchAction]
     list_display = ['id', 'school', 'branch_name',
                     'num_members', 'date_create']
     list_display_links = ['branch_name']
@@ -91,17 +92,34 @@ class MemberAdmin(AdminObject):
         m = get_bind_member(self.request.user)
         if m is None and not is_school_admin(self.request.user):
             return None
+        br = self.request.GET.get('_p_branch__id__exact')
         if is_school_manager(self.request.user):
             school_id = int(self.request.user.username[0])
             school = School.objects.get(id=school_id)
-            scope = school.name
-            objects = self.model.objects.filter(branch_id__in=[branch.id for branch in school.branch_set.all()])
+            if br is None:
+                scope = school.name
+                objects = self.model.objects.filter(branch_id__in=[branch.id for branch in school.branch_set.all()])
+            else:
+                try:
+                    scope = Branch.objects.get(id=br).branch_name
+                    objects = self.model.objects.filter(branch_id=br)
+                except Branch.DoesNotExist:
+                    return None
         elif self.request.user.is_superuser:
-            scope = ''
-            objects = self.model.objects.all()
+            if br is None:
+                scope = ''
+                objects = self.model.objects.all()
+            else:
+                try:
+                    scope = Branch.objects.get(id=br).branch_name
+                    objects = self.model.objects.filter(branch_id=br)
+                except Branch.DoesNotExist:
+                    return None
         else:
             scope = '党支部'
             objects = self.model.objects.filter(branch_id=m['branch_id'])
+        if objects.count() == 0:
+            return None
         my_charts = {
             'fenbu': {
                 'title': scope + '成员分布',
@@ -211,16 +229,18 @@ class MemberAdmin(AdminObject):
     def get_readonly_fields(self):
         if self.org_obj is None:
             return []
-        res = ['branch', 'netid']
-        if is_member(self.request.user):  # 普通成员
-            m = self.bind_member
-            if m is None or m['netid'] != self.org_obj.netid:
-                return self.fields_
-            for k, v in phases.items():
-                if k != '基本信息':
-                    res += v
-            res.remove('autobiography')
-            res.remove('application_form')
+        res = ['netid']
+        if not is_school_admin(self.request.user):
+            res.append('branch')
+            if is_member(self.request.user):  # 普通成员
+                m = self.bind_member
+                if m is None or m['netid'] != self.org_obj.netid:
+                    return self.fields_
+                for k, v in phases.items():
+                    if k != '基本信息':
+                        res += v
+                res.remove('autobiography')
+                res.remove('application_form')
         return res
 
     def queryset(self):

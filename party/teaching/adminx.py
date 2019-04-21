@@ -207,7 +207,7 @@ class CreditAdmin(AdminObject):
         'export_resource_class': CreditResource
     }
     list_display = ['member', 'activity', 'credit', 'last_modified']
-    list_filter = ['activity__date', 'activity__atv_type', 'credit']
+    list_filter = ['member__branch', 'activity__date', 'activity__atv_type', 'credit']
     search_fields = ['activity__name', 'activity__date', 'member__name', 'member__netid']
     list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
@@ -233,7 +233,7 @@ class CreditAdmin(AdminObject):
                 return self.model.objects.filter(activity__date__gte=datetime.datetime(now.year, 1, 1),
                                                  member_id__in=colleges).select_related('member', 'activity')
             qs = self.model.objects.filter(member_id=m['netid'])
-            if m.is_party_member():  # 党员查看全年
+            if Member.objects.get(netid=m['netid']).is_party_member():  # 党员查看全年
                 return qs.select_related('member', 'activity')
             else:
                 season = get_season(now)
@@ -257,42 +257,52 @@ class CreditAdmin(AdminObject):
 
     @property
     def data_charts(self):
-        return None
         m = get_bind_member(self.request.user)
         if m is None and not is_school_manager(self.request.user):
             return None
+        my_charts = {}
         now = datetime.datetime.now()
         season = get_season(now)
 
-        my_charts = {}
+        branch = self.request.GET.get('_p_member__branch__id__exact')
+        branch_credit = {}
+        branch_member = {}
+        if branch is not None:
+            branch_credit['member__branch_id'] = branch
+            branch_member['branch_id'] = branch
+
         if is_school_manager(self.request.user):
             school_id = int(self.request.user.username[0])
-            members = Member.objects.filter(branch__school_id=school_id)
-            all_take = self.model.objects.filter(member__branch__school_id=school_id,
-                                                 activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
+            members = Member.objects.filter(branch__school_id=school_id, **branch_member)
+            all_take = self.model.objects.filter(member__branch__school_id=school_id, **branch_credit)
         else:
-            members = Member.objects.filter(branch=m.branch)
-            all_take = self.model.objects.filter(member__branch=m.branch,
-                                                 activity__date__gte=datetime.datetime(now.year, 1, 1))  # 普通成员
-            if m.branch.id == 1:
-                my_charts['ranking'] = {
+            members = Member.objects.filter(branch_id=m['branch_id'])
+            all_take = self.model.objects.filter(member__branch_id=m['branch_id'])  # 普通成员
+            if m['branch_id'] == 1:
+                kaocha = self.model.objects.filter(member__branch_id=m['branch_id'],
+                                                   activity__date__gte=season[0],
+                                                   activity__date__lt=season[1],
+                                                   member__first_branch_conference__isnull=True)
+                my_charts['kaocha'] = {
                     'title': '%d月-%d月考察学时排行榜' % (season[0].month, season[1].month),
-                    'option': get_credit(all_take.filter(activity__date__gte=season[0],
-                                                         activity__date__lt=season[1],
-                                                         member__first_branch_conference=None),
-                                         members.filter(first_branch_conference=None))
+                    'option': get_credit(kaocha, members.filter(first_branch_conference__isnull=True))
                 }
-                my_charts['ranking']['option']['color'] = ['#3398DB']
-        my_charts['ranking2'] = {
-            'title': '%d年度党员继续教育学时' % season[0].year,
-            'option': get_credit(all_take.filter(member__first_branch_conference__isnull=False),
-                                 members.filter(first_branch_conference__isnull=False))
-        }
-        if m is not None:
-            my_charts['takepartin'] = {
-                'title': '%d年各月份学时概览' % now.year,
-                'option': get_monthly_credit(all_take.filter(member=m), now.month)
+                my_charts['kaocha']['option']['color'] = ['#3398DB']
+        all_take = all_take.filter(member__first_branch_conference__isnull=False,
+                                   activity__date__gte=datetime.datetime(now.year, 1, 1))
+        if all_take.count():
+            my_charts['ranking2'] = {
+                'title': '%d年度党员继续教育学时' % season[0].year,
+                'option': get_credit(all_take, members.filter(first_branch_conference__isnull=False))
             }
+        if m is not None:
+            all_take = self.model.objects.filter(member_id=m['netid'],
+                                                 activity__date__gte=datetime.datetime(now.year, 1, 1))
+            if all_take.count():
+                my_charts['takepartin'] = {
+                    'title': '%d年各月份学时概览' % now.year,
+                    'option': get_monthly_credit(all_take, now.month)
+                }
         return my_charts
 
     @property
@@ -394,5 +404,5 @@ class SharingAdmin(AdminObject):
             if is_admin(self.request.user) or obj is None:
                 return True
             m = self.bind_member
-            return m is not None and m['branch_id'] == obj.branch_id
+            return m is not None and m['netid'] == obj.member_id
         return False
