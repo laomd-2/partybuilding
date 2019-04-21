@@ -44,8 +44,8 @@ class ActivityAdmin(AdminObject):
         else:
             if not is_school_admin(self.request.user):
                 member = self.bind_member
-                branches = obj.branch.all().all().all()
-                if member is None or member.branch not in branches:
+                branches = [b.id for b in obj.branch.all()]
+                if member is None or member['branch_id'] not in branches:
                     return [f.name for f in self.model._meta.fields]
             return []
 
@@ -72,7 +72,7 @@ class ActivityAdmin(AdminObject):
             if is_school_admin(self.request.user) or obj is None:
                 return True
             m = self.bind_member
-            return m is not None and m['branch_id'] in obj.branch.all().all()
+            return m is not None and m['branch_id'] in [b.id for b in obj.branch.all()]
         return False
 
     def has_delete_permission(self, request=None, obj=None):
@@ -81,8 +81,9 @@ class ActivityAdmin(AdminObject):
                 return True
             elif obj is None:
                 obj = request
-            m = self.bind_member
-            return is_branch_manager(self.request.user) and m is not None and m['branch_id'] in obj.branch.all().all()
+            if is_branch_manager(self.request.user):
+                m = self.bind_member
+                return m is not None and m['branch_id'] in [b.id for b in obj.branch.all()]
         return False
 
     def has_view_permission(self, obj=None):
@@ -90,7 +91,7 @@ class ActivityAdmin(AdminObject):
             if is_school_admin(self.request.user) or obj is None or obj.visualable_others:
                 return True
             m = self.bind_member
-            return m is not None and m['branch_id'] in obj.branch.all().all()
+            return m is not None and m['branch_id'] in [b.id for b in obj.branch.all()]
         return False
 
 

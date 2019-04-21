@@ -37,7 +37,6 @@
 {#  <div class="page">#}
 {#</div>#}
     {% for affair in affairs %}
-        <div>
         <a href="notice/{{ affair.0 }}"><h4>{{ affair.1 }}</h4></a>
         <div class="results table-responsive">
             <table class="table table-bordered table-striped table-hover">
@@ -73,5 +72,6 @@
             </table>
         </div>
     {% endfor %}
-<input type='hidden' id='_portal_key' value='{{ portal_key }}' />
+
+    <input type='hidden' id='_portal_key' value='{{ portal_key }}' />
 {% endblock %}

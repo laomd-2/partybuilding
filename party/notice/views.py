@@ -1,5 +1,5 @@
 import io
-from copy import copy, deepcopy
+from copy import deepcopy
 
 from django.core.files.temp import NamedTemporaryFile
 from django.http import HttpResponse

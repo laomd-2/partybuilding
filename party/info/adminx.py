@@ -42,7 +42,7 @@ class BranchAdmin(AdminObject):
     def queryset(self):
         qs = self.model.objects.select_related('school')
         if self.request.user.is_superuser:
-            return qs.all()
+            return qsemail()
         if is_school_manager(self.request.user):  # 判断是否是党辅
             school = int(self.request.user.username[0])
             return School.objects.get(id=school).branch_set.all()

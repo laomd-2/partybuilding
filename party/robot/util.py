@@ -58,7 +58,7 @@ def send_email_to_managers(users, title, branch_name, fields, phase):
         pass
     except Exception as e:
         print(e)
-    html_content = render_to_string('notice_manager.html', context)
+    html_content = render_to_string('email_manager.html', context)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 

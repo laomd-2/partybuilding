@@ -91,7 +91,7 @@ class KeyDevelop:
 class LearningClass:
     row = 4
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/党训班报名表.xlsx')
-    fields = ['branch', 'name', 'netid', 'gender', 'group', 'birth_date', 'grade', 'major_in',
+    fields = ['branch', 'netid', 'name', 'gender', 'group', 'birth_date', 'grade', 'major_in',
               'application_date', 'phone_number']
     verbose_name = '%d年%s季学生入党积极分子党校培训报名汇总表' % (get_ym(4, 10)[0], '春' if get_ym(4, 10)[1] == 4 else '秋')
 

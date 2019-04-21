@@ -91,9 +91,7 @@ class ChartsPlugin(BaseAdminPlugin):
 
     # Media
     def get_media(self, media):
-        return media + \
-               self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
-               # self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
+        return media + self.vendor('flot.js', 'xadmin.plugin.anycharts.js')
 
     # Block Views
     def block_results_bottom(self, context, nodes):
