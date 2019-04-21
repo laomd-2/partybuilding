@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'DjangoUeditor',
     'xadmin',
     'crispy_forms',
-    'rules'
+    'rules',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
         'USER': '*',
-        'PASSWORD': '*@party',
+        'PASSWORD': '*',
     },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -150,4 +150,4 @@ EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = '*'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-HOST_IP = '*.*.*.*'
+HOST_IP = '*.*.*.*:8000'
