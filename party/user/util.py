@@ -1,5 +1,4 @@
 from django.db.models import Q
-
 from info.models import Member, School
 from teaching.models import Activity
 from common.rules import *
@@ -8,7 +7,9 @@ from common.rules import *
 def get_bind_member(user):
     try:
         return Member.objects.filter(netid=int(user.username)).values('netid', 'name', 'branch_id')[0]
-    except:
+    except Member.DoesNotExist:
+        return None
+    except IndexError:
         return None
 
 
@@ -34,6 +35,6 @@ def get_visuable_members(user):
     elif is_school_manager(user):
         school = School.objects.get(id=int(user.username[0]))
         return Member.objects.filter(branch__school_id=school)
-    elif user.is_super_user:
+    elif user.is_superuser:
         return qs.all()
     return qs.none()

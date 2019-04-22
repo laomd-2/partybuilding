@@ -1,10 +1,8 @@
 亲爱的{{ branch_name }}支书：<br/>
 <blockquote>您好，{{ branch_name }}<b>{{ title }}</b>如下，请做好相关准备工作：
     <div>
-        <table width="80%" border="1" cellspacing="0" margin="0 50%">
+        <table width="auto" border="1" cellspacing="0" margin="0 50%">
             <tr>
-                <th>学号</th>
-                <th>姓名</th>
                 {% for field in headers %}
                     <th>{{ field }}</th>
                 {% endfor %}
@@ -20,4 +18,4 @@
     </div>
 </blockquote>
 <p align="right"><a href="http://{{ root_url }}">中山大学数据科学与计算机学院党建</a><br/>请勿回复</p>
-<p><a href="http://{{ root_url }}{{ filename }}"><b>{{ filename }}</b></a></p>
+<p><a href="http://{{ root_url }}/media/{{ filename }}"><b>{{ filename }}</b></a></p>

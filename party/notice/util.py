@@ -1,37 +1,23 @@
 from django.conf import settings
-from django.core.exceptions import FieldDoesNotExist
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from info.models import Member, Files
+from common.base import wrap
+from info.models import Files
 from email.header import make_header
+
+from notice.admin import verbose_name
 from user.models import User
 
 
-def get_headers(fields):
-    headers = []
-    for field in fields:
-        try:
-            headers.append(Member._meta.get_field(field).verbose_name)
-        except FieldDoesNotExist:
-            headers.append(getattr(Member, field).short_description)
-    return headers
-
-
 def get_infos(fields, appers):
-    infos = []
-    for apper in appers:
-        info = [apper.netid, apper.name]
-        for field in fields:
-            info.append(getattr(apper, field))
-        infos.append(info)
-    return infos
+    return [[wrap(getattr(apper, field)) for field in fields] for apper in appers]
 
 
-def send_email_to_managers(users, title, branch_name, fields, phase):
+def send_email_to_managers(users, title, appers, fields, phase):
     to_emails = [user.email for user in users if user.email]
     if not to_emails:
         return
-    # branch_name = appers[0].branch.branch_name
+    branch_name = appers[0].branch.branch_name
     subject = title
     text_content = ''
 
@@ -39,9 +25,9 @@ def send_email_to_managers(users, title, branch_name, fields, phase):
     context = {
         'branch_name': branch_name,
         'title': title,
-        'headers': get_headers(fields),
+        'headers': verbose_name(fields),
         'appliers': get_infos(fields, appers),
-        'root_url': settings.HOST_IP,
+        'root_url': settings.HOST_IP
     }
     try:
         o = Files.objects.get(name=Files.phases[phase])
@@ -67,7 +53,7 @@ def send_email_to_appliers(title, appliers, fields, template='notice_member.html
     infos = get_infos(fields, appliers)
     context = {
         'title': title,
-        'headers': get_headers(fields),
+        'headers': verbose_name(fields),
         'root_url': settings.HOST_IP,
     }
     for applier, info in zip(appliers, infos):

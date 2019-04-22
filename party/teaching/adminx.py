@@ -43,7 +43,7 @@ class ActivityAdmin(AdminObject):
             return []
         else:
             if not is_school_admin(self.request.user):
-                member = self.bind_member
+                member = self.request.user.member
                 branches = [b.id for b in obj.branch.all()]
                 if member is None or member['branch_id'] not in branches:
                     return [f.name for f in self.model._meta.fields]
@@ -52,7 +52,7 @@ class ActivityAdmin(AdminObject):
     def save_models(self):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
-            member = self.bind_member
+            member = self.request.user.member
             branches = map(int, self.request.POST['branch'].split(' '))
             if member is None or member['branch_id'] not in branches:
                 if self.org_obj is None:
@@ -71,7 +71,7 @@ class ActivityAdmin(AdminObject):
         if super().has_change_permission(obj):
             if is_school_admin(self.request.user) or obj is None:
                 return True
-            m = self.bind_member
+            m = self.request.user.member
             return m is not None and m['branch_id'] in [b.id for b in obj.branch.all()]
         return False
 
@@ -82,7 +82,7 @@ class ActivityAdmin(AdminObject):
             elif obj is None:
                 obj = request
             if is_branch_manager(self.request.user):
-                m = self.bind_member
+                m = self.request.user.member
                 return m is not None and m['branch_id'] in [b.id for b in obj.branch.all()]
         return False
 
@@ -90,7 +90,7 @@ class ActivityAdmin(AdminObject):
         if super().has_view_permission(obj):
             if is_school_admin(self.request.user) or obj is None or obj.visualable_others:
                 return True
-            m = self.bind_member
+            m = self.request.user.member
             return m is not None and m['branch_id'] in [b.id for b in obj.branch.all()]
         return False
 
@@ -226,7 +226,7 @@ class CreditAdmin(AdminObject):
     def queryset(self):
         now = datetime.datetime.now()
         if not is_school_admin(self.request.user):  # 判断是否是党辅
-            m = self.bind_member
+            m = self.request.user.member
             if m is None:
                 return self.model.objects.none()
             if is_branch_manager(self.request.user):  # 支书
@@ -249,7 +249,7 @@ class CreditAdmin(AdminObject):
     def save_models(self):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
-            member = self.bind_member
+            member = self.request.user.member
             branches = obj.activity.branch.all()
             if member is None or member['branch_id'] not in branches:
                 messages.error(self.request, '%s失败，权限不足。' % ('添加' if self.org_obj is None else '修改'))
@@ -258,7 +258,7 @@ class CreditAdmin(AdminObject):
 
     @property
     def data_charts(self):
-        m = get_bind_member(self.request.user)
+        m = self.request.user.member
         if m is None and not is_school_manager(self.request.user):
             return None
         my_charts = {}
@@ -266,16 +266,13 @@ class CreditAdmin(AdminObject):
         season = get_season(now)
 
         branch = self.request.GET.get('_p_member__branch__id__exact')
-        branch_credit = {}
-        branch_member = {}
-        if branch is not None:
-            branch_credit['member__branch_id'] = branch
-            branch_member['branch_id'] = branch
-
         if is_school_manager(self.request.user):
-            school_id = int(self.request.user.username[0])
-            members = Member.objects.filter(branch__school_id=school_id, **branch_member)
-            all_take = self.model.objects.filter(member__branch__school_id=school_id, **branch_credit)
+            if branch is None:
+                all_take = self.model.objects.none()
+            else:
+                school_id = int(self.request.user.username[0])
+                members = Member.objects.filter(branch_id=branch)
+                all_take = self.model.objects.filter(member__branch_id=branch)
         else:
             members = Member.objects.filter(branch_id=m['branch_id'])
             all_take = self.model.objects.filter(member__branch_id=m['branch_id'])  # 普通成员
@@ -321,7 +318,7 @@ class CreditAdmin(AdminObject):
         else:
             tmp = ['member', 'activity', 'last_modified']
             if not is_school_admin(self.request.user):
-                member = self.bind_member
+                member = self.request.user.member
                 branches = [b.id for b in obj.activity.branch.all()]
                 if member is None or member['branch_id'] not in branches:
                     return tmp + ['credit']
@@ -331,7 +328,7 @@ class CreditAdmin(AdminObject):
         if super().has_change_permission(obj):
             if is_school_admin(self.request.user) or obj is None:
                 return True
-            m = self.bind_member
+            m = self.request.user.member
             branches = [b.id for b in obj.activity.branch.all()]
             return m is not None and m['branch_id'] in branches
         return False
@@ -344,7 +341,7 @@ class CreditAdmin(AdminObject):
                 return True
             elif obj is None:
                 obj = request
-            m = self.bind_member
+            m = self.request.user.member
             branches = [b.id for b in obj.activity.branch.all()]
             return m is not None and m['branch_id'] in branches
         return False
@@ -380,7 +377,7 @@ class SharingAdmin(AdminObject):
     def queryset(self):
         qs = self.model.objects
         if not is_school_admin(self.request.user):  # 判断是否是党辅
-            m = self.bind_member
+            m = self.request.user.member
             if m is None:
                 return qs.none()
             colleges = Member.objects.filter(branch_id=m['branch_id']).values('netid')
@@ -393,7 +390,7 @@ class SharingAdmin(AdminObject):
                 if is_school_admin(self.request.user):
                     kwargs["queryset"] = Member.objects.all()
                 else:
-                    m = self.bind_member
+                    m = self.request.user.member
                     if m is None:
                         kwargs["queryset"] = Member.objects.none()
                     else:
@@ -404,6 +401,6 @@ class SharingAdmin(AdminObject):
         if super().has_change_permission(obj):
             if is_admin(self.request.user) or obj is None:
                 return True
-            m = self.bind_member
+            m = self.request.user.member
             return m is not None and m['netid'] == obj.member_id
         return False

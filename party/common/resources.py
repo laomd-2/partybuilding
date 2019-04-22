@@ -1,16 +1,12 @@
 import datetime
 from datetime import date
-
-from django.db.models import F
-from tablib.core import Dataset
-
 from common.base import wrap
 from import_export import resources
 
 
 class MyResource(resources.ModelResource):
-    def before_import(self, dataset: Dataset, using_transactions, dry_run, **kwargs):
-        fields = self._meta.model.export_field_map()
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        fields = dict((field.verbose_name, field.name) for field in self._meta.model._meta.fields)
         dataset.headers = [fields[verbose_name] for verbose_name in dataset.headers]
         super().before_import(dataset, using_transactions, dry_run, **kwargs)
 

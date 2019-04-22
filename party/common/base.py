@@ -4,7 +4,6 @@ import re
 from django.conf import settings
 from django.contrib.auth import get_permission_codename
 from import_export.formats import base_formats
-from user.util import get_bind_member
 
 
 def wrap(value):
@@ -28,15 +27,21 @@ def get_chinese(s):
     return regex.findall(s)
 
 
+def get_old(obj):
+    model = type(obj)
+    try:
+        return model.objects.get(pk=obj.pk)
+    except model.DoesNotExist:
+        return None
+    except TypeError:
+        return None
+
+
 class AdminObject(object):
     list_export = []
     list_per_page = 15
     formats = base_formats.DEFAULT_FORMATS[2:3]
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/空白.xlsx')
-
-    @property
-    def bind_member(self):
-        return get_bind_member(self.request.user)
 
     def has_delete_permission(self, request=None, obj=None):
         codename = get_permission_codename('delete', self.opts)

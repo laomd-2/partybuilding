@@ -1,16 +1,15 @@
 import os
-import re
 from collections import OrderedDict
-
 from django.conf import settings
-from django.db.models import F
+from django.contrib import messages
+from django.db.models import F, Q
 
-from user.util import get_visuable_members, get_bind_member
+from user.util import get_visuable_members
 from info.resources import MemberResource
 import xadmin
 from xadmin.layout import Main, Fieldset
 from common.rules import *
-from common.base import AdminObject, get_chinese
+from common.base import AdminObject, get_old, get_chinese
 from .models import School, Branch, Member, Dependency, Files
 from .actions import *
 
@@ -42,12 +41,12 @@ class BranchAdmin(AdminObject):
     def queryset(self):
         qs = self.model.objects.select_related('school')
         if self.request.user.is_superuser:
-            return qsemail()
+            return qs.all()
         if is_school_manager(self.request.user):  # 判断是否是党辅
             school = int(self.request.user.username[0])
             return School.objects.get(id=school).branch_set.all()
         else:
-            member = self.bind_member
+            member = self.request.user.member
             if member is None:
                 return qs.none()
             return qs.filter(id=member['branch_id'])
@@ -57,7 +56,7 @@ class BranchAdmin(AdminObject):
             if is_school_admin(self.request.user) or obj is None:
                 return True
             if is_branch_manager(self.request.user):
-                m = self.bind_member
+                m = self.request.user.member
                 return m is not None and m['branch_id'] == obj.id
         return False
 
@@ -65,8 +64,67 @@ class BranchAdmin(AdminObject):
 fields_, phases = Member.get_phases()
 
 
+class MemberAdminMixin:
+    @staticmethod
+    def check_date_dep(obj, old):
+        errors = []
+        for dep in Dependency.objects.filter(Q(scope=2) | Q(scope=1 + int(not obj.is_sysu))):
+            from_ = getattr(obj, dep.from_1)
+            to = getattr(obj, dep.to)
+            from_2 = None if old is None else getattr(old, dep.from_1)
+            to2 = None if old is None else getattr(old, dep.to)
+            if (from_ != from_2 or to != to2) and from_ and to:
+                delta = to - from_
+                if delta.days < dep.days:
+                    errors.append((dep.from_1, dep.to, delta.days,
+                                   dep.days_mapping[dep.days]))
+        return errors
+
+    @staticmethod
+    def check_first_talk_date(obj, old):
+        if obj.first_talk_date and obj.application_date:
+            if old is None or (obj.application_date != old.application_date or
+                               obj.first_talk_date != old.first_talk_date):
+                days = (obj.first_talk_date - obj.application_date).days
+                return days < 31
+        return True
+
+    @staticmethod
+    def get_members(branch, names):
+        res = []
+        for name in names:
+            try:
+                res.append(Member.objects.filter(branch_id=branch, name=name).first())
+            except Member.DoesNotExist:
+                pass
+        return res
+
+    def check_fields(self, obj):
+        old = get_old(obj)
+        msg = messages.error
+
+        errors = MemberAdminMixin.check_date_dep(obj, old)
+        for e in errors:
+            msg(self.request, "%s到%s需要%s，而%s只用了%d天。"
+                % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
+                   Member._meta.get_field(e[1]).verbose_name.strip('时间'),
+                   e[3], obj, e[2]))
+            return False
+        # 检查首次组织谈话时间
+        if obj.is_sysu and not self.check_first_talk_date(obj, old):
+            msg(self.request, '未在一个月内完成首次组织谈话。')
+            return False
+        # 检查入党介绍人
+        if obj.is_sysu and old is None or obj.recommenders != old.recommenders:
+            for m in self.get_members(obj.branch_id, get_chinese(str(obj.recommenders))):
+                if not m.is_real_party_member():
+                    msg(self.request, '入党介绍人%s不是正式党员。' % m.name)
+                    return False
+        return True
+
+
 @xadmin.sites.register(Member)
-class MemberAdmin(AdminObject):
+class MemberAdmin(AdminObject, MemberAdminMixin):
     actions = [ActivistAction, KeyPersonAction,
                PrememberAction, MemberAction]
     import_export_args = {'import_resource_class': MemberResource,
@@ -89,7 +147,7 @@ class MemberAdmin(AdminObject):
 
     @property
     def data_charts(self):
-        m = get_bind_member(self.request.user)
+        m = self.request.user.member
         if m is None and not is_school_admin(self.request.user):
             return None
         br = self.request.GET.get('_p_branch__id__exact')
@@ -233,7 +291,7 @@ class MemberAdmin(AdminObject):
         if not is_school_admin(self.request.user):
             res.append('branch')
             if is_member(self.request.user):  # 普通成员
-                m = self.bind_member
+                m = self.request.user.member
                 if m is None or m['netid'] != self.org_obj.netid:
                     return self.fields_
                 for k, v in phases.items():
@@ -253,98 +311,24 @@ class MemberAdmin(AdminObject):
                 orders.append(F(o).asc(nulls_last=True))
         return queryset.order_by(*orders)
 
-    @staticmethod
-    def check_date_dep(obj: Member, old):
-        errors = []
-        for dep in Dependency.objects.all():
-            from_ = getattr(obj, dep.from_1)
-            to = getattr(obj, dep.to)
-            from_2 = None if old is None else getattr(old, dep.from_1)
-            to2 = None if old is None else getattr(old, dep.to)
-            if (from_ != from_2 or to != to2) and from_ and to:
-                delta = to - from_
-                if delta.days < dep.days:
-                    errors.append((dep.from_1, dep.to, delta.days,
-                                   dep.days_mapping[dep.days]))
-        return errors
-
-    @staticmethod
-    def check_first_talk_date(obj, old: Member):
-        if obj.first_talk_date and obj.application_date:
-            if old is None or (obj.application_date != old.application_date or
-                               obj.first_talk_date != old.first_talk_date):
-                days = (obj.first_talk_date - obj.application_date).days
-                return days < 31
-        return True
-
-    @staticmethod
-    def get_members(names):
-        res = []
-        for name in names:
-            try:
-                res.append(Member.objects.get(name=name))
-            except:
-                pass
-        return res
-
-    def get_old(self):
-        try:
-            return Member.objects.get(netid=self.new_obj.netid)
-        except Member.DoesNotExist:
-            return None
-
     def save_models(self):
         if hasattr(self, 'new_obj'):
-            obj = self.new_obj
-            old = self.get_old()
-            msg = messages.error
-
-            errors = self.check_date_dep(obj, old)
-            for e in errors:
-                msg(self.request, "%s到%s需要%s，而%s只用了%d天。"
-                    % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
-                       Member._meta.get_field(e[1]).verbose_name.strip('时间'),
-                       e[3], obj, e[2]))
-            else:
-                if not self.check_first_talk_date(obj, old):
-                    msg(self.request, '未在一个月内完成首次组织谈话。')
+            if not is_school_admin(self.request.user):
+                member = self.request.user.member
+                if member is None or self.branch_id != member['branch_id']:
+                    old = get_old(self)
+                    messages.error(self.request, '%s失败，您没有此权限。' %
+                                                 '添加' if old is None else '修改')
                     return
-                persons = self.get_members(get_chinese(str(obj.contacts)))
-                if persons:
-                    for m in persons:
-                        if m.is_real_party_member():
-                            break
-                    else:
-                        if old is None or obj.contacts != old.contacts:
-                            msg(self.request, '培养联系人至少需要一名正式党员。')
-                            return
-                        else:
-                            messages.warning(self.request, '培养联系人至少需要一名正式党员。')
-                for m in self.get_members(get_chinese(str(obj.recommenders))):
-                    if not m.is_real_party_member():
-                        if old is None or obj.recommenders != old.recommenders:
-                            msg(self.request, '入党介绍人%s不是正式党员。' % m.name)
-                            return
-                        else:
-                            messages.warning(self.request, '入党介绍人%s不是正式党员。' % m.name)
-                if self.request.user.is_superuser:
-                    obj.save()
-                else:
-                    member = self.bind_member
-                    if member is None or obj.branch_id != member['branch_id']:
-                        messages.error(self.request, '%s失败，您没有此权限。' %
-                                                     '添加' if old is None else '修改')
-                        if old is None:
-                            obj.delete()
-                    else:
-                        obj.save()
+            if self.check_fields(self.new_obj):
+                self.new_obj.save()
 
     def has_change_permission(self, obj=None):
         if super().has_change_permission(obj):
             if obj is None or self.request.user.is_superuser:
                 return True
             else:
-                m = self.bind_member
+                m = self.request.user.member
                 if m is not None:
                     if is_branch_admin(self.request.user):
                         return m['branch_id'] == obj.branch_id
@@ -357,12 +341,12 @@ class MemberAdmin(AdminObject):
 
 @xadmin.sites.register(Dependency)
 class DependencyAdmin(AdminObject):
-    list_display = ['from_1', 'to', 'days']
-    list_editable = ['days']
+    list_display = ['from_1', 'to', 'days', 'scope']
+    list_editable = ['days', 'scope']
     model_icon = 'fa fa-angle-double-right'
 
     def get_list_display_links(self):
-        if self.request.user.has_perm('info.add_branch'):
+        if is_school_admin(self.request.user):
             return ['from_1']
         else:
             return [None, ]

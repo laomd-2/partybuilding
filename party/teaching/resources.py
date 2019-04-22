@@ -1,5 +1,3 @@
-from django.utils.encoding import force_text
-
 from common import resources
 from .models import Activity, TakePartIn
 from info.models import Member
@@ -18,7 +16,7 @@ class CreditResource(resources.MyResource):
         model = TakePartIn
         skip_unchanged = True
         import_id_fields = ('member', 'activity')
-        exclude = ('id', 'last_modified', 'credit')
+        exclude = ('id', 'last_modified')
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         for i in range(len(dataset)):

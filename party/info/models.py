@@ -8,9 +8,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
 
 
-# Create your models here.
-
-
 class NullableDateField(models.DateField):
     def __init__(self, verbose_name=None, name=None, auto_now=False, auto_now_add=False, **kwargs):
         kwargs['null'] = True
@@ -53,7 +50,6 @@ class Branch(models.Model):
 
     def num_members(self):
         return Member.objects.filter(branch=self).count()
-
     num_members.short_description = '成员数'
 
 
@@ -77,22 +73,22 @@ class Member(models.Model):
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
 
     application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致。')
+    is_sysu = models.BooleanField(verbose_name='中大发展党员', help_text='在中山大学发展的党员，其录入的信息需严格遵循'
+                                                                   '相关流程依赖。', default=True)
     first_talk_date = NullableDateField(verbose_name='首次组织谈话时间', help_text='党支部收到入党申请书后，一个月内委派支委与其谈话的时间。')
 
     activist_date = NullableDateField('确定为入党积极分子时间', help_text='党支部开会讨论，通过成为入党积极分子的时间。')
-    contacts = models.CharField(max_length=50, null=True, blank=True, verbose_name='培养联系人',
-                                help_text='2名正式党员（正式党员紧缺时也可安排预备党员）。')
 
     democratic_appraisal_date = NullableDateField(verbose_name='民主评议时间', help_text='党支部召开座谈会收集群众意见的时间。')
     league_promotion_date = NullableDateField(verbose_name='推荐/推优时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
     key_develop_person_date = NullableDateField(verbose_name='确定为重点发展对象时间', help_text='上级党委备案时间，并非党支部开会时间。')
-    political_check_date = NullableDateField(verbose_name='政治审查时间')
+    is_political_check = models.BooleanField(verbose_name='政治审查', null=True, blank=True)
     graduated_party_school_date = NullableDateField(verbose_name='党校培训结业时间')
 
     recommenders_date = NullableDateField(verbose_name='确定入党介绍人时间')
     recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人')
-    autobiography = models.FileField(upload_to=upload_to, verbose_name='自传', null=True, blank=True)
-    application_form = models.FileField(upload_to=upload_to, verbose_name='入党志愿', null=True, blank=True)
+    autobiography = models.BooleanField(verbose_name='自传', null=True, blank=True)
+    application_form = models.BooleanField(verbose_name='入党志愿', null=True, blank=True)
     first_branch_conference = NullableDateField(verbose_name='确定为预备党员时间', help_text='支部党员大会通过成为预备党员的时间。')
     pro_conversation_date = NullableDateField(verbose_name='入党谈话时间')
     talker = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党谈话人', help_text='学院党委成员或组织员。')
@@ -111,6 +107,17 @@ class Member(models.Model):
     def __str__(self):
         return str(self.netid) + self.name
 
+    def is_party_member(self):
+        return self.first_branch_conference or self.is_real_party_member()
+
+    def is_real_party_member(self):
+        return self.second_branch_conference
+
+    def first_talk_end(self):
+        return self.application_date + datetime.timedelta(days=30)
+
+    first_talk_end.short_description = '谈话截止时间'
+
     def grade(self):
         return "20%s" % str(self.netid)[:2]
     grade.short_description = '年级'
@@ -118,13 +125,6 @@ class Member(models.Model):
     def write_application_date_end(self):
         return self.first_branch_conference + datetime.timedelta(days=365 - 31)
     write_application_date_end.short_description = '转正申请截止时间'
-
-    @staticmethod
-    def export_field_map():
-        fields = OrderedDict()
-        for f in Member._meta.fields:
-            fields[f.verbose_name] = f.name
-        return fields
 
     @staticmethod
     def get_phases():
@@ -137,7 +137,7 @@ class Member(models.Model):
             ('', '预备党员的教育考察和转正')])
         phases = dict()
         last = 0
-        fields_ = list(Member.export_field_map().values())
+        fields_ = [field.name for field in Member._meta.fields]
         for k, v in fenge.items():
             if k:
                 tmp = fields_.index(k)
@@ -146,16 +146,6 @@ class Member(models.Model):
             phases[v] = fields_[last: tmp]
             last = tmp
         return fields_, phases
-
-    def is_party_member(self):
-        return self.first_branch_conference or self.is_real_party_member()
-
-    def is_real_party_member(self):
-        return self.second_branch_conference
-
-    def first_talk_end(self):
-        return self.application_date + datetime.timedelta(days=30)
-    first_talk_end.short_description = '谈话截止时间'
 
 
 def upload_to2(instance, filename):
@@ -197,9 +187,10 @@ class Dependency(models.Model):
     from_1 = models.CharField('从', choices=all_dates.items(), max_length=50)
     to = models.CharField('到', choices=all_dates.items(), max_length=50)
     days = models.IntegerField('周期', choices=days_mapping.items())
+    scope = models.IntegerField('适用范围', choices=[(0, '全部'), (1, '中大发展党员'), (2, '非中大发展党员')], default=0)
 
     class Meta:
-        unique_together = ('from_1', 'to')
+        unique_together = ('from_1', 'to', 'scope')
         ordering = ('from_1', 'to', 'days')
         verbose_name = '流程依赖'
         verbose_name_plural = verbose_name

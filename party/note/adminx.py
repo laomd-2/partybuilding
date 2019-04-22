@@ -19,7 +19,7 @@ class NoteAdmin(AdminObject):
     def queryset(self):
         if self.request.user.is_superuser:
             return Note.objects.all()
-        m = self.bind_member
+        m = self.request.user.member
         if m is None:
             return Note.objects.none()
         else:
@@ -27,7 +27,7 @@ class NoteAdmin(AdminObject):
 
     def save_models(self):
         if self.org_obj is None:
-            m = self.bind_member
+            m = self.request.user.member
             if m is None:
                 messages.error(self.request, '您不是党支部书记。')
                 return
@@ -40,7 +40,7 @@ class NoteAdmin(AdminObject):
             if obj is None or self.request.user.is_superuser:
                 return True
             else:
-                m = self.bind_member
+                m = self.request.user.member
                 if m is not None:
                     return m['name'] == obj.author
         return False
@@ -53,7 +53,7 @@ class NoteAdmin(AdminObject):
             if obj is None or self.request.user.is_superuser:
                 return True
             else:
-                m = self.bind_member
+                m = self.request.user.member
                 if m is not None:
                     return m['name'] == obj.author
         return False

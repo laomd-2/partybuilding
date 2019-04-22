@@ -1,7 +1,6 @@
 from django.db.models import Q
 
 from common.base import AdminObject
-from user.util import get_bind_member
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import User
@@ -60,7 +59,7 @@ class UserAdmin(AdminObject):
                 return qs.filter(Q(username=self.request.user.username) |
                                  Q(username__in=[m['netid'] for m in ms]))
         else:
-            member = self.bind_member
+            member = self.request.user.member
             if member is None or is_member(self.request.user):
                 return qs.filter(username=self.request.user)
             if is_branch_manager(self.request.user):  # 支书
@@ -73,8 +72,8 @@ class UserAdmin(AdminObject):
             if obj is None or self.request.user == obj.username or is_school_admin(self.request.user):
                 return True
             if is_branch_manager(self.request.user):
-                m = self.bind_member
-                m2 = get_bind_member(obj)
+                m = self.request.user.member
+                m2 = obj.member
                 return m is not None and m2 is not None and m['branch_id'] == m2['branch_id']
         return False
 
@@ -85,7 +84,7 @@ class UserAdmin(AdminObject):
             elif obj is None:
                 obj = request
             if is_school_admin(self.request.user):
-                m2 = get_bind_member(obj)
+                m2 = obj.member
                 school = int(self.request.user.username[0])
                 try:
                     branch = Branch.objects.get(id=m2['branch_id'])
@@ -93,8 +92,8 @@ class UserAdmin(AdminObject):
                 except:
                     return False
             if is_branch_manager(self.request.user):
-                m = self.bind_member
-                m2 = get_bind_member(obj)
+                m = self.request.user.member
+                m2 = obj.member
                 return m is not None and m2 is not None and m['branch_id'] == m2['branch_id']
         return False
 

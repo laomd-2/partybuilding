@@ -19,13 +19,12 @@ from django.conf.urls import url
 # from django.contrib import admin
 from django.urls import path, include
 from django.views import static
-from django.conf import settings
 from django.views.generic import RedirectView
 import xadmin
 from user.views import RegisterView
 from django.conf import urls
 from . import views
-from robot.notice import *
+from notice.tasks import *
 
 
 xadmin.autodiscover()

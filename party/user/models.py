@@ -63,6 +63,10 @@ class User(AbstractUser):
         swappable = 'AUTH_USER_MODEL'
         ordering = ('-last_login', 'username')
 
+    @property
+    def member(self):
+        return get_bind_member(self)
+
     def get_member(self):
         m = get_bind_member(self)
         if m is not None:

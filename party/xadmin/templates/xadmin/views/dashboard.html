@@ -37,7 +37,16 @@
 {#  <div class="page">#}
 {#</div>#}
     {% for affair in affairs %}
-        <a href="notice/{{ affair.0 }}"><h4>{{ affair.1 }}</h4></a>
+        <div>
+            <a href="notice/{{ affair.0 }}" style="display: inline; float: left;"><h4>{{ affair.1 }}</h4></a>
+            <form method="post" action="notice/email/{{ affair.0 }}">
+                <button type="submit" class="dropdown-toggle btn btn-default btn-sm"
+                        style="display: inline; float: right; "
+                        name="csrfmiddlewaretoken"
+                        value="O5cYzDtK8M8FiSsWUn48kNQzWHScEECRQvn81HQxyJ108q9O5VqGXabPCx0IVzdw">
+                    <i class="fa fa-send">发送邮件</i></button>
+            </form>
+        </div>
         <div class="results table-responsive">
             <table class="table table-bordered table-striped table-hover">
                 {% for row in affair.2 %}

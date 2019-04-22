@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+
+from notice.tasks import *
 from .views import *
 
 urlpatterns = [
@@ -22,5 +24,11 @@ urlpatterns = [
     path('keydevelop', get_keydevelop),
     path('learningclass', get_learningclass),
     path('premember', get_premember),
-    path('fullmember', get_fullmember)
+    path('fullmember', get_fullmember),
+    path('email/firsttalk', first_talk),
+    path('email/activist', activist),
+    path('email/keydevelop', key_develop_person),
+    path('email/learningclass', learningclass),
+    path('email/premember', pre_party_member1),
+    path('email/fullmember', party_member)
 ]
