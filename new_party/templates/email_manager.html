@@ -1,0 +1,21 @@
+亲爱的{{ branch_name }}支书：<br/>
+<blockquote>您好，{{ branch_name }}<b>{{ title }}</b>如下，请做好相关准备工作：
+    <div>
+        <table width="auto" border="1" cellspacing="0" margin="0 50%">
+            <tr>
+                {% for field in headers %}
+                    <th>{{ field }}</th>
+                {% endfor %}
+            </tr>
+            {% for apper in appliers %}
+                <tr>
+                    {% for ceil in apper %}
+                        <td align="center">{{ ceil }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</blockquote>
+<p align="right"><a href="http://{{ root_url }}">中山大学数据科学与计算机学院党建</a><br/>请勿回复</p>
+<p><a href="http://{{ root_url }}/media/{{ filename }}"><b>{{ filename }}</b></a></p>

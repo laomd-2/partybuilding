@@ -1,0 +1,16 @@
+django-suit
+openpyxl
+django==2.1.7
+django-crispy_forms
+rules
+future
+phonenumbers
+django-phonenumber-field
+tablib
+diff_match_patch
+django-formtools==2.1
+httplib2
+itchat
+pymysql
+xlwt
+xlsxwriter
