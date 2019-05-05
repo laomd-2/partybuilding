@@ -3,6 +3,7 @@ import re
 
 from django.conf import settings
 from django.contrib.auth import get_permission_codename
+
 from import_export.formats import base_formats
 
 
@@ -44,6 +45,6 @@ class AdminObject(object):
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/空白.xlsx')
 
     def has_delete_permission(self, request=None, obj=None):
-        codename = get_permission_codename('delete', self.opts)
+        codename = get_permission_codename('delete', self.model._meta)
         return ('delete' not in self.remove_permissions) and \
                 self.user.has_perm('%s.%s' % (self.app_label, codename))

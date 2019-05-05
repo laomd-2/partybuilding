@@ -3,10 +3,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from user.util import get_bind_member
-from info.models import Member
+from info.models import *
 from .base_user import AbstractBaseUser
 
 
@@ -63,12 +64,20 @@ class User(AbstractUser):
         swappable = 'AUTH_USER_MODEL'
         ordering = ('-last_login', 'username')
 
-    @property
+    @cached_property
     def member(self):
         return get_bind_member(self)
 
+    @cached_property
+    def school(self):
+        return School.objects.filter(id=int(self.username[0])).values('id', 'name')[0]
+
+    @property
+    def school_id(self):
+        return self.username[0]
+
     def get_member(self):
-        m = get_bind_member(self)
+        m = self.member
         if m is not None:
             return m['name']
         else:

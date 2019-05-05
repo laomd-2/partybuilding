@@ -25,6 +25,7 @@ from user.views import RegisterView
 from django.conf import urls
 from . import views
 from notice.tasks import *
+from info.util import export_statistics
 
 
 xadmin.autodiscover()
@@ -40,13 +41,19 @@ urlpatterns = [
         {'document_root': settings.MEDIA_ROOT}, name='media'),
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register'),
+    path('info/member/export_statistics', export_statistics)
 ]
 urls.handler403 = views.permission_denied
 
-if 'runserver' in sys.argv:
-    import threading
-    from robot.daka.producer import producer
-    from robot.daka.consumer import consume
+if settings.DEBUG:
+    import debug_toolbar
 
-    threading.Thread(target=producer).start()
-    threading.Thread(target=consume).start()
+    urlpatterns.append((path('__debug__/', include(debug_toolbar.urls))))
+
+# if 'runserver' in sys.argv:
+#     import threading
+#     from robot.daka.producer import producer
+#     from robot.daka.consumer import consume
+#
+#     threading.Thread(target=producer).start()
+#     threading.Thread(target=consume).start()

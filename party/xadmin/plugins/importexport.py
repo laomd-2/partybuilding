@@ -237,7 +237,7 @@ class ImportView(ImportBaseView):
             result = resource.import_data(dataset, dry_run=True,
                                           raise_errors=False,
                                           file_name=import_file.name,
-                                          user=request.user)
+                                          request=request)
 
             context['result'] = result
 
@@ -288,7 +288,7 @@ class ImportProcessView(ImportBaseView):
             result = resource.import_data(dataset, dry_run=False,
                                           raise_errors=True,
                                           file_name=confirm_form.cleaned_data['original_file_name'],
-                                          user=request.user)
+                                          request=request)
 
             if not self.get_skip_admin_log():
                 # Add imported objects to LogEntry
@@ -327,7 +327,7 @@ class ExportMixin(object):
     resource_class = None
     #: template for change_list view
     change_list_template = None
-    excel_template = None
+
     import_export_args = {}
     #: template for export view
     # export_template_name = 'xadmin/import_export/export.html'
@@ -407,8 +407,8 @@ class ExportMixin(object):
         """
         request = kwargs.pop("request")
         resource_class = self.get_export_resource_class()
-        data = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
-        export_data = file_format.export_data(data, **kwargs)
+        export_data = resource_class(**self.get_export_resource_kwargs(request)).export(queryset, *args, **kwargs)
+        # export_data = file_format.export_data(data, **kwargs)
         return export_data
 
 
@@ -458,8 +458,7 @@ class ExportPlugin(ExportMixin, BaseAdminPlugin):
             except ValueError:
                 queryset = []
             export_data = self.get_export_data(file_format, queryset,
-                                               request=self.request,
-                                               excel_template=self.excel_template)
+                                               request=self.request)
             content_type = file_format.get_content_type()
             # Django 1.7 uses the content_type kwarg instead of mimetype
             try:

@@ -59,7 +59,7 @@ class RegisterView(LoginView):
             user_profile.password = make_password(pass_word)
             user_profile.save()
             # send_register_eamil(user_name, 'register')
-            messages.success(request, '注册成功。')
+            messages.info(request, '注册成功。')
             # return render(request, 'page_jump.html')
             return HttpResponseRedirect('/')
         messages.error(request, '用户名或密码不合法。')

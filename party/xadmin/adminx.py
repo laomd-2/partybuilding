@@ -1,11 +1,13 @@
 from __future__ import absolute_import
 
 from django.contrib.auth import get_permission_codename
+from django.template import loader
 
 import xadmin
+from common.rules import is_school_admin
+from xadmin.views import BaseAdminPlugin, ListAdminView
 from .models import UserSettings, Log
-from xadmin.layout import *
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _
 
 
 class objectsAdmin(object):
@@ -43,5 +45,17 @@ class LogAdmin(object):
     model_icon = 'fa fa-cog'
 
 
+class MyExportAdmin(BaseAdminPlugin):
+    my_export = False
+
+    def init_request(self, *args, **kwargs):
+        return bool(self.my_export) and is_school_admin(self.request.user)
+
+    def block_top_toolbar(self, context, nodes):
+        nodes.append(loader.render_to_string('xadmin/blocks/model_list.top_toolbar.importexport.export_member.html',
+                                             context=context.flatten()))
+
+
 xadmin.site.register(UserSettings, UserSettingsAdmin)
 xadmin.site.register(Log, LogAdmin)
+xadmin.site.register_plugin(MyExportAdmin, ListAdminView)

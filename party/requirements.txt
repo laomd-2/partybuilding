@@ -13,3 +13,4 @@ itchat
 pymysql
 xlwt
 xlsxwriter
+pillow

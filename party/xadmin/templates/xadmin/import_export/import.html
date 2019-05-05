@@ -74,25 +74,27 @@
 
   {% if result.has_errors %}
       <script>
-          alert('导入的文件有错，请核对文件表头是否对应，或者信息是否正确。');
+          alert('导入的文件有错，可能是以下原因。\n' +
+              '1、表头不对应。请直接导出表头，以确保表头无误。\n' +
+              '2、格式不正确。日期使用-/.分隔符，团员、志愿书、自传等填“是”或“否”。');
       </script>
-      {#    <ul>#}
-      {#      {% for error in result.base_errors  %}#}
-      {#      <li>#}
-      {#        {{ error.error }}#}
-      {#        <div class="traceback">{{ error.traceback|linebreaks }}</div>#}
-      {#      </li>#}
-      {#      {% endfor %}#}
-      {#      {% for line, errors in result.row_errors %}#}
-      {#        {% for error in errors %}#}
-      {#          <li>#}
-      {#            {% trans "Line number" %}: {{ line }} - {{ error.error }}#}
-      {#            <div><code>{{ error.row.values|join:", " }}</code></div>#}
-      {#            <div class="traceback">{{ error.traceback|linebreaks }}</div>#}
-      {#          </li>#}
-      {#        {% endfor %}#}
-      {#      {% endfor %}#}
-      {#    </ul>#}
+      <ul>
+          {% for error in result.base_errors %}
+              <li>
+                  {{ error.error }}
+                  <div class="traceback">{{ error.traceback|linebreaks }}</div>
+              </li>
+          {% endfor %}
+          {% for line, errors in result.row_errors %}
+              {% for error in errors %}
+                  <li>
+                      {% trans "Line number" %}: {{ line }} - {{ error.error }}
+                      <div><code>{{ error.row.values|join:", " }}</code></div>
+                      <div class="traceback">{{ error.traceback|linebreaks }}</div>
+                  </li>
+              {% endfor %}
+          {% endfor %}
+      </ul>
   {% else %}
 
   <h2>

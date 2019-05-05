@@ -30,6 +30,16 @@
     window.__admin_language_code__ = "{{LANGUAGE_CODE}}";
   </script>
   <script type="text/javascript" src="{% url 'xadmin:jsi18n' %}"></script>
+    <style>
+        table td, th {
+            word-break: keep-all;
+            text-align: center
+        }
+
+        th div {
+            margin: 0 auto
+        }
+    </style>
   {% block extrahead %}{% endblock %}
   {% view_block 'extrahead' %}
 </head>

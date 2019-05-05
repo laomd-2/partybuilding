@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from common.base import wrap
-from info.models import Files
+from work.models import Files
 from email.header import make_header
 
 from notice.admin import verbose_name
@@ -30,7 +30,7 @@ def send_email_to_managers(users, title, appers, fields, phase):
         'root_url': settings.HOST_IP
     }
     try:
-        o = Files.objects.get(name=Files.phases[phase])
+        o = Files.objects.get(name=phase)
         file = o.notice
         file_name = file.path
         name = file.name
@@ -42,14 +42,13 @@ def send_email_to_managers(users, title, appers, fields, phase):
         context['filename'] = o.files.name
     except Files.DoesNotExist:
         pass
-    except Exception as e:
-        print(e)
+
     html_content = render_to_string('email_manager.html', context)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
 
-def send_email_to_appliers(title, appliers, fields, template='notice_member.html'):
+def send_email_to_appliers(title, appliers, fields, template='email_member.html'):
     infos = get_infos(fields, appliers)
     context = {
         'title': title,
@@ -60,7 +59,6 @@ def send_email_to_appliers(title, appliers, fields, template='notice_member.html
         try:
             user = User.objects.get(username=str(applier.netid))
             to_emails = user.email
-            print(to_emails)
             if not to_emails:
                 continue
             subject = title

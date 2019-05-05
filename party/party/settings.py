@@ -24,15 +24,17 @@ SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', ]
-
+ALLOWED_HOSTS = ['127.0.0.1', ]
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 # Application definition
 
 INSTALLED_APPS = [
     'user.apps.UserConfig',
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
-    'note.apps.NoteConfig',
+    'work.apps.NoteConfig',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,11 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DjangoUeditor',
     'xadmin',
     'crispy_forms',
+    'DjangoUeditor',
     'rules',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'template_timings_panel',
+        'debug_toolbar'
+    ]
 
 AUTHENTICATION_BACKENDS = (
     'rules.permissions.ObjectPermissionBackend',
@@ -60,6 +68,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
 ROOT_URLCONF = 'party.urls'
 
@@ -88,9 +99,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
-        'USER': '*',
-        'PASSWORD': '*',
+        'USER': 'sdcs_party',
+        'PASSWORD': 'SDCS2019@party',
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'party',
+    #     'USER': 'root',
+    #     'PASSWORD': 'laomadong',
+    # },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'HOST': '47.112.202.35',
@@ -146,8 +163,19 @@ MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的�
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
+EMAIL_HOST_USER = '*@mail2.*.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = '*'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 HOST_IP = '*.*.*.*:8000'
+
+DEBUG_TOOLBAR_CONFIG = {
+    "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
+}
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+]

@@ -3,7 +3,7 @@ PLUGINS = (
     'actions',
     'filters',
     'bookmark',
-    'export',
+    # 'export',
     'layout',
     'refresh',
     'details',

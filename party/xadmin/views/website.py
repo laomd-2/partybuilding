@@ -11,6 +11,7 @@ from django.contrib.auth.views import LogoutView as logout
 from django.http import HttpResponse
 
 from common.base import wrap
+from common.rules import is_school_admin
 from .base import BaseAdminView, filter_hook
 from .dashboard import Dashboard
 from xadmin.forms import AdminAuthenticationForm
@@ -33,13 +34,14 @@ class IndexView(Dashboard):
         for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
             query = queryset(self.request, model)
             if query:
-                fields = model.fields
+                fields = query[0].keys()
                 header = verbose_name(fields)
                 result = [header]
                 for q in query:
-                    result.append([wrap(getattr(q, field)) for field in fields])
+                    result.append(list(q.values()))
                 affairs.append([model.__name__.lower(), model.verbose_name, result])
         context['affairs'] = affairs
+        context['can_send_email'] = is_school_admin(self.request.user)
         if affairs:
             messages.info(self.request, '以下表格的信息仅由党员发展的时间节点筛选得到，最终名单以具体工作为准。')
         return context

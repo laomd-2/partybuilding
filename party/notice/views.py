@@ -9,16 +9,17 @@ from openpyxl import load_workbook
 from common.base import wrap
 from common.rules import *
 from .admin import *
-from user.util import get_bind_member
+from info.models import Branch
+from info.util import get_visual_branch
 
 
-def queryset(request, model):
+def _queryset(request, model):
     if is_member(request.user):
-        m = get_bind_member(request.user)
+        m = request.user.member
         if m is not None:
             return model.filter(netid=m['netid'])
     elif is_branch_manager(request.user):
-        m = get_bind_member(request.user)
+        m = request.user.member
         if m is not None:
             return model.filter(branch_id=m['branch_id'])
     elif is_school_manager(request.user):
@@ -27,6 +28,25 @@ def queryset(request, model):
     elif request.user.is_superuser:
         return model.filter()
     return Member.objects.none()
+
+
+def queryset(request, model):
+    query = _queryset(request, model).extra(select={'branch_name': 'info_branch.branch_name'}) \
+        .values(*(model.fields + ['branch_name']))
+    query = list(query)
+    if query:
+        for q in query:
+            q['branch_id'] = q['branch_name']
+            del q['branch_name']
+            for k, v in q.items():
+                if v is None:
+                    q[k] = ''
+            for first in q.keys():  break
+            if first != 'branch_id':
+                e = q[model.fields[-1]]
+                del q[model.fields[-1]]
+                q[model.fields[-1]] = e
+    return query
 
 
 def export(request, model):
@@ -50,8 +70,7 @@ def export(request, model):
 
     for i, row in enumerate(qs):
         sheet.cell(i + model.row, 1, i + 1)
-        for j, field in enumerate(model.fields):
-            value = getattr(row, field)
+        for j, value in enumerate(row.values()):
             value = wrap(value)
             sheet.cell(i + model.row, j + 2, value)
     with NamedTemporaryFile() as tmp:

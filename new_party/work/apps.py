@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class NoteConfig(AppConfig):
-    name = 'note'
+    name = 'work'
     verbose_name = '支部工作'

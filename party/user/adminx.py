@@ -13,15 +13,17 @@ from common.rules import *
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     try:
-        g = Group.objects.get(name='普通成员')
         if created:
-            instance.groups.add(g)
+            m = instance.member
+            if m is not None:
+                g = Group.objects.get(name='普通成员')
+                instance.groups.add(g)
     except Group.DoesNotExist:
         pass
 
 
 class UserAdmin(AdminObject):
-    list_display = ['username', 'get_member', 'email', 'is_active', 'is_staff', 'last_login']
+    list_display = ['username', 'email', 'is_active', 'is_staff', 'last_login']
     search_fields = ['username']
 
     list_filter = ['is_active', 'is_staff', 'last_login']
@@ -51,13 +53,13 @@ class UserAdmin(AdminObject):
     def queryset(self):
         qs = self.model.objects
         if is_school_admin(self.request.user):  # 判断是否是管理员
-            if self.request.user.is_superuser:
-                return qs.all()
-            else:
-                school = int(self.request.user.username[0])
-                ms = Member.objects.filter(branch__school_id=school).values('netid')
-                return qs.filter(Q(username=self.request.user.username) |
-                                 Q(username__in=[m['netid'] for m in ms]))
+            # if self.request.user.is_superuser:
+            return qs.all()
+            # else:
+            #     school = int(self.request.user.username[0])
+            #     ms = Member.objects.filter(branch__school_id=school).values('netid')
+            #     return qs.filter(Q(username=self.request.user.username) |
+            #                      Q(username__in=[m['netid'] for m in ms]))
         else:
             member = self.request.user.member
             if member is None or is_member(self.request.user):
@@ -79,6 +81,8 @@ class UserAdmin(AdminObject):
 
     def has_delete_permission(self, request=None, obj=None):
         if super().has_delete_permission(request, obj):
+            if self.request.user.is_superuser:
+                return True
             if request is None and obj is None:
                 return True
             elif obj is None:

@@ -372,7 +372,6 @@ class ExportMixin(ImportExportMixinBase):
         filename = "%s-%s.%s" % (self.opts.verbose_name,
                                  date_str,
                                  file_format.get_extension())
-        print(filename)
         return filename
 
     def get_export_queryset(self, request):

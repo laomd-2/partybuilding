@@ -1,11 +1,27 @@
-import datetime
-from django.utils.safestring import mark_safe
-from django.conf import settings
+﻿import datetime
+
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
+from common.utils import Cache
+
+
+def get_branch_managers():
+    group = Group.objects.get(name='党支部管理员')
+    managers = group.user_set.all().prefetch_related('group').values('username', 'email')
+    branch_managers = dict()
+    for manager in managers:
+        try:
+            member = Member.objects.filter(netid=int(manager['username'])).values('branch_id', 'name')[0]
+            branch_managers.setdefault(member['branch_id'], [])
+            manager['name'] = member['name']
+            branch_managers[member['branch_id']].append(manager)
+        except IndexError:
+            pass
+    return branch_managers
 
 
 class NullableDateField(models.DateField):
@@ -49,26 +65,43 @@ class Branch(models.Model):
                 raise ValidationError("%s的%s已存在。" % (self.school, self.branch_name))
 
     def num_members(self):
-        return Member.objects.filter(branch=self).count()
+        return self.member_set.count()
     num_members.short_description = '成员数'
+
+    leader_cache = Cache(5)
+
+    @staticmethod
+    def branch_leaders():
+        leaders = Branch.leader_cache.get()
+        if leaders is None:
+            leaders = get_branch_managers()
+            Branch.leader_cache.set(leaders)
+        return leaders
+
+    def get_leaders(self):
+        managers = self.branch_leaders().get(self.id, [])
+        members = list(map(lambda x: x['name'], managers))
+        return ','.join(members) if members else '无'
+
+    get_leaders.short_description = '支部委员'
 
 
 def upload_to(instance, filename):
     return 'info/' + str(instance.netid) + '/' + smart_str(filename)
 
 
-class Member(models.Model):
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, verbose_name='党支部', db_index=True)
+class MemberBase(models.Model):
+    branch = models.ForeignKey(Branch, on_delete=models.SET(1), verbose_name='党支部', db_index=True)
     netid = models.IntegerField('学号', primary_key=True)
     name = models.CharField('姓名', max_length=20, db_index=True)
     birth_date = NullableDateField(max_length=10, verbose_name='出生时间')
-    gender = models.CharField(max_length=1, verbose_name='性别', choices=[('男', '男'), ('女', '女')], default='男',
-                              null=True, blank=True)
-    group = models.CharField(max_length=20, verbose_name='民族', null=True, blank=True)
+    gender = models.CharField(max_length=1, verbose_name='性别', choices=[('男', '男'), ('女', '女')], default='男')
+    group = models.CharField(max_length=20, verbose_name='民族', default='汉')
     family_address = models.CharField(max_length=50, verbose_name='家庭住址', null=True, blank=True)
     phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True)
-    # credit_card_id = models.CharField(verbose_name='身份证号码', null=True, blank=True, max_length=50)
+    id_card_number = models.CharField(max_length=20, verbose_name='身份证号码', null=True, blank=True)
     major_in = models.CharField(max_length=30, verbose_name='当前专业（全称）', null=True, blank=True)
+    years = models.IntegerField('学年制', default=4)
     youth_league_member = models.BooleanField(verbose_name='团员', default=True)
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
 
@@ -88,7 +121,7 @@ class Member(models.Model):
     recommenders_date = NullableDateField(verbose_name='确定入党介绍人时间')
     recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人')
     autobiography = models.BooleanField(verbose_name='自传', null=True, blank=True)
-    application_form = models.BooleanField(verbose_name='入党志愿', null=True, blank=True)
+    application_form = models.BooleanField(verbose_name='入党志愿书', null=True, blank=True)
     first_branch_conference = NullableDateField(verbose_name='确定为预备党员时间', help_text='支部党员大会通过成为预备党员的时间。')
     pro_conversation_date = NullableDateField(verbose_name='入党谈话时间')
     talker = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党谈话人', help_text='学院党委成员或组织员。')
@@ -99,16 +132,20 @@ class Member(models.Model):
     second_branch_conference = NullableDateField(verbose_name='转正时间', help_text='支部党员大会通过成为正式党员的时间。')
     fullmember_approval_date = NullableDateField(verbose_name='党委批准为正式党员时间')
 
+    remarks = models.TextField('备注', blank=True, null=True)
+
     class Meta:
         ordering = ('branch', 'netid',)
-        verbose_name = '成员信息'
-        verbose_name_plural = verbose_name
+        abstract = True
 
     def __str__(self):
-        return str(self.netid) + self.name
+        return '%s(%d)' % (self.name, self.netid)
 
     def is_party_member(self):
-        return self.first_branch_conference or self.is_real_party_member()
+        return self.is_pre_party_member() or self.is_real_party_member()
+
+    def is_pre_party_member(self):
+        return self.first_branch_conference
 
     def is_real_party_member(self):
         return self.second_branch_conference
@@ -134,10 +171,10 @@ class Member(models.Model):
             ('democratic_appraisal_date', '入党积极分子的确定和培养'),
             ('recommenders_date', '发展对象的确定和考察'),
             ('oach_date', '预备党员的吸收'),
-            ('', '预备党员的教育考察和转正')])
+            ('remarks', '预备党员的教育考察和转正')])
         phases = dict()
         last = 0
-        fields_ = [field.name for field in Member._meta.fields]
+        fields_ = [field.name for field in MemberBase._meta.fields]
         for k, v in fenge.items():
             if k:
                 tmp = fields_.index(k)
@@ -148,38 +185,35 @@ class Member(models.Model):
         return fields_, phases
 
 
-def upload_to2(instance, filename):
-    return instance.name + '/' + smart_str(filename)
+class Member(MemberBase):
+    class Meta(MemberBase.Meta):
+        verbose_name = '成员信息'
+        verbose_name_plural = verbose_name
+
+    def get_identity(self):
+        if self.second_branch_conference:
+            return '正式党员'
+        if self.first_branch_conference:
+            return '预备党员'
+        if self.key_develop_person_date:
+            return '重点发展对象'
+        if self.activist_date:
+            return '入党积极分子'
+        if self.application_date:
+            return '入党申请人'
+        return '无'
+
+    get_identity.short_description = '阶段'
 
 
-class Files(models.Model):
-    phases = ['入党积极分子', '重点发展对象', '预备党员(预审前)', '预备党员(预审后)', '正式党员', '首次组织谈话']
-    name = models.CharField('阶段', max_length=50, choices=[(a, a) for a in phases])
-    notice = models.FileField(upload_to=upload_to2, verbose_name='通知')
-    files = models.FileField(upload_to=upload_to2, verbose_name='相关材料', null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    def get_notice(self):
-        return mark_safe(
-            '<a href="%s/%s">%s</a>' % (settings.MEDIA_URL, self.notice.name, self.notice.name.split('/')[-1]))
-    get_notice.short_description = '通知'
-
-    def get_files(self):
-        return mark_safe(
-            '<a href="%s/%s">%s</a>' % (settings.MEDIA_URL, self.files.name, self.files.name.split('/')[-1]))
-
-    get_files.short_description = '相关材料'
-
-    class Meta:
-        ordering = ('name',)
-        verbose_name = '材料'
+class OldMember(MemberBase):
+    class Meta(MemberBase.Meta):
+        verbose_name = '已毕业成员信息'
         verbose_name_plural = verbose_name
 
 
 class Dependency(models.Model):
-    all_dates = {f.name: f.verbose_name for f in Member._meta.fields if isinstance(f, models.DateField)}
+    all_dates = {f.name: f.verbose_name for f in MemberBase._meta.fields if isinstance(f, models.DateField)}
     days_mapping = dict([(30, '1个月'), (60, '2个月'),
                          (90, '3个月'), (180, '半年'),
                          (365, '1年'), (18 * 365, '18年')] +

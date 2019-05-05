@@ -80,7 +80,6 @@ class JSONEncoder(DjangoJSONEncoder):
 
 
 class ChartsPlugin(BaseAdminPlugin):
-
     data_charts = {}
 
     def init_request(self, *args, **kwargs):
@@ -103,7 +102,6 @@ class ChartsPlugin(BaseAdminPlugin):
 
 
 class ChartsView(ListAdminView):
-
     data_charts = {}
 
     def get_ordering(self):
@@ -113,9 +111,11 @@ class ChartsView(ListAdminView):
             return super(ChartsView, self).get_ordering()
 
     def get(self, request, name):
-        if name not in self.data_charts:
+        if not hasattr(self, '_chart'):
+            self._chart = self.data_charts
+        if name not in self._chart:
             return HttpResponseNotFound()
-        self.chart = self.data_charts[name]
+        self.chart = self._chart[name]
         content = {'option': self.chart['option']}
         result = json.dumps(content, cls=JSONEncoder, ensure_ascii=False)
         return HttpResponse(result)
