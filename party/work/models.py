@@ -47,6 +47,12 @@ class Rule(NoteBase):
         verbose_name = '规章制度'
         verbose_name_plural = verbose_name
 
+    def get_file(self):
+        return mark_safe(
+            '<a href="%s/%s">%s</a>' % (settings.MEDIA_URL, self.file.name, self.file.name.split('/')[-1]))
+
+    get_file.short_description = '文件'
+
 
 def upload_to2(instance, filename):
     return type(instance)._meta.verbose_name + '/' + instance.name + '/' + smart_str(filename)

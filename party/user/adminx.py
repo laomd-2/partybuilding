@@ -23,8 +23,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 class UserAdmin(AdminObject):
-    list_display = ['username', 'email', 'is_active', 'is_staff', 'last_login']
-    search_fields = ['username']
+    list_display = ['username', '_fullname', 'email', 'last_login']
+    search_fields = ['username', '_fullname']
 
     list_filter = ['is_active', 'is_staff', 'last_login']
     model_icon = 'fa fa-vcard'
@@ -44,18 +44,20 @@ class UserAdmin(AdminObject):
         return ['email']
 
     def get_readonly_fields(self):
+        if self.org_obj is None:
+            return []
+        base = ['username', 'last_login', '_fullname']
         if is_school_admin(self.request.user):
-            return ['username', 'is_staff', 'is_active', 'last_login', 'email']
-        if is_branch_manager(self.request.user):  # 支书
-            return ['groups', 'username', 'last_login']
-        return ['groups', 'username', 'is_staff', 'is_active', 'last_login']
+            return base
+        return ['groups', 'is_staff', 'is_active'] + base
 
     def queryset(self):
         qs = self.model.objects
         if is_school_admin(self.request.user):  # 判断是否是管理员
-            # if self.request.user.is_superuser:
-            return qs.all()
-            # else:
+            if self.request.user.is_superuser:
+                return qs.all()
+            else:
+                return qs.filter(is_superuser=False)
             #     school = int(self.request.user.username[0])
             #     ms = Member.objects.filter(branch__school_id=school).values('netid')
             #     return qs.filter(Q(username=self.request.user.username) |
@@ -80,21 +82,15 @@ class UserAdmin(AdminObject):
         return False
 
     def has_delete_permission(self, request=None, obj=None):
+        if self.request.user.is_superuser:
+            return True
         if super().has_delete_permission(request, obj):
-            if self.request.user.is_superuser:
-                return True
             if request is None and obj is None:
                 return True
             elif obj is None:
                 obj = request
             if is_school_admin(self.request.user):
-                m2 = obj.member
-                school = int(self.request.user.username[0])
-                try:
-                    branch = Branch.objects.get(id=m2['branch_id'])
-                    return school == branch.school_id
-                except:
-                    return False
+                return True
             if is_branch_manager(self.request.user):
                 m = self.request.user.member
                 m2 = obj.member

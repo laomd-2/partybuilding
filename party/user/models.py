@@ -64,6 +64,8 @@ class User(AbstractUser):
         swappable = 'AUTH_USER_MODEL'
         ordering = ('-last_login', 'username')
 
+    _fullname = models.CharField('姓名', max_length=20, default='', editable=False)
+
     @cached_property
     def member(self):
         return get_bind_member(self)
@@ -75,11 +77,3 @@ class User(AbstractUser):
     @property
     def school_id(self):
         return self.username[0]
-
-    def get_member(self):
-        m = self.member
-        if m is not None:
-            return m['name']
-        else:
-            return ''
-    get_member.short_description = '姓名'

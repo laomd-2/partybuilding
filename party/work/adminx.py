@@ -4,7 +4,7 @@ from django.contrib.auth import get_permission_codename
 
 import xadmin
 from common.base import AdminObject
-from common.rules import is_school_admin
+from common.rules import is_school_admin, is_branch_admin
 from work.models import *
 
 
@@ -60,11 +60,17 @@ class NoteAdminBase(AdminObject):
 @xadmin.sites.register(Note)
 class NoteAdmin(NoteAdminBase):
     style_fields = {"content": "ueditor"}
+    list_display_links = ['title']
 
 
 @xadmin.sites.register(Rule)
 class RuleAdmin(NoteAdminBase):
-    pass
+    list_display = ['author', 'title', 'get_file']
+
+    def get_list_display_links(self):
+        if is_branch_admin(self.request.user):
+            return ['title']
+        return [None, ]
 
 
 @xadmin.sites.register(Files)

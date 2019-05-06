@@ -37,7 +37,7 @@ class ActivityAdmin(AdminObject):
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 
-    list_display = ['name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
+    list_display = ['id', 'name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
     list_display_links = ['name']
     list_filter = ['date', 'end_time', 'atv_type', 'credit']
     search_fields = ['name']

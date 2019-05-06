@@ -1,32 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
 from django.db.models import F
-
-from user.models import User
 from .util import get_visuable_members, get_visual_branch, check_fields
 from info.resources import MemberResource
 import xadmin
 from xadmin.layout import Main, Fieldset, Side
 from common.rules import *
 from common.base import AdminObject, get_old
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from .models import *
 from .actions import *
 from common.utils import Cache
-
-
-@receiver(post_save, sender=Member)
-def create_member(sender, instance, created, **kwargs):
-    try:
-        if created:
-            g = Group.objects.get(name='普通成员')
-            instance = User.objects.get(username=str(instance.netid))
-            instance.groups.add(g)
-    except Group.DoesNotExist:
-        pass
-    except User.DoesNotExist:
-        pass
 
 
 @xadmin.sites.register(School)
