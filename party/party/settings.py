@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
 INTERNAL_IPS = [
@@ -102,28 +102,13 @@ WSGI_APPLICATION = 'party.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'party',
-    #     'USER': 'sdcs_party',
-    #     'PASSWORD': 'SDCS2019@party',
-    # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
-        'USER': 'root',
-        'PASSWORD': 'laomadong',
-    },
-    # 'slave': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'HOST': '47.112.202.35',
-    #     'NAME': 'party',
-    #     'USER': 'sdcscs2',
-    #     'PASSWORD': '000000',
-    # }
+        'USER': 'sdcs_party' if not DEBUG else 'root',
+        'PASSWORD': 'SDCS2019@party' if not DEBUG else 'laomadong',
+    }
 }
-
-# DATABASE_ROUTERS = ['party.router.Router']
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
