@@ -51,9 +51,9 @@ if settings.DEBUG:
     urlpatterns.append((path('__debug__/', include(debug_toolbar.urls))))
 
 # if 'runserver' in sys.argv:
-#     import threading
-#     from robot.daka.producer import producer
-#     from robot.daka.consumer import consume
-#
-#     threading.Thread(target=producer).start()
-#     threading.Thread(target=consume).start()
+import threading
+from robot.daka.producer import producer
+from robot.daka.consumer import consume
+
+threading.Thread(target=producer).start()
+threading.Thread(target=consume).start()
