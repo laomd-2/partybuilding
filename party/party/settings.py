@@ -114,8 +114,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
-        'USER': 'root',
-        'PASSWORD': 'laomadong',
+        'USER': 'sdcs_party',
+        'PASSWORD': 'SDCS2019@party',
     }
 }
 
