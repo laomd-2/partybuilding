@@ -69,6 +69,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': [
+            '127.0.0.1:11211',
+        ]
+    }
+}
+
 if DEBUG:
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
@@ -105,8 +114,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'party',
-        'USER': 'sdcs_party' if not DEBUG else 'root',
-        'PASSWORD': 'SDCS2019@party' if not DEBUG else 'laomadong',
+        'USER': 'root',
+        'PASSWORD': 'laomadong',
     }
 }
 
