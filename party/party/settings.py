@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', ]
+ALLOWED_HOSTS = ['*', ]
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
@@ -79,13 +79,19 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
             ],
         },
     },
@@ -96,18 +102,18 @@ WSGI_APPLICATION = 'party.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'party',
-        'USER': 'sdcs_party',
-        'PASSWORD': 'SDCS2019@party',
-    },
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'party',
-    #     'USER': 'root',
-    #     'PASSWORD': 'laomadong',
+    #     'USER': 'sdcs_party',
+    #     'PASSWORD': 'SDCS2019@party',
     # },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'party',
+        'USER': 'root',
+        'PASSWORD': 'laomadong',
+    },
     # 'slave': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'HOST': '47.112.202.35',
