@@ -1,6 +1,6 @@
 import io
 from copy import deepcopy
-
+from django.contrib.auth.decorators import login_required
 from django.core.files.temp import NamedTemporaryFile
 from django.http import HttpResponse
 from django.utils.encoding import escape_uri_path
@@ -49,6 +49,7 @@ def queryset(request, model):
     return query
 
 
+@login_required(login_url='/')
 def export(request, model):
     filename = model.verbose_name + '.xlsx'
     qs = queryset(request, model)
