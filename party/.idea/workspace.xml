@@ -458,13 +458,7 @@
       <change beforePath="$PROJECT_DIR$/../new_party/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/info/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teaching/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/work/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/work/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -499,17 +493,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="96">
               <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/party/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2432">
-              <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
+            <state relative-caret-position="465">
+              <caret line="181" selection-start-line="181" selection-end-line="181" />
             </state>
           </provider>
         </entry>
@@ -517,7 +511,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
+            <state relative-caret-position="624">
               <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
@@ -526,11 +520,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/info/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+            <state relative-caret-position="176">
+              <caret line="227" column="13" lean-forward="true" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -538,8 +535,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="36" column="35" lean-forward="true" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+            <state relative-caret-position="416">
+              <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
               </folding>
@@ -550,8 +547,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="736">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
             </state>
           </provider>
         </entry>
@@ -559,8 +556,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/info/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="55">
-              <caret line="95" column="63" lean-forward="true" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="63" />
+            <state relative-caret-position="1392">
+              <caret line="95" column="63" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="63" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -697,15 +694,15 @@
         <option value="$PROJECT_DIR$/teaching/models.py" />
         <option value="$PROJECT_DIR$/common/utils.py" />
         <option value="$PROJECT_DIR$/notice/util.py" />
-        <option value="$PROJECT_DIR$/party/settings.py" />
         <option value="$PROJECT_DIR$/work/adminx.py" />
         <option value="$PROJECT_DIR$/work/models.py" />
         <option value="$PROJECT_DIR$/teaching/adminx.py" />
         <option value="$PROJECT_DIR$/user/models.py" />
-        <option value="$PROJECT_DIR$/info/adminx.py" />
         <option value="$PROJECT_DIR$/user/views.py" />
         <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/user/adminx.py" />
+        <option value="$PROJECT_DIR$/party/settings.py" />
+        <option value="$PROJECT_DIR$/info/adminx.py" />
       </list>
     </option>
   </component>
@@ -728,6 +725,11 @@
             <path>
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="info" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -956,14 +958,8 @@
       <workItem from="1557078187190" duration="22000" />
       <workItem from="1557081231342" duration="4512000" />
       <workItem from="1557085878288" duration="498000" />
-      <workItem from="1557133224193" duration="4465000" />
-    </task>
-    <task id="LOCAL-00015" summary="增加导出功能">
-      <created>1551517180244</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1551517180244</updated>
+      <workItem from="1557133224193" duration="4698000" />
+      <workItem from="1557150547771" duration="679000" />
     </task>
     <task id="LOCAL-00016" summary="成员信息添加一些新字段">
       <created>1551802477478</created>
@@ -1301,11 +1297,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557086275491</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="user模型添加姓名字段，不查询member表">
+      <created>1557138544704</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1557138544704</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="651749000" />
+    <option name="totallyTimeSpent" value="652661000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1318,8 +1321,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28441754" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28895614" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1375,7 +1379,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/djangox" />
     </ignored-roots>
-    <MESSAGE value="首页css布局调整" />
     <MESSAGE value="检查首次组织谈话时间、培养联系人和入党介绍人" />
     <MESSAGE value="添加首次组织谈话筛选项" />
     <MESSAGE value="部署" />
@@ -1400,7 +1403,8 @@
     <MESSAGE value="邮件提醒" />
     <MESSAGE value="流程依赖分中大与非中大发展党员" />
     <MESSAGE value="ORM性能优化、Cache优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="ORM性能优化、Cache优化" />
+    <MESSAGE value="user模型添加姓名字段，不查询member表" />
+    <option name="LAST_COMMIT_MESSAGE" value="user模型添加姓名字段，不查询member表" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -1725,16 +1729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/info/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="95" column="63" lean-forward="true" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -1744,22 +1738,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="96">
           <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/info/adminx.py">
+    <entry file="file://$PROJECT_DIR$/user/adminx.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+        <state relative-caret-position="624">
+          <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="36" column="35" lean-forward="true" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+        <state relative-caret-position="416">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>
@@ -1768,25 +1765,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="736">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/adminx.py">
+    <entry file="file://$PROJECT_DIR$/info/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
+        <state relative-caret-position="1392">
+          <caret line="95" column="63" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="63" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/party/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2432">
-          <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
+        <state relative-caret-position="465">
+          <caret line="181" selection-start-line="181" selection-end-line="181" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="227" column="13" lean-forward="true" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

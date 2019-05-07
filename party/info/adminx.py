@@ -222,7 +222,7 @@ class MemberAdmin(MemberBaseAdmin):
         username = self.request.user.username
         cache = charts.get(username)
         if cache is None:
-            cache = charts[username] = Cache(5)
+            cache = charts[username] = Cache(3)
             res = get_chart(self.request)
             cache.set(res)
         else:
