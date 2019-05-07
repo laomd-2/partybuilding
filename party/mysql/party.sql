@@ -801,7 +801,7 @@ CREATE TABLE `work_files` (
   `files` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `work_files_name_6e315759_uniq` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -834,7 +834,7 @@ CREATE TABLE `work_note` (
   UNIQUE KEY `work_note_title_author_6e0858d9_uniq` (`title`,`author`),
   KEY `work_note_branch_id_9659cf1f_fk_info_branch_id` (`branch_id`),
   CONSTRAINT `work_note_branch_id_9659cf1f_fk_info_branch_id` FOREIGN KEY (`branch_id`) REFERENCES `info_branch_all` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -866,7 +866,7 @@ CREATE TABLE `work_rule` (
   UNIQUE KEY `work_rule_title_author_3272c1a2_uniq` (`title`,`author`),
   KEY `work_rule_branch_id_f75b8a63_fk_info_branch_id` (`branch_id`),
   CONSTRAINT `work_rule_branch_id_f75b8a63_fk_info_branch_id` FOREIGN KEY (`branch_id`) REFERENCES `info_branch_all` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
