@@ -80,5 +80,5 @@ class FilesAdmin(AdminObject):
 
     def get_list_display_links(self):
         if is_school_admin(self.request.user):
-            return ['phase']
+            return ['name']
         return [None, ]
