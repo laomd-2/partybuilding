@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG') or False
 
 ALLOWED_HOSTS = ['*', ]
 INTERNAL_IPS = [
@@ -163,11 +163,11 @@ MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的�
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
-EMAIL_HOST_USER = '*@mail2.*.edu.cn'  # 帐号
+EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = 'Laomadong7113'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-HOST_IP = '*.*.*.*:8000'
+HOST_IP = '222.200.185.71:8080'
 
 DEBUG_TOOLBAR_CONFIG = {
     "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',

@@ -37,7 +37,7 @@ urlpatterns = [
     path('ueditor/', include('DjangoUeditor.urls')),
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register'),
-    path('info/member/export_statistics', export_statistics)
+    path('info/member/export_statistics', export_statistics),
 ]
 urls.handler403 = views.permission_denied
 
