@@ -67,7 +67,7 @@
                             <i class="fa fa-download">下载表格</i></button>
                     </form>
                 </div>
-                <div class="panel-body results table-responsive">
+                <div class="panel-body results table-responsive" style="overflow: scroll">
                     <table class="table table-bordered table-striped table-hover">
                         {% for row in affair.2 %}
                             {% if forloop.first %}
@@ -85,7 +85,7 @@
                             <tr>
                                 {% for c in row %}
                                     <td class="nowrap"
-                                        style="text-align: center; {% if not c %} background-color: yellow{% endif %}">
+                                        style="text-align: center; white-space: nowrap; {% if not c %} background-color: yellow{% endif %}">
                                         {% if forloop.counter == 2 %}
                                             <a href="info/member/{{ c }}/detail">{{ c }}</a>
                                         {% else %}
