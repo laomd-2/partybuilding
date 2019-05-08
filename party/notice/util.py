@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mass_mail
 from django.template.loader import render_to_string
 from common.base import wrap
 from common.rules import *
@@ -25,7 +25,7 @@ def get_infos(fields, appers):
     return [[wrap(apper[field]) for field in fields] for apper in appers]
 
 
-def send_email_to_managers(users, title, appers, fields, phase):
+def make_email_to_managers(users, title, appers, fields, phase):
     to_emails = [user['email'] for user in users if user['email']]
     if not to_emails:
         return
@@ -56,16 +56,18 @@ def send_email_to_managers(users, title, appers, fields, phase):
         pass
     html_content = render_to_string('email_manager.html', context)
     msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    return msg
 
 
-def send_email_to_appliers(title, appliers, fields, template='email_member.html'):
+def make_email_to_appliers(title, appliers, fields, template='email_member.html'):
     infos = get_infos(fields, appliers)
     context = {
         'title': title,
         'headers': verbose_name(fields),
         'root_url': settings.HOST_IP,
     }
+
+    mails = []
     for applier, info in zip(appliers, infos):
         try:
             user = User.objects.filter(username=str(applier['netid'])).values('email')[0]
@@ -79,9 +81,10 @@ def send_email_to_appliers(title, appliers, fields, template='email_member.html'
             msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, ['laomd@mail2.sysu.edu.cn'])
             html_content = render_to_string(template, context)
             msg.attach_alternative(html_content, "text/html")
-            msg.send()
+            mails.append(msg)
         except IndexError:
             pass
+    return mails
 
 
 def _queryset(request, model):
