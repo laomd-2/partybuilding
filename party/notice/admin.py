@@ -264,5 +264,5 @@ class FullMember(Table):
     @classmethod
     def after_export(cls, sheet, cnt):
         sheet.merge_cells('A{row}:J{row}'.format(row=sheet.max_row))
-        sheet.row_dimensions[sheet.max_row].height = 60
+        sheet.row_dimensions[sheet.max_row].height = 80
         sheet.cell(4, 1).value = str(sheet.cell(4, 1).value) % cnt
