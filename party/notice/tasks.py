@@ -39,4 +39,4 @@ class EmailView(TemplateView):
         connection.fail_silently = True
         cnt = connection.send_messages(mails)
         messages.success(request, '%s：成功发送%d封邮件！' % (manager_title, cnt))
-        return HttpResponseRedirect('#')
+        return HttpResponseRedirect('/')
