@@ -67,7 +67,7 @@
                             <i class="fa fa-download">下载表格</i></button>
                     </form>
 
-                    {% if affair.3 %}
+                    {% if can_beian and affair.3 %}
                         <form method="get" action="notice/beian/{{ affair.0 }}">
                             <button type="submit" class="btn btn-success"
                                     style="display: inline; float: right; margin-right: 1em">

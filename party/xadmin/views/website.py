@@ -46,6 +46,7 @@ class IndexView(Dashboard):
                 affairs.append([model.__name__.lower(), model.verbose_name, result, beian_tile])
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)
+        context['can_beian'] = is_admin(self.request.user)
         if affairs:
             messages.info(self.request, '以下表格的信息仅由党员发展的时间节点筛选得到，最终名单以具体工作为准。')
         return context
