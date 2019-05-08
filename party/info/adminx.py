@@ -152,7 +152,7 @@ class MemberBaseAdmin(AdminObject):
                 for k, v in phases.items():
                     if k != '基本信息':
                         res += v
-                res.append('remarks')
+                res.extend(['out_date', 'out_place', 'remarks'])
         return res
 
     def queryset(self):
