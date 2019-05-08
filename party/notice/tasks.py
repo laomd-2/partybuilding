@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.views.generic import TemplateView
+from django.core.mail import send_mass_mail
 from info.util import *
 from info.models import get_branch_managers
 from notice.admin import *
@@ -37,4 +38,5 @@ class EmailView(TemplateView):
         if success:
             messages.success(request, '%s：已向%s支书发送邮件！' % (manager_title, ','.join(success)))
         print(mails)
+        send_mass_mail(mails)
         return HttpResponseRedirect('/')

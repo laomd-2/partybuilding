@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives, send_mass_mail
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from common.base import wrap
 from common.rules import *
