@@ -32,22 +32,6 @@ def group_by_branch(appers):
     return groups
 
 
-def get_branch_managers():
-    group = Group.objects.get(name='党支部管理员')
-    managers = group.user_set.all()
-    branch_managers = dict()
-    for manager in managers:
-        try:
-            branch = Member.objects.get(netid=int(manager.username)).branch
-            if branch.branch_name != '计算机本科生第二党支部':
-                continue
-            branch_managers.setdefault(branch, [])
-            branch_managers[branch].append(manager)
-        except Member.DoesNotExist:
-            pass
-    return branch_managers
-
-
 def get_visuable_members(model, user):
     qs = model.objects
     if is_branch_manager(user):  # 支书
