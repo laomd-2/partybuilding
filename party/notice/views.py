@@ -56,6 +56,7 @@ class BeianView(TableView):
                     p.style = UserStyle1
                 cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
         data = to_bytes(doc)
+        filename = filename.split('/')[-1]
         response = HttpResponse(data, content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(filename))
         return response
