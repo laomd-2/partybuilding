@@ -135,7 +135,7 @@ class MemberBase(models.Model):
     deffer_employ_date = NullableDateField('暂缓就业时间')
 
     out_date = NullableDateField('关系转出时间')
-    out_place = models.CharField('转出单位', blank=True, null=True)
+    out_place = models.CharField('转出单位', blank=True, null=True, max_length=50)
     remarks = models.TextField('备注', blank=True, null=True)
 
     class Meta:
