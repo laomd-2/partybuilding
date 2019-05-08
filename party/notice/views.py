@@ -32,7 +32,7 @@ class BeianView(TableView):
 
     @staticmethod
     def export(request, model):
-        query = queryset(request, PreMember, fields=model.beian_fields)
+        query = queryset(request, model, fields=model.beian_fields)
         filename = model.beian_template
 
         doc = Document(filename)
