@@ -30,7 +30,7 @@ class EmailView(TemplateView):
         mails = []
         for branch, appers in groups.items():
             appers = list(appers)
-            if branch in branch_managers and branch == 85:
+            if branch in branch_managers:
                 mails.append(make_email_to_managers(branch_managers[branch], manager_title, appers,
                                                     fields, phase))
                 mails.extend(make_email_to_appliers(member_title, appers, fields))
