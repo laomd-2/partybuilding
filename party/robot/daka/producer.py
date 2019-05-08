@@ -30,6 +30,7 @@ def wechat():
         msg_type = msg.type
         from_user = msg.member.name
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        logger.info("receive a message of type %s。" % ('SHARING' if msg_type == wxpy.SHARING else 'TEXT'))
         # 处理撤回的消息
         if msg_type == wxpy.NOTE:
             revoked = ETree.fromstring(msg.raw['Content'].replace('&lt;', '<').replace('&gt;', '>')).find('revokemsg')
