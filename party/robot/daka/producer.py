@@ -14,7 +14,8 @@ def producer():
     while True:
         try:
             wechat()
-        except:
+        except Exception as e:
+            logger.info(e)
             time.sleep(2)
 
 
