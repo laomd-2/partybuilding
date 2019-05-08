@@ -45,17 +45,16 @@ class BeianView(TableView):
         UserStyle1.font.name = '仿宋_GB2312'
         UserStyle1._element.rPr.rFonts.set(qn('w:eastAsia'), '仿宋_GB2312')
 
-        if query.exists():
-            for row in query:
-                tb_row = table.add_row()
-                values = list(row.values())
-                values.insert(5, '无')
-                values.insert(5, '')
-                for v, cell in zip(values, tb_row.cells):
-                    cell.text = wrap(v)
-                    for p in cell.paragraphs:
-                        p.style = UserStyle1
-                    cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+        for row in query:
+            tb_row = table.add_row()
+            values = list(row.values())
+            values.insert(5, '无')
+            values.insert(5, '')
+            for v, cell in zip(values, tb_row.cells):
+                cell.text = wrap(v)
+                for p in cell.paragraphs:
+                    p.style = UserStyle1
+                cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
         data = to_bytes(doc)
         response = HttpResponse(data, content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(filename))
