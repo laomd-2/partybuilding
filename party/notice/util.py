@@ -78,7 +78,7 @@ def make_email_to_appliers(title, appliers, fields, template='email_member.html'
             text_content = ''
             context['name'] = applier['name']
             context['applier'] = info
-            msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, ['laomd@mail2.sysu.edu.cn'])
+            msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [to_emails])
             html_content = render_to_string(template, context)
             msg.attach_alternative(html_content, "text/html")
             mails.append(msg)
