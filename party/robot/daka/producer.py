@@ -22,6 +22,7 @@ def wechat():
     bot = wxpy.Bot(cache_path=True, console_qr=2)
     daka = bot.groups().search('计二党支部')
     test = bot.groups().search('测试群')
+    bot.file_helper.send('我启动啦！')
 
     @bot.register(daka + test, [wxpy.SHARING, wxpy.TEXT, wxpy.NOTE], except_self=False)
     def on_msg(msg):
