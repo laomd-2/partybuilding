@@ -1,13 +1,7 @@
-import io
-from copy import deepcopy
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
 from django.utils.encoding import escape_uri_path
 from django.views.generic import TemplateView
 from .admin import *
-from info.models import Branch
-from info.util import get_visual_branch
-
 from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import qn
@@ -35,10 +29,11 @@ class TableView(TemplateView):
 
 
 class BeianView(TableView):
-   
+
+    @staticmethod
     def export(request, model):
         fields = ['branch_name'] + model.beian_fields
-        query = _queryset(request, PreMember).extra(select={'branch_name': 'info_branch.branch_name'}) \
+        query = queryset(request, PreMember).extra(select={'branch_name': 'info_branch.branch_name'}) \
             .values(*fields)
         
         filename = '材料21：接收预备党员备案表.docx'

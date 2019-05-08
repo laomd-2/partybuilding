@@ -11,7 +11,7 @@ from notice.util import make_email_to_appliers, make_email_to_managers
 
 class EmailView(TemplateView):
     table_mapping = dict([(model.__name__.lower(), model)
-                          for model in [FirstTalk, Activist, KeyDevelop, PreMember, FullMember]])
+                          for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]])
 
     def post(self, request, table):
         model = self.table_mapping.get(table)
