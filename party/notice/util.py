@@ -2,15 +2,28 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from common.base import wrap
+from common.rules import *
 from work.models import Files
 from email.header import make_header
-
-from notice.admin import verbose_name
+from info.models import Member
 from user.models import User
+import re, copy
+from openpyxl.utils import get_column_letter
+from openpyxl.cell import Cell
+
+
+def verbose_name(fields):
+    res = []
+    for field in fields:
+        try:
+            res.append(Member._meta.get_field(field).verbose_name)
+        except:
+            res.append(getattr(Member, field).short_description)
+    return res
 
 
 def get_infos(fields, appers):
-    return [[wrap(getattr(apper, field)) for field in fields] for apper in appers]
+    return [[wrap(apper[field]) for field in fields] for apper in appers]
 
 
 def send_email_to_managers(users, title, appers, fields, phase):
@@ -71,3 +84,52 @@ def send_email_to_appliers(title, appliers, fields, template='email_member.html'
             msg.send()
         except User.DoesNotExist:
             pass
+
+
+def _queryset(request, model):
+    if is_member(request.user):
+        m = request.user.member
+        if m is not None:
+            return model.filter(netid=m['netid'])
+    elif is_branch_manager(request.user):
+        m = request.user.member
+        if m is not None:
+            return model.filter(branch_id=m['branch_id'])
+    elif is_school_manager(request.user):
+        school = int(request.user.username[0])
+        return model.filter(branch__school_id=school)
+    elif request.user.is_superuser:
+        return model.filter()
+    return Member.objects.none()
+
+
+def queryset(request, model):
+    query = _queryset(request, model).extra(select={'branch_name': 'info_branch.branch_name',
+                                                    'grade': '2000+netid div 1000000'}) \
+        .values(*(model.fields + ['branch_name']))
+    if query.exists():
+        query = list(query)
+        for q in query:
+            for k, v in q.items():
+                if v is None:
+                    q[k] = ''
+            for first in q.keys():  break
+            if first != 'branch_id':
+                e = q[model.fields[-1]]
+                del q[model.fields[-1]]
+                q[model.fields[-1]] = e
+    else:
+        query = []
+    return query
+
+
+def insert_rows(sheet, row, new_rows):
+    for ranges in sheet.merged_cells.ranges:
+        if ranges.min_row >= row:
+            sheet.unmerge_cells(str(ranges))
+    style_row = sheet.row_dimensions[row]
+    sheet.insert_rows(row + 1, new_rows - 1)
+    for i in range(1, new_rows):
+        sheet.row_dimensions[row + i].height = style_row.height
+        for cell, new_cell in zip(sheet[row], sheet[row + i]):
+            new_cell._style = cell._style
