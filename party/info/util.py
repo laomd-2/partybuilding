@@ -15,7 +15,7 @@ from openpyxl.styles import Border, Side
 from common.base import get_old, get_chinese
 from common.rules import *
 from common.utils import set_font, set_align, to_bytes
-from info.models import Member, Branch, School, Dependency
+from info.models import Member, Branch, Dependency
 
 
 def get_end_time(days):
@@ -27,8 +27,8 @@ def get_end_time(days):
 def group_by_branch(appers):
     groups = dict()
     for apper in appers:
-        groups.setdefault(apper.branch, [])
-        groups[apper.branch].append(apper)
+        groups.setdefault(apper['branch_id'], [])
+        groups[apper['branch_id']].append(apper)
     return groups
 
 
