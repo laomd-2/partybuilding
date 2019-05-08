@@ -131,7 +131,11 @@ class MemberBase(models.Model):
     application_fullmember_date = NullableDateField(verbose_name='递交转正申请书时间', help_text='预备党员应提前一个月向党支部递交。')
     second_branch_conference = NullableDateField(verbose_name='转正时间', help_text='支部党员大会通过成为正式党员的时间。')
     fullmember_approval_date = NullableDateField(verbose_name='党委批准为正式党员时间')
+    archive_date = NullableDateField('转档案馆时间')
+    deffer_employ_date = NullableDateField('暂缓就业时间')
 
+    out_date = NullableDateField('关系转出时间')
+    out_place = models.CharField('转出单位', blank=True, null=True)
     remarks = models.TextField('备注', blank=True, null=True)
 
     class Meta:
@@ -171,7 +175,7 @@ class MemberBase(models.Model):
             ('democratic_appraisal_date', '入党积极分子的确定和培养'),
             ('recommenders_date', '发展对象的确定和考察'),
             ('oach_date', '预备党员的吸收'),
-            ('remarks', '预备党员的教育考察和转正')])
+            ('out_date', '预备党员的教育考察和转正')])
         phases = dict()
         last = 0
         fields_ = [field.name for field in MemberBase._meta.fields]

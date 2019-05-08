@@ -97,6 +97,7 @@ class MemberBaseAdmin(AdminObject):
             *[Fieldset(k, *v) for k, v in phases.items()]
         ),
         Side(
+            Fieldset('关系转出', 'out_date', 'out_place'),
             Fieldset('其他信息', 'remarks')
         )
     )
