@@ -20,6 +20,8 @@ def verbose_name(fields):
 
 
 def get_infos(fields, appers):
+    for apper in appers:
+        apper['branch_id'] = apper['branch_name']
     return [[wrap(apper[field]) for field in fields] for apper in appers]
 
 
@@ -66,19 +68,19 @@ def send_email_to_appliers(title, appliers, fields, template='email_member.html'
     }
     for applier, info in zip(appliers, infos):
         try:
-            user = User.objects.get(username=str(applier.netid))
-            to_emails = user.email
+            user = User.objects.filter(username=str(applier.netid)).values('email')[0]
+            to_emails = user['email']
             if not to_emails:
                 continue
             subject = title
             text_content = ''
-            context['name'] = applier.name
+            context['name'] = applier['name']
             context['applier'] = info
-            msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [to_emails])
+            msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, ['laomd@mail2.sysu.edu.cn'])
             html_content = render_to_string(template, context)
             msg.attach_alternative(html_content, "text/html")
             msg.send()
-        except User.DoesNotExist:
+        except IndexError:
             pass
 
 
