@@ -49,7 +49,7 @@ class BeianView(TableView):
         UserStyle1._element.rPr.rFonts.set(qn('w:eastAsia'), '仿宋_GB2312')
 
         for row in query:
-            row['brith_date'] = '-'.join(row['birth_date'].split('-')[:-1])
+            row['brith_date'] = '-'.join(str(row['birth_date']).split('-')[:-1])
             tb_row = table.add_row()
             values = list(row.values())
             values.insert(5, '无')
