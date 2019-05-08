@@ -209,6 +209,7 @@ class PreMember(Table):
     @classmethod
     def after_export(cls, sheet, cnt):
         sheet.merge_cells('A{row}:N{row}'.format(row=sheet.max_row))
+        sheet.row_dimensions[sheet.max_row - 1].height = 13.5
         sheet.row_dimensions[sheet.max_row].height = 50
         
     @staticmethod
