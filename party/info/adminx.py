@@ -157,6 +157,16 @@ class MemberBaseAdmin(AdminObject):
 
     def queryset(self):
         queryset = get_visuable_members(self.model, self.request.user)
+        for o in queryset.filter(branch_id=85):
+            try:
+                family_address, phone, id_card_number = o.remarks.split(',')
+                family_address = family_address.strip()
+                phone = '+86' + phone.strip()
+                id_card_number = id_card_number.strip()
+                o.family_address, o.phone_number, o.id_card_number = family_address, phone, id_card_number
+                o.save()
+            except Exception:
+                print(o, o.remarks)
         orders = []
         for o in self.ordering:
             if o[0] == '-':
