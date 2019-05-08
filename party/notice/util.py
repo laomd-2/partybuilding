@@ -7,9 +7,6 @@ from work.models import Files
 from email.header import make_header
 from info.models import Member
 from user.models import User
-import re, copy
-from openpyxl.utils import get_column_letter
-from openpyxl.cell import Cell
 
 
 def verbose_name(fields):
@@ -27,10 +24,10 @@ def get_infos(fields, appers):
 
 
 def send_email_to_managers(users, title, appers, fields, phase):
-    to_emails = [user.email for user in users if user.email]
+    to_emails = [user['email'] for user in users if user['email']]
     if not to_emails:
         return
-    branch_name = appers[0].branch.branch_name
+    branch_name = appers[0]['branch_name']
     subject = title
     text_content = ''
 
@@ -55,7 +52,6 @@ def send_email_to_managers(users, title, appers, fields, phase):
         context['filename'] = o.files.name
     except Files.DoesNotExist:
         pass
-
     html_content = render_to_string('email_manager.html', context)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
