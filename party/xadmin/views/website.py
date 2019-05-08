@@ -18,6 +18,7 @@ from xadmin.forms import AdminAuthenticationForm
 from xadmin.models import UserSettings
 from xadmin.layout import FormHelper
 from notice.admin import *
+from notice.util import verbose_name
 from notice.views import queryset
 
 
@@ -34,11 +35,12 @@ class IndexView(Dashboard):
         for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
             query = queryset(self.request, model)
             if query:
-                fields = query[0].keys()
+                fields = model.fields
                 header = verbose_name(fields)
                 result = [header]
                 for q in query:
-                    result.append(list(q.values()))
+                    q['branch_id'] = q['branch_name']
+                    result.append([wrap(q[field]) for field in fields])
                 affairs.append([model.__name__.lower(), model.verbose_name, result])
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)
