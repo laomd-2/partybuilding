@@ -26,16 +26,16 @@ def get_activity(title, now):
     return None
 
 
-def consume():
+def consumer():
     while True:
         try:
-            consumer()
+            consume()
         except Exception as e:
             logger.info(e)
             time.sleep(2)
 
 
-def consumer():
+def consume():
     user, time, revoke, msg_type, content = get()
     now = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
     if revoke:
