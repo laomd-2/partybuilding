@@ -136,7 +136,7 @@ class KeyDevelop(Table):
         member.insert(5, '无')
         member.insert(5, '')
         member.insert(8, '团支部推优')
-        member.insert(-1, '')
+        member.insert(10, '')
 
     @staticmethod
     def filter(**kwargs):
