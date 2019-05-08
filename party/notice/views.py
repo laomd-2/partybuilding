@@ -37,8 +37,11 @@ class BeianView(TableView):
 
         doc = Document(filename)
         table = doc.tables[0]
-        
-        UserStyle1 = doc.styles.add_style('UserStyle1', 1)
+
+        try:
+            UserStyle1 = doc.styles.add_style('UserStyle1', 1)
+        except ValueError:
+            UserStyle1 = doc.styles['UserStyle1']
         # 设置字体尺寸
         UserStyle1.font.size = Pt(12)
         # 设置中文字体
