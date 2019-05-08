@@ -22,6 +22,7 @@ def get_ym(m1, m2):
 
 class Table:
     excel_template = ''
+    beian_template = ''
     row = 3
     fields = []
     verbose_name = '表格'
