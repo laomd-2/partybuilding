@@ -185,7 +185,7 @@ class PreMember(Table):
                     'recommenders', 'application_date', 'activist_date',
                     'key_develop_person_date', 'first_branch_conference'
                     ]
-    beian_template = '材料21：接收预备党员备案表.docx'
+    beian_template = os.path.join(settings.MEDIA_ROOT, '材料21：接收预备党员备案表.docx')
 
     verbose_name = '%d年%d月可接收预备党员' % get_ym(6, 12)
     phase = '预备党员'
