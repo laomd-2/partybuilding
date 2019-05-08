@@ -1,5 +1,6 @@
 ﻿import datetime
 import os
+import time
 
 from django.conf import settings
 import logging
@@ -12,6 +13,7 @@ import re
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
 
 def get_activity(title, now):
     important = json.load(open(os.path.join(settings.BASE_DIR, '重要活动.json')))
@@ -29,7 +31,8 @@ def consume():
         try:
             consumer()
         except Exception as e:
-            print(e)
+            logger.info(e)
+            time.sleep(2)
 
 
 def consumer():
@@ -57,15 +60,17 @@ def consumer():
         else:
             sharing.delete()
     else:
-        logger.info("%s 打卡。（%s）" % (user, content))
+        logger.info("receive a message of type %s。" % ('SHARING' if msg_type == wxpy.SHARING else 'TEXT'))
         zero = now - datetime.timedelta(hours=now.hour, minutes=now.minute, seconds=now.second,
                                         microseconds=now.microsecond)
         end = zero + datetime.timedelta(hours=24, minutes=0, seconds=0)
         if msg_type == wxpy.SHARING:
-            if Sharing.objects.filter(member__name=user, title=content):
+            if Sharing.objects.filter(member__name=user, title=content).exists():
+                logger.info('duplicated title')
                 return
         elif msg_type == wxpy.TEXT:
-            if len(content) < 50 or Sharing.objects.filter(impression=content):
+            if len(content) < 50 or Sharing.objects.filter(impression=content).exists():
+                logger.info('duplicated content')
                 return
         try:
             obj = Sharing.objects.get(added=False, member__name=user, when__gte=zero, when__lt=end)
