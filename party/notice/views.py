@@ -32,11 +32,9 @@ class BeianView(TableView):
 
     @staticmethod
     def export(request, model):
-        fields = ['branch_name'] + model.beian_fields
-        query = queryset(request, PreMember).extra(select={'branch_name': 'info_branch.branch_name'}) \
-            .values(*fields)
-        
-        filename = '材料21：接收预备党员备案表.docx'
+        query = queryset(request, PreMember, fields=model.beian_fields)
+        filename = model.beian_template
+
         doc = Document(filename)
         table = doc.tables[0]
         

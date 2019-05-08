@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
 from django.conf.urls import url
 from notice.tasks import EmailView
-from .views import TableView
+from .views import *
 
 urlpatterns = [
     url(r'^(?P<table>\w+)$', TableView.as_view()),
+    url(r'^beian/(?P<table>\w+)$', BeianView.as_view()),
     url(r'^email/(?P<table>\w+)$', EmailView.as_view()),
 ]

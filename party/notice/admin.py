@@ -178,20 +178,22 @@ class LearningClass(Table):
 class PreMember(Table):
     row = 6
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/材料18：拟吸收预备党员名单汇总审批表.xlsx')
-    fields = ['branch_id', 'netid', 'name', 'birth_date', 'application_date', 'activist_date', 'league_promotion_date', 
-            'democratic_appraisal_date', 'is_political_check', 'key_develop_person_date', 'graduated_party_school_date',
-            'first_branch_conference', 'pro_conversation_date']
-    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number', 
-                'recommenders', 'application_date', 'activist_date',
-                'key_develop_person_date', 'first_branch_conference'
-                ]
+    fields = ['branch_id', 'netid', 'name', 'birth_date', 'application_date', 'activist_date', 'league_promotion_date',
+              'democratic_appraisal_date', 'is_political_check', 'key_develop_person_date',
+              'graduated_party_school_date', 'first_branch_conference', 'pro_conversation_date']
+    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number',
+                    'recommenders', 'application_date', 'activist_date',
+                    'key_develop_person_date', 'first_branch_conference'
+                    ]
+    beian_template = '材料21：接收预备党员备案表.docx'
+
     verbose_name = '%d年%d月可接收预备党员' % get_ym(6, 12)
     phase = '预备党员'
 
     @classmethod
     def export_filename(cls):
         return '材料18：拟吸收预备党员名单汇总审批表.xlsx'
-    
+
     @classmethod
     def export_field(cls):
         return cls.fields[1:]
@@ -201,7 +203,7 @@ class PreMember(Table):
         qs = super().get_queryset(request)
         qs.sort(key=lambda x: x['netid'])
         return qs
-    
+
     @classmethod
     def before_export(cls, sheet):
         pass
@@ -211,7 +213,7 @@ class PreMember(Table):
         sheet.merge_cells('A{row}:N{row}'.format(row=sheet.max_row))
         sheet.row_dimensions[sheet.max_row - 1].height = 13.5
         sheet.row_dimensions[sheet.max_row].height = 50
-        
+
     @staticmethod
     def filter(**kwargs):
         year, month = get_ym(6, 12)
@@ -254,7 +256,7 @@ class FullMember(Table):
     @classmethod
     def before_export(cls, sheet):
         pass
-    
+
     @classmethod
     def get_queryset(cls, request):
         qs = queryset(request, cls)

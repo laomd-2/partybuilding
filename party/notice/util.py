@@ -97,17 +97,19 @@ def _queryset(request, model):
         if m is not None:
             return model.filter(branch_id=m['branch_id'])
     elif is_school_manager(request.user):
-        school = int(request.user.username[0])
+        school = request.user.school_id
         return model.filter(branch__school_id=school)
     elif request.user.is_superuser:
         return model.filter()
     return Member.objects.none()
 
 
-def queryset(request, model):
+def queryset(request, model, fields=None):
+    if fields is None:
+        fields = model.fields
     query = _queryset(request, model).extra(select={'branch_name': 'info_branch.branch_name',
-                                                    'grade': '2000+netid div 1000000'}) \
-        .values(*(model.fields + ['branch_name']))
+                                                    'grade': '2000 + netid div 1000000'}) \
+        .values(*(fields + ['branch_name']))
     if query.exists():
         query = list(query)
         for q in query:
@@ -116,9 +118,9 @@ def queryset(request, model):
                     q[k] = ''
             for first in q.keys():  break
             if first != 'branch_id':
-                e = q[model.fields[-1]]
-                del q[model.fields[-1]]
-                q[model.fields[-1]] = e
+                e = q[fields[-1]]
+                del q[fields[-1]]
+                q[fields[-1]] = e
     else:
         query = []
     return query

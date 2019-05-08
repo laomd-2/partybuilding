@@ -26,14 +26,12 @@ class EmailView(TemplateView):
         groups = group_by_branch(queryset(request, model))
         branch_managers = get_branch_managers()
         fields = model.fields
-        success = []
         mails = []
         for branch, appers in groups.items():
             appers = list(appers)
             if branch in branch_managers:
                 mails.append(make_email_to_managers(branch_managers[branch], manager_title, appers,
                                                     fields, phase))
-                success.append(appers[0]['branch_name'])
             mails.extend(make_email_to_appliers(member_title, appers, fields))
         connection = mail.get_connection()  # Use default email connection
         connection.fail_silently = True
