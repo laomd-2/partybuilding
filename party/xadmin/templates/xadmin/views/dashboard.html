@@ -67,11 +67,13 @@
                             <i class="fa fa-download">下载表格</i></button>
                     </form>
 
-                    <form method="get" action="notice/beian/{{ affair.0 }}">
-                        <button type="submit" class="btn btn-success"
-                                style="display: inline; float: right; margin-right: 1em">
-                            <i class="fa fa-download">下载表格</i></button>
-                    </form>
+                    {% if affair.3 %}
+                        <form method="get" action="notice/beian/{{ affair.0 }}">
+                            <button type="submit" class="btn btn-success"
+                                    style="display: inline; float: right; margin-right: 1em">
+                                <i class="fa fa-download">{{ affair.3 }}</i></button>
+                        </form>
+                    {% endif %}
 
                 </div>
                 <div class="panel-body results table-responsive" style="overflow: scroll">

@@ -41,7 +41,7 @@ class IndexView(Dashboard):
                 for q in query:
                     q['branch_id'] = q['branch_name']
                     result.append([wrap(q[field]) for field in fields])
-                affairs.append([model.__name__.lower(), model.verbose_name, result])
+                affairs.append([model.__name__.lower(), model.verbose_name, result, model.beian_fields])
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)
         if affairs:
