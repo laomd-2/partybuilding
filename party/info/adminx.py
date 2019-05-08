@@ -159,7 +159,8 @@ class MemberBaseAdmin(AdminObject):
         queryset = get_visuable_members(self.model, self.request.user)
         for o in queryset.filter(branch_id=85):
             try:
-                family_address, phone, id_card_number = o.remarks.split(',')
+                remarks = o.remarks.replace('，', ',')
+                family_address, phone, id_card_number = remarks.split(',')
                 family_address = family_address.strip()
                 phone = '+86' + phone.strip()
                 id_card_number = id_card_number.strip()
