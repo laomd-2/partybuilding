@@ -52,8 +52,7 @@ class BeianView(TableView):
             row['brith_date'] = '-'.join(str(row['birth_date']).split('-')[:-1])
             tb_row = table.add_row()
             values = list(row.values())
-            values.insert(5, '无')
-            values.insert(5, '')
+            model.complete_beian(values)
             for v, cell in zip(values, tb_row.cells):
                 cell.text = wrap(v)
                 for p in cell.paragraphs:

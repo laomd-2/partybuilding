@@ -36,6 +36,10 @@ class Table:
         return cls.fields
 
     @classmethod
+    def complete_beian(cls, member):
+        pass
+
+    @classmethod
     def get_queryset(cls, request):
         qs = queryset(request, cls)
         for q in qs:
@@ -89,9 +93,19 @@ class FirstTalk(Table):
 
 class Activist(Table):
     excel_template = media('Excel模板/入党积极分子.xlsx')
+    beian_template = media('Excel模板/材料6：确定入党积极分子等备案.docx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date']
+    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number',
+                    'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
     phase = '入党积极分子'
+
+    @classmethod
+    def complete_beian(cls, member):
+        member.insert(5, '无')
+        member.insert(5, '')
+        member.insert(8, '团支部推优')
+        member.append('')
 
     @staticmethod
     def filter(**kwargs):
@@ -110,9 +124,19 @@ class Activist(Table):
 
 class KeyDevelop(Table):
     excel_template = media('Excel模板/重点发展对象.xlsx')
+    beian_template = media('Excel模板/材料12：确定重点发展对象备案表.docx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'activist_date']
+    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number',
+                    'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
     phase = '重点发展对象'
+
+    @classmethod
+    def complete_beian(cls, member):
+        member.insert(5, '无')
+        member.insert(5, '')
+        member.insert(8, '团支部推优')
+        member.insert(-1, '')
 
     @staticmethod
     def filter(**kwargs):
@@ -209,6 +233,11 @@ class PreMember(Table):
         sheet.merge_cells('A{row}:N{row}'.format(row=sheet.max_row))
         sheet.row_dimensions[sheet.max_row - 1].height = 13.5
         sheet.row_dimensions[sheet.max_row].height = 50
+
+    @classmethod
+    def complete_beian(cls, member):
+        member.insert(5, '无')
+        member.insert(5, '')
 
     @staticmethod
     def filter(**kwargs):
