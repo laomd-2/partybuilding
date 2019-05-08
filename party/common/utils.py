@@ -1,6 +1,8 @@
 import datetime
 import io
+import os
 
+from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
 from openpyxl.styles import Font, Alignment
 
@@ -27,6 +29,10 @@ def to_bytes(wb):
     with NamedTemporaryFile() as tmp:
         wb.save(tmp.name)
         return io.BytesIO(tmp.read())
+
+
+def media(var):
+    return os.path.join(settings.MEDIA_ROOT, var)
 
 
 class Cache:

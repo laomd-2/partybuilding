@@ -1,10 +1,5 @@
-import datetime
-import os
-from common.base import wrap
-from common.rules import *
 from common.utils import *
-from django.conf import settings
-from info.models import Member, Dependency
+from info.models import Dependency
 from openpyxl import load_workbook
 from .util import *
 
@@ -76,7 +71,7 @@ class Table:
 
 
 class FirstTalk(Table):
-    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/首次组织谈话.xlsx')
+    excel_template = media('Excel模板/首次组织谈话.xlsx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number', 'talk_date_end']
     verbose_name = '首次组织谈话'
     phase = verbose_name
@@ -92,7 +87,7 @@ class FirstTalk(Table):
 
 
 class Activist(Table):
-    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/入党积极分子.xlsx')
+    excel_template = media('Excel模板/入党积极分子.xlsx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date']
     verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
     phase = '入党积极分子'
@@ -113,7 +108,7 @@ class Activist(Table):
 
 
 class KeyDevelop(Table):
-    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/重点发展对象.xlsx')
+    excel_template = media('Excel模板/重点发展对象.xlsx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
     phase = '重点发展对象'
@@ -134,7 +129,7 @@ class KeyDevelop(Table):
 
 class LearningClass(Table):
     row = 4
-    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/材料13：学生入党积极分子党校培训报名汇总表.xlsx')
+    excel_template = media('Excel模板/材料13：学生入党积极分子党校培训报名汇总表.xlsx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'group', 'birth_date', 'grade', 'major_in',
               'application_date', 'phone_number']
     verbose_name = '%d年%s季学生入党积极分子党校培训报名汇总表' % (get_ym(4, 10)[0], '春' if get_ym(4, 10)[1] == 4 else '秋')
@@ -177,7 +172,7 @@ class LearningClass(Table):
 
 class PreMember(Table):
     row = 6
-    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/材料18：拟吸收预备党员名单汇总审批表.xlsx')
+    excel_template = media('Excel模板/材料18：拟吸收预备党员名单汇总审批表.xlsx')
     fields = ['branch_id', 'netid', 'name', 'birth_date', 'application_date', 'activist_date', 'league_promotion_date',
               'democratic_appraisal_date', 'is_political_check', 'key_develop_person_date',
               'graduated_party_school_date', 'first_branch_conference', 'pro_conversation_date']
@@ -185,7 +180,7 @@ class PreMember(Table):
                     'recommenders', 'application_date', 'activist_date',
                     'key_develop_person_date', 'first_branch_conference'
                     ]
-    beian_template = os.path.join(settings.MEDIA_ROOT, '材料21：接收预备党员备案表.docx')
+    beian_template = media('Excel模板/材料21：接收预备党员备案表.docx')
 
     verbose_name = '%d年%d月可接收预备党员' % get_ym(6, 12)
     phase = '预备党员'
@@ -230,7 +225,7 @@ class PreMember(Table):
 
 class FullMember(Table):
     row = 6
-    excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/材料26：申请转正预备党员名单汇总预审表.xlsx')
+    excel_template = media('Excel模板/材料26：申请转正预备党员名单汇总预审表.xlsx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'first_branch_conference', 'oach_date',
               'application_fullmember_date']
     verbose_name = '%d年%d月可转正预备党员' % get_ym(6, 12)
