@@ -68,7 +68,7 @@ def send_email_to_appliers(title, appliers, fields, template='email_member.html'
     }
     for applier, info in zip(appliers, infos):
         try:
-            user = User.objects.filter(username=str(applier.netid)).values('email')[0]
+            user = User.objects.filter(username=str(applier['netid'])).values('email')[0]
             to_emails = user['email']
             if not to_emails:
                 continue
