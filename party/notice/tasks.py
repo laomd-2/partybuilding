@@ -33,10 +33,10 @@ class EmailView(TemplateView):
             if branch in branch_managers:
                 mails.append(make_email_to_managers(branch_managers[branch], manager_title, appers,
                                                     fields, phase))
-                mails.extend(make_email_to_appliers(member_title, appers, fields))
                 success.append(appers[0]['branch_name'])
-        if success:
-            messages.success(request, '%s：已向%s支书发送邮件！' % (manager_title, ','.join(success)))
+            mails.extend(make_email_to_appliers(member_title, appers, fields))
         connection = mail.get_connection()  # Use default email connection
-        connection.send_messages(mails)
-        return HttpResponseRedirect('/')
+        connection.fail_silently = True
+        cnt = connection.send_messages(mails)
+        messages.success(request, '%s：成功发送%d封邮件！' % (manager_title, cnt))
+        return HttpResponseRedirect('#')
