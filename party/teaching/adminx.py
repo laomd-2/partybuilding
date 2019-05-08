@@ -253,7 +253,7 @@ class CreditAdminBase(AdminObject):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
             member = self.request.user.member
-            if member is None or branch_in(member['branch_id'], obj.activity_id, obj.activity.branch):
+            if member is None or not branch_in(member['branch_id'], obj.activity_id, obj.activity.branch):
                 messages.error(self.request, '%s失败，权限不足。' % ('添加' if self.org_obj is None else '修改'))
                 return
         obj.save()
