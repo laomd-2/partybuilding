@@ -28,6 +28,13 @@ class Table:
     verbose_name = '表格'
 
     @classmethod
+    def check(cls, when, queryset):
+        """
+            检查是否有未及时更新的信息
+        """
+        return []
+
+    @classmethod
     def export_filename(cls):
         return cls.verbose_name + '.xlsx'
 
@@ -99,6 +106,24 @@ class Activist(Table):
                     'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
     phase = '入党积极分子'
+
+    @classmethod
+    def check(cls, when, queryset):
+        msg = []
+        for member in queryset:
+            application_date = member['application_date']
+            if isinstance(application_date, datetime.datetime):
+                application_date = application_date.date()
+                print(member['netid'])
+            month = application_date.month
+            interval = (when - application_date).days
+            if 2 <= month < 8:
+                if when.month > 9 or interval > 4 * 30:
+                    msg.append((member['netid'], member['name'], cls.phase))
+            else:
+                if when.month > 3 or interval > 4 * 30:
+                    msg.append((member['netid'], member['name'], cls.phase))
+        return msg
 
     @classmethod
     def complete_beian(cls, member):
