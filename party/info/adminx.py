@@ -85,11 +85,10 @@ class MemberBaseAdmin(AdminObject):
     list_display = fields_[:4] + ['gender', 'phone_number', 'major_in', 'years']
     list_display_links = ('netid',)
     model_icon = 'fa fa-info'
-    ordering = ['second_branch_conference',
+    ordering = ['branch', 'netid', 'second_branch_conference',
                 'first_branch_conference',
                 'key_develop_person_date',
-                'activist_date',
-                'branch', 'netid']
+                'activist_date']
     wizard_form_list = phases.items()
 
     form_layout = (
