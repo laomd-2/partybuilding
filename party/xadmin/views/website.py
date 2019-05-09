@@ -32,6 +32,7 @@ class IndexView(Dashboard):
     def get_context(self):
         context = super(IndexView, self).get_context()
         affairs = []
+        msg = []
         for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
             query = queryset(self.request, model)
             if query:
@@ -44,6 +45,11 @@ class IndexView(Dashboard):
                 beian_tile = model.beian_template.split('/')[-1]
                 beian_tile = beian_tile[beian_tile.find('：') + 1: beian_tile.rfind('.')]
                 affairs.append([model.__name__.lower(), model.verbose_name, result, beian_tile])
+            if is_admin(self.request.user):
+                today = datetime.datetime.now().date()
+                msg.extend(model.check(today, query))
+        for m in msg:
+            messages.warning(self.request, '请及时更新%d(%s)确定为%s的时间，或在备注中说明延迟发展的原因。' % m)
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)
         context['can_beian'] = is_admin(self.request.user)
