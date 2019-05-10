@@ -48,16 +48,16 @@ if settings.DEBUG:
             {'document_root': settings.STATIC_ROOT}, name='static'),
         url(r'^media/(?P<path>.*)$', static.serve,
             {'document_root': settings.MEDIA_ROOT}, name='media'),
-        (path('__debug__/', include(debug_toolbar.urls)))
+        # (path('__debug__/', include(debug_toolbar.urls)))
     ])
 
-ignore = ['makemigrations', 'migrate', 'collectstatic']
-for i in ignore:
-    if i in sys.argv:
-        break
-else:
-    from robot.daka import producer, consumer
-    import threading
-
-    threading.Thread(target=producer.producer).start()
-    threading.Thread(target=consumer.consumer).start()
+# ignore = ['makemigrations', 'migrate', 'collectstatic']
+# for i in ignore:
+#     if i in sys.argv:
+#         break
+# else:
+#     from robot.daka import producer, consumer
+#     import threading
+#
+#     threading.Thread(target=producer.producer).start()
+#     threading.Thread(target=consumer.consumer).start()

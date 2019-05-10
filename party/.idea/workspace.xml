@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0f2cc620-99be-4f30-bff5-3a5a95e46f90" name="Default Changelist" comment="">
+    <list default="true" id="0f2cc620-99be-4f30-bff5-3a5a95e46f90" name="Default Changelist" comment="部署到Ubuntu">
+      <change afterPath="$PROJECT_DIR$/info/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/info/migrations/0005_auto_20190509_2008.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/before_migrate.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/editable_errors.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xadmin/defs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xadmin/dutils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/.idea/new_party.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/.idea/new_party.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/base.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/common/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/resources.py" afterDir="false" />
@@ -18,7 +25,6 @@
       <change beforePath="$PROJECT_DIR$/../new_party/info/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/static/jet/css/_login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/jet/static/jet/css/_login.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/templates/admin/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/jet/templates/admin/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/jet/templates/admin/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/templatetags/jet_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/jet/templatetags/jet_tags.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/jet/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/mysql/restore.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/mysql/restore.sql" afterDir="false" />
@@ -28,437 +34,56 @@
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/note/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/note/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/note/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/note/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/note/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/notice/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/notice/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/notice/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/notice/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/daka/consumer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/daka/producer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/daka/wx_listener.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/daka/wxpy.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/msg_queue.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/notice.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/robot/util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/autocomplete.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/changelists.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/dashboard.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/fonts.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/forms.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/login.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/responsive.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/responsive_rtl.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/rtl.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/vendor/select2/LICENSE-SELECT2.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/vendor/select2/select2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/vendor/select2/select2.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/css/widgets.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/fonts/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/fonts/README.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/fonts/Roboto-Bold-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/fonts/Roboto-Light-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/fonts/Roboto-Regular-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/README.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/calendar-icons.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/gis/move_vertex_off.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/gis/move_vertex_on.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-addlink.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-alert.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-calendar.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-changelink.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-clock.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-deletelink.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-no.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-unknown-alt.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-unknown.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-viewlink.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/icon-yes.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/inline-delete.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/search.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/selector-icons.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/sorting-icons.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/tooltag-add.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/img/tooltag-arrowright.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/SelectBox.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/SelectFilter2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/actions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/actions.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/admin/DateTimeShortcuts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/admin/RelatedObjectLookups.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/autocomplete.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/calendar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/cancel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/change_form.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/collapse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/collapse.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/core.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/inlines.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/inlines.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/jquery.init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/popup_response.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/prepopulate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/prepopulate.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/prepopulate_init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/related-widget-wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/timeparse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/urlify.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/jquery/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/jquery/jquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/jquery/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/az.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/bg.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ca.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/cs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/da.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/de.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/el.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/en.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/es.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/et.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/eu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/fa.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/fi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/fr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/gl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/he.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/hi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/hr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/hu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/id.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/is.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/it.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ja.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/km.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ko.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/lt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/lv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/mk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ms.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/nb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/nl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/pl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/pt-BR.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/pt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ro.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/ru.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/sk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/sr-Cyrl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/sr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/sv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/th.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/tr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/uk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/vi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/zh-CN.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/i18n/zh-TW.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/select2.full.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/select2/select2.full.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/xregexp/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/xregexp/xregexp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/admin/js/vendor/xregexp/xregexp.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/import_export/action_formats.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/import_export/import.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_breadcrumbs.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_changeform.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_changelist.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_content.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_dashboard.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_delete-confirmation.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_forms.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_globals.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_header.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_helpers.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_login.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_messages.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_modules.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_object-tools.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_relatedpopup.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_sidebar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_tables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/icons/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/icons/fonts/jet-icons.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/icons/fonts/jet-icons.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/icons/fonts/jet-icons.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/icons/fonts/jet-icons.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/icons/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/_jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_flat_0_aaaaaa_40x100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_flat_75_ffffff_40x100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_glass_55_fbf9ee_1x400.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_glass_65_ffffff_1x400.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_glass_75_dadada_1x400.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_glass_95_fef1ec_1x400.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-bg_highlight-soft_75_cccccc_1x100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-icons_222222_256x240.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-icons_2e83ff_256x240.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-icons_454545_256x240.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-icons_888888_256x240.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/jquery-ui/images/ui-icons_cd0a0a_256x240.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/select2/_layout.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/select2/_multiple.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/select2/_single.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/base.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/jquery-ui.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/jquery-ui.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/select2.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/select2.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/default/select2.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/base.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/jquery-ui.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/jquery-ui.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/select2.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/select2.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/green/select2.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/base.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/jquery-ui.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/jquery-ui.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/select2.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/select2.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-blue/select2.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/base.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/jquery-ui.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/jquery-ui.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/select2.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/select2.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-gray/select2.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/base.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/jquery-ui.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/jquery-ui.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/select2.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/select2.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-green/select2.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/base.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/base.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/jquery-ui.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/jquery-ui.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/jquery-ui.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/select2.theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/select2.theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/themes/light-violet/select2.theme.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/css/vendor.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/build/bundle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-cs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-de.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-es.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-fr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-hr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-hu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-it.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-ja.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-mk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-nl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-pl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-pt-BR.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-ru.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-sl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-sv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui-timepicker/jquery.ui.timepicker-tr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-af.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ar-DZ.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-az.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-be.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-bg.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-bs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ca.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-cs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-cy-GB.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-da.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-de.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-el.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-en-AU.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-en-GB.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-en-NZ.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-eo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-es.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-et.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-eu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-fa.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-fi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-fo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-fr-CA.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-fr-CH.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-fr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-gl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-he.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-hi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-hr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-hu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-hy.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-id.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-is.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-it-CH.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-it.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ja.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ka.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-kk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-km.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ko.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ky.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-lb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-lt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-lv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-mk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ml.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ms.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-nb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-nl-BE.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-nl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-nn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-no.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-pl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-pt-BR.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-pt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-rm.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ro.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ru.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-sk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-sl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-sq.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-sr-SR.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-sr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-sv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-ta.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-th.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-tj.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-tr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-uk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-vi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-zh-CN.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-zh-HK.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/jquery-ui/datepicker-zh-TW.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/az.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/bg.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/ca.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/cs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/da.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/de.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/en.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/es.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/et.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/eu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/fa.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/fi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/fr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/gl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/he.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/hi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/hr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/hu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/id.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/is.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/it.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/ko.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/lt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/lv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/mk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/nb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/nl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/pl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/pt-BR.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/pt.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/ro.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/ru.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/sk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/sr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/sv.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/th.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/tr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/uk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/vi.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/zh-CN.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/i18n/select2/zh-TW.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/changeform-tabs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/changeform.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/changelist.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/checkboxes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/compact-inline.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/dashboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/date-time-widgets.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/filters.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/inlines.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/related-popups.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/scroll-to-bottom-detector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/selects.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/siblings.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/sidebar/application-pinning.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/sidebar/bookmarks.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/sidebar/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/sidebar/popup.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/themes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/tooltips.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/features/touchmove-non-scrollable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/actions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/branding.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/breadcrumbs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/changeform-tabs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/delete-confirmation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/icons.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/object-tools.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/paginator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/related-widget-wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/stacked-inline.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/tabular-inline.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/toolbar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/layout-updaters/user-tools.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/utils/jquery-icontains.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/utils/jquery-slidefade.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/utils/translate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/jet/js/src/utils/window-storage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/static/range_filter/css/style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/teaching/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/teaching/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/teaching/resources.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/teaching/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/confirm.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/line-simple.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/notice_manager.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/notice_member.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/空白.xlsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/user/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/import_export/formats/base_formats.py" beforeDir="false" afterPath="$PROJECT_DIR$/import_export/formats/base_formats.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/info/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/info/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/info_view.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/info_view.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/party.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/party.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notice/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robot/daka/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/robot/daka/consumer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload/Excel模板/~$12：确定重点发展对象备案表.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload/Excel模板/~$6：确定入党积极分子等备案.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload/Excel模板/成员信息.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/upload/Excel模板/成员信息.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/plugins/chart.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/plugins/chart.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/plugins/editable.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/plugins/editable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/plugins/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/plugins/filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/views/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/edit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/views/list.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/views/website.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/website.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -469,6 +94,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/party$wx_listener.coverage" NAME="wx_listener Coverage Results" MODIFIED="1555216775001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/robot/daka" />
     <SUITE FILE_PATH="coverage/party$rename.coverage" NAME="rename Coverage Results" MODIFIED="1550380375795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/party$generate_activities.coverage" NAME="generate_activities Coverage Results" MODIFIED="1557391897677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/party$listener.coverage" NAME="listener Coverage Results" MODIFIED="1551324682004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/teaching" />
   </component>
   <component name="DatabaseView">
@@ -488,43 +114,16 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="party" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/party/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="181" selection-start-line="181" selection-end-line="181" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/adminx.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
-              <folding>
-                <element signature="e#0#30#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/info/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="227" column="13" lean-forward="true" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
+            <state relative-caret-position="288">
+              <caret line="324" column="20" selection-start-line="324" selection-start-column="20" selection-end-line="324" selection-end-column="20" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -533,22 +132,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/views.py">
+        <entry file="file://$PROJECT_DIR$/common/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#42#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="376">
+              <caret line="45" column="22" lean-forward="true" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/register.html">
+        <entry file="file://$PROJECT_DIR$/party/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="736">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="16">
+              <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -556,10 +152,60 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/info/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1392">
-              <caret line="95" column="63" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="63" />
+            <state relative-caret-position="148">
+              <caret line="137" column="27" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="27" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/teaching/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1008">
+              <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="46" column="64" selection-start-line="46" selection-start-column="64" selection-end-line="46" selection-end-column="64" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xadmin/views/list.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="94">
+              <caret line="371" lean-forward="true" selection-start-line="371" selection-end-line="371" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="41" column="33" lean-forward="true" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -572,47 +218,45 @@
       <list>
         <option value="JavaScript File" />
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_visuable_members</find>
-      <find>models.ImageField</find>
-      <find>表头</find>
-      <find>权限不足</find>
-      <find>activity.branch.all()</find>
-      <find>get_delete</find>
-      <find>branch__id</find>
-      <find>export</find>
-      <find>@staticmethod</find>
+      <find>info_member_all</find>
+      <find>talk_date_end</find>
+      <find>create_dataset</find>
       <find>import_data</find>
-      <find>get_chinese</find>
-      <find>select all</find>
-      <find>.panel-body</find>
-      <find>block_top_</find>
-      <find>block_top</find>
-      <find>content-tool</find>
-      <find>render_to</find>
-      <find />
-      <find>党员</find>
-      <find>Files.phases.index</find>
-      <find>Take</find>
-      <find>pull-left</find>
-      <find>School</find>
-      <find>user.sch</find>
-      <find>.data</find>
-      <find>js/</find>
-      <find>branch_in</find>
-      <find>过期</find>
-      <find>print</find>
-      <find>has_delete_permission</find>
+      <find>完成</find>
+      <find>--</find>
+      <find>deffer</find>
+      <find>save_fo</find>
+      <find>check_fields</find>
+      <find>patch</find>
+      <find>valid_forms</find>
+      <find>self.form_obj</find>
+      <find>self._errors</find>
+      <find>get_response</find>
+      <find>get_res</find>
+      <find>self.org_obj =</find>
+      <find>errors</find>
+      <find>updateadmin</find>
+      <find>Update</find>
+      <find>post</find>
+      <find>ChartsView</find>
+      <find>do_filte</find>
+      <find>new</find>
+      <find>has been</find>
+      <find>exist</find>
+      <find>WizardForm</find>
+      <find>计</find>
+      <find>taga</find>
+      <find>table-head</find>
+      <find>restore selected</find>
     </findStrings>
     <replaceStrings>
-      <replace>@xadmin.sites</replace>
-      <replace>self.request</replace>
       <replace>queryset</replace>
       <replace>object</replace>
       <replace>member</replace>
@@ -641,75 +285,80 @@
       <replace>''</replace>
       <replace>', '</replace>
       <replace />
+      <replace>media(</replace>
+      <replace>first_talk_end</replace>
     </replaceStrings>
     <dirStrings>
       <dir>E:\党建\系统\party\xadmin</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/email_manager.html" />
-        <option value="$PROJECT_DIR$/user/util.py" />
-        <option value="$PROJECT_DIR$/robot/daka/wx_listener.py" />
-        <option value="$PROJECT_DIR$/robot/daka/producer.py" />
-        <option value="$PROJECT_DIR$/note/adminx.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/info/actions.py" />
-        <option value="$PROJECT_DIR$/xadmin/plugins/export.py" />
-        <option value="$PROJECT_DIR$/xadmin/plugins/__init__.py" />
-        <option value="$PROJECT_DIR$/note/models.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" />
-        <option value="$PROJECT_DIR$/xadmin/plugins/importexport.py" />
-        <option value="$PROJECT_DIR$/common/base.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_list.top_toolbar.importexport.export-member.html" />
-        <option value="$PROJECT_DIR$/info/urls.py" />
-        <option value="$PROJECT_DIR$/info/views.py" />
-        <option value="$PROJECT_DIR$/xadmin/adminx.py" />
-        <option value="$PROJECT_DIR$/party/views.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_list.top_toolbar.importexport.export_member.html" />
-        <option value="$PROJECT_DIR$/common/storage.py" />
-        <option value="$PROJECT_DIR$/teaching/util.py" />
-        <option value="$PROJECT_DIR$/xadmin/views/base.py" />
-        <option value="$PROJECT_DIR$/notice/tasks.py" />
-        <option value="$PROJECT_DIR$/common/resources.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/import_export/import.html" />
-        <option value="$PROJECT_DIR$/info/resources.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" />
-        <option value="$PROJECT_DIR$/teaching/resources.py" />
-        <option value="$PROJECT_DIR$/robot/daka/consumer.py" />
-        <option value="$PROJECT_DIR$/import_export/admin.py" />
-        <option value="$PROJECT_DIR$/party/urls.py" />
-        <option value="$PROJECT_DIR$/common/rules.py" />
-        <option value="$PROJECT_DIR$/xadmin/views/website.py" />
-        <option value="$PROJECT_DIR$/info/util.py" />
-        <option value="$PROJECT_DIR$/xadmin/plugins/chart.py" />
-        <option value="$PROJECT_DIR$/xadmin/views/list.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_list.results_top.charts.html" />
-        <option value="$PROJECT_DIR$/info/models.py" />
-        <option value="$PROJECT_DIR$/teaching/models.py" />
-        <option value="$PROJECT_DIR$/common/utils.py" />
         <option value="$PROJECT_DIR$/notice/util.py" />
-        <option value="$PROJECT_DIR$/work/adminx.py" />
-        <option value="$PROJECT_DIR$/work/models.py" />
-        <option value="$PROJECT_DIR$/teaching/adminx.py" />
-        <option value="$PROJECT_DIR$/user/models.py" />
-        <option value="$PROJECT_DIR$/user/views.py" />
-        <option value="$PROJECT_DIR$/templates/register.html" />
+        <option value="$PROJECT_DIR$/notice/urls.py" />
+        <option value="$PROJECT_DIR$/common/utils.py" />
+        <option value="$PROJECT_DIR$/notice/views.py" />
+        <option value="$PROJECT_DIR$/info/migrations/0004_auto_20190508_2222.py" />
+        <option value="$PROJECT_DIR$/robot/daka/producer.py" />
+        <option value="$PROJECT_DIR$/robot/daka/consumer.py" />
+        <option value="$PROJECT_DIR$/generate_activities.py" />
+        <option value="$PROJECT_DIR$/xadmin/views/website.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" />
+        <option value="$PROJECT_DIR$/notice/admin.py" />
+        <option value="$PROJECT_DIR$/import_export/formats/base_formats.py" />
+        <option value="$PROJECT_DIR$/info/migrations/0005_auto_20190509_2008.py" />
+        <option value="$PROJECT_DIR$/xadmin/views/base.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_form.html" />
+        <option value="$PROJECT_DIR$/templates/editable_errors.html" />
+        <option value="$PROJECT_DIR$/xadmin/plugins/editable.py" />
+        <option value="$PROJECT_DIR$/xadmin/views/edit.py" />
+        <option value="$PROJECT_DIR$/common/resources.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0003_auto_20190510_0124.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0002_auto_20190509_2008.py" />
+        <option value="$PROJECT_DIR$/mysql/before_migrate.sql" />
+        <option value="$PROJECT_DIR$/mysql/info_view.sql" />
+        <option value="$PROJECT_DIR$/xadmin/templatetags/xadmin_tags.py" />
+        <option value="$PROJECT_DIR$/xadmin/defs.py" />
+        <option value="$PROJECT_DIR$/xadmin/dutils.py" />
+        <option value="$PROJECT_DIR$/xadmin/filters.py" />
+        <option value="$PROJECT_DIR$/xadmin/plugins/filters.py" />
+        <option value="$PROJECT_DIR$/info/filters.py" />
+        <option value="$PROJECT_DIR$/info/migrations/0006_auto_20190510_0538.py" />
+        <option value="$PROJECT_DIR$/xadmin/plugins/chart.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_form.submit_line.wizard.html" />
+        <option value="$PROJECT_DIR$/xadmin/plugins/wizard.py" />
+        <option value="$PROJECT_DIR$/common/forms.py" />
+        <option value="$PROJECT_DIR$/party/urls.py" />
+        <option value="$PROJECT_DIR$/info/util.py" />
+        <option value="$PROJECT_DIR$/info/forms.py" />
+        <option value="$PROJECT_DIR$/info/resources.py" />
+        <option value="$PROJECT_DIR$/info/migrations/0007_auto_20190510_0938.py" />
+        <option value="$PROJECT_DIR$/teaching/models.py" />
         <option value="$PROJECT_DIR$/user/adminx.py" />
+        <option value="$PROJECT_DIR$/info/models.py" />
         <option value="$PROJECT_DIR$/party/settings.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" />
+        <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/info/adminx.py" />
+        <option value="$PROJECT_DIR$/common/base.py" />
+        <option value="$PROJECT_DIR$/xadmin/views/list.py" />
+        <option value="$PROJECT_DIR$/teaching/adminx.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="628" />
+    <option name="y" value="24" />
     <option name="width" value="713" />
-    <option name="height" value="744" />
+    <option name="height" value="723" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -729,7 +378,12 @@
             <path>
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="teaching" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -745,15 +399,15 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\党建\系统\party\mysql" />
+      <recent name="E:\党建\系统\party\upload\Excel模板" />
       <recent name="E:\党建\系统\party" />
       <recent name="E:\党建\系统\party\info" />
       <recent name="E:\党建\系统\party\xadmin\templates\xadmin\blocks" />
-      <recent name="E:\党建\系统\party\upload\Excel模板" />
-      <recent name="E:\党建\系统\party\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\党建\系统\party\notice" />
@@ -776,6 +430,28 @@
     </option>
   </component>
   <component name="RunManager" selected="Django server.party">
+    <configuration name="generate_activities" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="party" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generate_activities.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="wx_listener" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="party" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -825,9 +501,11 @@
     <list>
       <item itemvalue="Django server.party" />
       <item itemvalue="Python.wx_listener" />
+      <item itemvalue="Python.generate_activities" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.generate_activities" />
         <item itemvalue="Python.wx_listener" />
       </list>
     </recent_temporary>
@@ -960,355 +638,364 @@
       <workItem from="1557085878288" duration="498000" />
       <workItem from="1557133224193" duration="4698000" />
       <workItem from="1557150547771" duration="679000" />
+      <workItem from="1557201143629" duration="4055000" />
+      <workItem from="1557309290007" duration="17437000" />
+      <workItem from="1557327549246" duration="6663000" />
+      <workItem from="1557389505046" duration="3272000" />
+      <workItem from="1557392904129" duration="58123000" />
+      <workItem from="1557453961352" duration="253000" />
+      <workItem from="1557477532681" duration="2299000" />
+      <workItem from="1557484571033" duration="623000" />
+      <workItem from="1557488262244" duration="17933000" />
     </task>
-    <task id="LOCAL-00016" summary="成员信息添加一些新字段">
-      <created>1551802477478</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
+    <task id="LOCAL-00078" summary="邮件发送优化">
+      <created>1557313970043</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
       <option name="project" value="LOCAL" />
-      <updated>1551802477478</updated>
+      <updated>1557313970043</updated>
     </task>
-    <task id="LOCAL-00017" summary="一些控制逻辑">
-      <created>1551805399749</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
+    <task id="LOCAL-00079" summary="邮件发送优化">
+      <created>1557314059811</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
       <option name="project" value="LOCAL" />
-      <updated>1551805399749</updated>
+      <updated>1557314059811</updated>
     </task>
-    <task id="LOCAL-00018" summary="标题bug">
-      <created>1551881629937</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
+    <task id="LOCAL-00080" summary="邮件发送优化">
+      <created>1557314257267</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
       <option name="project" value="LOCAL" />
-      <updated>1551881629937</updated>
+      <updated>1557314257267</updated>
     </task>
-    <task id="LOCAL-00019" summary="使用最新版xadmin">
-      <created>1552499847561</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
+    <task id="LOCAL-00081" summary="邮件发送优化">
+      <created>1557314978282</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
       <option name="project" value="LOCAL" />
-      <updated>1552499847561</updated>
+      <updated>1557314978282</updated>
     </task>
-    <task id="LOCAL-00020" summary="快速查看外键">
-      <created>1552533888247</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
+    <task id="LOCAL-00082" summary="邮件发送优化">
+      <created>1557315248663</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
       <option name="project" value="LOCAL" />
-      <updated>1552533888247</updated>
+      <updated>1557315248663</updated>
     </task>
-    <task id="LOCAL-00021" summary="自定义actions">
-      <created>1552793726432</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
+    <task id="LOCAL-00083" summary="邮件发送优化">
+      <created>1557315574648</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
       <option name="project" value="LOCAL" />
-      <updated>1552793726432</updated>
+      <updated>1557315574648</updated>
     </task>
-    <task id="LOCAL-00022" summary="学院管理员看图">
-      <created>1552796845414</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
+    <task id="LOCAL-00084" summary="邮件发送优化">
+      <created>1557315741742</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
       <option name="project" value="LOCAL" />
-      <updated>1552796845424</updated>
+      <updated>1557315741742</updated>
     </task>
-    <task id="LOCAL-00023" summary="批量添加学时">
-      <created>1553444521511</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
+    <task id="LOCAL-00085" summary="td不换行">
+      <created>1557316277214</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
       <option name="project" value="LOCAL" />
-      <updated>1553444521511</updated>
+      <updated>1557316277214</updated>
     </task>
-    <task id="LOCAL-00024" summary="智能提醒">
-      <created>1553795525840</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
+    <task id="LOCAL-00086" summary="邮件发送优化">
+      <created>1557316631911</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
       <option name="project" value="LOCAL" />
-      <updated>1553795525841</updated>
+      <updated>1557316631911</updated>
     </task>
-    <task id="LOCAL-00025" summary="解决中文文件名的问题">
-      <created>1554041927339</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
+    <task id="LOCAL-00087" summary="邮件发送优化">
+      <created>1557316686577</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
       <option name="project" value="LOCAL" />
-      <updated>1554041927339</updated>
+      <updated>1557316686577</updated>
     </task>
-    <task id="LOCAL-00026" summary="邮件提醒">
-      <created>1554047763167</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
+    <task id="LOCAL-00088" summary="bug">
+      <created>1557316763376</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
       <option name="project" value="LOCAL" />
-      <updated>1554047763167</updated>
+      <updated>1557316763376</updated>
     </task>
-    <task id="LOCAL-00027" summary="邮件提醒">
-      <created>1554114751452</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
+    <task id="LOCAL-00089" summary="下载备案表">
+      <created>1557317720416</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
       <option name="project" value="LOCAL" />
-      <updated>1554114751452</updated>
+      <updated>1557317720416</updated>
     </task>
-    <task id="LOCAL-00028" summary="首次组织谈话提醒">
-      <created>1554134643510</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
+    <task id="LOCAL-00090" summary="下载备案表">
+      <created>1557317855120</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
       <option name="project" value="LOCAL" />
-      <updated>1554134643510</updated>
+      <updated>1557317855120</updated>
     </task>
-    <task id="LOCAL-00029" summary="邮件提醒">
-      <created>1554136370208</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00091" summary="下载备案表">
+      <created>1557318315366</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
       <option name="project" value="LOCAL" />
-      <updated>1554136370208</updated>
+      <updated>1557318315366</updated>
     </task>
-    <task id="LOCAL-00030" summary="首页css布局调整">
-      <created>1554298492731</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00092" summary="下载备案表">
+      <created>1557318446356</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
       <option name="project" value="LOCAL" />
-      <updated>1554298492731</updated>
+      <updated>1557318446356</updated>
     </task>
-    <task id="LOCAL-00031" summary="检查首次组织谈话时间、培养联系人和入党介绍人">
-      <created>1554302919311</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00093" summary="下载备案表">
+      <created>1557318607039</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
       <option name="project" value="LOCAL" />
-      <updated>1554302919311</updated>
+      <updated>1557318607039</updated>
     </task>
-    <task id="LOCAL-00032" summary="添加首次组织谈话筛选项">
-      <created>1554370856479</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+    <task id="LOCAL-00094" summary="下载备案表">
+      <created>1557318656928</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
       <option name="project" value="LOCAL" />
-      <updated>1554370856479</updated>
+      <updated>1557318656928</updated>
     </task>
-    <task id="LOCAL-00033" summary="部署">
-      <created>1554895289851</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+    <task id="LOCAL-00095" summary="下载备案表">
+      <created>1557319227122</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
       <option name="project" value="LOCAL" />
-      <updated>1554895289851</updated>
+      <updated>1557319227122</updated>
     </task>
-    <task id="LOCAL-00034" summary="打卡解耦合">
-      <created>1555038852234</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+    <task id="LOCAL-00096" summary="下载备案表">
+      <created>1557319455761</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
       <option name="project" value="LOCAL" />
-      <updated>1555038852234</updated>
+      <updated>1557319455761</updated>
     </task>
-    <task id="LOCAL-00035" summary="打卡解耦合">
-      <created>1555039163527</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+    <task id="LOCAL-00097" summary="下载备案表">
+      <created>1557319745081</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
       <option name="project" value="LOCAL" />
-      <updated>1555039163527</updated>
+      <updated>1557319745081</updated>
     </task>
-    <task id="LOCAL-00036" summary="使用RPC解耦合">
-      <created>1555217001287</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+    <task id="LOCAL-00098" summary="下载备案表">
+      <created>1557319820711</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
       <option name="project" value="LOCAL" />
-      <updated>1555217001288</updated>
+      <updated>1557319820711</updated>
     </task>
-    <task id="LOCAL-00037" summary="使用RPC解耦合">
-      <created>1555217034788</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
+    <task id="LOCAL-00099" summary="下载备案表">
+      <created>1557319894995</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
       <option name="project" value="LOCAL" />
-      <updated>1555217034788</updated>
+      <updated>1557319894995</updated>
     </task>
-    <task id="LOCAL-00038" summary="使用RPC解耦合">
-      <created>1555217057753</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
+    <task id="LOCAL-00100" summary="下载备案表">
+      <created>1557320178010</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
       <option name="project" value="LOCAL" />
-      <updated>1555217057753</updated>
+      <updated>1557320178010</updated>
     </task>
-    <task id="LOCAL-00039" summary="密码重置">
-      <created>1555299837857</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
+    <task id="LOCAL-00101" summary="下载备案表">
+      <created>1557320202354</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
       <option name="project" value="LOCAL" />
-      <updated>1555299837857</updated>
+      <updated>1557320202354</updated>
     </task>
-    <task id="LOCAL-00040" summary="添加js">
-      <created>1555317478332</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
+    <task id="LOCAL-00102" summary="下载备案表">
+      <created>1557320373968</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
       <option name="project" value="LOCAL" />
-      <updated>1555317478332</updated>
+      <updated>1557320373968</updated>
     </task>
-    <task id="LOCAL-00041" summary="邮件提醒">
-      <created>1555336421404</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
+    <task id="LOCAL-00103" summary="下载备案表">
+      <created>1557321556619</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
       <option name="project" value="LOCAL" />
-      <updated>1555336421405</updated>
+      <updated>1557321556619</updated>
     </task>
-    <task id="LOCAL-00042" summary="控制view权限">
-      <created>1555341380759</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
+    <task id="LOCAL-00104" summary="下载备案表">
+      <created>1557321720847</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
       <option name="project" value="LOCAL" />
-      <updated>1555341380759</updated>
+      <updated>1557321720847</updated>
     </task>
-    <task id="LOCAL-00043" summary="控制view权限">
-      <created>1555341391199</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
+    <task id="LOCAL-00105" summary="下载备案表">
+      <created>1557322072725</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
       <option name="project" value="LOCAL" />
-      <updated>1555341391199</updated>
+      <updated>1557322072725</updated>
     </task>
-    <task id="LOCAL-00044" summary="控制view权限">
-      <created>1555342079001</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
+    <task id="LOCAL-00106" summary="下载备案表">
+      <created>1557322276022</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
       <option name="project" value="LOCAL" />
-      <updated>1555342079001</updated>
+      <updated>1557322276022</updated>
     </task>
-    <task id="LOCAL-00045" summary="控制view权限">
-      <created>1555342224523</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
+    <task id="LOCAL-00107" summary="下载备案表">
+      <created>1557322892441</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
       <option name="project" value="LOCAL" />
-      <updated>1555342224523</updated>
+      <updated>1557322892441</updated>
     </task>
-    <task id="LOCAL-00046" summary="控制view权限2">
-      <created>1555343487501</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
+    <task id="LOCAL-00108" summary="下载备案表">
+      <created>1557323020985</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
       <option name="project" value="LOCAL" />
-      <updated>1555343487501</updated>
+      <updated>1557323020985</updated>
     </task>
-    <task id="LOCAL-00047" summary="首页待办事项">
-      <created>1555345585723</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
+    <task id="LOCAL-00109" summary="添加字段">
+      <created>1557324855231</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
       <option name="project" value="LOCAL" />
-      <updated>1555345585723</updated>
+      <updated>1557324855231</updated>
     </task>
-    <task id="LOCAL-00048" summary="首页待办事项">
-      <created>1555345841947</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
+    <task id="LOCAL-00110" summary="添加字段">
+      <created>1557325006688</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
       <option name="project" value="LOCAL" />
-      <updated>1555345841947</updated>
+      <updated>1557325006688</updated>
     </task>
-    <task id="LOCAL-00049" summary="首页待办事项">
-      <created>1555390268565</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
+    <task id="LOCAL-00111" summary="添加字段">
+      <created>1557325443064</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
       <option name="project" value="LOCAL" />
-      <updated>1555390268565</updated>
+      <updated>1557325443064</updated>
     </task>
-    <task id="LOCAL-00050" summary="首页代办事项——导出">
-      <created>1555418865673</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
+    <task id="LOCAL-00112" summary="mysql view">
+      <created>1557325757149</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
       <option name="project" value="LOCAL" />
-      <updated>1555418865674</updated>
+      <updated>1557325757149</updated>
     </task>
-    <task id="LOCAL-00051" summary="export自动调整列宽">
-      <created>1555420714830</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
+    <task id="LOCAL-00113" summary="个人信息批量修改">
+      <created>1557327275272</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
       <option name="project" value="LOCAL" />
-      <updated>1555420714831</updated>
+      <updated>1557327275272</updated>
     </task>
-    <task id="LOCAL-00052" summary="Excel模板自动填充">
-      <created>1555433375189</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
+    <task id="LOCAL-00114" summary="批量修改个人信息">
+      <created>1557327660790</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
       <option name="project" value="LOCAL" />
-      <updated>1555433375190</updated>
+      <updated>1557327660790</updated>
     </task>
-    <task id="LOCAL-00053" summary="自定义导出">
-      <created>1555437853990</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
+    <task id="LOCAL-00115" summary="' '">
+      <created>1557327780526</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
       <option name="project" value="LOCAL" />
-      <updated>1555437853991</updated>
+      <updated>1557327780526</updated>
     </task>
-    <task id="LOCAL-00054" summary="模型-工作笔记">
-      <created>1555523541709</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
+    <task id="LOCAL-00116" summary="微信监听">
+      <created>1557330892359</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
       <option name="project" value="LOCAL" />
-      <updated>1555523541710</updated>
+      <updated>1557330892359</updated>
     </task>
-    <task id="LOCAL-00055" summary="学时导入允许使用名字">
-      <created>1555690434802</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
+    <task id="LOCAL-00117" summary="部署到Ubuntu">
+      <created>1557331131676</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
       <option name="project" value="LOCAL" />
-      <updated>1555690434804</updated>
+      <updated>1557331131676</updated>
     </task>
-    <task id="LOCAL-00056" summary="导入错误提示">
-      <created>1555690478984</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
+    <task id="LOCAL-00118" summary="部署到Ubuntu">
+      <created>1557331643391</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
       <option name="project" value="LOCAL" />
-      <updated>1555690478984</updated>
+      <updated>1557331643391</updated>
     </task>
-    <task id="LOCAL-00057" summary="xadmin响应慢——ORM优化">
-      <created>1555754041154</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
+    <task id="LOCAL-00119" summary="部署到Ubuntu">
+      <created>1557332184340</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
       <option name="project" value="LOCAL" />
-      <updated>1555754041155</updated>
+      <updated>1557332184340</updated>
     </task>
-    <task id="LOCAL-00058" summary="权限修复">
-      <created>1555824073642</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
+    <task id="LOCAL-00120" summary="部署到Ubuntu">
+      <created>1557332832971</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
       <option name="project" value="LOCAL" />
-      <updated>1555824073643</updated>
+      <updated>1557332832971</updated>
     </task>
-    <task id="LOCAL-00059" summary="图表-党辅按党支部查看">
-      <created>1555838290695</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
+    <task id="LOCAL-00121" summary="部署到Ubuntu">
+      <created>1557333071548</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
       <option name="project" value="LOCAL" />
-      <updated>1555838290695</updated>
+      <updated>1557333071548</updated>
     </task>
-    <task id="LOCAL-00060" summary="bug修复">
-      <created>1555854251595</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
+    <task id="LOCAL-00122" summary="部署到Ubuntu">
+      <created>1557333336094</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
       <option name="project" value="LOCAL" />
-      <updated>1555854251596</updated>
+      <updated>1557333336094</updated>
     </task>
-    <task id="LOCAL-00061" summary="邮件提醒">
-      <created>1555864687294</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
+    <task id="LOCAL-00123" summary="部署到Ubuntu">
+      <created>1557333578900</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
       <option name="project" value="LOCAL" />
-      <updated>1555864687295</updated>
+      <updated>1557333578900</updated>
     </task>
-    <task id="LOCAL-00062" summary="流程依赖分中大与非中大发展党员">
-      <created>1555937852306</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
+    <task id="LOCAL-00124" summary="部署到Ubuntu">
+      <created>1557334742630</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
       <option name="project" value="LOCAL" />
-      <updated>1555937852307</updated>
+      <updated>1557334742630</updated>
     </task>
-    <task id="LOCAL-00063" summary="ORM性能优化、Cache优化">
-      <created>1557086275490</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
+    <task id="LOCAL-00125" summary="部署到Ubuntu">
+      <created>1557335203012</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
       <option name="project" value="LOCAL" />
-      <updated>1557086275491</updated>
+      <updated>1557335203012</updated>
     </task>
-    <task id="LOCAL-00064" summary="user模型添加姓名字段，不查询member表">
-      <created>1557138544704</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
+    <task id="LOCAL-00126" summary="notice">
+      <created>1557393397159</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
       <option name="project" value="LOCAL" />
-      <updated>1557138544704</updated>
+      <updated>1557393397159</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="652661000" />
+    <option name="totallyTimeSpent" value="763319000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1323,12 +1010,12 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28895614" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17473525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.3737705" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49621785" weight="0.3737705" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1336,40 +1023,16 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.33114755" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.32733223" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.3295082" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.505295" side_tool="true" weight="0.3295082" />
-      <window_info anchor="bottom" id="File Transfer" order="13" sideWeight="0.494705" visible="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50378215" side_tool="true" weight="0.3737705" />
+      <window_info anchor="bottom" id="File Transfer" order="13" sideWeight="0.494705" weight="0.3295082" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32980332" />
       <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27987897" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.3737705" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3295082" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.33114755" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.3295082" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.505295" side_tool="true" weight="0.3295082" />
-      <window_info anchor="bottom" id="File Transfer" order="13" sideWeight="0.494705" visible="true" weight="0.3295082" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32980332" />
-      <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -1379,19 +1042,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/djangox" />
     </ignored-roots>
-    <MESSAGE value="检查首次组织谈话时间、培养联系人和入党介绍人" />
-    <MESSAGE value="添加首次组织谈话筛选项" />
-    <MESSAGE value="部署" />
-    <MESSAGE value="打卡解耦合" />
-    <MESSAGE value="使用RPC解耦合" />
-    <MESSAGE value="密码重置" />
-    <MESSAGE value="添加js" />
-    <MESSAGE value="控制view权限" />
-    <MESSAGE value="控制view权限2" />
-    <MESSAGE value="首页待办事项" />
-    <MESSAGE value="首页代办事项——导出" />
-    <MESSAGE value="export自动调整列宽" />
-    <MESSAGE value="Excel模板自动填充" />
     <MESSAGE value="自定义导出" />
     <MESSAGE value="模型-工作笔记" />
     <MESSAGE value="学时导入允许使用名字" />
@@ -1404,395 +1054,420 @@
     <MESSAGE value="流程依赖分中大与非中大发展党员" />
     <MESSAGE value="ORM性能优化、Cache优化" />
     <MESSAGE value="user模型添加姓名字段，不查询member表" />
-    <option name="LAST_COMMIT_MESSAGE" value="user模型添加姓名字段，不查询member表" />
+    <MESSAGE value="邮件发送bug" />
+    <MESSAGE value="td不换行" />
+    <MESSAGE value="邮件发送优化" />
+    <MESSAGE value="bug" />
+    <MESSAGE value="下载备案表" />
+    <MESSAGE value="添加字段" />
+    <MESSAGE value="mysql view" />
+    <MESSAGE value="个人信息批量修改" />
+    <MESSAGE value="批量修改个人信息" />
+    <MESSAGE value="' '" />
+    <MESSAGE value="微信监听" />
+    <MESSAGE value="部署到Ubuntu" />
+    <MESSAGE value="notice" />
+    <option name="LAST_COMMIT_MESSAGE" value="notice" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/info/views.py" />
-    <entry file="file://$PROJECT_DIR$/xadmin/adminx.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/plugins/editable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/info/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/plugins/importexport.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="469" column="14" lean-forward="true" selection-start-line="467" selection-start-column="12" selection-end-line="469" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/import_export/formats/base_formats.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="209" column="86" lean-forward="true" selection-start-line="209" selection-start-column="4" selection-end-line="209" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_list.top_toolbar.importexport.export_member.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/migrations/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/storage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/views/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1168">
-          <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
+        <state relative-caret-position="352">
+          <caret line="164" column="38" selection-start-line="164" selection-start-column="38" selection-end-line="164" selection-end-column="38" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/base.py">
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0003_auto_20190510_0124.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="10">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notice/views.py">
+    <entry file="file://$PROJECT_DIR$/mysql/info_view.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="38" column="78" selection-start-line="38" selection-start-column="78" selection-end-line="38" selection-end-column="78" />
+        <state relative-caret-position="128">
+          <caret line="8" column="50" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templatetags/xadmin_tags.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="85" column="18" lean-forward="true" selection-start-line="72" selection-end-line="85" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="98" column="21" selection-start-line="98" selection-start-column="10" selection-end-line="98" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/import_export/import.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1536">
-          <caret line="96" column="11" selection-start-line="96" selection-start-column="11" selection-end-line="96" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/info/resources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="39" column="74" selection-start-line="39" selection-start-column="74" selection-end-line="39" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/resources.py">
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0002_auto_20190509_2008.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
-          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base.html">
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0001_initial.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+        <state relative-caret-position="176">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
+    <entry file="file://$PROJECT_DIR$/mysql/before_migrate.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1520">
-          <caret line="95" column="29" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+        <state relative-caret-position="128">
+          <caret line="8" column="63" lean-forward="true" selection-start-line="8" selection-end-line="8" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/views/detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1318">
+          <caret line="128" column="6" selection-start-line="128" selection-start-column="6" selection-end-line="128" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/db/models/query.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="821" column="8" selection-start-line="821" selection-start-column="8" selection-end-line="821" selection-end-column="8" />
+        <state relative-caret-position="214">
+          <caret line="302" selection-start-line="302" selection-end-line="302" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/resources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="84" column="34" selection-start-line="84" selection-start-column="34" selection-end-line="84" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/robot/daka/consumer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="52" column="38" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/import_export/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/urls.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
-          <caret line="53" column="22" lean-forward="true" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/plugins/images.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-720">
           <folding>
-            <element signature="e#629#639#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/rules.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/templatetags/xadmin_tags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="20" column="44" lean-forward="true" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/defs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notice/admin.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/dutils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="81" column="41" selection-start-line="81" selection-start-column="38" selection-end-line="81" selection-end-column="41" />
+        <state relative-caret-position="158">
+          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#15#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/views/list.py">
+    <entry file="file://$PROJECT_DIR$/info/filters.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/contrib/admin/views/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="492" column="23" selection-start-line="492" selection-start-column="23" selection-end-line="492" selection-end-column="23" />
+        <state relative-caret-position="22">
+          <caret line="187" column="8" selection-start-line="187" selection-start-column="8" selection-end-line="187" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/views/website.py">
+    <entry file="file://$PROJECT_DIR$/info/migrations/0006_auto_20190510_0538.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
+        <state relative-caret-position="48">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/plugins/chart.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/plugins/filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1218">
+          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/plugins/chart.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_form.before_fieldsets.wizard.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_form.submit_line.wizard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
+        <state relative-caret-position="44">
+          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notice/urls.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/builtins.pyi">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137" />
+        <state relative-caret-position="-650">
+          <caret line="631" selection-start-line="631" selection-end-line="631" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/info/util.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/db/models/fields/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="55" column="23" lean-forward="true" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
+        <state relative-caret-position="118">
+          <caret line="1344" column="8" selection-start-line="1344" selection-start-column="8" selection-end-line="1344" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/views/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-370">
+          <caret line="134" column="6" selection-start-line="134" selection-start-column="6" selection-end-line="134" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/plugins/wizard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-624">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/forms/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="996" column="22" selection-start-line="996" selection-start-column="17" selection-end-line="996" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/db/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="932" column="8" selection-start-line="932" selection-start-column="8" selection-end-line="932" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="51" column="6" lean-forward="true" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+          <folding>
+            <element signature="e#629#639#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_list.results_top.charts.html">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/forms/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        <state relative-caret-position="166">
+          <caret line="182" column="8" selection-start-line="182" selection-start-column="8" selection-end-line="182" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/utils.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/views/edit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="126">
+          <caret line="153" column="34" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/util.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/migrations/0007_auto_20190510_0938.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/xadmin/static/xadmin/vendor/bootstrap/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="6600" column="1" selection-start-line="6600" selection-start-column="1" selection-end-line="6600" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="92" column="5" lean-forward="true" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="108" column="34" selection-start-line="108" selection-start-column="34" selection-end-line="108" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="40" column="9" lean-forward="true" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="137" column="27" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="324" column="20" selection-start-line="324" selection-start-column="20" selection-end-line="324" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="45" column="22" lean-forward="true" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/views/list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="371" lean-forward="true" selection-start-line="371" selection-end-line="371" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teaching/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="50" column="22" selection-start-line="50" selection-start-column="22" selection-end-line="50" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/robot/util.py" />
-    <entry file="file://$PROJECT_DIR$/robot/notice.py" />
-    <entry file="file://$PROJECT_DIR$/notice/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="57" column="46" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
+        <state relative-caret-position="1008">
+          <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/notice/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="12" column="41" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="62" column="34" lean-forward="true" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        <state relative-caret-position="352">
+          <caret line="41" column="33" lean-forward="true" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/util.py">
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="48" column="52" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
+        <state relative-caret-position="112">
+          <caret line="46" column="64" selection-start-line="46" selection-start-column="64" selection-end-line="46" selection-end-column="64" />
           <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/info/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1392">
-          <caret line="95" column="63" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="181" selection-start-line="181" selection-end-line="181" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/info/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="227" column="13" lean-forward="true" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

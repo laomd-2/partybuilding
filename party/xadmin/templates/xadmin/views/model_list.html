@@ -6,6 +6,20 @@
 {% block extrastyle %}
 <style type="text/css">
   .btn-toolbar{margin-top: 0;}
+
+  .absolute-right {
+      position: absolute;
+      right: 0.3em
+  }
+
+  tr.grid-item > td {
+      position: relative;
+  }
+
+  .td-text {
+      padding-right: 1em;
+  }
+
   #content-block.full-content{margin-left: 0;}
 </style>
 {% endblock %}
@@ -40,6 +54,7 @@
       </a>
       <ul class="dropdown-menu model_fields pull-right" role="menu" aria-labelledby="dLabel">
         <li><a href="{{clean_select_field_url}}"><i class="fa fa-refresh"></i> {% trans "Restore Selected" %}</a></li>
+          <li><a href="{{ all_field_url }}"><i class="fa fa-arrows"></i> 选择全部列</a></li>
         <li class="divider"></li>
         {% for f, selected, flink in model_fields %}
         <li><a href="{{flink}}">
@@ -75,16 +90,16 @@
   
   <form id="changelist-form" action="" method="post"{% view_block 'result_list_form' %}>{% csrf_token %}
   {% view_block 'results_top' %}
-  <div class="results table-responsive">
+      <div class="results table-responsive" style="overflow-x: auto; width: 100%">
   {% if results %}
   {% block results_grid %}
-  <table class="table table-bordered table-striped table-hover">
+      <table class="table table-bordered table-striped table-hover" style="position: relative">
     {% block results_grid_head %}
     <thead>
       <tr>{% for o in result_headers.cells %}
         <th {{o.tagattrs}}>
           {% if o.btns %}
-            <div class="pull-right">
+              <div class="pull-right" style="display: inline-block">
               {% for b in o.btns %}
                 {{b|safe}}
               {% endfor %}
@@ -112,10 +127,12 @@
     {% block results_grid_body %}
     <tbody>
     {% for row in results %}
-      <tr class="grid-item{% if row.css_class %} {{row.css_class}}{%endif%}" {{ row.tagattrs }}>{% for o in row.cells %}
+        <tr {% if forloop.first %}id="first-row" {% endif %}
+            class="grid-item{% if row.css_class %} {{ row.css_class }}{% endif %}" {{ row.tagattrs }}>
+            {% for o in row.cells %}
         <td {{o.tagattrs}}>
           {% if o.btns %}
-            <div class="btn-group pull-right">
+              <div class="btn-group absolute-right">
               {% for b in o.btns %}
                 {{b|safe}}
               {% endfor %}
@@ -133,7 +150,10 @@
               </ul>
             </div>
           {% else %}
-            {{ o.label }}
+              {% if not forloop.first %}
+                  <div class="td-text">{% endif %}
+          {{ o.label }}
+          {% if not forloop.first %}</div>{% endif %}
           {% endif %}
         </td>
       {% endfor %}</tr>

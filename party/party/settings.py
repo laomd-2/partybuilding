@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'z2t6bzn=_805^)wl=h5aa2w7ss=e9)yg#ak^3efjm(1g%t!83&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 INTERNAL_IPS = [
@@ -48,11 +48,11 @@ INSTALLED_APPS = [
     'rules',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += [
-        'template_timings_panel',
-        'debug_toolbar'
-    ]
+# if DEBUG:
+#     INSTALLED_APPS += [
+#         'template_timings_panel',
+#         'debug_toolbar'
+#     ]
 
 AUTHENTICATION_BACKENDS = (
     'rules.permissions.ObjectPermissionBackend',
@@ -69,17 +69,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': [
-            '127.0.0.1:11211',
-        ]
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': [
+#             '127.0.0.1:11211',
+#         ]
+#     }
+# }
 
-if DEBUG:
-    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
+# if DEBUG:
+#     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
 ROOT_URLCONF = 'party.urls'
 
@@ -168,15 +168,19 @@ EMAIL_HOST_USER = 'laomd@mail2.sysu.edu.cn'  # 帐号
 EMAIL_HOST_PASSWORD = 'Laomadong7113'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# session 设置
+SESSION_COOKIE_AGE = 60 * 30  # 30分钟
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
 HOST_IP = '222.200.185.71:8080'
 
-DEBUG_TOOLBAR_CONFIG = {
-    "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
-}
+# DEBUG_TOOLBAR_CONFIG = {
+#     "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
+# }
 
-DEBUG_TOOLBAR_PANELS = [
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.templates.TemplatesPanel',
-    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
-]
+# DEBUG_TOOLBAR_PANELS = [
+#     'debug_toolbar.panels.timer.TimerPanel',
+#     'debug_toolbar.panels.sql.SQLPanel',
+#     'debug_toolbar.panels.templates.TemplatesPanel',
+#     'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+# ]

@@ -4,6 +4,7 @@ import re
 from django.conf import settings
 from django.contrib.auth import get_permission_codename
 
+from common.forms import DateCheckModelForm
 from import_export.formats import base_formats
 
 
@@ -39,7 +40,9 @@ def get_old(obj):
 
 
 class AdminObject(object):
+    form = DateCheckModelForm
     list_export = []
+    list_exclude = ['id']
     list_per_page = 15
     formats = base_formats.DEFAULT_FORMATS[2:3]
     excel_template = os.path.join(settings.MEDIA_ROOT, 'Excel模板/空白.xlsx')

@@ -104,9 +104,9 @@ xadmin.site.register(User, UserAdmin)
 
 @xadmin.sites.register(views.CommAdminView)
 class GlobalSettings(object):
-    site_title = "计二党建系统"
+    site_title = "数据科学与计算机学院学生党建系统"
     # 系统名称
-    site_footer = "版权所有@SDCS计算机本科生第二党支部"
+    site_footer = "版权所有@数据科学与计算机学院"
     # 底部版权栏
     # menu_style = "accordion"
     #  将菜单栏收起来

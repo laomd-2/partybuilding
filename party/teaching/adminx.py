@@ -37,9 +37,10 @@ class ActivityAdmin(AdminObject):
     # filter_vertical = ('Branch',)  # 关联表
     # style_fields = {'branch': 'm2m_transfer'}
 
-    list_display = ['id', 'name', 'date', 'end_time', 'atv_type', 'credit', 'get_branches']
+    list_display = ['id', 'name', 'date', 'atv_type', 'credit', 'get_branches']
+    list_exclude = ['image%d' % (i + 1) for i in range(5)]
     list_display_links = ['name']
-    list_filter = ['date', 'end_time', 'atv_type', 'credit']
+    list_filter = ['date', 'atv_type', 'credit']
     search_fields = ['name']
     list_per_page = 15
     model_icon = 'fa fa-users'
@@ -211,8 +212,10 @@ class CreditAdminBase(AdminObject):
         'import_resource_class': CreditResource,
         'export_resource_class': CreditResource
     }
-    list_display = ['member', 'activity', 'credit', 'last_modified']
-    list_display_links = ['member']
+    list_display = ['get_member_netid', 'get_member_name', 'activity', 'get_activity_type', 'get_activity_date',
+                    'credit']
+    list_exclude = ['id']
+    list_display_links = ['get_member_netid']
 
     @property
     def list_filter(self):

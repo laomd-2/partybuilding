@@ -100,25 +100,25 @@ def get_members(branch, names):
     return res
 
 
-def check_fields(request, obj, msg=messages.error):
+def check_fields(obj, error):
     old = get_old(obj)
 
     errors = check_date_dep(obj, old)
     for e in errors:
-        msg(request, "%s到%s需要%s，而%s只用了%d天。"
-            % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
+        error.append("%s到%s需要%s，而%s只用了%d天。"
+                     % (Member._meta.get_field(e[0]).verbose_name.strip('时间'),
                Member._meta.get_field(e[1]).verbose_name.strip('时间'),
                e[3], obj, e[2]))
         return False
     # 检查首次组织谈话时间
     if obj.is_sysu and not check_first_talk_date(obj, old):
-        msg(request, '未在一个月内完成首次组织谈话。')
+        error.append('未在一个月内完成首次组织谈话。')
         return False
     # 检查入党介绍人
     if obj.is_sysu and (old is None or obj.recommenders != old.recommenders):
         for m in get_members(obj.branch_id, get_chinese(str(obj.recommenders))):
             if not m.is_real_party_member():
-                msg(request, '入党介绍人%s不是正式党员。' % m.name)
+                error.append('入党介绍人%s不是正式党员。' % m.name)
                 return False
     return True
 

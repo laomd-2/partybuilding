@@ -77,7 +77,7 @@ class ResultItem(object):
         return text
 
     @property
-    def tagattrs(self):
+    def first_talk_endttrs(self):
         return mark_safe(
             '%s%s' % ((self.tag_attrs and ' '.join(self.tag_attrs) or ''),
                       (self.classes and (' class="%s"' % ' '.join(self.classes)) or '')))
@@ -378,12 +378,17 @@ class ListAdminView(ModelAdminView):
         self.title = _('%s List') % force_text(self.opts.verbose_name)
         model_fields = [(f, f.name in self.list_display, self.get_check_field_url(f))
                         for f in (list(self.opts.fields) + self.get_model_method_fields()) if f.name not in self.list_exclude]
-
+        all_field_url = [f.name for f in self.model._meta.fields if f.name not in self.list_exclude]
+        for f in model_fields:
+            for f2 in f[2][7:].split('.'):
+                if f2 not in all_field_url:
+                    all_field_url.append(f2)
         new_context = {
             'model_name': force_text(self.opts.verbose_name_plural),
             'title': self.title,
             'cl': self,
             'model_fields': model_fields,
+            'all_field_url': '?_cols=' + '.'.join(all_field_url),
             'clean_select_field_url': self.get_query_string(remove=[COL_LIST_VAR]),
             'has_add_permission': self.has_add_permission(),
             'app_label': self.app_label,

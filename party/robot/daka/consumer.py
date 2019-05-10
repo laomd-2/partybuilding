@@ -52,7 +52,7 @@ def consume():
                 xuexi = get_activity(content, now)
                 credit = TakePartIn2.objects.get(member=sharing.member, activity=xuexi)
                 credit.credit -= xuexi.credit
-                if credit.credit <= 0:
+                if credit.creit <= 0:
                     credit.delete()
                 else:
                     credit.save()

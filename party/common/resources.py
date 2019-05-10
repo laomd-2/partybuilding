@@ -14,7 +14,8 @@ class MyResource(resources.ModelResource):
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         fields = dict((field.verbose_name, field.name) for field in self._meta.model._meta.fields)
-        dataset.headers = [fields[verbose_name.replace('\n', '').replace(' ', '').replace('\t', '')]
+        dataset.headers = [fields.get(verbose_name.replace('\n', '').replace(' ', '').replace('\t', '')
+                                      if verbose_name else verbose_name)
                            for verbose_name in dataset.headers]
         super().before_import(dataset, using_transactions, dry_run, **kwargs)
 
@@ -25,9 +26,9 @@ class MyResource(resources.ModelResource):
             if isinstance(value, float) and 49 * 365 < value < (2050 - 1900) * 365:
                 value = str(base_date + datetime.timedelta(days=int(value - 2)))
             elif isinstance(value, str):
-                if value == '是' or value == '完成':
+                if value == '是':
                     value = True
-                elif value == '否' or value == '未完成':
+                elif value == '否':
                     value = False
                 else:
                     for rep in replaces:

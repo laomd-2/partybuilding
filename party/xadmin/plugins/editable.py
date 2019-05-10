@@ -1,9 +1,14 @@
+import json
+
 from django import template
+from django.contrib import messages
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import models, transaction
 from django.forms.models import modelform_factory
 from django.forms import Media
 from django.http import Http404, HttpResponse
+from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
@@ -159,7 +164,6 @@ class EditPatchView(ModelFormAdminView, ListAdminView):
         else:
             result['result'] = 'error'
             result['errors'] = JsonErrorDict(form.errors, form).as_json()
-
         return self.render_response(result)
 
 

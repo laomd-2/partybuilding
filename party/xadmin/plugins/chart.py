@@ -11,9 +11,10 @@ from django.utils.http import urlencode
 from django.utils.encoding import force_text, smart_text
 from django.utils.translation import ugettext_lazy as _, ugettext
 
+from common.rules import is_school_admin
 from xadmin.plugins.utils import get_context_dict
 from xadmin.sites import site
-from xadmin.views import BaseAdminPlugin, ListAdminView
+from xadmin.views import BaseAdminPlugin, ListAdminView, DetailAdminView, UpdateAdminView
 from xadmin.views.dashboard import ModelBaseWidget, widget_manager
 from xadmin.util import lookup_field, label_for_field, json
 
@@ -101,6 +102,14 @@ class ChartsPlugin(BaseAdminPlugin):
                                              context=get_context_dict(context)))
 
 
+class DetailChartsPlugin(ChartsPlugin):
+    def init_request(self, *args, **kwargs):
+        return is_school_admin(self.request.user) and super().init_request(*args, **kwargs)
+
+    def block_after_fieldsets(self, context, nodes):
+        return self.block_results_bottom(context, nodes)
+
+
 class ChartsView(ListAdminView):
     data_charts = {}
 
@@ -122,4 +131,6 @@ class ChartsView(ListAdminView):
 
 
 site.register_plugin(ChartsPlugin, ListAdminView)
+site.register_plugin(DetailChartsPlugin, DetailAdminView)
+site.register_plugin(DetailChartsPlugin, UpdateAdminView)
 site.register_modelview(r'^chart/(.+)/$', ChartsView, name='%s_%s_chart')

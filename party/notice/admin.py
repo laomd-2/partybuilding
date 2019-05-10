@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from common.utils import *
 from info.models import Dependency
 from openpyxl import load_workbook
@@ -84,7 +86,8 @@ class Table:
 
 class FirstTalk(Table):
     excel_template = media('Excel模板/首次组织谈话.xlsx')
-    fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number', 'talk_date_end']
+    fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number',
+              'first_talk_end']
     verbose_name = '首次组织谈话'
     phase = verbose_name
 
@@ -95,7 +98,7 @@ class FirstTalk(Table):
                                                           first_talk_date__isnull=True,
                                                           application_date__isnull=False,
                                                           application_date__gte=end).extra(
-            select={'talk_date_end': 'DATE_ADD(application_date, INTERVAL 1 MONTH)'})
+            select={'first_talk_end': 'DATE_ADD(application_date, INTERVAL 1 MONTH)'})
 
 
 class Activist(Table):
@@ -109,7 +112,7 @@ class Activist(Table):
 
     @classmethod
     def check(cls, when, queryset):
-        msg = []
+        deffer = []
         for member in queryset:
             application_date = member['application_date']
             if isinstance(application_date, datetime.datetime):
@@ -119,11 +122,17 @@ class Activist(Table):
             interval = (when - application_date).days
             if 2 <= month < 8:
                 if when.month > 9 or interval > 4 * 30:
-                    msg.append((member['netid'], member['name'], cls.phase))
+                    deffer.append(member['netid'])
             else:
                 if when.month > 3 or interval > 4 * 30:
-                    msg.append((member['netid'], member['name'], cls.phase))
-        return msg
+                    deffer.append(member['netid'])
+        res = []
+        members = Member.objects.select_related(None).filter(netid__in=deffer).values('netid', 'name', 'remarks')
+        for m in members:
+            remark = m['remarks']
+            if '入党积极分子延迟发展' not in remark:
+                res.append((m['netid'], m['name'], cls.phase))
+        return res
 
     @classmethod
     def complete_beian(cls, member):
@@ -143,7 +152,7 @@ class Activist(Table):
             pass
         return Member.objects.select_related(None).filter(**kwargs, activist_date__isnull=True,
                                                           application_date__isnull=False,
-                                                          first_talk_date__isnull=False,
+                                                          # first_talk_date__isnull=False,
                                                           application_date__lt=end)
 
 
@@ -275,6 +284,7 @@ class PreMember(Table):
             pass
         return Member.objects.select_related(None).filter(**kwargs, first_branch_conference__isnull=True,
                                                           key_develop_person_date__isnull=False,
+                                                          graduated_party_school_date__isnull=False,
                                                           key_develop_person_date__lt=end)
 
 

@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from collections import OrderedDict
 
 from django.contrib import messages
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
@@ -45,11 +46,14 @@ class IndexView(Dashboard):
                 beian_tile = model.beian_template.split('/')[-1]
                 beian_tile = beian_tile[beian_tile.find('：') + 1: beian_tile.rfind('.')]
                 affairs.append([model.__name__.lower(), model.verbose_name, result, beian_tile])
-            if is_admin(self.request.user):
+            if is_branch_manager(self.request.user):
                 today = datetime.datetime.now().date()
                 msg.extend(model.check(today, query))
         for m in msg:
-            messages.warning(self.request, '请及时更新%d(%s)确定为%s的时间，或在备注中说明延迟发展的原因。' % m)
+            messages.warning(self.request,
+                             mark_safe('请及时更新<a href="/info/member/{netid}/update">{netid}({name})</a>确定为{phase}的时间，'
+                                       '或在备注中说明延迟发展的原因（格式：{phase}延迟发展-原因）。'
+                                       .format(netid=m[0], name=m[1], phase=m[2])))
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)
         context['can_beian'] = is_admin(self.request.user)
@@ -72,7 +76,6 @@ class UserSettingView(BaseAdminView):
 
 
 class LoginView(BaseAdminView):
-
     title = _("Please Login")
     login_form = None
     login_template = None
@@ -109,7 +112,6 @@ class LoginView(BaseAdminView):
 
 
 class LogoutView(BaseAdminView):
-
     logout_template = None
     need_site_permission = False
 

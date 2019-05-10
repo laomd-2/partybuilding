@@ -285,7 +285,6 @@ class ModelFormAdminView(ModelAdminView):
     def post(self, request, *args, **kwargs):
         self.instance_forms()
         self.setup_forms()
-
         if self.valid_forms():
             self.save_forms()
             self.save_models()
@@ -296,7 +295,6 @@ class ModelFormAdminView(ModelAdminView):
                 return HttpResponseRedirect(response)
             else:
                 return response
-
         return self.get_response()
 
     @filter_hook
