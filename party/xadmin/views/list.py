@@ -370,6 +370,16 @@ class ListAdminView(ModelAdminView):
         return [FakeMethodField(name, getattr(method, 'short_description', capfirst(name.replace('_', ' '))))
                 for name, method in methods]
 
+    def get_placeholder(self):
+        placeholders = []
+        for field in self.search_fields:
+            model = self.model
+            fields = field.split('__')
+            for foreign in fields[:-1]:
+                model = model._meta.get_field(foreign).related_model
+            placeholders.append(model._meta.get_field(fields[-1]).verbose_name)
+        return '或'.join(placeholders)
+
     @filter_hook
     def get_context(self):
         """
@@ -383,6 +393,15 @@ class ListAdminView(ModelAdminView):
             for f2 in f[2][7:].split('.'):
                 if f2 not in all_field_url:
                     all_field_url.append(f2)
+
+        headers = self.result_headers()
+        results = self.results()
+        if headers.cells[-1].text == '&nbsp;':
+            tmp = headers.cells.pop(-1)
+            headers.cells.insert(1, tmp)
+            for row in results:
+                tmp = row.cells.pop(-1)
+                row.cells.insert(1, tmp)
         new_context = {
             'model_name': force_text(self.opts.verbose_name_plural),
             'title': self.title,
@@ -395,9 +414,11 @@ class ListAdminView(ModelAdminView):
             'brand_name': self.opts.verbose_name_plural,
             'brand_icon': self.get_model_icon(self.model),
             'add_url': self.model_admin_url('add'),
-            'result_headers': self.result_headers(),
-            'results': self.results()
+            'result_headers': headers,
+            'results': results,
+            'placeholder': self.get_placeholder()
         }
+
         context = super(ListAdminView, self).get_context()
         context.update(new_context)
         return context

@@ -214,7 +214,7 @@ class CreditAdminBase(AdminObject):
     }
     list_display = ['get_member_netid', 'get_member_name', 'activity', 'get_activity_type', 'get_activity_date',
                     'credit']
-    list_exclude = ['id']
+    list_exclude = ['id', 'member']
     list_display_links = ['get_member_netid']
 
     @property

@@ -61,7 +61,7 @@ class TakePartInBase(models.Model):
 
     class Meta:
         unique_together = ('activity', 'member')
-        ordering = ('-last_modified', '-credit', 'member')
+        ordering = ('member', '-activity')
         abstract = True
 
     def get_member_branch(self):
