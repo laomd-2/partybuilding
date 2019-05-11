@@ -158,7 +158,7 @@ class MemberBase(models.Model):
         abstract = True
 
     def __str__(self):
-        return '%s(%d)' % (self.name, self.netid)
+        return ('%s(%d)' % (self.name, self.netid)) if self.netid is not None else self.name
 
     def is_party_member(self):
         return self.is_pre_party_member() or self.is_real_party_member()

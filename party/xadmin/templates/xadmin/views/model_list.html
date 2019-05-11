@@ -7,6 +7,10 @@
 <style type="text/css">
   .btn-toolbar{margin-top: 0;}
 
+  th, td {
+      text-align: center
+  }
+
   .absolute-right {
       position: absolute;
       right: 0.3em
@@ -15,11 +19,6 @@
   tr.grid-item > td {
       position: relative;
   }
-
-  .td-text {
-      padding-right: 1em;
-  }
-
   #content-block.full-content{margin-left: 0;}
 </style>
 {% endblock %}
@@ -150,7 +149,7 @@
             </div>
           {% else %}
               {% if not forloop.first %}
-                  <div class="td-text">{% endif %}
+                  <div class="td-text" {% if o.btns %}style="padding-right: 1em" {% endif %}>{% endif %}
           {{ o.label }}
           {% if not forloop.first %}</div>{% endif %}
           {% endif %}
@@ -172,4 +171,5 @@
   <ul class="pagination">
     {% view_block 'pagination' %}
   </ul>
+    {% view_block 'after_results' %}
 {% endblock %}

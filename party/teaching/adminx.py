@@ -1,12 +1,9 @@
-from collections import Counter
-
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
 
 from common.base import AdminObject
 from common.utils import Cache
 from info.util import get_visuable_members
-
 from .util import *
 from .models import *
 from .resources import CreditResource, ActivityResource
@@ -42,6 +39,7 @@ class ActivityAdmin(AdminObject):
     list_display_links = ['name']
     list_filter = ['date', 'atv_type', 'credit']
     search_fields = ['name']
+    button_pull_left = True
     list_per_page = 15
     model_icon = 'fa fa-users'
 
@@ -106,105 +104,6 @@ class ActivityAdmin(AdminObject):
             m = self.request.user.member
             return m is not None and branch_in(m['branch_id'], obj.id, obj.branch)
         return False
-
-
-def get_monthly_credit(all_take):
-    months = dict()
-    for t in all_take:
-        d = t.activity.date
-        month = "%d/%02d" % (d.year, d.month)
-        months.setdefault(month, Counter())
-        months[month][t.activity.atv_type] += t.credit
-    option = {
-        'tooltip': {
-            'trigger': 'axis',
-            'axisPointer': {
-                'type': 'cross',
-                'crossStyle': {
-                    'color': '#999'
-                }
-            }
-        },
-        'toolbox': {
-            'feature': {
-                'magicType': {'show': True, 'type': ['line', 'bar']},
-                'restore': {'show': True},
-                'saveAsImage': {'show': True}
-            }
-        },
-        'legend': {
-            'data': Activity.atv_type_choices
-        },
-        'xAxis': [
-            {
-                'type': 'category',
-                'data': ['%s' % m for m in sorted(months.keys())],
-                'axisPointer': {
-                    'type': 'shadow'
-                }
-            }
-        ],
-        'yAxis': [
-            {
-                'type': 'value',
-                'name': '学时数'
-            },
-        ],
-        'series': [
-            {
-                'name': name,
-                'type': 'bar',
-                'data': [months[k][name] for k in sorted(months.keys())]
-            } for name in Activity.atv_type_choices
-        ]
-    }
-    return option
-
-
-def get_credit(all_take, members):
-    credit_sum = Counter()
-    for m in members:
-        credit_sum[m] = 0
-    for r in all_take:
-        credit_sum[r.member] += r.credit
-    credit_sum = list(credit_sum.items())
-    credit_sum.sort(key=lambda x: x[1], reverse=True)
-    option = {
-        'tooltip': {
-            'trigger': 'axis',
-            'axisPointer': {
-                'type': 'shadow'
-            }
-        },
-        'toolbox': {
-            'feature': {
-                'magicType': {'show': True, 'type': ['line', 'bar']},
-                'restore': {'show': True},
-                'saveAsImage': {'show': True}
-            }
-        },
-        # 'grid': {
-        #     'left': '3%',
-        #     'right': '4%',
-        #     'bottom': '3%',
-        #     'containLabel': True
-        # },
-        'xAxis': {
-            'type': 'category',
-            'data': [x[0].name for x in credit_sum],
-            'axisLabel': {
-                'rotate': 45
-            }
-        },
-        'yAxis': {
-            'type': 'value'
-        },
-        'series': [{
-            'data': [x[1] for x in credit_sum],
-            'type': 'bar'
-        }]
-    }
-    return option
 
 
 class CreditAdminBase(AdminObject):
@@ -310,37 +209,8 @@ class CreditAdminBase(AdminObject):
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(CreditAdminBase):
     @property
-    def data_charts(self):
-        m = self.request.user.member
-        if m is None and not is_school_manager(self.request.user):
-            return None
-        my_charts = {}
-        year, all_take = get_visual_credit(self.request.user, self.model)
-
-        branch = self.request.GET.get('_p_member__branch__id__exact') or \
-                 self.request.GET.get('_rel_member__branch__id__exact')
-        if is_school_manager(self.request.user):
-            if branch is None:
-                return None
-            else:
-                members = Member.objects.filter(branch_id=branch)
-                all_take = all_take.filter(member__branch_id=branch)
-        else:
-            members = Member.objects.filter(branch_id=m['branch_id'])
-            all_take = all_take.filter(member__branch_id=m['branch_id'])
-        if all_take.count():
-            my_charts['ranking'] = {
-                'title': '%d年度党员继续教育学时' % year,
-                'option': get_credit(all_take, members.filter(first_branch_conference__isnull=False))
-            }
-        if m is not None:
-            all_take = all_take.filter(member_id=m['netid'])
-            if all_take.count():
-                my_charts['takepartin'] = {
-                    'title': '%d年度个人学时概览' % year,
-                    'option': get_monthly_credit(all_take)
-                }
-        return my_charts
+    def list_charts(self):
+        return get_list_chart(self.request, TakePartIn)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'member':
@@ -352,7 +222,7 @@ class CreditAdmin(CreditAdminBase):
 @xadmin.sites.register(TakePartIn2)
 class CreditAdmin2(CreditAdminBase):
     @property
-    def data_charts(self):
+    def list_charts(self):
         m = self.request.user.member
         if m is None or m['branch_id'] != 85:
             return None

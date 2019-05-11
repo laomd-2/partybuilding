@@ -1,12 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import get_permission_codename
 from django.db.models import F
-from .util import get_visuable_members, get_visual_branch
+
+from teaching.models import TakePartIn
+from .util import *
 from info.resources import MemberResource
 import xadmin
 from xadmin.layout import Main, Fieldset, Side
 from common.rules import *
 from common.base import AdminObject, get_old
+from teaching.util import get_detail_chart as get_credit_chart
 from .models import *
 from .forms import InfoForm
 from .actions import *
@@ -22,113 +25,13 @@ class SchoolAdmin(AdminObject):
     list_per_page = 15
 
 
-charts = dict()
-
-
-def get_chart(request):
-    m = request.user.member
-    if m is None and not is_school_admin(request.user):
-        return None
-    branch = None
-    try:
-        br = int(request.path.split('/')[3])
-        if br and is_school_admin(request.user):
-            branch = Branch.objects.filter(id=br).values('id', 'branch_name')[0]
-    except IndexError:
-        pass
-    except ValueError:
-        pass
-
-    important_dates = ('netid', 'application_date', 'activist_date',
-                       'key_develop_person_date', 'first_branch_conference',
-                       'second_branch_conference')
-    if is_school_admin(request.user):
-        if branch is None:
-            scope = '数据科学与计算机学院'
-            objects = Member.objects.all().values(*important_dates)
-        else:
-            scope = branch['branch_name']
-            objects = Member.objects.filter(branch_id=branch['id']).values(*important_dates)
-    else:
-        scope = '党支部'
-        objects = Member.objects.filter(branch_id=m['branch_id']).values(*important_dates)
-    if not objects.exists():
-        return None
-    my_charts = {
-        'fenbu': {
-            'title': scope + '成员构成'
-        }
-    }
-    dates = OrderedDict([
-        ('second_branch_conference', '正式党员'),
-        ('first_branch_conference', '预备党员'),
-        ('key_develop_person_date', '重点发展对象'),
-        ('activist_date', '入党积极分子'),
-        ('application_date', '入党申请人')
-    ])
-
-    fenbu = dict()
-    for obj in objects:
-        grade = '20' + str(obj['netid'])[:2]
-        fenbu.setdefault(grade, OrderedDict(
-            [(k, 0) for k in dates.values()]))
-        for d in dates:
-            if obj[d]:
-                fenbu[grade][dates[d]] += 1
-                break
-    grades = list(sorted(fenbu.keys()))
-    option = {
-        'tooltip': {
-            'trigger': 'axis',
-            'axisPointer': {
-                'type': 'shadow'
-            }
-        },
-        'toolbox': {
-            'feature': {
-                'saveAsImage': {'show': True}
-            }
-        },
-        'legend': {
-            'data': list(dates.values())
-        },
-        'grid': {
-            'left': '3%',
-            'right': '4%',
-            'bottom': '3%',
-            'containLabel': True
-        },
-        'xAxis': {
-            'type': 'value'
-        },
-        'yAxis': {
-            'type': 'category',
-            'data': [g + '级' for g in grades]
-        },
-        'series': [
-            {
-                'name': name,
-                'type': 'bar',
-                'stack': '总量',
-                'label': {
-                    'normal': {
-                        'show': False,
-                        'position': 'insideRight'
-                    }
-                },
-                'data': [fenbu[g][name] for g in grades]
-            } for name in dates.values()
-        ]
-    }
-    my_charts['fenbu']['option'] = option
-    return my_charts
-
-
 @xadmin.sites.register(Branch)
 class BranchAdmin(AdminObject):
     actions = [MergeBranchAction]
     list_display = ['branch_name', 'get_leaders', 'num_members', 'date_create']
     list_exclude = ['id']
+    button_pull_left = True
+    show_charts = True
     list_display_links = ['branch_name']
     model_icon = 'fa fa-flag'
     list_per_page = 15
@@ -140,8 +43,16 @@ class BranchAdmin(AdminObject):
         return []
 
     @property
-    def data_charts(self):
-        return get_chart(self.request)
+    def detail_charts(self):
+        charts = get_detail_chart(self.request)
+        credit_charts = get_credit_chart(self.request, TakePartIn)
+        if credit_charts:
+            charts.update(credit_charts)
+        return charts
+
+    @property
+    def list_charts(self):
+        return get_list_chart(self.request)
 
     def get_readonly_fields(self):
         if self.org_obj is None:
@@ -200,6 +111,7 @@ class MemberBaseAdmin(AdminObject):
                                   'second_branch_conference']
     list_exclude = ['phase']
     list_display_links = ('netid',)
+    button_pull_left = True
     model_icon = 'fa fa-info'
     ordering = ['branch', 'second_branch_conference',
                 'first_branch_conference',

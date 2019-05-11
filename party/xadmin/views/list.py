@@ -111,6 +111,7 @@ class ListAdminView(ModelAdminView):
     list_max_show_all = 200
     list_exclude = ()
     search_fields = ()
+    button_pull_left = False
     paginator_class = Paginator
     ordering = None
 
@@ -377,7 +378,7 @@ class ListAdminView(ModelAdminView):
             fields = field.split('__')
             for foreign in fields[:-1]:
                 model = model._meta.get_field(foreign).related_model
-            placeholders.append(model._meta.get_field(fields[-1]).verbose_name)
+            placeholders.append(str(model._meta.get_field(fields[-1]).verbose_name))
         return '或'.join(placeholders)
 
     @filter_hook
@@ -396,12 +397,14 @@ class ListAdminView(ModelAdminView):
 
         headers = self.result_headers()
         results = self.results()
-        if headers.cells[-1].text == '&nbsp;':
-            tmp = headers.cells.pop(-1)
-            headers.cells.insert(1, tmp)
-            for row in results:
-                tmp = row.cells.pop(-1)
-                row.cells.insert(1, tmp)
+        # # 把relate按钮调到第2个位置
+        # if self.button_pull_left:
+        #     tmp = headers.cells.pop(-1)
+        #     # tmp.value = tmp.value.replace('pull-right', 'pull-left')
+        #     headers.cells.insert(1, tmp)
+        #     for row in results:
+        #         tmp = row.cells.pop(-1)
+        #         row.cells.insert(1, tmp)
         new_context = {
             'model_name': force_text(self.opts.verbose_name_plural),
             'title': self.title,

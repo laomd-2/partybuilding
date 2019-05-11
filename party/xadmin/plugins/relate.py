@@ -22,6 +22,7 @@ RELATE_PREFIX = '_rel_'
 class RelateMenuPlugin(BaseAdminPlugin):
 
     related_list = []
+    button_pull_left = False
     use_related_menu = True
 
     def _get_all_related_objects(self, local_only=False, include_hidden=False,
@@ -101,9 +102,12 @@ class RelateMenuPlugin(BaseAdminPlugin):
             links.append(link)
         ul_html = '<ul class="dropdown-menu" role="menu">%s</ul>' % ''.join(
             links)
-        return '<div class="dropdown related_menu pull-left"><a title="%s" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-list"></i></a>%s</div>' % (
-        _('Related Objects'), ul_html)
-    related_link.short_description = '&nbsp;'
+        return '<div class="dropdown related_menu pull-%s" style="width: 100%%; text-align: center"><a title="%s" ' \
+               'style="display: block; margin: 0 auto" class="relate_menu dropdown-toggle" ' \
+               'data-toggle="dropdown"><i class="icon fa fa-list"></i></a>%s</div>' % (
+                   'left' if self.button_pull_left else 'right', _('Related Objects'), ul_html)
+
+    related_link.short_description = '快捷按钮'
     related_link.allow_tags = True
     related_link.allow_export = False
     related_link.is_column = False

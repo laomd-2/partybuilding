@@ -194,3 +194,115 @@ def export_statistics(request):
         '党员数据表.xlsx'
     ))
     return response
+
+
+def get_detail_chart(request):
+    m = request.user.member
+    if m is None and not is_school_admin(request.user):
+        return None
+    try:
+        branch = int(request.GET.get('branch') or request.path.split('/')[-3])
+    except ValueError:
+        return None
+
+    important_dates = ('netid', 'application_date', 'activist_date',
+                       'key_develop_person_date', 'first_branch_conference',
+                       'second_branch_conference')
+    if is_school_admin(request.user):
+        objects = Member.objects.filter(branch_id=branch).values(*important_dates)
+        scope = Branch.objects.get(id=branch).branch_name
+    else:
+        scope = '党支部'
+        objects = Member.objects.filter(branch_id=branch).values(*important_dates)
+    if not objects.exists():
+        return None
+    return make_chart(objects, scope)
+
+
+def make_chart(objects, scope):
+    my_charts = {
+        'fenbu': {
+            'title': scope + '成员构成'
+        }
+    }
+    dates = OrderedDict([
+        ('second_branch_conference', '正式党员'),
+        ('first_branch_conference', '预备党员'),
+        ('key_develop_person_date', '重点发展对象'),
+        ('activist_date', '入党积极分子'),
+        ('application_date', '入党申请人')
+    ])
+
+    fenbu = dict()
+    for obj in objects:
+        grade = '20' + str(obj['netid'])[:2]
+        fenbu.setdefault(grade, OrderedDict(
+            [(k, 0) for k in dates.values()]))
+        for d in dates:
+            if obj[d]:
+                fenbu[grade][dates[d]] += 1
+                break
+    grades = list(sorted(fenbu.keys()))
+    option = {
+        'tooltip': {
+            'trigger': 'axis',
+            'axisPointer': {
+                'type': 'shadow'
+            }
+        },
+        'toolbox': {
+            'feature': {
+                'saveAsImage': {'show': True}
+            }
+        },
+        'legend': {
+            'data': list(dates.values())
+        },
+        'grid': {
+            'left': '3%',
+            'right': '4%',
+            'bottom': '3%',
+            'containLabel': True
+        },
+        'xAxis': {
+            'type': 'value'
+        },
+        'yAxis': {
+            'type': 'category',
+            'data': [g + '级' for g in grades]
+        },
+        'series': [
+            {
+                'name': name,
+                'type': 'bar',
+                'stack': '总量',
+                'label': {
+                    'normal': {
+                        'show': False,
+                        'position': 'insideRight'
+                    }
+                },
+                'data': [fenbu[g][name] for g in grades]
+            } for name in dates.values()
+        ]
+    }
+    my_charts['fenbu']['option'] = option
+    return my_charts
+
+
+def get_list_chart(request):
+    important_dates = ('netid', 'application_date', 'activist_date',
+                       'key_develop_person_date', 'first_branch_conference',
+                       'second_branch_conference')
+    if is_school_admin(request.user):
+        objects = Member.objects.all().values(*important_dates)
+        scope = '数据科学与计算机学院'
+    else:
+        m = request.user.member
+        if m is None:
+            return None
+        scope = '党支部'
+        objects = Member.objects.filter(branch_id=m['branch_id']).values(*important_dates)
+    if not objects.exists():
+        return None
+    return make_chart(objects, scope)
