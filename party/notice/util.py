@@ -109,7 +109,7 @@ def queryset(request, model, fields=None):
         fields = model.fields
     query = _queryset(request, model).extra(select={'branch_name': 'info_branch.branch_name',
                                                     'grade': '2000 + netid div 1000000'}) \
-        .values(*(fields + ['branch_name']))
+        .values(*(fields + ['branch_name', 'remarks']))
     if query.exists():
         query = list(query)
         for q in query:

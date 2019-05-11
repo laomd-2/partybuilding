@@ -117,22 +117,19 @@ class Activist(Table):
             application_date = member['application_date']
             if isinstance(application_date, datetime.datetime):
                 application_date = application_date.date()
-                print(member['netid'])
             month = application_date.month
             interval = (when - application_date).days
             if 2 <= month < 8:
                 if when.month > 9 or interval > 4 * 30:
-                    deffer.append(member['netid'])
+                    remark = member['remarks']
+                    if remark is None or (cls.phase + '延迟发展') not in remark:
+                        deffer.append(member)
             else:
                 if when.month > 3 or interval > 4 * 30:
-                    deffer.append(member['netid'])
-        res = []
-        members = Member.objects.select_related(None).filter(netid__in=deffer).values('netid', 'name', 'remarks')
-        for m in members:
-            remark = m['remarks']
-            if '入党积极分子延迟发展' not in remark:
-                res.append((m['netid'], m['name'], cls.phase))
-        return res
+                    remark = member['remarks']
+                    if remark is None or (cls.phase + '延迟发展') not in remark:
+                        deffer.append(member)
+        return deffer
 
     @classmethod
     def complete_beian(cls, member):
@@ -164,6 +161,29 @@ class KeyDevelop(Table):
                     'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
     phase = '重点发展对象'
+
+    @classmethod
+    def check(cls, when, queryset):
+        deffer = []
+        for member in queryset:
+            activist_date = member['activist_date']
+            if isinstance(activist_date, datetime.datetime):
+                activist_date = activist_date.date()
+            y, m = when.year, when.month
+            if m <= 3:
+                m = 9
+                y -= 1
+            elif 3 < m < 10:
+                m = 3
+            else:
+                m = 9
+            when = datetime.date(y, m + 1, 1)
+            interval = (when - activist_date).days
+            if interval > 365:
+                remark = member['remarks']
+                if remark is None or (cls.phase + '延迟发展') not in remark:
+                    deffer.append(member)
+        return deffer
 
     @classmethod
     def complete_beian(cls, member):
@@ -273,6 +293,26 @@ class PreMember(Table):
         member.insert(5, '无')
         member.insert(5, '')
 
+    @classmethod
+    def check(cls, when, queryset):
+        deffer = []
+        for member in queryset:
+            key_develop_person_date = member['key_develop_person_date']
+            if isinstance(key_develop_person_date, datetime.datetime):
+                key_develop_person_date = key_develop_person_date.date()
+            y, m = when.year, when.month
+            if m <= 6:
+                m = 0
+            else:
+                m = 6
+            when = datetime.date(y, m + 1, 1)
+            interval = (when - key_develop_person_date).days
+            if interval > 91:
+                remark = member['remarks']
+                if remark is None or (cls.phase + '延迟发展') not in remark:
+                    deffer.append(member)
+        return deffer
+
     @staticmethod
     def filter(**kwargs):
         year, month = get_ym(6, 12)
@@ -299,6 +339,26 @@ class FullMember(Table):
     @classmethod
     def export_filename(cls):
         return '材料26：申请转正预备党员名单汇总预审表.xlsx'
+
+    @classmethod
+    def check(cls, when, queryset):
+        deffer = []
+        for member in queryset:
+            first_branch_conference = member['first_branch_conference']
+            if isinstance(first_branch_conference, datetime.datetime):
+                first_branch_conference = first_branch_conference.date()
+            y, m = when.year, when.month
+            if m <= 6:
+                m = 0
+            else:
+                m = 6
+            when = datetime.date(y, m + 1, 1)
+            interval = (when - first_branch_conference).days
+            if interval > 365:
+                remark = member['remarks']
+                if remark is None or (cls.phase + '延迟发展') not in remark:
+                    deffer.append(member)
+        return deffer
 
     @staticmethod
     def filter(**kwargs):

@@ -33,7 +33,7 @@ class IndexView(Dashboard):
     def get_context(self):
         context = super(IndexView, self).get_context()
         affairs = []
-        msg = []
+        deffers = dict()
         for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
             query = queryset(self.request, model)
             if query:
@@ -46,19 +46,19 @@ class IndexView(Dashboard):
                 beian_tile = model.beian_template.split('/')[-1]
                 beian_tile = beian_tile[beian_tile.find('：') + 1: beian_tile.rfind('.')]
                 affairs.append([model.__name__.lower(), model.verbose_name, result, beian_tile])
-            if is_branch_manager(self.request.user):
-                today = datetime.datetime.now().date()
-                msg.extend(model.check(today, query))
-        for m in msg:
-            messages.warning(self.request,
-                             mark_safe('请及时更新<a href="/info/member/{netid}/update">{netid}({name})</a>确定为{phase}的时间，'
-                                       '或在备注中说明延迟发展的原因（格式：{phase}延迟发展-原因）。'
-                                       .format(netid=m[0], name=m[1], phase=m[2])))
+
+                if is_admin(self.request.user):
+                    today = datetime.datetime.now().date()
+                    deffer = model.check(today, query)
+                    if deffer:
+                        rows = [header]
+                        for q in deffer:
+                            rows.append([wrap(q[field]) for field in fields])
+                        deffers[model.phase] = rows
+        context['deffers'] = deffers
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)
         context['can_beian'] = is_admin(self.request.user)
-        if affairs:
-            messages.info(self.request, '以下表格的信息仅由党员发展的时间节点筛选得到，最终名单以具体工作为准。')
         return context
 
 
