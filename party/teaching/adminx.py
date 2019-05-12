@@ -35,7 +35,14 @@ class ActivityAdmin(AdminObject):
     # style_fields = {'branch': 'm2m_transfer'}
 
     list_display = ['id', 'name', 'date', 'atv_type', 'credit', 'get_branches']
-    list_exclude = ['image%d' % (i + 1) for i in range(5)]
+
+    @property
+    def list_exclude(self):
+        if is_admin(self.request.user):
+            return ['checkin_qr']
+        else:
+            return ['cascade', 'visualable_others', 'checkin_qr']
+
     list_display_links = ['name']
     list_filter = ['date', 'atv_type', 'credit']
     search_fields = ['name']
@@ -46,7 +53,7 @@ class ActivityAdmin(AdminObject):
     @property
     def exclude(self):
         if not is_admin(self.request.user):
-            return ['cascade', 'visualable_others']
+            return ['cascade', 'visualable_others', 'checkin_qr']
         return []
 
     def get_readonly_fields(self):
@@ -56,9 +63,12 @@ class ActivityAdmin(AdminObject):
         else:
             if not is_school_admin(self.request.user):
                 member = self.request.user.member
-                if member is None or not branch_in(member['branch_id'], obj.id, obj.branch):
-                    return [f.name for f in self.model._meta.fields]
-            return []
+                if is_branch_manager(self.request.user):
+                    if branch_in(member['branch_id'], obj.id, obj.branch):
+                        return ['checkin_qr']
+                exclude = self.list_exclude + self.exclude
+                return [f.name for f in self.model._meta.fields if f.name not in exclude]
+            return ['checkin_qr']
 
     def save_models(self):
         obj = self.new_obj

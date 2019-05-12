@@ -1,0 +1,95 @@
+{% extends 'xadmin/base_site.html' %}
+{% load i18n xadmin_tags %}
+
+{% load crispy_forms_tags %}
+
+{% block extrastyle %}{{ block.super }}
+    <style type="text/css">
+        #panel-login {
+            max-width: 350px;
+        }
+
+        #panel-login .controls {
+            padding: 0px 15px 15px !important;
+        }
+
+        #panel-login .alert-block {
+            padding: 0px;
+        }
+
+        #panel-login .alert-block ul {
+            margin: 10px 15px;
+            padding-left: 0px;
+        }
+
+        #panel-login .alert-block ul li {
+            list-style-type: none;
+        }
+    </style>
+{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <form action="" method="post" id="checkin-form">
+            <div class="panel panel-default panel-single" id="panel-checkin">
+                {% csrf_token %}
+                <div class="panel-heading">
+                    {% block login_heading %}
+                        <h2 class="form-signin-heading">签到</h2>
+                    {% endblock %}
+                </div>
+
+                <div class="panel-body">
+                    {% block messages %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-dismissable{% if message.tags %} {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}{% endif %}">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    {{ message|safe }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endblock messages %}
+                    <div class="row">
+                        <div class="controls clearfix">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="fa fa-group fa-fw"></i></span>
+                                <input class="form-control input-lg" value="{{ name }}" type="text" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="controls clearfix">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                <input class="form-control input-lg" value="{{ date }}" type="text" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="div_id_username" class="row">
+                        <div class="controls clearfix">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                <input class="form-control input-lg" id="id_username" maxlength="8"
+                                       autocomplete="new-text" name="username"
+                                       type="text" placeholder="学号" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">提交</button>
+                </div>  <!-- panel body -->
+
+            </div>
+        </form>
+
+    </div> <!-- /container -->
+
+    <script type="text/javascript">
+        document.getElementById('id_username').focus()
+    </script>
+{% endblock %}

@@ -26,6 +26,7 @@ from django.conf import urls
 from . import views
 from notice.tasks import *
 from info.util import export_statistics
+from teaching.views import CheckInView
 
 
 xadmin.autodiscover()
@@ -38,16 +39,18 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register'),
     path('info/member/export_statistics', export_statistics),
+    path('checkin', CheckInView.as_view()),
+    url(r'^static/(?P<path>.*)$', static.serve,
+        {'document_root': settings.STATIC_ROOT}, name='static'),
+    url(r'^media/(?P<path>.*)$', static.serve,
+        {'document_root': settings.MEDIA_ROOT}, name='media'),
 ]
 urls.handler403 = views.permission_denied
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns.extend([
-        url(r'^static/(?P<path>.*)$', static.serve,
-            {'document_root': settings.STATIC_ROOT}, name='static'),
-        url(r'^media/(?P<path>.*)$', static.serve,
-            {'document_root': settings.MEDIA_ROOT}, name='media'),
         # (path('__debug__/', include(debug_toolbar.urls)))
     ])
 

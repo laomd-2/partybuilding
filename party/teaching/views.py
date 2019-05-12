@@ -1,9 +1,77 @@
+from django.contrib import messages
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from robot.daka.consumer import consume
-from robot.daka.producer import producer
-import threading
-# Create your views here.
+from django.views.generic import TemplateView
+from teaching.models import *
 
 
-threading.Thread(target=producer).start()
-threading.Thread(target=consume).start()
+class CheckInView(TemplateView):
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['title'] = '签到'
+        context.update(**kwargs)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        activity_id = request.GET.get('activity')
+        if activity_id is None:
+            return HttpResponseNotFound('该会议或活动不存在。')
+        token = md5(activity_id)
+        if token != request.GET.get('token'):
+            return HttpResponseNotFound('请扫描二维码。')
+        try:
+            activity = Activity.objects.filter(id=int(activity_id)).values('name', 'date')[0]
+        except ValueError:
+            return HttpResponseNotFound('该会议或活动不存在。')
+        except IndexError:
+            return HttpResponseNotFound('该会议或活动不存在。')
+        return render(request, 'checkin.html', context=self.get_context_data(**activity))
+
+    def post(self, request):
+        activity_id = request.GET.get('activity')
+        if activity_id is None:
+            return HttpResponseNotFound('该会议或活动不存在。')
+        token = md5(activity_id)
+        if token != request.GET.get('token'):
+            return HttpResponseNotFound('请扫描二维码。')
+        activity_id = int(activity_id)
+        try:
+            activity = Activity.objects.filter(id=activity_id).values('name', 'date', 'credit', 'cascade')[0]
+        except ValueError:
+            return HttpResponseNotFound('该会议或活动不存在。')
+        except IndexError:
+            return HttpResponseNotFound('该会议或活动不存在。')
+        try:
+            ip = request.META['REMOTE_ADDR']
+            username = int(request.POST.get('username'))
+            member = Member.objects.get(netid=username)
+            try:
+                checkin = CheckIn.objects.get(ip=ip, activity_id=activity_id)
+            except CheckIn.DoesNotExist:
+                checkin = None
+            if checkin is not None and checkin.netid != username:
+                messages.error(request, '请勿替他人签到。')
+            else:
+                if member.is_party_member():
+                    model = TakePartIn
+                else:
+                    model = TakePartIn2
+                try:
+                    take = model.objects.get(member_id=username, activity_id=activity_id)
+                    if activity['cascade']:
+                        messages.info(request, '您已签到成功，请勿重复签到。')
+                    else:
+                        take.credit += activity['credit']
+                        take.save()
+                        messages.success(request, '签到成功。')
+                        if not CheckIn.objects.filter(ip=ip, activity_id=activity_id).exists():
+                            CheckIn(netid=username, ip=ip, activity_id=activity_id).save()
+                except model.DoesNotExist:
+                    take = model(member_id=username, activity_id=activity_id, credit=activity['credit'])
+                    take.save()
+                    messages.success(request, '签到成功。')
+                    CheckIn(netid=username, ip=ip, activity_id=activity_id).save()
+        except Exception as e:
+            messages.error(request, '您输入的学号有误。')
+        return render(request, 'checkin.html', context=self.get_context_data(**activity))

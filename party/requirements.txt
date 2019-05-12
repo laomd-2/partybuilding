@@ -15,3 +15,5 @@ xlsxwriter
 pillow
 openpyxl
 python-docx
+python-memcached
+qrcode

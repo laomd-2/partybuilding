@@ -1,8 +1,5 @@
-import datetime
 from collections import Counter
-
 from django.db.models import Q
-
 from info.models import Member
 from teaching.models import Activity, TakePartIn
 from common.rules import *

@@ -116,7 +116,7 @@
               </ul>
             </div>
           {% else %}
-            {{ o.label }}
+              <div {% if o.btns or o.menus %}style="padding-right: 1em" {% endif %}>{{ o.label }}</div>
           {% endif %}
         </th>{% endfor %}
       </tr>
@@ -148,10 +148,11 @@
               </ul>
             </div>
           {% else %}
-              {% if not forloop.first %}
-                  <div class="td-text" {% if o.btns %}style="padding-right: 1em" {% endif %}>{% endif %}
+              {% if '<input type="checkbox"' not in o.label %}
+                  <div class="td-text" {% if o.btns %}style="padding-right: 1em" {% endif %}>
+              {% endif %}
           {{ o.label }}
-          {% if not forloop.first %}</div>{% endif %}
+          {% if '<input type="checkbox"' not in o.label %}</div>{% endif %}
           {% endif %}
         </td>
       {% endfor %}</tr>

@@ -1,8 +1,11 @@
+import os
+from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.encoding import smart_str
-
+import qrcode
+import hashlib
 from common.base import get_old
 from info.models import Member, Branch
 import datetime
@@ -10,6 +13,20 @@ import datetime
 
 def upload_to(instance, filename):
     return Activity._meta.verbose_name + '/' + str(instance) + '/' + smart_str(filename)
+
+
+def md5(s):
+    m = hashlib.md5()
+    m.update(str(s).encode('utf-8'))
+    return m.hexdigest()
+
+
+def generate_qrcode(activity_id):
+    img = qrcode.make(settings.HOST_IP + '/checkin?activity=%d&token=%s' % (activity_id, md5(activity_id)))
+    filename = '活动二维码/qrcode%d.png' % activity_id
+    with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb') as f:
+        img.save(f)
+    return filename
 
 
 class NullableImageField(models.ImageField):
@@ -32,11 +49,7 @@ class Activity(models.Model):
     credit = models.FloatField('学时数', default=0)
     cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
     visualable_others = models.BooleanField('公开', default=False, help_text='是否向其他支部公开。')
-    image1 = NullableImageField(verbose_name='活动照片1')
-    image2 = NullableImageField(verbose_name='活动照片2')
-    image3 = NullableImageField(verbose_name='活动照片3')
-    image4 = NullableImageField(verbose_name='活动照片4')
-    image5 = NullableImageField(verbose_name='活动照片5')
+    checkin_qr = NullableImageField(verbose_name='签到二维码', editable=False)
 
     class Meta:
         unique_together = ('name', 'date')
@@ -51,6 +64,12 @@ class Activity(models.Model):
 
     def __str__(self):
         return "%s(%d-%02d-%02d)" % (self.name, self.date.year, self.date.month, self.date.day)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.id is not None and not self.checkin_qr:
+            self.checkin_qr = generate_qrcode(self.id)
+        super().save(force_insert, force_update, using, update_fields)
 
 
 class TakePartInBase(models.Model):
@@ -121,7 +140,7 @@ class Sharing(models.Model):
     added = models.BooleanField('审核通过', default=False)
 
     class Meta:
-        ordering = ('-when', )
+        ordering = ('-when',)
         verbose_name = '学习打卡'
         verbose_name_plural = verbose_name
 
@@ -132,3 +151,12 @@ class Sharing(models.Model):
         if self.pk is None:
             if Sharing.objects.filter(member=self.member, title=self.title):
                 raise ValidationError("%s已经学习过%s。" % (self.member, self.title))
+
+
+class CheckIn(models.Model):
+    activity_id = models.IntegerField()
+    netid = models.IntegerField()
+    ip = models.CharField(max_length=50)
+
+    class Meta:
+        unique_together = ('activity_id', 'netid')

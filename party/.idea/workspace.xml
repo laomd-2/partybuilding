@@ -2,6 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f2cc620-99be-4f30-bff5-3a5a95e46f90" name="Default Changelist" comment="部署到Ubuntu">
+      <change afterPath="$PROJECT_DIR$/info/migrations/0008_auto_20190512_1436.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/party2019-5-12.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/css/about.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/dian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/dian2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/dian3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/jian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/pagination_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teaching/migrations/0004_auto_20190512_1100.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1436.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/checkin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/qrcode20.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/.idea/new_party.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/.idea/new_party.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/base.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/common/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/resources.py" afterDir="false" />
@@ -41,12 +53,16 @@
       <change beforePath="$PROJECT_DIR$/../new_party/user/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/plugins/relate.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/plugins/relate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/views/website.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/website.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/party/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,46 +99,46 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xadmin/views/website.py">
+        <entry file="file://$PROJECT_DIR$/teaching/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="50" column="13" lean-forward="true" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+            <state relative-caret-position="263">
+              <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/notice/util.py">
+        <entry file="file://$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1436.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="112" column="22" lean-forward="true" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+            <state relative-caret-position="320">
+              <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html">
+        <entry file="file://$PROJECT_DIR$/teaching/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="97" column="31" lean-forward="true" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
+            <state relative-caret-position="263">
+              <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
               <folding>
-                <element signature="e#1310#1337#0#HTML" expanded="true" />
-                <element signature="e#1861#1883#0#HTML" expanded="true" />
-                <element signature="e#1995#2033#0#HTML" expanded="true" />
-                <element signature="e#5761#5783#0#HTML" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/notice/admin.py">
+        <entry file="file://$PROJECT_DIR$/templates/checkin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="350" column="22" lean-forward="true" selection-start-line="350" selection-start-column="22" selection-end-line="350" selection-end-column="22" />
+            <state relative-caret-position="224">
+              <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
+              <folding>
+                <element signature="e#1240#1247#1#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -216,14 +232,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/robot/daka/producer.py" />
-        <option value="$PROJECT_DIR$/robot/daka/consumer.py" />
-        <option value="$PROJECT_DIR$/generate_activities.py" />
-        <option value="$PROJECT_DIR$/import_export/formats/base_formats.py" />
-        <option value="$PROJECT_DIR$/info/migrations/0005_auto_20190509_2008.py" />
-        <option value="$PROJECT_DIR$/xadmin/views/base.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_form.html" />
-        <option value="$PROJECT_DIR$/templates/editable_errors.html" />
         <option value="$PROJECT_DIR$/xadmin/plugins/editable.py" />
         <option value="$PROJECT_DIR$/xadmin/views/edit.py" />
         <option value="$PROJECT_DIR$/common/resources.py" />
@@ -241,32 +249,40 @@
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_form.submit_line.wizard.html" />
         <option value="$PROJECT_DIR$/xadmin/plugins/wizard.py" />
         <option value="$PROJECT_DIR$/common/forms.py" />
-        <option value="$PROJECT_DIR$/party/urls.py" />
         <option value="$PROJECT_DIR$/info/forms.py" />
         <option value="$PROJECT_DIR$/info/resources.py" />
         <option value="$PROJECT_DIR$/info/migrations/0007_auto_20190510_0938.py" />
         <option value="$PROJECT_DIR$/user/adminx.py" />
-        <option value="$PROJECT_DIR$/party/settings.py" />
         <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/common/base.py" />
-        <option value="$PROJECT_DIR$/teaching/models.py" />
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_list.nav_form.search_form.html" />
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" />
         <option value="$PROJECT_DIR$/xadmin/util.py" />
         <option value="$PROJECT_DIR$/info/models.py" />
         <option value="$PROJECT_DIR$/xadmin/filters.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" />
         <option value="$PROJECT_DIR$/info/util.py" />
         <option value="$PROJECT_DIR$/info/adminx.py" />
         <option value="$PROJECT_DIR$/xadmin/views/list.py" />
-        <option value="$PROJECT_DIR$/teaching/adminx.py" />
         <option value="$PROJECT_DIR$/xadmin/plugins/chart.py" />
-        <option value="$PROJECT_DIR$/teaching/util.py" />
         <option value="$PROJECT_DIR$/xadmin/plugins/relate.py" />
         <option value="$PROJECT_DIR$/notice/util.py" />
         <option value="$PROJECT_DIR$/xadmin/views/website.py" />
         <option value="$PROJECT_DIR$/notice/admin.py" />
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0004_auto_20190512_0926.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1006.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/teaching/util.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0004_auto_20190512_1100.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1129.py" />
+        <option value="$PROJECT_DIR$/party/settings.py" />
+        <option value="$PROJECT_DIR$/teaching/adminx.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" />
+        <option value="$PROJECT_DIR$/party/urls.py" />
+        <option value="$PROJECT_DIR$/templates/checkin.html" />
+        <option value="$PROJECT_DIR$/teaching/models.py" />
+        <option value="$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1436.py" />
+        <option value="$PROJECT_DIR$/teaching/views.py" />
       </list>
     </option>
   </component>
@@ -316,11 +332,11 @@
       <recent name="E:\党建\系统\party\upload\积极分子" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\党建\系统\party\templates" />
       <recent name="E:\党建\系统\party\mysql" />
       <recent name="E:\党建\系统\party\upload\Excel模板" />
       <recent name="E:\党建\系统\party" />
       <recent name="E:\党建\系统\party\info" />
-      <recent name="E:\党建\系统\party\xadmin\templates\xadmin\blocks" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -555,14 +571,7 @@
       <workItem from="1557488262244" duration="18170000" />
       <workItem from="1557507642200" duration="3056000" />
       <workItem from="1557553891574" duration="20039000" />
-      <workItem from="1557584947266" duration="10132000" />
-    </task>
-    <task id="LOCAL-00081" summary="邮件发送优化">
-      <created>1557314978282</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1557314978282</updated>
+      <workItem from="1557584947266" duration="28013000" />
     </task>
     <task id="LOCAL-00082" summary="邮件发送优化">
       <created>1557315248663</created>
@@ -900,11 +909,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557575187381</updated>
     </task>
-    <option name="localTasksCounter" value="130" />
+    <task id="LOCAL-00130" summary="提醒更新动态信息">
+      <created>1557595287323</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1557595287323</updated>
+    </task>
+    <option name="localTasksCounter" value="131" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="796783000" />
+    <option name="totallyTimeSpent" value="814664000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -923,7 +939,7 @@
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49621785" visible="true" weight="0.3590164" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49621785" weight="0.3590164" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -931,10 +947,10 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295082" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.32733223" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49848714" weight="0.3262295" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50378215" side_tool="true" weight="0.3737705" />
-      <window_info anchor="bottom" id="File Transfer" order="13" sideWeight="0.494705" weight="0.3295082" />
+      <window_info anchor="bottom" id="File Transfer" order="13" sideWeight="0.494705" visible="true" weight="0.3295082" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -950,7 +966,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/djangox" />
     </ignored-roots>
-    <MESSAGE value="导入错误提示" />
     <MESSAGE value="xadmin响应慢——ORM优化" />
     <MESSAGE value="权限修复" />
     <MESSAGE value="图表-党辅按党支部查看" />
@@ -975,72 +990,11 @@
     <MESSAGE value="修改表头、调整图表位置、改了许多bug、显示列中添加选择全部列的按钮" />
     <MESSAGE value="调整model_list页面placeholder文本和relate按钮的位置" />
     <MESSAGE value="更改图表出现的位置" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改图表出现的位置" />
+    <MESSAGE value="提醒更新动态信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="提醒更新动态信息" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/info/migrations/0006_auto_20190510_0538.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/plugins/filters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_form.before_fieldsets.wizard.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/blocks/model_form.submit_line.wizard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/builtins.pyi">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-650">
-          <caret line="631" selection-start-line="631" selection-end-line="631" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/db/models/fields/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="1344" column="8" selection-start-line="1344" selection-start-column="8" selection-end-line="1344" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/plugins/wizard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-624">
-          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/django/forms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="996" column="22" selection-start-line="996" selection-start-column="17" selection-end-line="996" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -1055,16 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="932" column="8" selection-start-line="932" selection-start-column="8" selection-end-line="932" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="51" column="6" lean-forward="true" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
-          <folding>
-            <element signature="e#629#639#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1156,16 +1100,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/includes/toggle_menu.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1180,13 +1114,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1230,16 +1157,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="160" column="12" lean-forward="true" selection-start-line="160" selection-start-column="12" selection-end-line="160" selection-end-column="12" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/sites.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="118">
@@ -1274,16 +1191,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3344">
-          <caret line="219" selection-start-line="219" selection-end-line="219" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/info/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4656">
@@ -1311,13 +1218,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="186" column="18" selection-start-line="186" selection-start-column="18" selection-end-line="186" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/views/dashboard.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -1342,7 +1242,7 @@
     <entry file="file://$PROJECT_DIR$/notice/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="350" column="22" lean-forward="true" selection-start-line="350" selection-start-column="22" selection-end-line="350" selection-end-column="22" />
+          <caret line="350" column="22" selection-start-line="350" selection-start-column="22" selection-end-line="350" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1354,29 +1254,142 @@
     <entry file="file://$PROJECT_DIR$/notice/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="113">
-          <caret line="112" column="22" lean-forward="true" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+          <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0004_auto_20190512_0926.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1006.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0004_auto_20190512_1100.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1129.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-672">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="162" column="10" lean-forward="true" selection-start-line="162" selection-start-column="10" selection-end-line="162" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/views/website.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="50" column="13" lean-forward="true" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+        <state relative-caret-position="119">
+          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="e#629#639#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-480" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="98" column="39" selection-start-line="98" selection-start-column="39" selection-end-line="98" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/checkin.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
-          <caret line="97" column="31" lean-forward="true" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
+          <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
           <folding>
-            <element signature="e#1310#1337#0#HTML" expanded="true" />
-            <element signature="e#1861#1883#0#HTML" expanded="true" />
-            <element signature="e#1995#2033#0#HTML" expanded="true" />
-            <element signature="e#5761#5783#0#HTML" expanded="true" />
+            <element signature="e#1240#1247#1#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1436.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
