@@ -17,11 +17,11 @@ class CheckInView(TemplateView):
         activity_id = request.GET.get('activity')
         if activity_id is None:
             return HttpResponseNotFound('该会议或活动不存在。')
-        token = md5(activity_id)
-        if token != request.GET.get('token'):
-            return HttpResponseNotFound('请扫描二维码。')
         try:
-            activity = Activity.objects.filter(id=int(activity_id)).values('name', 'date')[0]
+            activity = Activity.objects.filter(id=int(activity_id)).values('id', 'name', 'date', 'checkin_code')[0]
+            token = get_md5id(activity['id'], activity['checkin_code'])
+            if token != request.GET.get('token'):
+                return HttpResponseNotFound('二维码已失效。')
         except ValueError:
             return HttpResponseNotFound('该会议或活动不存在。')
         except IndexError:
@@ -32,12 +32,13 @@ class CheckInView(TemplateView):
         activity_id = request.GET.get('activity')
         if activity_id is None:
             return HttpResponseNotFound('该会议或活动不存在。')
-        token = md5(activity_id)
-        if token != request.GET.get('token'):
-            return HttpResponseNotFound('请扫描二维码。')
-        activity_id = int(activity_id)
         try:
-            activity = Activity.objects.filter(id=activity_id).values('name', 'date', 'credit', 'cascade')[0]
+            activity_id = int(activity_id)
+            activity = Activity.objects.filter(id=activity_id).values('id', 'name', 'date', 'credit',
+                                                                      'cascade', 'checkin_code')[0]
+            token = get_md5id(activity['id'], activity['checkin_code'])
+            if token != request.GET.get('token'):
+                return HttpResponseNotFound('二维码已失效。')
         except ValueError:
             return HttpResponseNotFound('该会议或活动不存在。')
         except IndexError:

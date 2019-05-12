@@ -38,10 +38,11 @@ class ActivityAdmin(AdminObject):
 
     @property
     def list_exclude(self):
-        if is_admin(self.request.user):
+        if is_school_admin(self.request.user):
             return ['checkin_qr']
-        else:
-            return ['cascade', 'visualable_others', 'checkin_qr']
+        elif is_branch_manager(self.request.user):
+            return ['checkin_qr', 'checkin_code']
+        return ['cascade', 'visualable_others', 'checkin_qr', 'checkin_code']
 
     list_display_links = ['name']
     list_filter = ['date', 'atv_type', 'credit']
@@ -52,9 +53,16 @@ class ActivityAdmin(AdminObject):
 
     @property
     def exclude(self):
-        if not is_admin(self.request.user):
-            return ['cascade', 'visualable_others', 'checkin_qr']
-        return []
+        obj = self.org_obj
+        if obj is None:
+            return []
+        if is_school_admin(self.request.user):
+            return []
+        elif is_branch_manager(self.request.user):
+            member = self.request.user.member
+            if branch_in(member['branch_id'], obj.id, obj.branch):
+                return []
+        return ['cascade', 'visualable_others', 'checkin_qr', 'checkin_code']
 
     def get_readonly_fields(self):
         obj = self.org_obj

@@ -21,11 +21,18 @@ def md5(s):
     return m.hexdigest()
 
 
-def generate_qrcode(activity_id):
-    img = qrcode.make(settings.HOST_IP + '/checkin?activity=%d&token=%s' % (activity_id, md5(activity_id)))
-    filename = '活动二维码/qrcode%d.png' % activity_id
-    with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb') as f:
-        img.save(f)
+def get_md5id(id, code):
+    return md5(id) + md5(code)
+
+
+def generate_qrcode(activity_id, checkin_code):
+    md5_id = get_md5id(activity_id, checkin_code)
+    filename = '活动二维码/qrcode%s.png' % md5(md5_id)
+    abs_filename = os.path.join(settings.MEDIA_ROOT, filename)
+    if not os.path.exists(abs_filename):
+        img = qrcode.make(settings.HOST_IP + '/checkin?activity=%d&token=%s' % (activity_id, md5_id))
+        with open(abs_filename, 'wb') as f:
+            img.save(f)
     return filename
 
 
@@ -49,6 +56,8 @@ class Activity(models.Model):
     credit = models.FloatField('学时数', default=0)
     cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
     visualable_others = models.BooleanField('公开', default=False, help_text='是否向其他支部公开。')
+
+    checkin_code = models.IntegerField(verbose_name='签到码', null=True, blank=True)
     checkin_qr = NullableImageField(verbose_name='签到二维码', editable=False)
 
     class Meta:
@@ -67,8 +76,8 @@ class Activity(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        if self.id is not None and not self.checkin_qr:
-            self.checkin_qr = generate_qrcode(self.id)
+        if self.id is not None and self.checkin_code is not None:
+            self.checkin_qr = generate_qrcode(self.id, self.checkin_code)
         super().save(force_insert, force_update, using, update_fields)
 
 
