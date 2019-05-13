@@ -180,8 +180,6 @@
       <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/jeesite-web.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/laomd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/.idea/encodings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/.idea/modules.xml" beforeDir="false" />
@@ -1113,27 +1111,7 @@
       <change beforePath="$PROJECT_DIR$/../new_party/wxpy/utils/puid_map.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/wxpy/utils/tools.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/info/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teaching/migrations/0004_auto_20190512_1100.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teaching/migrations/0005_auto_20190512_1436.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teaching/migrations/0006_auto_20190512_1525.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teaching/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/checkin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/checkin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/editable_errors.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/email_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email_manager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/email_member.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/email_member.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/test.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/500.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/views/list.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/list.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -1172,9 +1150,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-400">
-              <caret line="56" column="13" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+            <state relative-caret-position="64">
+              <caret line="124" column="12" lean-forward="true" selection-start-line="124" selection-start-column="12" selection-end-line="124" selection-end-column="12" />
               <folding>
+                <element signature="n#style#0;n#ul#0;n#li#3;n#ul#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -1263,8 +1242,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.org_obj =</find>
-      <find>errors</find>
       <find>updateadmin</find>
       <find>Update</find>
       <find>post</find>
@@ -1293,9 +1270,10 @@
       <find>first_</find>
       <find>teaching_ac</find>
       <find>clientWidth</find>
+      <find>选择</find>
+      <find>dropdown</find>
     </findStrings>
     <replaceStrings>
-      <replace>xadmin.plugin.charts.js</replace>
       <replace>'name'</replace>
       <replace>'seriesLayoutBy'</replace>
       <replace>True</replace>
@@ -1325,6 +1303,7 @@
       <replace>block_after_results</replace>
       <replace>detail_charts</replace>
       <replace>offsetWidth</replace>
+      <replace>subul</replace>
     </replaceStrings>
     <dirStrings>
       <dir>E:\党建\系统\party\xadmin</dir>
@@ -1386,9 +1365,9 @@
         <option value="$PROJECT_DIR$/party/settings.py" />
         <option value="$PROJECT_DIR$/teaching/migrations/0004_auto_20190514_0147.py" />
         <option value="$PROJECT_DIR$/teaching/models.py" />
-        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" />
         <option value="$PROJECT_DIR$/info/adminx.py" />
         <option value="$PROJECT_DIR$/info/models.py" />
+        <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" />
       </list>
     </option>
   </component>
@@ -1411,21 +1390,6 @@
             <path>
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="party" type="b2602c69:ProjectViewProjectNode" />
-              <item name="party" type="462c0819:PsiDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="party" type="b2602c69:ProjectViewProjectNode" />
-              <item name="party" type="462c0819:PsiDirectoryNode" />
-              <item name="party" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="party" type="b2602c69:ProjectViewProjectNode" />
-              <item name="party" type="462c0819:PsiDirectoryNode" />
-              <item name="teaching" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1695,14 +1659,7 @@
       <workItem from="1557584947266" duration="32772000" />
       <workItem from="1557677263421" duration="658000" />
       <workItem from="1557677946800" duration="130000" />
-      <workItem from="1557751329724" duration="21864000" />
-    </task>
-    <task id="LOCAL-00084" summary="邮件发送优化">
-      <created>1557315741742</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1557315741742</updated>
+      <workItem from="1557751329724" duration="23040000" />
     </task>
     <task id="LOCAL-00085" summary="td不换行">
       <created>1557316277214</created>
@@ -2040,11 +1997,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557677983359</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="表格固定列">
+      <created>1557776363865</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1557776363875</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="842075000" />
+    <option name="totallyTimeSpent" value="843251000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2059,12 +2023,12 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33131617" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33131617" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49621785" visible="true" weight="0.3590164" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49621785" visible="true" weight="0.3590164" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -2091,7 +2055,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/djangox" />
     </ignored-roots>
-    <MESSAGE value="图表-党辅按党支部查看" />
     <MESSAGE value="bug修复" />
     <MESSAGE value="邮件提醒" />
     <MESSAGE value="流程依赖分中大与非中大发展党员" />
@@ -2116,24 +2079,11 @@
     <MESSAGE value="提醒更新动态信息" />
     <MESSAGE value="活动签到" />
     <MESSAGE value="二维码扫码签到" />
-    <option name="LAST_COMMIT_MESSAGE" value="二维码扫码签到" />
+    <MESSAGE value="表格固定列" />
+    <option name="LAST_COMMIT_MESSAGE" value="表格固定列" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/xadmin/sites.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="82" column="8" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/plugins/chart.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2512">
@@ -2465,11 +2415,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/aria.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="815" column="16" selection-start-line="815" selection-start-column="16" selection-end-line="815" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/xadmin/static/xadmin/vendor/bootstrap/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="3502" column="25" lean-forward="true" selection-start-line="3502" selection-start-column="25" selection-end-line="3502" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-400">
-          <caret line="56" column="13" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+        <state relative-caret-position="64">
+          <caret line="124" column="12" lean-forward="true" selection-start-line="124" selection-start-column="12" selection-end-line="124" selection-end-column="12" />
           <folding>
+            <element signature="n#style#0;n#ul#0;n#li#3;n#ul#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#0;n#form#0;n#!!top" expanded="true" />

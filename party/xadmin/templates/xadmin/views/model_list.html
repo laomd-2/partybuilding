@@ -9,9 +9,55 @@
       margin-top: 0;
     }
 
-    .model_fields {
-      max-height: 25em;
+    .subul-menu {
+      padding: 0;
       overflow-y: auto;
+      max-height: 20em
+    }
+
+    .subul-menu > li {
+      list-style: none
+    }
+
+    .subul-menu > li > a {
+      display: block;
+      padding: 3px 20px;
+      clear: both;
+      font-weight: normal;
+      line-height: 1.428571429;
+      color: #333333;
+      white-space: nowrap;
+    }
+
+    .subul-menu > li > a:hover,
+    .subul-menu > li > a:focus {
+      color: #262626;
+      text-decoration: none;
+      background-color: #f5f5f5;
+    }
+
+    .subul-menu > .active > a,
+    .subul-menu > .active > a:hover,
+    .subul-menu > .active > a:focus {
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #428bca;
+      outline: 0;
+    }
+
+    .subul-menu > .disabled > a,
+    .subul-menu > .disabled > a:hover,
+    .subul-menu > .disabled > a:focus {
+      color: #999999;
+    }
+
+    .subul-menu > .disabled > a:hover,
+    .subul-menu > .disabled > a:focus {
+      text-decoration: none;
+      cursor: not-allowed;
+      background-color: transparent;
+      background-image: none;
+      filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     }
 
     th, td {
@@ -91,11 +137,15 @@
               class="fa fa-refresh"></i> {% trans "Restore Selected" %}</a></li>
           <li><a href="{{ all_field_url }}"><i class="fa fa-arrows"></i> 选择全部列</a></li>
           <li class="divider"></li>
-          {% for f, selected, flink in model_fields %}
-            <li><a href="{{ flink }}">
-              {% if selected %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-blank"></i>{% endif %}
-              {{ f.verbose_name }}</a></li>
-          {% endfor %}
+          <li>
+            <ul class="subul-menu">
+              {% for f, selected, flink in model_fields %}
+                <li><a href="{{ flink }}">
+                  {% if selected %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-blank"></i>{% endif %}
+                  {{ f.verbose_name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
         </ul>
       </div>
     {% endblock toolbar_column %}
