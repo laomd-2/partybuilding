@@ -27,7 +27,7 @@ def get_md5id(id, code):
 
 def generate_qrcode(activity_id, checkin_code):
     md5_id = get_md5id(activity_id, checkin_code)
-    filename = '活动二维码/qrcode%s.png' % md5(md5_id)
+    filename = 'qrcode/qrcode%s.png' % md5(md5_id)
     abs_filename = os.path.join(settings.MEDIA_ROOT, filename)
     if not os.path.exists(abs_filename):
         img = qrcode.make(settings.HOST_IP + '/checkin?activity=%d&token=%s' % (activity_id, md5_id))

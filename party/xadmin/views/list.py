@@ -112,6 +112,7 @@ class ListAdminView(ModelAdminView):
     list_exclude = ()
     search_fields = ()
     button_pull_left = False
+    num_fixed_cols = 0
     paginator_class = Paginator
     ordering = None
 
@@ -397,6 +398,12 @@ class ListAdminView(ModelAdminView):
 
         headers = self.result_headers()
         results = self.results()
+
+        num_fixed_cols = self.num_fixed_cols
+        if headers:
+            o = headers.cells[0]
+            if '<input type="checkbox"' in o.label:
+                num_fixed_cols += 1
         # # 把relate按钮调到第2个位置
         # if self.button_pull_left:
         #     tmp = headers.cells.pop(-1)
@@ -419,7 +426,8 @@ class ListAdminView(ModelAdminView):
             'add_url': self.model_admin_url('add'),
             'result_headers': headers,
             'results': results,
-            'placeholder': self.get_placeholder()
+            'placeholder': self.get_placeholder(),
+            'num_fixed_cols': num_fixed_cols
         }
 
         context = super(ListAdminView, self).get_context()

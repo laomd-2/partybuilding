@@ -102,6 +102,7 @@ fields_, phases = Member.get_phases()
 
 class MemberBaseAdmin(AdminObject):
     form = InfoForm
+    list_per_page = 8
     actions = [ActivistAction, KeyPersonAction,
                PrememberAction, MemberAction]
     import_export_args = {'import_resource_class': MemberResource,
@@ -112,6 +113,15 @@ class MemberBaseAdmin(AdminObject):
     list_exclude = ['phase']
     list_display_links = ('netid',)
     button_pull_left = True
+
+    @property
+    def num_fixed_cols(self):
+        res = 0
+        for fix in ['branch', 'netid', 'name']:
+            if fix in self.list_display:
+                res += 1
+        return res
+
     model_icon = 'fa fa-info'
     ordering = ['branch', 'second_branch_conference',
                 'first_branch_conference',

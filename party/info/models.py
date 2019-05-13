@@ -104,31 +104,34 @@ class MemberBase(models.Model):
     group = models.CharField(max_length=20, verbose_name='民族', default='汉')
     jiguan = models.CharField(max_length=50, verbose_name='籍贯', null=True, blank=True)
     family_address = models.CharField(max_length=50, verbose_name='家庭住址', null=True, blank=True)
-    phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True)
-    id_card_number = models.CharField(max_length=20, verbose_name='身份证号码', null=True, blank=True)
-    major_in = models.CharField(max_length=30, verbose_name='当前专业', null=True, blank=True)
-    years = models.IntegerField('学年制', default=4)
+    phone_number = PhoneNumberField(verbose_name='联系电话', null=True, blank=True, help_text='在前面加上+86')
+    id_card_number = models.CharField(max_length=20, verbose_name='身份证号码', null=True, blank=True,
+                                      help_text='18位，除最后一位可以是x或X外，其他17位是数字。出生日期和性别需要对应。')
+    major_in = models.CharField(max_length=30, verbose_name='当前专业', null=True, blank=True,
+                                help_text='填写当前所在专业的全称。')
+    years = models.IntegerField('学年制', default=4, help_text='延期毕业可以增加学年制。')
     youth_league_member = models.BooleanField(verbose_name='是否团员', default=True)
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
     is_sysu = models.BooleanField(verbose_name='是否在中山大学发展', help_text='在中山大学发展的党员，其录入的信息需严格遵循'
                                                                       '相关流程依赖。', default=True)
 
-    application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致。')
+    application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致，需保证年满18周岁。')
     first_talk_date = NullableDateField(verbose_name='首次组织谈话时间', help_text='党支部收到入党申请书后，一个月内委派支委与其谈话的时间。')
 
     activist_date = NullableDateField('确定为入党积极分子时间', help_text='党支部开会讨论，通过成为入党积极分子的时间。')
     democratic_appraisal_date = NullableDateField(verbose_name='民主评议时间', help_text='党支部召开座谈会收集群众意见的时间。')
     league_promotion_date = NullableDateField(verbose_name='推荐/推优时间', help_text='非团员采用党员推荐的方式，团员采用团支部推优的方式。')
-    key_develop_meeting_date = NullableDateField('支部大会讨论确定发展对象时间')
-    key_develop_person_date = NullableDateField(verbose_name='确定发展对象时间', help_text='上级党委备案时间，并非党支部开会时间。')
+    key_develop_meeting_date = NullableDateField('支部大会讨论确定发展对象时间', help_text='党支部开会时间。')
+    key_develop_person_date = NullableDateField(verbose_name='确定发展对象时间', help_text='上级党委备案时间。')
     is_political_check = models.CharField(verbose_name='政治审查', max_length=20, choices=[
         ('完成', '完成'), ('未完成', '未完成')
     ], default='未完成')
-    graduated_party_school_date = NullableDateField(verbose_name='党校培训结业时间')
+    graduated_party_school_date = NullableDateField(verbose_name='党校培训结业时间', help_text='未通过则不填写。')
 
     probationary_pre_date = NullableDateField('党委预审时间')
     recommenders_date = NullableDateField(verbose_name='确定入党介绍人时间')
-    recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人')
+    recommenders = models.CharField(max_length=50, null=True, blank=True, verbose_name='入党介绍人',
+                                    help_text='两名正式党员。')
     autobiography = models.CharField(verbose_name='自传', max_length=20, choices=[
         ('完成', '完成'), ('未完成', '未完成')
     ], default='未完成')
@@ -142,14 +145,14 @@ class MemberBase(models.Model):
     oach_date = NullableDateField(verbose_name='入党宣誓时间')
 
     application_fullmember_date = NullableDateField(verbose_name='递交转正申请书时间', help_text='预备党员应提前一个月向党支部递交。')
-    second_branch_conference = NullableDateField(verbose_name='转正时间', help_text='支部大会讨论转正时间。。')
-    fullmember_approval_date = NullableDateField(verbose_name='党委审批时间2')
-    archive_date = NullableDateField('转档案馆时间')
+    second_branch_conference = NullableDateField(verbose_name='转正时间', help_text='支部大会讨论转正时间。')
+    fullmember_approval_date = NullableDateField(verbose_name='党委审批时间2', help_text='正式党员党委审批时间。')
+    archive_date = NullableDateField('转档案馆时间', help_text='临近毕业时，整理党员资料移交到档案馆。')
     reserve_party_member_date = NullableDateField('申请保留党籍时间', help_text='出国留学人员填写')
 
     out_date = NullableDateField('关系转出时间')
     out_place = models.CharField('转出单位', blank=True, null=True, max_length=50)
-    remarks = models.TextField('备注', blank=True, null=True)
+    remarks = models.TextField('备注', blank=True, null=True, help_text='填写各阶段延期发展的原因，或其他重要信息。')
 
     phase = models.IntegerField('发展阶段', choices=phases, default=0, editable=False)
 
