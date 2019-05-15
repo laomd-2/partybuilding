@@ -42,7 +42,7 @@ class ActivityAdmin(AdminObject):
             return ['checkin_qr']
         elif is_branch_manager(self.request.user):
             return ['checkin_qr', 'checkin_code']
-        return ['cascade', 'visualable_others', 'checkin_qr', 'checkin_code']
+        return ['is_cascade', 'visualable_others', 'checkin_qr', 'checkin_code']
 
     list_display_links = ['name']
     list_filter = ['date', 'atv_type', 'credit']
@@ -62,7 +62,7 @@ class ActivityAdmin(AdminObject):
             member = self.request.user.member
             if branch_in(member['branch_id'], obj.id, obj.branch):
                 return []
-        return ['cascade', 'visualable_others', 'checkin_qr', 'checkin_code']
+        return ['is_cascade', 'visualable_others', 'checkin_qr', 'checkin_code']
 
     def get_readonly_fields(self):
         obj = self.org_obj
@@ -90,7 +90,7 @@ class ActivityAdmin(AdminObject):
                     messages.error(self.request, '修改失败，权限不足。')
                     return
         obj.save()
-        if obj.cascade:
+        if obj.is_cascade:
             TakePartIn.objects.filter(activity_id=obj.id).update(credit=obj.credit)
 
     def queryset(self):
@@ -182,7 +182,7 @@ class CreditAdminBase(AdminObject):
     def exclude(self):
         obj = self.org_obj
         if obj is None:
-            return ['credit', 'last_modified']
+            return ['credit', ]
         else:
             return []
 
@@ -191,7 +191,7 @@ class CreditAdminBase(AdminObject):
         if obj is None:
             return []
         else:
-            tmp = ['member', 'activity', 'last_modified']
+            tmp = ['member', 'activity', ]
             if not is_school_admin(self.request.user):
                 member = self.request.user.member
                 if member is None or not branch_in(member['branch_id'], obj.activity_id, obj.activity.branch):
@@ -257,6 +257,7 @@ class CreditAdmin2(CreditAdminBase):
                 'option': get_credit(kaocha, members)
             }
             my_charts['kaocha']['option']['color'] = ['#3398DB']
+        my_charts.update(get_list_chart2(self.request, self.model))
         return my_charts
 
     def formfield_for_dbfield(self, db_field, **kwargs):

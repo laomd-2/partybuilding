@@ -1,12 +1,17 @@
 ﻿import datetime
+from copy import copy
 
+from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
 from common.utils import Cache
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 def get_branch_managers():
@@ -91,12 +96,27 @@ def upload_to(instance, filename):
     return 'info/' + str(instance.netid) + '/' + smart_str(filename)
 
 
+@receiver(post_delete)
+def delete_member(sender, instance, **kwargs):
+    if issubclass(sender, MemberBase):
+        if instance.branch_id != 106:
+            instance = copy(instance)
+            instance.branch_id = 106
+            instance.save(ignore_check=True)
+
+
+class MemberBaseManager(models.Manager):
+
+    def all(self):
+        return super().all().exclude(branch_id=106)
+
+
 class MemberBase(models.Model):
     phases = [
-        (0, '无'), (1, '提交入党申请'), (2, '积极分子'), (3, '发展对象'), (4, '预备党员'), (5, '正式党员')
+        (1, '提交入党申请'), (2, '积极分子'), (3, '发展对象'), (4, '预备党员'), (5, '正式党员')
     ]
 
-    branch = models.ForeignKey(Branch, on_delete=models.SET(1), verbose_name='党支部', db_index=True)
+    branch = models.ForeignKey(Branch, on_delete=models.SET(106), verbose_name='党支部名称', db_index=True)
     netid = models.IntegerField('学号', primary_key=True)
     name = models.CharField('姓名', max_length=20, db_index=True)
     birth_date = models.DateField(max_length=10, verbose_name='出生时间')
@@ -151,14 +171,19 @@ class MemberBase(models.Model):
     reserve_party_member_date = NullableDateField('申请保留党籍时间', help_text='出国留学人员填写')
 
     out_date = NullableDateField('关系转出时间')
-    out_place = models.CharField('转出单位', blank=True, null=True, max_length=50)
+    out_type = models.CharField('转出类型', null=True, blank=True, max_length=20, choices=[
+        (c, c) for c in ['D.就业', 'G.境内升学', 'A.出国留学', '无']
+    ])
+    out_place = models.CharField('去向单位', blank=True, null=True, max_length=50)
     remarks = models.TextField('备注', blank=True, null=True, help_text='填写各阶段延期发展的原因，或其他重要信息。')
 
-    phase = models.IntegerField('发展阶段', choices=phases, default=0, editable=False)
+    phase = models.IntegerField('发展阶段', choices=phases, default=1, editable=False)
 
     class Meta:
         ordering = ('branch', 'netid',)
         abstract = True
+
+    objects = MemberBaseManager()
 
     def __str__(self):
         return ('%s(%d)' % (self.name, self.netid)) if self.netid is not None else self.name
@@ -223,13 +248,31 @@ class MemberBase(models.Model):
             self.phase = 1
         else:
             self.phase = 0
-        return super().save(force_insert, force_update, using, update_fields)
+        super().save(force_insert, force_update, using, update_fields)
 
 
 class Member(MemberBase):
     class Meta(MemberBase.Meta):
-        verbose_name = '成员信息'
+        verbose_name = '党员发展管理'
         verbose_name_plural = verbose_name
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None, ignore_check=False):
+        if self.out_type:
+            if self.out_type == 'D.就业' or self.out_type == 'G.境内升学':
+                self.out_date = datetime.date.today()
+            elif self.out_type == 'A.出国留学':
+                self.out_date = datetime.date.today()
+                try:
+                    abroad_branch = Branch.objects.filter(branch_name='出国留学党支部').values('id')[0]['id']
+                except IndexError:
+                    try:
+                        abroad_branch = Branch.objects.filter(branch_name='临时党支部').values('id')[0]['id']
+                    except IndexError:
+                        abroad_branch = None
+                if abroad_branch is not None:
+                    self.branch_id = abroad_branch
+        super().save(force_insert, force_update, using, update_fields)
 
     def get_identity(self):
         if self.second_branch_conference:
@@ -249,7 +292,7 @@ class Member(MemberBase):
 
 class OldMember(MemberBase):
     class Meta(MemberBase.Meta):
-        verbose_name = '已毕业成员信息'
+        verbose_name = '历史党员管理'
         verbose_name_plural = verbose_name
 
 

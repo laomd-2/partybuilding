@@ -94,7 +94,7 @@ class BranchAdmin(AdminObject):
             obj = request
         codename = get_permission_codename('delete', Branch._meta)
         has = self.user.has_perm('%s.%s' % (Branch._meta.app_label, codename))
-        return has and (obj is None or obj.id != 1)
+        return has and (obj is None or obj.id != 106)
 
 
 fields_, phases = Member.get_phases()
@@ -134,7 +134,7 @@ class MemberBaseAdmin(AdminObject):
             *[Fieldset((('阶段%d：' % i) if i else '') + k, *v) for i, (k, v) in enumerate(phases.items())]
         ),
         Side(
-            Fieldset('关系转出', 'out_date', 'out_place'),
+            Fieldset('关系转出', 'out_type', 'out_date', 'out_place'),
             Fieldset('其他信息', 'remarks')
         )
     )
@@ -161,15 +161,7 @@ class MemberBaseAdmin(AdminObject):
     @property
     def list_editable(self):
         if is_admin(self.request.user):
-            res = []
-            for k, v in phases.items():
-                if k == '基本信息':
-                    res += v[2:]
-                else:
-                    res += v
-            res.remove('autobiography')
-            res.remove('application_form')
-            return res
+            return [f for f in fields_ if f != 'netid']
         if is_member(self.request.user):  # 普通成员
             return phases['基本信息'][2:]
         return []

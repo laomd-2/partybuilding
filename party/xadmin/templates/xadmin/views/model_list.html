@@ -73,35 +73,16 @@
       position: relative;
     }
 
-    #changelist-form th {
-      height: 3em;
-    }
-
-    #changelist-form td {
-      height: 3em;
+    #filter-menu>li.dropdown-submenu:not(.filter-date)>ul {
+      max-height: 25em;
+      overflow-y: auto;
     }
 
     #content-block.full-content {
       margin-left: 0;
     }
   </style>
-  <script>
-      function getContentWidth(element) {
-          var styles = getComputedStyle(element);
 
-          return element.clientWidth
-              - parseFloat(styles.paddingLeft)
-              - parseFloat(styles.paddingRight)
-      }
-
-      window.onresize = function () {
-          var fixed = document.getElementById("fixed");
-          var nonfixed = document.getElementById("nonfixed");
-          var w = window.getContentWidth(fixed.offsetParent);
-          nonfixed.style.width = ((w - fixed.clientWidth - fixed.clientLeft - 2 * nonfixed.clientLeft) / w * 100)
-              .toFixed(2) + '%';
-      }
-  </script>
 {% endblock %}
 {% block bodyclass %}change-list{% endblock %}
 
@@ -175,14 +156,13 @@
 
   <form id="changelist-form" action="" method="post"{% view_block 'result_list_form' %}>{% csrf_token %}
     {% view_block 'results_top' %}
-    <div id="fixed" class="results table-responsive" style="float: left; overflow: auto; width: auto">
+    <div class="results table-responsive" style="overflow: auto; width: 100%">
       {% if results %}
         {% block results_fixedcol_grid %}
-          <table class="table table-bordered table-striped table-hover" style="position: relative;">
+          <table id="results" class="table table-bordered table-striped table-hover" style="position: relative;">
             {% block results_fixedcol_grid_head %}
               <thead>
               <tr>{% for o in result_headers.cells %}
-                {% if forloop.counter0 < num_fixed_cols %}
                   <th {{ o.tagattrs }}>
                     {% if o.btns %}
                       <div class="pull-right" style="display: inline-block">
@@ -206,7 +186,7 @@
                     {% else %}
                       <div {% if o.btns %}style="padding-right: {{ o.btns|length }}em" {% endif %}>{{ o.label }}</div>
                     {% endif %}
-                  </th>{% endif %}{% endfor %}
+                  </th>{% endfor %}
               </tr>
               {% view_block 'result_head' %}
               </thead>
@@ -216,7 +196,6 @@
               {% for row in results %}
                 <tr class="grid-item{% if row.css_class %} {{ row.css_class }}{% endif %}" {{ row.tagattrs }}>
                   {% for o in row.cells %}
-                    {% if forloop.counter0 < num_fixed_cols %}
                       <td {{ o.tagattrs }}>
                         {% if o.btns %}
                           <div class="btn-group absolute-right">
@@ -244,7 +223,7 @@
                         {{ o.label }}
                         {% if '<input type="checkbox"' not in o.label %}</div>{% endif %}
                         {% endif %}
-                      </td>{% endif %}
+                      </td>
                   {% endfor %}</tr>
                 {% view_block 'result_row' row %}
               {% endfor %}
@@ -252,88 +231,6 @@
             {% endblock results_fixedcol_grid_body %}
           </table>
         {% endblock results_fixedcol_grid %}
-      {% else %}
-        <p class="well">{% trans "Empty list" %}</p>
-      {% endif %}
-    </div>
-
-    <div id="nonfixed" class="results table-responsive" style="float: left; overflow: auto;">
-      {% if results %}
-        {% block results_grid %}
-          <table class="table table-bordered table-striped table-hover" style="position: relative;">
-            {% block results_grid_head %}
-              <thead>
-              <tr>{% for o in result_headers.cells %}
-                {% if forloop.counter0 >= num_fixed_cols %}
-                  <th {{ o.tagattrs }}>
-                    {% if o.btns %}
-                      <div class="pull-right" style="display: inline-block">
-                        {% for b in o.btns %}
-                          {{ b|safe }}
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-                    {% if o.menus %}
-                      <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"
-                           {% if o.btns %}style="padding-right: {{ o.btns|length }}em"{% endif %}>
-                          {{ o.label }}
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                          {% for m in o.menus %}
-                            {{ m|safe }}
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    {% else %}
-                      <div {% if o.btns %}style="padding-right: {{ o.btns|length }}em" {% endif %}>{{ o.label }}</div>
-                    {% endif %}
-                  </th>{% endif %}{% endfor %}
-              </tr>
-              {% view_block 'result_head' %}
-              </thead>
-            {% endblock results_grid_head %}
-            {% block results_grid_body %}
-              <tbody>
-              {% for row in results %}
-                <tr class="grid-item{% if row.css_class %} {{ row.css_class }}{% endif %}" {{ row.tagattrs }}>
-                  {% for o in row.cells %}
-                    {% if forloop.counter0 >= num_fixed_cols %}
-                      <td {{ o.tagattrs }}>
-                        {% if o.btns %}
-                          <div class="btn-group absolute-right">
-                            {% for b in o.btns %}
-                              {{ b|safe }}
-                            {% endfor %}
-                          </div>
-                        {% endif %}
-                        {% if o.menus %}
-                          <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                              {{ o.label }}
-                            </a>
-                            <ul class="dropdown-menu">
-                              {% for m in o.menus %}
-                                {{ m|safe }}
-                              {% endfor %}
-                            </ul>
-                          </div>
-                        {% else %}
-                          {% if '<input type="checkbox"' not in o.label %}
-                            <div class="td-text"
-                                 {% if o.btns %}style="padding-right: {{ o.btns|length }}em" {% endif %}>
-                          {% endif %}
-                        {{ o.label }}
-                        {% if '<input type="checkbox"' not in o.label %}</div>{% endif %}
-                        {% endif %}
-                      </td>{% endif %}
-                  {% endfor %}</tr>
-                {% view_block 'result_row' row %}
-              {% endfor %}
-              </tbody>
-            {% endblock results_grid_body %}
-          </table>
-        {% endblock results_grid %}
       {% else %}
         <p class="well">{% trans "Empty list" %}</p>
       {% endif %}

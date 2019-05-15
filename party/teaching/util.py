@@ -176,19 +176,21 @@ def get_list_chart(request, model):
         return None
     else:
         branch = m['netid']
-    return get_detail_chart(request, model, branch)
+    charts = get_detail_chart(request, model, branch)
+    charts.update(get_list_chart2(request, model))
+    return charts
 
 
 def get_list_chart2(request, model):
     m = request.user.member
     my_charts = {}
-    if m is not None:
-        year, all_take = get_visual_credit(request.user, model)
-        all_take = all_take.filter(member_id=m['netid'])
-        if all_take.count():
-            my_charts['takepartin'] = {
-                'title': '%d年度个人学时概览' % year,
-                'option': get_monthly_credit(all_take)
-            }
+
+    year, all_take = get_visual_credit(request.user, model)
+    all_take = all_take.filter(member_id=m['netid'])
+    if all_take.count():
+        my_charts['takepartin'] = {
+            'title': '%d年度个人学时概览' % year,
+            'option': get_monthly_credit(all_take)
+        }
 
     return my_charts

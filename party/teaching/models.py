@@ -54,7 +54,7 @@ class Activity(models.Model):
     ], max_length=10)
     branch = models.ManyToManyField(Branch, verbose_name='主办单位/党支部')
     credit = models.FloatField('学时数', default=0)
-    cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
+    is_cascade = models.BooleanField('级联更新', default=False, help_text='当会议/活动的学时数改变时，自动在学时统计中更新。')
     visualable_others = models.BooleanField('公开', default=False, help_text='是否向其他支部公开。')
 
     checkin_code = models.IntegerField(verbose_name='签到码', null=True, blank=True)
@@ -85,7 +85,6 @@ class TakePartInBase(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='学号')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='活动主题')
     credit = models.FloatField('学时数', null=True, default=0)
-    last_modified = models.DateTimeField('最后修改时间', default=timezone.now)
 
     class Meta:
         unique_together = ('activity', 'member')
@@ -118,14 +117,7 @@ class TakePartInBase(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.credit < 0.001 or self.activity.cascade and self.credit != self.activity.credit:
-            self.credit = self.activity.credit
-        old = get_old(self)
-        if old is not None:
-            if old.activity != self.activity or abs(old.credit - self.credit) > 0.001:
-                self.last_modified = datetime.datetime.now()
-        else:
-            self.last_modified = datetime.datetime.now()
-        self.credit = round(self.credit, 1)
+            self.credit = round(self.activity.credit)
         super().save(force_insert, force_update, using, update_fields)
 
 

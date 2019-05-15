@@ -16,7 +16,7 @@ def upload_to(instance, filename):
 class NoteBase(models.Model):
     title = models.CharField(verbose_name='标题', max_length=50)
     author = models.CharField(verbose_name='作者', max_length=50, editable=False)
-    branch = models.ForeignKey(Branch, verbose_name='党支部', on_delete=models.CASCADE, editable=False)
+    branch = models.ForeignKey(Branch, verbose_name='党支部名称', on_delete=models.CASCADE, editable=False)
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True, editable=False)
     last_edit_time = models.DateTimeField(verbose_name='最后编辑时间', auto_now=True, editable=False)
 
