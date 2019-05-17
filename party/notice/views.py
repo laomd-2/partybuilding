@@ -50,8 +50,9 @@ class BeianView(TableView):
 
         for row in query:
             row['birth_date'] = '-'.join(str(row['birth_date']).split('-')[:-1])
+            row['branch_id'] = row['branch_name']
             tb_row = table.add_row()
-            values = list(row.values())
+            values = [row[k] for k in model.beian_fields]
             model.complete_beian(values)
             for v, cell in zip(values, tb_row.cells):
                 cell.text = wrap(v)

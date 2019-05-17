@@ -55,6 +55,14 @@ class IndexView(Dashboard):
                         for q in deffer:
                             rows.append([wrap(q[field]) for field in fields])
                         deffers[model.phase] = rows
+                    graduation = list(get_graduation(self.request))
+                    if graduation:
+                        for g in graduation:
+                            g['branch_id'] = g['branch_name']
+                            del g['branch_name']
+                        header = verbose_name(graduation[0].keys())
+                        context['graduation'] = [header] + [list(map(wrap, g.values())) for g in graduation]
+
         context['deffers'] = deffers
         context['affairs'] = affairs
         context['can_send_email'] = is_school_admin(self.request.user)

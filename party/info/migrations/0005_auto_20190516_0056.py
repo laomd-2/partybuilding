@@ -4,6 +4,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+
     dependencies = [
         ('info', '0004_auto_20190515_1943'),
     ]
@@ -20,14 +21,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='out_type',
-            field=models.CharField(blank=True, choices=[('D.就业', 'D.就业'), ('G.境内升学', 'G.境内升学'), ('A.出国留学', 'A.出国留学')],
-                                   max_length=20, null=True, verbose_name='转出类型'),
+            field=models.CharField(blank=True, choices=[('D.就业', 'D.就业'), ('G.境内升学', 'G.境内升学'), ('A.出国留学', 'A.出国留学')], max_length=20, null=True, verbose_name='转出类型'),
         ),
         migrations.AddField(
             model_name='oldmember',
             name='out_type',
-            field=models.CharField(blank=True, choices=[('D.就业', 'D.就业'), ('G.境内升学', 'G.境内升学'), ('A.出国留学', 'A.出国留学')],
-                                   max_length=20, null=True, verbose_name='转出类型'),
+            field=models.CharField(blank=True, choices=[('D.就业', 'D.就业'), ('G.境内升学', 'G.境内升学'), ('A.出国留学', 'A.出国留学')], max_length=20, null=True, verbose_name='转出类型'),
         ),
         migrations.AlterField(
             model_name='member',

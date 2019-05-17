@@ -1,7 +1,8 @@
-from django.db.models import Q
+from django.db.models import Q, F
 
 from common.utils import *
 from info.models import Dependency
+from info.util import get_visuable_members
 from openpyxl import load_workbook
 from .util import *
 
@@ -105,7 +106,7 @@ class Activist(Table):
     excel_template = media('Excel模板/入党积极分子.xlsx')
     beian_template = media('Excel模板/材料6：确定入党积极分子等备案.docx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date']
-    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number',
+    beian_fields = ['branch_id', 'name', 'gender', 'birth_date', 'id_card_number',
                     'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
     phase = '入党积极分子'
@@ -157,7 +158,7 @@ class KeyDevelop(Table):
     excel_template = media('Excel模板/重点发展对象.xlsx')
     beian_template = media('Excel模板/材料12：确定重点发展对象备案表.docx')
     fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'activist_date']
-    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number',
+    beian_fields = ['branch_id', 'name', 'gender', 'birth_date', 'id_card_number',
                     'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
     phase = '重点发展对象'
@@ -255,7 +256,7 @@ class PreMember(Table):
     fields = ['branch_id', 'netid', 'name', 'birth_date', 'application_date', 'activist_date', 'league_promotion_date',
               'democratic_appraisal_date', 'is_political_check', 'key_develop_person_date',
               'graduated_party_school_date', 'first_branch_conference', 'pro_conversation_date']
-    beian_fields = ['name', 'gender', 'birth_date', 'id_card_number',
+    beian_fields = ['branch_id', 'name', 'gender', 'birth_date', 'id_card_number',
                     'recommenders', 'application_date', 'activist_date',
                     'key_develop_person_date', 'first_branch_conference'
                     ]
@@ -390,3 +391,16 @@ class FullMember(Table):
         sheet.row_dimensions[sheet.max_row - 1].height = 13.5
         sheet.row_dimensions[sheet.max_row].height = 80
         sheet.cell(4, 1).value = str(sheet.cell(4, 1).value) % cnt
+
+
+# 提醒更新毕业生组织关系
+def get_graduation(request):
+    members = get_visuable_members(Member, request.user)\
+        .extra(
+            select={
+                'branch_name': 'info_branch.branch_name'
+            },
+            where=["MAKEDATE(2000 + netid div 1000000 + years, 120) <= CURDATE()"
+                   "and (out_type='Z.无' or out_place is null or out_place='')"])
+    return members.values('branch_id', 'branch_name', 'netid', 'name', 'out_type', 'out_place')
+

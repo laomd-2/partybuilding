@@ -25,21 +25,60 @@
 {% endblock %}
 
 {% block content %}
-  {#<div class="dashboard row">#}
-  {#  {% for c in columns %}#}
-  {#  <div class="{{ c.0 }} column">#}
-  {#    {% for widget in c.1 %}#}
-  {#      {{ widget.widget|safe }}#}
-  {#    {% endfor %}#}
-  {#  </div>#}
-  {#  {% endfor %}#}
-  {#</div>#}
-  {#  <div class="page">#}
-  {#</div>#}
-  {% if deffers %}
-    {#    <div class="panel panel-default">#}
-    {#        <div class="panel-heading"><i class="icon fa fa-chevron-up chevron"></i><h3 class="panel-title">未更新信息</h3></div>#}
-    <div class="panel-group" id="accordion-deffer" style="margin-bottom: 2em">
+  {#    <div class="panel panel-default">#}
+  {#        <div class="panel-heading"><i class="icon fa fa-chevron-up chevron"></i><h3 class="panel-title">未更新信息</h3></div>#}
+  <div class="panel-group" id="accordion-deffer" style="margin-bottom: 2em">
+    <!-- 毕业生组织关系提醒 -->
+    {% if graduation %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-deffer"
+               href="#graduation"><span class="badge">{{ graduation|length|add:"-1" }}</span>
+              待更新的毕业生组织关系信息
+            </a>
+          </h4>
+        </div>
+        <div id="graduation" class="panel-collapse collapse">
+          <div class="panel-body results table-responsive" style="overflow: auto">
+            <table class="table table-bordered table-striped table-hover">
+              {% for row in graduation %}
+                {% if forloop.first %}
+                  <thead>
+                  <tr>
+                    {% for c in row %}
+                      <th style="text-align: center">{{ c }}</th>
+                    {% endfor %}
+                  </tr>
+                  </thead>
+                {% else %}
+                  {% if forloop.counter == 2 %}
+                    <tbody>
+                  {% endif %}
+                <tr>
+                  {% for c in row %}
+                    <td class="nowrap"
+                        style="text-align: center; white-space: nowrap; {% if not c %} background-color: yellow{% endif %}">
+                      {% if forloop.counter == 2 %}
+                        <a href="info/member/{{ c }}/update">{{ c }}</a>
+                      {% else %}
+                        {{ c }}
+                      {% endif %}
+                    </td>
+                  {% endfor %}
+                </tr>
+                {% if forloop.last %}
+                  </tbody>
+                {% endif %}
+                {% endif %}
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>  <!-- 毕业生组织关系提醒 -->
+    {% endif %}
+
+    {% if deffers %}
       {% for phase, deffer in deffers.items %}
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -53,7 +92,9 @@
           </div>
           <div id="deffer{{ forloop.counter0 }}" class="panel-collapse collapse">
             <div class="panel-body results table-responsive" style="overflow: auto">
-              <h4>请注意更新动态信息，或者备注中说明原因，格式：{{ phase }}延迟发展-原因。</h4>
+              <h4 style="display: inline; float: left">
+                请更新动态信息，或在备注中说明延迟发展的原因（格式：{{ phase }}延迟发展-原因）。
+              </h4>
               <table class="table table-bordered table-striped table-hover">
                 {% for row in deffer %}
                   {% if forloop.first %}
@@ -90,9 +131,9 @@
           </div>
         </div>
       {% endfor %}
-    </div>
-    {#    </div>#}
-  {% endif %}
+      </div>
+      {#    </div>#}
+    {% endif %}
 
   {% if affairs %}
     {#    <div class="panel panel-default">#}

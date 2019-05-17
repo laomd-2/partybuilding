@@ -12,7 +12,6 @@ class NoteAdminBase(AdminObject):
     list_display = ['author', 'title', 'last_edit_time']
     search_fields = ['author', 'title']
     list_filter = ['create_time', 'last_edit_time']
-    model_icon = 'fa fa-book'
 
     def queryset(self):
         if self.request.user.is_superuser:
@@ -59,12 +58,14 @@ class NoteAdminBase(AdminObject):
 
 @xadmin.sites.register(Note)
 class NoteAdmin(NoteAdminBase):
+    model_icon = 'fa fa-book'
     style_fields = {"content": "ueditor"}
     list_display_links = ['title']
 
 
 @xadmin.sites.register(Rule)
 class RuleAdmin(NoteAdminBase):
+    model_icon = 'fa fa-print'
     list_display = ['author', 'title', 'get_file']
 
     def get_list_display_links(self):

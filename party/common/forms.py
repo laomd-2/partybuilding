@@ -1,6 +1,19 @@
+from django.forms import CheckboxInput, BooleanField
 from django.forms.models import ModelForm
 from datetime import datetime
 from datetime import date
+from django.utils.safestring import mark_safe
+
+
+class ToggleInput(CheckboxInput):
+    def render(self, name, value, attrs=None, renderer=None):
+        res = super().render(name, value, attrs, renderer)
+        res += mark_safe('''<script>$("[name='%s']").bootstrapSwitch();</script>''' % name)
+        return res
+
+
+class ToggleField(BooleanField):
+    widget = ToggleInput
 
 
 class DateCheckModelForm(ModelForm):

@@ -156,10 +156,12 @@
 
   <form id="changelist-form" action="" method="post"{% view_block 'result_list_form' %}>{% csrf_token %}
     {% view_block 'results_top' %}
-    <div class="results table-responsive" style="overflow: auto; width: 100%">
+    <div class="results table-responsive" style="width: 100%;">
       {% if results %}
         {% block results_fixedcol_grid %}
-          <table id="results" class="table table-bordered table-striped table-hover" style="position: relative;">
+          <table id="results" class="table table-bordered table-hover" style="position: relative;"
+            data-toggle="table" data-height="{{ height }}"
+          >
             {% block results_fixedcol_grid_head %}
               <thead>
               <tr>{% for o in result_headers.cells %}
@@ -230,6 +232,15 @@
               </tbody>
             {% endblock results_fixedcol_grid_body %}
           </table>
+{#          <script>#}
+{#            $(function(){#}
+{#             //#table表示的是上面table表格中的id#}
+{#             $("#results").bootstrapTable('destroy').bootstrapTable({#}
+{#                    fixedColumns: true,#}
+{#                    fixedNumber: 3 //固定列数#}
+{#                });#}
+{#            })#}
+{#            </script>#}
         {% endblock results_fixedcol_grid %}
       {% else %}
         <p class="well">{% trans "Empty list" %}</p>

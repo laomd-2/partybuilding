@@ -6,9 +6,7 @@ from django.utils import timezone
 from django.utils.encoding import smart_str
 import qrcode
 import hashlib
-from common.base import get_old
 from info.models import Member, Branch
-import datetime
 
 
 def upload_to(instance, filename):
@@ -44,6 +42,13 @@ class NullableImageField(models.ImageField):
         super().__init__(verbose_name, name, width_field, height_field, **kwargs)
 
 
+class Phase(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class Activity(models.Model):
     name = models.CharField('活动主题', max_length=100)
     date = models.DateTimeField('开展时间', default=timezone.now)
@@ -59,6 +64,8 @@ class Activity(models.Model):
 
     checkin_code = models.IntegerField(verbose_name='签到码', null=True, blank=True)
     checkin_qr = NullableImageField(verbose_name='签到二维码', editable=False)
+
+    should_phase = models.ManyToManyField(Phase, verbose_name='参与成员', blank=True)
 
     class Meta:
         unique_together = ('name', 'date')
@@ -81,10 +88,9 @@ class Activity(models.Model):
         super().save(force_insert, force_update, using, update_fields)
 
 
-class TakePartInBase(models.Model):
+class TakeBase(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='学号')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='活动主题')
-    credit = models.FloatField('学时数', null=True, default=0)
 
     class Meta:
         unique_together = ('activity', 'member')
@@ -115,9 +121,16 @@ class TakePartInBase(models.Model):
     def __str__(self):
         return "%s: %s" % (self.activity, self.member)
 
+
+class TakePartInBase(TakeBase):
+    credit = models.FloatField('学时数', null=True, default=0)
+
+    class Meta(TakeBase.Meta):
+        abstract = True
+
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if self.credit < 0.001 or self.activity.cascade and self.credit != self.activity.credit:
-            self.credit = round(self.activity.credit)
+        if self.credit < 0.001 or self.activity.is_cascade and self.credit != self.activity.credit:
+            self.credit = round(self.activity.credit, 2)
         super().save(force_insert, force_update, using, update_fields)
 
 
@@ -154,6 +167,7 @@ class Sharing(models.Model):
                 raise ValidationError("%s已经学习过%s。" % (self.member, self.title))
 
 
+# 防止代签的表
 class CheckIn(models.Model):
     activity_id = models.IntegerField()
     netid = models.IntegerField()
@@ -161,3 +175,14 @@ class CheckIn(models.Model):
 
     class Meta:
         unique_together = ('activity_id', 'netid')
+
+
+# 请假、缺席统计表
+class AskForLeave(TakeBase):
+    status = models.SmallIntegerField('状态', choices=[
+        (0, '缺席'), (1, '请假')
+    ], default=0)
+
+    class Meta(TakeBase.Meta):
+        verbose_name = '请假、缺席统计'
+        verbose_name_plural = verbose_name

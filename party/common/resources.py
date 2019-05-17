@@ -10,6 +10,7 @@ from import_export import resources
 
 class MyResource(resources.ModelResource):
     excel_template = 'Excel模板/空白.xlsx'
+    import_excel = excel_template
     font = '宋体'
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):

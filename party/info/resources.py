@@ -10,6 +10,7 @@ from .models import Member, Branch
 
 class MemberResource(resources.MyResource):
     excel_template = 'Excel模板/成员信息.xlsx'
+    import_excel = excel_template
 
     class Meta:
         model = Member

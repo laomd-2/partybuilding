@@ -398,20 +398,14 @@ class ListAdminView(ModelAdminView):
 
         headers = self.result_headers()
         results = self.results()
-
+        height = len(results)
+        if height > 10:
+            height = 10
         num_fixed_cols = self.num_fixed_cols
         if headers:
             o = headers.cells[0]
             if '<input type="checkbox"' in o.label:
                 num_fixed_cols += 1
-        # # 把relate按钮调到第2个位置
-        # if self.button_pull_left:
-        #     tmp = headers.cells.pop(-1)
-        #     # tmp.value = tmp.value.replace('pull-right', 'pull-left')
-        #     headers.cells.insert(1, tmp)
-        #     for row in results:
-        #         tmp = row.cells.pop(-1)
-        #         row.cells.insert(1, tmp)
         new_context = {
             'model_name': force_text(self.opts.verbose_name_plural),
             'title': self.title,
@@ -427,7 +421,8 @@ class ListAdminView(ModelAdminView):
             'result_headers': headers,
             'results': results,
             'placeholder': self.get_placeholder(),
-            'num_fixed_cols': num_fixed_cols
+            'num_fixed_cols': num_fixed_cols,
+            'height': height * 37 + 39
         }
 
         context = super(ListAdminView, self).get_context()

@@ -182,6 +182,7 @@ class ImportView(ImportBaseView):
         context['opts'] = self.model._meta
         context['fields'] = [f.column_name for f in resource.get_user_visible_fields()]
         context['headers'] = [self.model._meta.get_field(name).verbose_name for name in context['fields']]
+        context['excel'] = self.get_import_resource_class().import_excel
         request.current_app = self.admin_site.name
         return TemplateResponse(request, [self.import_template_name],
                                 context)

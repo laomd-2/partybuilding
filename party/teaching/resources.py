@@ -46,6 +46,7 @@ class ActivityResource(resources.MyResource):
 
 class CreditResource(resources.MyResource):
     excel_template = 'Excel模板/学时统计.xlsx'
+    import_excel = '导入模板/学时统计.xlsx'
 
     class Meta:
         model = TakePartIn
@@ -92,3 +93,12 @@ class CreditResource(resources.MyResource):
                     sheet.merge_cells('%s%d:%s%d' % (column, j, column, i - 1))
             sheet.merge_cells('A%d:A%d' % (row, i - 1))
         return workbook
+
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        header = []
+        for h in dataset.headers:
+            if '（' in h:
+                h = h[: h.find('（')]
+            header.append(h)
+        dataset.headers = header
+        super(CreditResource, self).before_import(dataset, using_transactions, dry_run, **kwargs)

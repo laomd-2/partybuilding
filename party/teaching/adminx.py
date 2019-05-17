@@ -6,6 +6,7 @@ from common.utils import Cache
 from info.util import get_visuable_members
 from .util import *
 from .models import *
+from .forms import ActivityForm
 from .resources import CreditResource, ActivityResource
 from common.rules import *
 import xadmin
@@ -26,8 +27,9 @@ def branch_in(branch, activity, branches):
 
 @xadmin.sites.register(Activity)
 class ActivityAdmin(AdminObject):
+    form = ActivityForm
     import_export_args = {
-        'import_resource_class': ActivityResource,
+        # 'import_resource_class': ActivityResource,
         'export_resource_class': ActivityResource
     }
 
@@ -48,7 +50,7 @@ class ActivityAdmin(AdminObject):
     list_filter = ['date', 'atv_type', 'credit']
     search_fields = ['name']
     button_pull_left = True
-    list_per_page = 15
+    # list_per_page = 15
     model_icon = 'fa fa-users'
 
     @property
@@ -78,11 +80,32 @@ class ActivityAdmin(AdminObject):
                 return [f.name for f in self.model._meta.fields if f.name not in exclude]
             return ['checkin_qr']
 
+    @staticmethod
+    def add_askforleave(activity_id, qs, name, leaves):
+        if name == '正式党员':
+            members = qs.filter(second_branch_conference__isnull=False)
+        elif name == '预备党员':
+            members = qs.filter(first_branch_conference__isnull=False,
+                                second_branch_conference__isnull=True)
+        elif name == '重点发展对象':
+            members = qs.filter(key_develop_person_date__isnull=False,
+                                first_branch_conference__isnull=True)
+        elif name == '入党积极分子':
+            members = qs.filter(activist_date__isnull=False,
+                                key_develop_person_date__isnull=True)
+        elif name == '提交入党申请':
+            members = qs.filter(application_date__isnull=False,
+                                activist_date__isnull=True)
+        else:
+            members = qs.none()
+        for m in members.values('netid'):
+            leaves.append(AskForLeave(member_id=m['netid'], activity_id=activity_id))
+
     def save_models(self):
         obj = self.new_obj
         if not is_school_admin(self.request.user):
             member = self.request.user.member
-            branches = map(int, self.request.POST['branch'].split(' '))
+            branches = [b['id'] for b in self.form_obj.cleaned_data['branch'].values('id')]
             if member is None or member['branch_id'] not in branches:
                 if self.org_obj is None:
                     messages.warning(self.request, '您添加了其他党支部的活动。')
@@ -92,6 +115,22 @@ class ActivityAdmin(AdminObject):
         obj.save()
         if obj.is_cascade:
             TakePartIn.objects.filter(activity_id=obj.id).update(credit=obj.credit)
+        if self.org_obj is None:    # 新建一个活动
+            leaves = []
+            activity_id = self.new_obj.id
+
+            phases = self.form_obj.cleaned_data['should_phase']
+            if is_school_admin(self.request.user) and obj.visualable_others:
+                for phase in phases.values('name'):
+                    self.add_askforleave(activity_id, Member.objects, phase['name'], leaves)
+            else:
+                m = self.request.user.member
+                if m is not None:
+                    for branch in self.form_obj.cleaned_data['branch']:    # 活动举办方的成员必须参加
+                        for phase in phases.values('name'):
+                            self.add_askforleave(activity_id, branch.member_set, phase['name'], leaves)
+            if leaves:
+                AskForLeave.objects.bulk_create(leaves)
 
     def queryset(self):
         return get_visual_activities(self.request.user)
@@ -105,7 +144,10 @@ class ActivityAdmin(AdminObject):
         return False
 
     def has_delete_permission(self, request=None, obj=None):
-        if super().has_delete_permission(request, obj):
+        codename = get_permission_codename('delete', self.model._meta)
+        has = ('delete' not in self.remove_permissions) and \
+               self.user.has_perm('%s.%s' % (self.app_label, codename))
+        if has:
             if is_school_admin(self.request.user) or request is None and obj is None:
                 return True
             elif obj is None:
@@ -142,10 +184,8 @@ class CreditAdminBase(AdminObject):
         return base + ['activity__date', 'activity__atv_type', 'credit']
 
     search_fields = ['activity__name', 'member__name', 'member__netid']
-    list_per_page = 15
+    # list_per_page = 15
     # style_fields = {'activity__name': 'fk-ajax'}
-
-    model_icon = 'fa fa-bar-chart'
 
     @property
     def aggregate_fields(self):
@@ -226,6 +266,8 @@ class CreditAdminBase(AdminObject):
 
 @xadmin.sites.register(TakePartIn)
 class CreditAdmin(CreditAdminBase):
+    model_icon = 'fa fa-bar-chart'
+
     @property
     def list_charts(self):
         return get_list_chart(self.request, TakePartIn)
@@ -239,6 +281,8 @@ class CreditAdmin(CreditAdminBase):
 
 @xadmin.sites.register(TakePartIn2)
 class CreditAdmin2(CreditAdminBase):
+    model_icon = 'fa fa-line-chart'
+
     @property
     def list_charts(self):
         m = self.request.user.member
@@ -274,8 +318,8 @@ class SharingAdmin(AdminObject):
     # list_editable = ['when']
     search_fields = ['member__name', 'title']
     list_filter = ['when']
-    list_per_page = 15
-    model_icon = 'fa fa-book'
+    # list_per_page = 15
+    model_icon = 'fa fa-calendar-check-o'
 
     def get_readonly_fields(self):
         if self.request.user.is_superuser:
@@ -329,4 +373,74 @@ class SharingAdmin(AdminObject):
                 return True
             m = self.request.user.member
             return m is not None and m['branch_id'] == 85
+        return False
+
+
+@xadmin.sites.register(AskForLeave)
+class AskForLeaveAdmin(AdminObject):
+    list_display = ['activity', 'member', 'status']
+    list_display_links = [None]
+    search_fields = ['activity__name', 'member__name', 'member__netid']
+    model_icon = 'fa fa-check-circle'
+
+    @property
+    def list_filter(self):
+        if is_school_admin(self.request.user):
+            return ['member__branch']
+        return []
+
+    @property
+    def list_editable(self):
+        if is_admin(self.request.user):
+            return ['status']
+        return []
+
+    def get_readonly_fields(self):
+        if self.org_obj is None:
+            return []
+        return ['activity', 'member']
+
+    def queryset(self):
+        if is_school_admin(self.request.user):
+            return self.model.objects.all()
+        m = self.request.user.member
+        if m is None:
+            return self.model.objects.none()
+        if is_branch_manager(self.request.user):
+            return self.model.objects.filter(member__branch_id=m['branch_id'])
+        elif is_member(self.request.user):
+            return self.model.objects.filter(member_id=m['netid'])
+
+    def has_change_permission(self, obj=None):
+        if super().has_change_permission(obj):
+            if is_school_admin(self.request.user) or obj is None:
+                return True
+            m = self.request.user.member
+            return m is not None and branch_in(m['branch_id'], obj.activity_id, obj.activity.branch)
+        return False
+
+    def has_delete_permission(self, request=None, obj=None):
+        codename = get_permission_codename('delete', self.model._meta)
+        has = ('delete' not in self.remove_permissions) and \
+               self.user.has_perm('%s.%s' % (self.app_label, codename))
+        if has:
+            if is_school_admin(self.request.user) or request is None and obj is None:
+                return True
+            elif obj is None:
+                obj = request
+            if is_branch_manager(self.request.user):
+                m = self.request.user.member
+                return m is not None and branch_in(m['branch_id'], obj.activity_id, obj.activity.branch)
+        return False
+
+    def has_view_permission(self, obj=None):
+        if super().has_view_permission(obj):
+            if is_school_admin(self.request.user) or obj is None:
+                return True
+            m = self.request.user.member
+            if m is not None and branch_in(m['branch_id'], obj.activity_id, obj.activity.branch):
+                if is_branch_manager(self.request.user):
+                    return True
+                else:
+                    return obj.member_id == m['netid']
         return False

@@ -9,11 +9,11 @@ where id = 6
 create view info_oldmember as
 select *
 from info_member_all
-where out_type = 'unknown'
-   or out_type = 'D.就业'
-   or out_type = 'G.境内升学';
+where (out_type = 'unknown' or
+       out_place is not null and out_place != '' and (out_type = 'D.就业' or out_type = 'G.境内升学'));
 create view info_member as
 select *
 from info_member_all
 where out_type is null
-   or not (out_type = 'unknown' or out_type = 'D.就业' or out_type = 'G.境内升学');
+   or not (out_type = 'unknown' or
+           out_place is not null and out_place != '' and (out_type = 'D.就业' or out_type = 'G.境内升学'));

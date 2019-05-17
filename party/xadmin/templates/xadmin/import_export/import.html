@@ -34,19 +34,7 @@
   <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <p>
-      {% trans "This importer will import the following fields: " %}
-      <table class="table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-            {% for field in headers %}
-              <th>{{ field }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-      </table>
-{#      <code>{{ fields|join:", " }}</code>#}
-    </p>
+    <p style="margin-bottom: 1em">请使用以下的表格导入数据：<a href="/media/{{ excel }}">{{ excel }}</a></p>
 
     <fieldset class="module aligned">
       {% for field in form %}

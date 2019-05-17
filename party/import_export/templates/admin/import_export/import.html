@@ -25,29 +25,9 @@
     </form>
   {% else %}
     <form action="" method="post" enctype="multipart/form-data">
+      <p>请使用以下的表格导入数据：</p>
+      <div><a href="{{ excel }}">点击下载</a></div>
       {% csrf_token %}
-
-      <p>
-        {% trans "This importer will import the following fields: " %}
-        <code>{{ fields|join:", " }}</code>
-      </p>
-
-      <fieldset class="module aligned">
-        {% for field in form %}
-          <div class="form-row">
-            {{ field.errors }}
-
-            {{ field.label_tag }}
-
-            {{ field }}
-
-            {% if field.field.help_text %}
-            <p class="help">{{ field.field.help_text|safe }}</p>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </fieldset>
-
       <div class="submit-row">
         <input type="submit" class="default" value="{% trans "Submit" %}">
       </div>

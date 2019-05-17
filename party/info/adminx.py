@@ -27,14 +27,17 @@ class SchoolAdmin(AdminObject):
 
 @xadmin.sites.register(Branch)
 class BranchAdmin(AdminObject):
+    my_export = True
     actions = [MergeBranchAction]
-    list_display = ['branch_name', 'get_leaders', 'num_members', 'date_create']
-    list_exclude = ['id']
+    list_display = ['branch_name', 'get_leaders',
+                    'num_members', 'num_full_members',
+                    'num_pre_members', 'num_key',
+                    'num_activist', 'num_application', 'date_create']
     button_pull_left = True
     show_charts = True
     list_display_links = ['branch_name']
     model_icon = 'fa fa-flag'
-    list_per_page = 15
+    # list_per_page = 15
 
     @property
     def search_fields(self):
@@ -102,7 +105,7 @@ fields_, phases = Member.get_phases()
 
 class MemberBaseAdmin(AdminObject):
     form = InfoForm
-    list_per_page = 8
+    # list_per_page = 8
     actions = [ActivistAction, KeyPersonAction,
                PrememberAction, MemberAction]
     import_export_args = {'import_resource_class': MemberResource,
@@ -122,7 +125,6 @@ class MemberBaseAdmin(AdminObject):
                 res += 1
         return res
 
-    model_icon = 'fa fa-info'
     ordering = ['branch', 'second_branch_conference',
                 'first_branch_conference',
                 'key_develop_person_date',
@@ -225,7 +227,7 @@ class DependencyAdmin(AdminObject):
     list_display = ['from_1', 'to', 'days', 'scope']
     list_exclude = ['id']
     list_editable = ['days', 'scope']
-    model_icon = 'fa fa-angle-double-right'
+    model_icon = 'fa fa-link'
 
     def get_list_display_links(self):
         if is_school_admin(self.request.user):
@@ -236,7 +238,7 @@ class DependencyAdmin(AdminObject):
 
 @xadmin.sites.register(Member)
 class MemberAdmin(MemberBaseAdmin):
-    my_export = True
+    model_icon = 'fa fa-info'
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'branch':
@@ -246,4 +248,4 @@ class MemberAdmin(MemberBaseAdmin):
 
 @xadmin.sites.register(OldMember)
 class OldMemberAdmin(MemberBaseAdmin):
-    pass
+    model_icon = 'fa fa-info-circle'

@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.encoding import escape_uri_path
 from openpyxl import load_workbook
-from openpyxl.styles import Border, Side
+from openpyxl.styles import Border, Side, PatternFill
 
 from common.base import get_old, get_chinese
 from common.rules import *
@@ -41,7 +41,7 @@ def get_visuable_members(model, user):
     elif is_member(user):
         member = user.member
         if member is not None:
-            return qs.filter(netid=member['netid']) or qs.none()
+            return qs.filter(netid=member['netid'])
     elif is_school_manager(user):
         school = user.school_id
         return qs.filter(branch__school_id=school)
@@ -147,7 +147,6 @@ def export_statistics(request):
         statistics.setdefault(branch, dict())
         statistics[branch].setdefault(grade, OrderedDict([(c, 0) for c in columns]))
         row = statistics[branch][grade]
-        row['支部人数'] += 1
         if member.is_real_party_member():
             row['正式党员数'] += 1
         elif member.is_pre_party_member():
@@ -171,16 +170,27 @@ def export_statistics(request):
     for branch, branch_data in statistics.items():
         j = i
         for grade, grade_data in branch_data.items():
-            cnt = grade_data['支部人数']
-            if cnt:
-                rate = (grade_data['正式党员数'] + grade_data['预备党员数']) / cnt
-                grade_data['党员比例'] = "%.1f%%" % (rate * 100)
-                rate = grade_data['入党积极分子数'] / cnt
-                grade_data['积极分子比例'] = "%.1f%%" % (rate * 100)
+            grade_data['支部人数'] = "=E{row}+F{row}+H{row}+I{row}".format(row=i)
+            grade_data['党员比例'] = "=(E{row}+F{row})/C{row}*100".format(row=i)
+            grade_data['积极分子比例'] = "=H{row}/C{row}*100".format(row=i)
             sheet.append([branch, grade] + list(grade_data.values()))
             for cell in sheet[i]:
                 cell.border = right_border
             i += 1
+        sheet.append([
+            branch, '总计',
+            '=' + '+'.join(['C%d' % r for r in range(j, i)]),
+            '', '=' + '+'.join(['E%d' % r for r in range(j, i)]),
+            '=' + '+'.join(['F%d' % r for r in range(j, i)]), '',
+            '=' + '+'.join(['H%d' % r for r in range(j, i)]),
+            '=' + '+'.join(['I%d' % r for r in range(j, i)]),
+            '=' + '+'.join(['J%d' % r for r in range(j, i)]),
+            '=' + '+'.join(['K%d' % r for r in range(j, i)]),
+        ])
+        for cell in sheet[i]:
+            cell.border = right_border
+            cell.fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type="solid")
+        i += 1
         for cell in sheet[i - 1]:
             cell.border = bottom_border
         sheet.merge_cells('A%d:A%d' % (j, i - 1))

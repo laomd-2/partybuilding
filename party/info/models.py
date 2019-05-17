@@ -1,15 +1,13 @@
 ﻿import datetime
 from copy import copy
-
-from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Q
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
 from common.utils import Cache
+from common.models import MyBooleanField
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
@@ -69,10 +67,45 @@ class Branch(models.Model):
             if qs.filter(branch_name=self.branch_name).exists():
                 raise ValidationError("%s的%s已存在。" % (self.school, self.branch_name))
 
+    @property
+    def qs(self):
+        if self.id == 6:
+            qs = Member.objects
+        else:
+            qs = self.member_set
+        return qs
+
     def num_members(self):
-        return self.member_set.count()
+        return self.qs.count()
 
     num_members.short_description = '成员数'
+
+    def num_full_members(self):
+        return self.qs.filter(second_branch_conference__isnull=False).count()
+
+    num_full_members.short_description = '正式党员'
+
+    def num_pre_members(self):
+        return self.qs.filter(first_branch_conference__isnull=False,
+                              second_branch_conference__isnull=True).count()
+
+    num_pre_members.short_description = '预备党员'
+
+    def num_key(self):
+        return self.qs.filter(key_develop_person_date__isnull=False,
+                              first_branch_conference__isnull=True).count()
+
+    num_key.short_description = '重点发展对象'
+
+    def num_activist(self):
+        return self.qs.filter(activist_date__isnull=False, key_develop_person_date__isnull=True).count()
+
+    num_activist.short_description = '积极分子'
+
+    def num_application(self):
+        return self.qs.filter(application_date__isnull=False, activist_date__isnull=True).count()
+
+    num_application.short_description = '申请人员'
 
     leader_cache = Cache(5)
 
@@ -129,11 +162,11 @@ class MemberBase(models.Model):
                                       help_text='18位，除最后一位可以是x或X外，其他17位是数字。出生日期和性别需要对应。')
     major_in = models.CharField(max_length=30, verbose_name='当前专业', null=True, blank=True,
                                 help_text='填写当前所在专业的全称。')
-    years = models.IntegerField('学年制', default=4, help_text='延期毕业可以增加学年制。')
-    youth_league_member = models.BooleanField(verbose_name='是否团员', default=True)
+    years = models.IntegerField('学年制', default=4, help_text='转专业或休学时可以增加学年制。')
+    youth_league_member = MyBooleanField(verbose_name='是否团员', default=True, help_text='非团员发展时采用党员推荐方式。')
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
-    is_sysu = models.BooleanField(verbose_name='是否在中山大学发展', help_text='在中山大学发展的党员，其录入的信息需严格遵循'
-                                                                      '相关流程依赖。', default=True)
+    is_sysu = MyBooleanField(verbose_name='是否在中山大学发展', help_text='在中山大学发展的党员，其录入的信息需严格遵循'
+                                                                 '相关流程依赖。', default=True)
 
     application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致，需保证年满18周岁。')
     first_talk_date = NullableDateField(verbose_name='首次组织谈话时间', help_text='党支部收到入党申请书后，一个月内委派支委与其谈话的时间。')
@@ -172,7 +205,7 @@ class MemberBase(models.Model):
 
     out_date = NullableDateField('关系转出时间')
     out_type = models.CharField('转出类型', null=True, blank=True, max_length=20, choices=[
-        (c, c) for c in ['D.就业', 'G.境内升学', 'A.出国留学', '无']
+        (c, c) for c in ['C.出国境升学', 'D.就业', 'E.暂缓就业', 'F.延毕', 'G.境内升学', 'Z.无']
     ])
     out_place = models.CharField('去向单位', blank=True, null=True, max_length=50)
     remarks = models.TextField('备注', blank=True, null=True, help_text='填写各阶段延期发展的原因，或其他重要信息。')
@@ -258,10 +291,10 @@ class Member(MemberBase):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, ignore_check=False):
-        if self.out_type:
-            if self.out_type == 'D.就业' or self.out_type == 'G.境内升学':
+        if self.out_type != 'Z.无' and self.out_place:
+            if self.out_type == 'D.就业' or self.out_type == 'G.境内升学':  # mysql视图自动保存到历史党员中
                 self.out_date = datetime.date.today()
-            elif self.out_type == 'A.出国留学':
+            elif self.out_type == 'C.出国境升学':
                 self.out_date = datetime.date.today()
                 try:
                     abroad_branch = Branch.objects.filter(branch_name='出国留学党支部').values('id')[0]['id']
