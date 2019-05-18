@@ -1,26 +1,17 @@
 from __future__ import absolute_import
-
-from collections import OrderedDict
-
-from django.contrib import messages
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.views import LoginView as login
 from django.contrib.auth.views import LogoutView as logout
 from django.http import HttpResponse
-
-from common.base import wrap
-from common.rules import is_school_admin
 from .base import BaseAdminView, filter_hook
 from .dashboard import Dashboard
 from xadmin.forms import AdminAuthenticationForm
 from xadmin.models import UserSettings
 from xadmin.layout import FormHelper
 from notice.admin import *
-from notice.util import verbose_name
-from notice.views import queryset
+from notice.util import verbose_name, queryset
 
 
 class IndexView(Dashboard):
@@ -33,40 +24,28 @@ class IndexView(Dashboard):
     def get_context(self):
         context = super(IndexView, self).get_context()
         affairs = []
-        deffers = dict()
+        plans = []
+        today = datetime.date.today()
         for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
             query = queryset(self.request, model)
-            if query:
+            num_plan = len(query)
+            if num_plan > 0:
                 fields = model.fields
-                header = verbose_name(fields)
-                result = [header]
-                for q in query:
-                    q['branch_id'] = q['branch_name']
-                    result.append([wrap(q[field]) for field in fields])
-                beian_tile = model.beian_template.split('/')[-1]
-                beian_tile = beian_tile[beian_tile.find('：') + 1: beian_tile.rfind('.')]
-                affairs.append([model.__name__.lower(), model.verbose_name, result, beian_tile])
-
-                if is_admin(self.request.user):
-                    today = datetime.datetime.now().date()
-                    deffer = model.check(today, query)
-                    if deffer:
-                        rows = [header]
-                        for q in deffer:
-                            rows.append([wrap(q[field]) for field in fields])
-                        deffers[model.phase] = rows
-                    graduation = list(get_graduation(self.request))
-                    if graduation:
-                        for g in graduation:
-                            g['branch_id'] = g['branch_name']
-                            del g['branch_name']
-                        header = verbose_name(graduation[0].keys())
-                        context['graduation'] = [header] + [list(map(wrap, g.values())) for g in graduation]
-
-        context['deffers'] = deffers
-        context['affairs'] = affairs
-        context['can_send_email'] = is_school_admin(self.request.user)
+                headers = verbose_name(fields)
+                results = [[m[f] for f in fields] for m in query]
+                beian_template = model.beian_template.split('/')[-1]
+                if beian_template.endswith('.docx'):
+                    beian_template = beian_template[:-5]
+                plans.append((model.verbose_name, num_plan, model.__name__.lower(), headers, results, beian_template))
+                daiban = model.check(today, query)
+                num_daiban = len(daiban)
+                if num_daiban > 0:
+                    affairs.append((model.phase, num_daiban,
+                                    '_p_netid__in=' + ','.join(map(lambda x: str(x), daiban)),
+                                    model.fields))
         context['can_beian'] = is_admin(self.request.user)
+        context['plans'] = plans
+        context['affairs'] = affairs
         return context
 
 

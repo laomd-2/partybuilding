@@ -160,13 +160,10 @@ class FilterPlugin(BaseAdminPlugin):
             if isinstance(queryset, models.query.QuerySet) and lookup_params:
                 new_lookup_parames = dict()
                 for k, v in lookup_params.items():
-                    list_v = []
-                    try:
-                        list_v = v.split(',')
-                    except:
-                        pass
-                    if len(list_v) > 0:
-                        new_lookup_parames.update({k: list_v})
+                    if v == 'True':
+                        v = True
+                    if k.endswith('__in'):
+                        new_lookup_parames.update({k: v.split(',')})
                     else:
                         new_lookup_parames.update({k: v})
                 queryset = queryset.filter(**new_lookup_parames)

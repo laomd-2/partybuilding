@@ -20,8 +20,6 @@ def verbose_name(fields):
 
 
 def get_infos(fields, appers):
-    for apper in appers:
-        apper['branch_id'] = apper['branch_name']
     return [[wrap(apper[field]) for field in fields] for apper in appers]
 
 
@@ -29,7 +27,7 @@ def make_email_to_managers(users, title, appers, fields, phase):
     to_emails = [user['email'] for user in users if user['email']]
     if not to_emails:
         return
-    branch_name = appers[0]['branch_name']
+    branch_name = appers[0]['branch'].branch_name
     subject = title
     text_content = ''
 
@@ -116,8 +114,10 @@ def queryset(request, model, fields=None):
             for k, v in q.items():
                 if v is None:
                     q[k] = ''
+            q['branch'] = q['branch_name']
+            del q['branch_name']
             for first in q.keys():  break
-            if first != 'branch_id':
+            if first != 'branch':   # 确保党支部在第一列
                 e = q[fields[-1]]
                 del q[fields[-1]]
                 q[fields[-1]] = e

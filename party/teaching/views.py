@@ -42,7 +42,7 @@ class CheckInView(TemplateView):
         except ValueError:
             return HttpResponseNotFound('会议或活动有误。')
         except IndexError:
-            return HttpResponseNotFound('该会议或活动不存在。')
+            return HttpResponseNotFound('您的信息不在系统中。')
         try:
             ip = request.META['REMOTE_ADDR']
             username = int(request.POST.get('username'))

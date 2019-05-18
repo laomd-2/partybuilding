@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from notice.tasks import EmailView
+from django.urls import path
+
 from .views import *
 
 urlpatterns = [
+    path('', PlanView.as_view()),
     url(r'^(?P<table>\w+)$', TableView.as_view()),
     url(r'^beian/(?P<table>\w+)$', BeianView.as_view()),
     url(r'^email/(?P<table>\w+)$', EmailView.as_view()),

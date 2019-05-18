@@ -1,5 +1,3 @@
-from django.db.models import Q, F
-
 from common.utils import *
 from info.models import Dependency
 from info.util import get_visuable_members
@@ -38,6 +36,19 @@ class Table:
         return []
 
     @classmethod
+    def get_filters(cls):
+        return {}
+
+    @classmethod
+    def filter(cls, **kwargs):
+        return Member.objects.select_related(None).filter(**kwargs, **cls.get_filters())
+
+    @classmethod
+    def get_url(cls):
+        filters = cls.get_filters()
+        return '&'.join(map(lambda item: '_p_' + item[0] + '=' + str(item[1]), filters.items()))
+
+    @classmethod
     def export_filename(cls):
         return cls.verbose_name + '.xlsx'
 
@@ -55,8 +66,6 @@ class Table:
         for q in qs:
             if 'birth_date' in q:
                 q['birth_date'] = '-'.join(wrap(q['birth_date']).split('-')[:-1])
-            q['branch_id'] = q['branch_name']
-            del q['branch_name']
         return qs
 
     @classmethod
@@ -87,26 +96,32 @@ class Table:
 
 class FirstTalk(Table):
     excel_template = media('Excel模板/首次组织谈话.xlsx')
-    fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number',
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number',
               'first_talk_end']
     verbose_name = '首次组织谈话'
     phase = verbose_name
 
-    @staticmethod
-    def filter(**kwargs):
-        end = datetime.datetime.today() - datetime.timedelta(days=30)
-        return Member.objects.select_related(None).filter(**kwargs, activist_date__isnull=True,
-                                                          first_talk_date__isnull=True,
-                                                          application_date__isnull=False,
-                                                          application_date__gte=end).extra(
+    @classmethod
+    def get_filters(cls):
+        end = datetime.date.today() - datetime.timedelta(days=30)
+        return {
+            'application_date__gte': end,
+            'activist_date__isnull': True,
+            'first_talk_date__isnull': True,
+            'application_date__isnull': False,
+        }
+
+    @classmethod
+    def filter(cls, **kwargs):
+        return super(FirstTalk, cls).filter(**kwargs).extra(
             select={'first_talk_end': 'DATE_ADD(application_date, INTERVAL 1 MONTH)'})
 
 
 class Activist(Table):
     excel_template = media('Excel模板/入党积极分子.xlsx')
     beian_template = media('Excel模板/材料6：确定入党积极分子等备案.docx')
-    fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date']
-    beian_fields = ['branch_id', 'name', 'gender', 'birth_date', 'id_card_number',
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date']
+    beian_fields = ['branch', 'name', 'gender', 'birth_date', 'id_card_number',
                     'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收入党积极分子' % get_ym(3, 9)
     phase = '入党积极分子'
@@ -124,12 +139,12 @@ class Activist(Table):
                 if when.month > 9 or interval > 4 * 30:
                     remark = member['remarks']
                     if remark is None or (cls.phase + '延迟发展') not in remark:
-                        deffer.append(member)
+                        deffer.append(member['netid'])
             else:
                 if when.month > 3 or interval > 4 * 30:
                     remark = member['remarks']
                     if remark is None or (cls.phase + '延迟发展') not in remark:
-                        deffer.append(member)
+                        deffer.append(member['netid'])
         return deffer
 
     @classmethod
@@ -139,8 +154,8 @@ class Activist(Table):
         member.insert(8, '团支部推优')
         member.append('')
 
-    @staticmethod
-    def filter(**kwargs):
+    @classmethod
+    def get_filters(cls):
         year, month = get_ym(3, 9)
         end = datetime.date(year, month, 30)
         try:
@@ -148,17 +163,19 @@ class Activist(Table):
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
-        return Member.objects.select_related(None).filter(**kwargs, activist_date__isnull=True,
-                                                          application_date__isnull=False,
-                                                          # first_talk_date__isnull=False,
-                                                          application_date__lt=end)
+        return {
+            'application_date__lt': end,
+            'activist_date__isnull': True,
+            'application_date__isnull': False,
+            # first_talk_date__isnull:False,
+        }
 
 
 class KeyDevelop(Table):
     excel_template = media('Excel模板/重点发展对象.xlsx')
     beian_template = media('Excel模板/材料12：确定重点发展对象备案表.docx')
-    fields = ['branch_id', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'activist_date']
-    beian_fields = ['branch_id', 'name', 'gender', 'birth_date', 'id_card_number',
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'activist_date']
+    beian_fields = ['branch', 'name', 'gender', 'birth_date', 'id_card_number',
                     'application_date', 'activist_date']
     verbose_name = '%d年%d月可接收重点发展对象' % get_ym(3, 9)
     phase = '重点发展对象'
@@ -183,7 +200,7 @@ class KeyDevelop(Table):
             if interval > 365:
                 remark = member['remarks']
                 if remark is None or (cls.phase + '延迟发展') not in remark:
-                    deffer.append(member)
+                    deffer.append(member['netid'])
         return deffer
 
     @classmethod
@@ -193,8 +210,8 @@ class KeyDevelop(Table):
         member.insert(8, '团支部推优')
         member.insert(10, '')
 
-    @staticmethod
-    def filter(**kwargs):
+    @classmethod
+    def get_filters(cls):
         year, month = get_ym(3, 9)
         end = datetime.date(year, month, 30)
         try:
@@ -202,15 +219,17 @@ class KeyDevelop(Table):
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
-        return Member.objects.select_related(None).filter(**kwargs, key_develop_person_date__isnull=True,
-                                                          activist_date__isnull=False,
-                                                          activist_date__lt=end)
+        return {
+            'activist_date__lt': end,
+            'key_develop_person_date__isnull': True,
+            'activist_date__isnull': False,
+        }
 
 
 class LearningClass(Table):
     row = 4
     excel_template = media('Excel模板/材料13：学生入党积极分子党校培训报名汇总表.xlsx')
-    fields = ['branch_id', 'netid', 'name', 'gender', 'group', 'birth_date', 'grade', 'major_in',
+    fields = ['branch', 'netid', 'name', 'gender', 'group', 'birth_date', 'grade', 'major_in',
               'application_date', 'phone_number']
     verbose_name = '%d年%s季学生入党积极分子党校培训报名汇总表' % (get_ym(4, 10)[0], '春' if get_ym(4, 10)[1] == 4 else '秋')
     phase = ''
@@ -236,8 +255,8 @@ class LearningClass(Table):
         sheet.row_dimensions[max_row - 1].height = sheet.row_dimensions[max_row].height = 19
         sheet.merge_cells('J{row}:M{row}'.format(row=max_row))
 
-    @staticmethod
-    def filter(**kwargs):
+    @classmethod
+    def get_filters(cls):
         year, month = get_ym(4, 10)
         end = datetime.date(year, month - 1, 30)
         try:
@@ -245,18 +264,20 @@ class LearningClass(Table):
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
-        return Member.objects.select_related(None).filter(**kwargs, graduated_party_school_date__isnull=True,
-                                                          activist_date__isnull=False,
-                                                          activist_date__lt=end)
+        return {
+            'activist_date__lt': end,
+            'graduated_party_school_date__isnull': True,
+            'activist_date__isnull': False,
+        }
 
 
 class PreMember(Table):
     row = 6
     excel_template = media('Excel模板/材料18：拟吸收预备党员名单汇总审批表.xlsx')
-    fields = ['branch_id', 'netid', 'name', 'birth_date', 'application_date', 'activist_date', 'league_promotion_date',
+    fields = ['branch', 'netid', 'name', 'birth_date', 'application_date', 'activist_date', 'league_promotion_date',
               'democratic_appraisal_date', 'is_political_check', 'key_develop_person_date',
               'graduated_party_school_date', 'first_branch_conference', 'pro_conversation_date']
-    beian_fields = ['branch_id', 'name', 'gender', 'birth_date', 'id_card_number',
+    beian_fields = ['branch', 'name', 'gender', 'birth_date', 'id_card_number',
                     'recommenders', 'application_date', 'activist_date',
                     'key_develop_person_date', 'first_branch_conference'
                     ]
@@ -311,11 +332,11 @@ class PreMember(Table):
             if interval > 91:
                 remark = member['remarks']
                 if remark is None or (cls.phase + '延迟发展') not in remark:
-                    deffer.append(member)
+                    deffer.append(member['netid'])
         return deffer
 
-    @staticmethod
-    def filter(**kwargs):
+    @classmethod
+    def get_filters(cls):
         year, month = get_ym(6, 12)
         end = datetime.date(year, month, 30)
         try:
@@ -323,16 +344,18 @@ class PreMember(Table):
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
-        return Member.objects.select_related(None).filter(**kwargs, first_branch_conference__isnull=True,
-                                                          key_develop_person_date__isnull=False,
-                                                          graduated_party_school_date__isnull=False,
-                                                          key_develop_person_date__lt=end)
+        return {
+            'key_develop_person_date__lt': end,
+            'first_branch_conference__isnull': True,
+            'key_develop_person_date__isnull': False,
+            'graduated_party_school_date__isnull': False,
+        }
 
 
 class FullMember(Table):
     row = 6
     excel_template = media('Excel模板/材料26：申请转正预备党员名单汇总预审表.xlsx')
-    fields = ['branch_id', 'netid', 'name', 'gender', 'first_branch_conference', 'oach_date',
+    fields = ['branch', 'netid', 'name', 'gender', 'first_branch_conference', 'oach_date',
               'application_fullmember_date']
     verbose_name = '%d年%d月可转正预备党员' % get_ym(6, 12)
     phase = '正式党员'
@@ -358,11 +381,11 @@ class FullMember(Table):
             if interval > 365:
                 remark = member['remarks']
                 if remark is None or (cls.phase + '延迟发展') not in remark:
-                    deffer.append(member)
+                    deffer.append(member['netid'])
         return deffer
 
-    @staticmethod
-    def filter(**kwargs):
+    @classmethod
+    def get_filters(cls):
         year, month = get_ym(6, 12)
         end = datetime.date(year, month, 30)
         try:
@@ -370,20 +393,15 @@ class FullMember(Table):
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
-        return Member.objects.select_related(None).filter(**kwargs, second_branch_conference__isnull=True,
-                                                          first_branch_conference__isnull=False,
-                                                          first_branch_conference__lt=end)
+        return {
+            'first_branch_conference__lt': end,
+            'second_branch_conference__isnull': True,
+            'first_branch_conference__isnull': False,
+        }
 
     @classmethod
     def before_export(cls, sheet):
         pass
-
-    @classmethod
-    def get_queryset(cls, request):
-        qs = queryset(request, cls)
-        for q in qs:
-            q['branch_id'] = q['branch_name']
-        return qs
 
     @classmethod
     def after_export(cls, sheet, cnt):
@@ -395,12 +413,8 @@ class FullMember(Table):
 
 # 提醒更新毕业生组织关系
 def get_graduation(request):
-    members = get_visuable_members(Member, request.user)\
+    members = get_visuable_members(Member, request.user) \
         .extra(
-            select={
-                'branch_name': 'info_branch.branch_name'
-            },
-            where=["MAKEDATE(2000 + netid div 1000000 + years, 120) <= CURDATE()"
-                   "and (out_type='Z.无' or out_place is null or out_place='')"])
-    return members.values('branch_id', 'branch_name', 'netid', 'name', 'out_type', 'out_place')
-
+        where=["MAKEDATE(2000 + netid div 1000000 + years, 120) <= CURDATE()"
+               "and (out_type='Z.无' or out_place is null or out_place='')"])
+    return members.values('branch', 'netid', 'name', 'out_type', 'out_place')

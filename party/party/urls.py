@@ -22,9 +22,8 @@ from django.views import static
 from django.views.generic import RedirectView
 import xadmin
 from user.views import RegisterView
-from django.conf import urls
+from django.conf import urls, settings
 from . import views
-from notice.tasks import *
 from info.util import export_statistics
 from teaching.views import CheckInView
 
@@ -34,11 +33,11 @@ xadmin.autodiscover()
 
 urlpatterns = [
     path('', xadmin.site.urls),
-    path('notice/', include('notice.urls')),
     path('ueditor/', include('DjangoUeditor.urls')),
     path('favicon.ico', RedirectView.as_view(url='static/img/sy_dyw377.ico')),
     path('register/', RegisterView.as_view(), name='register'),
     path('info/member/export_statistics', export_statistics),
+    path('notice/', include('notice.urls')),
     path('checkin', CheckInView.as_view()),
     url(r'^static/(?P<path>.*)$', static.serve,
         {'document_root': settings.STATIC_ROOT}, name='static'),

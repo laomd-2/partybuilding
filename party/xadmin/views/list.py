@@ -402,7 +402,7 @@ class ListAdminView(ModelAdminView):
         if height > 10:
             height = 10
         num_fixed_cols = self.num_fixed_cols
-        if headers:
+        if headers and num_fixed_cols:
             o = headers.cells[0]
             if '<input type="checkbox"' in o.label:
                 num_fixed_cols += 1
@@ -422,7 +422,7 @@ class ListAdminView(ModelAdminView):
             'results': results,
             'placeholder': self.get_placeholder(),
             'num_fixed_cols': num_fixed_cols,
-            'height': height * 37 + 39
+            'height': height * 37 + 39 + 19
         }
 
         context = super(ListAdminView, self).get_context()

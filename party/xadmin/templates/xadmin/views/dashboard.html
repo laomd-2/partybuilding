@@ -1,7 +1,15 @@
 {% extends base_template %}
 {% load i18n xadmin_tags %}
 {% load staticfiles %}
+{% load mathfilters %}
 
+{% block extrastyle %}
+  <style>
+    .fixed-table-border {
+      height: 5px !important;
+    }
+  </style>
+{% endblock %}
 {% block bodyclass %}dashboard{% endblock %}
 {% block breadcrumbs %}{% endblock %}
 
@@ -25,200 +33,83 @@
 {% endblock %}
 
 {% block content %}
-  {#    <div class="panel panel-default">#}
-  {#        <div class="panel-heading"><i class="icon fa fa-chevron-up chevron"></i><h3 class="panel-title">未更新信息</h3></div>#}
-  <div class="panel-group" id="accordion-deffer" style="margin-bottom: 2em">
-    <!-- 毕业生组织关系提醒 -->
-    {% if graduation %}
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-deffer"
-               href="#graduation"><span class="badge">{{ graduation|length|add:"-1" }}</span>
-              待更新的毕业生组织关系信息
-            </a>
-          </h4>
-        </div>
-        <div id="graduation" class="panel-collapse collapse">
-          <div class="panel-body results table-responsive" style="overflow: auto">
-            <table class="table table-bordered table-striped table-hover">
-              {% for row in graduation %}
-                {% if forloop.first %}
-                  <thead>
-                  <tr>
-                    {% for c in row %}
-                      <th style="text-align: center">{{ c }}</th>
-                    {% endfor %}
-                  </tr>
-                  </thead>
-                {% else %}
-                  {% if forloop.counter == 2 %}
-                    <tbody>
-                  {% endif %}
-                <tr>
-                  {% for c in row %}
-                    <td class="nowrap"
-                        style="text-align: center; white-space: nowrap; {% if not c %} background-color: yellow{% endif %}">
-                      {% if forloop.counter == 2 %}
-                        <a href="info/member/{{ c }}/update">{{ c }}</a>
-                      {% else %}
-                        {{ c }}
-                      {% endif %}
-                    </td>
-                  {% endfor %}
-                </tr>
-                {% if forloop.last %}
-                  </tbody>
-                {% endif %}
-                {% endif %}
-              {% endfor %}
-            </table>
-          </div>
-        </div>
-      </div>  <!-- 毕业生组织关系提醒 -->
-    {% endif %}
-
-    {% if deffers %}
-      {% for phase, deffer in deffers.items %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion-deffer"
-                 href="#deffer{{ forloop.counter0 }}"><span
-                  class="badge">{{ deffer|length|add:"-1" }}</span>
-                未及时接收的{{ phase }}
-              </a>
-            </h4>
-          </div>
-          <div id="deffer{{ forloop.counter0 }}" class="panel-collapse collapse">
-            <div class="panel-body results table-responsive" style="overflow: auto">
-              <h4 style="display: inline; float: left">
-                请更新动态信息，或在备注中说明延迟发展的原因（格式：{{ phase }}延迟发展-原因）。
-              </h4>
-              <table class="table table-bordered table-striped table-hover">
-                {% for row in deffer %}
-                  {% if forloop.first %}
-                    <thead>
-                    <tr>
-                      {% for c in row %}
-                        <th style="text-align: center">{{ c }}</th>
-                      {% endfor %}
-                    </tr>
-                    </thead>
-                  {% else %}
-                    {% if forloop.counter == 2 %}
-                      <tbody>
-                    {% endif %}
-                  <tr>
-                    {% for c in row %}
-                      <td class="nowrap"
-                          style="text-align: center; white-space: nowrap; {% if not c %} background-color: yellow{% endif %}">
-                        {% if forloop.counter == 2 %}
-                          <a href="info/member/{{ c }}/update">{{ c }}</a>
-                        {% else %}
-                          {{ c }}
-                        {% endif %}
-                      </td>
-                    {% endfor %}
-                  </tr>
-                  {% if forloop.last %}
-                    </tbody>
-                  {% endif %}
-                  {% endif %}
-                {% endfor %}
-              </table>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-      </div>
-      {#    </div>#}
-    {% endif %}
-
   {% if affairs %}
-    {#    <div class="panel panel-default">#}
-    {#        <div class="panel-heading"><i class="icon fa fa-chevron-up chevron"></i><h3 class="panel-title">党员发展计划</h3></div>#}
-    <div class="panel-group" id="accordion">
-      {% for affair in affairs %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion"
-                 href="#collapse{{ affair.0 }}">
-                点我展开。{{ affair.1 }}<span class="badge">{{ affair.2|length|add:"-1" }}</span>
-              </a>
-            </h4>
-          </div>
-          <div id="collapse{{ affair.0 }}" class="panel-collapse collapse">
-            <div class="panel-body">
-              <h4 style="display: inline; float: left">
-                {{ affair.1 }}
-              </h4>
-              {% if can_send_email %}
-                <form method="post" action="notice/email/{{ affair.0 }}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-success"
-                          style="display: inline; float: right;">
-                    <i class="fa fa-send">发送邮件</i></button>
-                </form>
-              {% endif %}
-
-              <form method="get" action="notice/{{ affair.0 }}">
-                <button type="submit" class="btn btn-success"
-                        style="display: inline; float: right; margin-right: 1em">
-                  <i class="fa fa-download">下载表格</i></button>
-              </form>
-
-              {% if can_beian and affair.3 %}
-                <form method="get" action="notice/beian/{{ affair.0 }}">
-                  <button type="submit" class="btn btn-success"
-                          style="display: inline; float: right; margin-right: 1em">
-                    <i class="fa fa-download">{{ affair.3 }}</i></button>
-                </form>
-              {% endif %}
-
-            </div>
-            <div class="panel-body results table-responsive" style="overflow: auto">
-              <table class="table table-bordered table-striped table-hover">
-                {% for row in affair.2 %}
-                  {% if forloop.first %}
-                    <thead>
-                    <tr>
-                      {% for c in row %}
-                        <th style="text-align: center">{{ c }}</th>
-                      {% endfor %}
-                    </tr>
-                    </thead>
-                  {% else %}
-                    {% if forloop.counter == 2 %}
-                      <tbody>
-                    {% endif %}
-                  <tr>
-                    {% for c in row %}
-                      <td class="nowrap"
-                          style="text-align: center; white-space: nowrap; {% if not c %} background-color: yellow{% endif %}">
-                        {% if forloop.counter == 2 %}
-                          <a href="info/member/{{ c }}/update">{{ c }}</a>
-                        {% else %}
-                          {{ c }}
-                        {% endif %}
-                      </td>
-                    {% endfor %}
-                  </tr>
-                  {% if forloop.last %}
-                    </tbody>
-                  {% endif %}
-                  {% endif %}
-                {% endfor %}
-              </table>
-            </div>
-
-          </div>
-        </div>
-      {% endfor %}
+    <div class="panel panel-danger" style="float: left; width: {% if plans %}49%{% else %}100%{% endif %}">
+      <div class="panel-heading"><h3 class="panel-title">业务提醒</h3></div>
+      <ul class="list-group">
+        {% for phase, num, q, fields in affairs %}
+          <li class="list-group-item">
+            <a class="dropdown-toggle disabled" href="/info/member?_cols={{ fields|join:'.' }}&{{ q }}">更新{{ phase }}信息
+            </a>
+            <span class="badge pull-right">{{ num }}</span>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
-    {#    </div>#}
   {% endif %}
 
+  {% if plans %}
+    <div class="panel panel-primary" style="float: right; width: {% if affairs %}49%{% else %}100%{% endif %}">
+      <div class="panel-heading"><h3 class="panel-title">党员发展计划</h3></div>
+      <ul class="list-group">
+        {% for plan, num, phase, headers, results, beian in plans %}
+          <li class="list-group-item">
+            <a class="dropdown-toggle disabled" data-toggle="modal" data-target="#table-{{ phase }}">{{ plan }}
+            </a>
+            <span class="badge pull-right">{{ num }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% for plan, num, phase, headers, results, beian in plans %}
+      <div class="modal fade" id="table-{{ phase }}" tabindex="-1" role="dialog" aria-labelledby="table-{{ phase }}Label" aria-hidden="true">
+        <div class="modal-dialog" style="width: 90%">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+              </button>
+              <h4 class="modal-title" id="table-{{ phase }}Label">
+                {{ plan }}
+              </h4>
+            </div>
+            <div class="modal-body table-responsive" style="width: 100%;">
+                  {% block results_fixedcol_grid %}
+                    <table class="table table-bordered table-striped table-hover"
+                      data-toggle="table" data-height="{% with results|length as len %}
+                        {% if len > 8 %}{{ 8|mul:37|add:51 }}{% else %}{{ len|mul:37|add:51 }}{% endif %}
+                      {% endwith %}">
+                      {% block results_fixedcol_grid_head %}
+                        <thead>
+                          <tr>{% for o in headers %}
+                              <th>{{ o }}</th>{% endfor %}
+                          </tr>
+                        </thead>
+                      {% endblock results_fixedcol_grid_head %}
+                      {% block results_fixedcol_grid_body %}
+                        <tbody>
+                        {% for row in results %}
+                          <tr class="grid-item">
+                            {% for o in row %}
+                                <td>{{ o }}</td>
+                            {% endfor %}</tr>
+                        {% endfor %}
+                        </tbody>
+                      {% endblock results_fixedcol_grid_body %}
+                    </table>
+                  {% endblock results_fixedcol_grid %}
+            </div>
+            <div class="modal-footer">
+              {% if can_beian and beian %}
+                <a href="/notice/beian/{{ phase }}" class="btn btn-primary" role="button">下载{{ beian }}</a>
+              {% endif %}
+              <a href="/notice/{{ phase }}" class="btn btn-info" role="button">下载表格</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+    {% endfor %}
+  {% endif %}
   <input type='hidden' id='_portal_key' value='{{ portal_key }}'/>
 {% endblock %}

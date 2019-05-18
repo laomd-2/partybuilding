@@ -1,18 +1,49 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.contrib import messages
+from django.core import mail
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import render
 from django.utils.encoding import escape_uri_path
-from django.views.generic import TemplateView
-from .admin import *
+
+from notice.util import _queryset
+from xadmin.views import ListAdminView
+
+from info.models import get_branch_managers
+from info.util import group_by_branch
+from notice.admin import *
 from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import qn
 from docx.enum.table import WD_ALIGN_VERTICAL
 
 
-class TableView(TemplateView):
-    table_mapping = dict([(model.__name__.lower(), model) 
-            for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]])
+class PlanView(ListAdminView):
+    model = Member
+    table_mapping = dict([(model.__name__.lower(), model)
+                          for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]])
 
-    # @login_required(login_url='/')
+    def get_context(self):
+        context = super().get_context()
+        context['can_send_email'] = is_school_admin(self.request.user)
+        context['can_beian'] = is_admin(self.request.user)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        phase = request.GET.get('phase')
+        if phase is None or phase not in self.table_mapping:
+            return HttpResponseNotFound('未找到资源。')
+        else:
+            model = self.table_mapping[phase]
+            query = self.result_list = _queryset(request, model)
+            self.ordering_field_columns = model.fields
+            context = self.get_context()
+            # context['headers'] = verbose_name(model.fields)
+            # context['results'] = [[m[f] for f in model.fields] for m in query]
+            return render(request, 'plan/%s.html' % phase, context)
+
+
+class TableView(PlanView):
+
     def get(self, request, table):
         model = self.table_mapping.get(table)
         if model is not None:
@@ -50,7 +81,6 @@ class BeianView(TableView):
 
         for row in query:
             row['birth_date'] = '-'.join(str(row['birth_date']).split('-')[:-1])
-            row['branch_id'] = row['branch_name']
             tb_row = table.add_row()
             values = [row[k] for k in model.beian_fields]
             model.complete_beian(values)
@@ -61,6 +91,36 @@ class BeianView(TableView):
                 cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
         data = to_bytes(doc)
         filename = filename.split('/')[-1]
-        response = HttpResponse(data, content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        response = HttpResponse(data,
+                                content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(escape_uri_path(filename))
         return response
+
+
+class EmailView(PlanView):
+
+    def post(self, request, table):
+        model = self.table_mapping.get(table)
+        if model is not None:
+            return self.send_email(request, model, model.verbose_name, model.verbose_name, model.phase)
+        return HttpResponseNotFound('NOT FOUND')
+
+    @staticmethod
+    def send_email(request, model, manager_title, member_title, phase):
+        if not is_school_admin(request.user):
+            raise PermissionDenied
+        groups = group_by_branch(queryset(request, model))
+        branch_managers = get_branch_managers()
+        fields = model.fields
+        mails = []
+        for branch, appers in groups.items():
+            appers = list(appers)
+            if branch in branch_managers:
+                mails.append(make_email_to_managers(branch_managers[branch], manager_title, appers,
+                                                    fields, phase))
+            mails.extend(make_email_to_appliers(member_title, appers, fields))
+        connection = mail.get_connection()  # Use default email connection
+        connection.fail_silently = True
+        cnt = connection.send_messages(mails)
+        messages.success(request, '%s：成功发送%d封邮件！' % (manager_title, cnt))
+        return HttpResponseRedirect('')

@@ -379,7 +379,7 @@ class SharingAdmin(AdminObject):
 @xadmin.sites.register(AskForLeave)
 class AskForLeaveAdmin(AdminObject):
     list_display = ['activity', 'member', 'status']
-    list_display_links = [None]
+    list_display_links = ['member']
     search_fields = ['activity__name', 'member__name', 'member__netid']
     model_icon = 'fa fa-check-circle'
 

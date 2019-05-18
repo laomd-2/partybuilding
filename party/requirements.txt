@@ -4,6 +4,7 @@ rules
 future
 phonenumbers
 django-phonenumber-field
+django-mathfilters
 tablib
 diff_match_patch
 django-formtools==2.1
