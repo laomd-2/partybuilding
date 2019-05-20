@@ -7,7 +7,7 @@ from info.util import get_visuable_members
 from .util import *
 from .models import *
 from .forms import ActivityForm
-from .resources import CreditResource, ActivityResource
+from .resources import *
 from common.rules import *
 import xadmin
 
@@ -378,6 +378,9 @@ class SharingAdmin(AdminObject):
 
 @xadmin.sites.register(AskForLeave)
 class AskForLeaveAdmin(AdminObject):
+    import_export_args = {
+        'export_resource_class': AskForLeaveResource
+    }
     list_display = ['activity', 'member', 'status']
     list_display_links = ['member']
     search_fields = ['activity__name', 'member__name', 'member__netid']

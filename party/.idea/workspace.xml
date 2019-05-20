@@ -2,583 +2,364 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f2cc620-99be-4f30-bff5-3a5a95e46f90" name="Default Changelist" comment="关系转出——添加字段">
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/artifacts/jeesite_web_war.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/artifacts/jeesite_web_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_alibaba_druid_1_1_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_alibaba_fastjson_1_2_49.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_atomikos_atomikos_util_4_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_atomikos_transactions_4_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_atomikos_transactions_api_4_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_atomikos_transactions_jdbc_4_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_atomikos_transactions_jms_4_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_atomikos_transactions_jta_4_0_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_belerweb_pinyin4j_2_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_beust_jcommander_1_72.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_bladejava_blade_patchca_1_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_classmate_1_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_fasterxml_woodstox_woodstox_core_5_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_github_ben_manes_caffeine_caffeine_2_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_github_jai_imageio_jai_imageio_core_1_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_03.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_google_zxing_core_3_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_google_zxing_javase_3_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_jeesite_beetl_2_9_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_jeesite_jeesite_common_4_1_4_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_jeesite_jeesite_framework_4_1_4_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_jeesite_jeesite_module_core_4_1_4_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_jeesite_jeesite_module_swagger_4_1_4_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_jeesite_jeesite_module_weboffice_4_1_4_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_mchange_mchange_commons_java_0_2_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_oracle_ojdbc6_11_2_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_sun_mail_javax_mail_1_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_twelvemonkeys_common_common_image_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_twelvemonkeys_common_common_io_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_twelvemonkeys_common_common_lang_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_core_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_jpeg_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__com_twelvemonkeys_imageio_imageio_metadata_3_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__commons_collections_commons_collections_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__de_ruedigermoeller_fst_2_57.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__eu_bitwalker_UserAgentUtils_1_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_lettuce_lettuce_core_5_0_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_netty_netty_buffer_4_1_29_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_netty_netty_codec_4_1_29_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_netty_netty_common_4_1_29_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_netty_netty_handler_4_1_29_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_netty_netty_resolver_4_1_29_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_netty_netty_transport_4_1_29_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_projectreactor_reactor_core_3_1_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_core_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_schema_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_spi_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_spring_web_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_swagger2_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_swagger_common_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_springfox_springfox_swagger_ui_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_swagger_swagger_annotations_1_5_20.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__io_swagger_swagger_models_1_5_20.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__javax_transaction_javax_transaction_api_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__jaxen_jaxen_1_1_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__jline_jline_2_14_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_47.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_7_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__net_coobird_thumbnailator_0_4_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__net_oschina_j2cache_j2cache_core_2_7_0_release.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__net_sf_jmimemagic_jmimemagic_0_1_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__net_sourceforge_jtds_jtds_1_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_antlr_antlr4_runtime_4_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_ant_ant_1_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_commons_commons_email_1_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_5_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_commons_commons_text_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_poi_poi_3_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_poi_poi_scratchpad_3_14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_cache_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_cas_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_config_core_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_config_ogdl_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_crypto_cipher_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_crypto_core_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_crypto_hash_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_event_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_lang_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_8_5_34.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_8_5_34.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_8_5_34.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_13_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_jasig_cas_client_cas_client_core_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_javassist_javassist_3_21_0_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_json_json_20180130.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_jsoup_jsoup_1_11_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_mapstruct_mapstruct_1_2_0_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_mybatis_mybatis_3_4_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_objenesis_objenesis_2_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_postgresql_postgresql_42_2_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_projectlombok_lombok_1_16_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_quartz_scheduler_quartz_2_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_redis_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jta_atomikos_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_0_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_0_11_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_data_spring_data_keyvalue_2_0_11_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_data_spring_data_redis_2_0_11_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_plugin_spring_plugin_core_1_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_plugin_spring_plugin_metadata_1_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_aop_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_beans_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_context_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_context_support_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_core_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_expression_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_jcl_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_jdbc_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_oxm_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_test_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_tx_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_web_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_springframework_spring_webmvc_5_0_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__org_yaml_snakeyaml_1_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/libraries/Maven__xml_apis_xml_apis_1_4_01.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeesite-web-v4.1.4-2019-2-21/jeesite-web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/.idea/new_party.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/adminx.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/commands.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/readme.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/UEditorSnapscreen.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeButton.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeCombox.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeDialog.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/charts.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/completeDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customPluginDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customToolbarDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customizeDialogPage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customizeToolbarUIDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/editor_api.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/filterRuleDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/highlightDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/jqueryCompleteDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/jqueryValidation.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/multiDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/multiEditorWithOneInstance.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/renderInTable.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/resetDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/sectiondemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.ashx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.asp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/setWidthHeightDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/simpleDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/sortableDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/submitFormDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/textareaDemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/uparsedemo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/anchor/anchor.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_chm.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_default.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_doc.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_exe.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_jpg.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_mp3.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_mv.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_pdf.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_ppt.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_psd.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_rar.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_txt.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/fileTypeImages/icon_xls.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/alignicon.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/alignicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/file-icons.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/file-icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/icons.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/progress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/success.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/images/success.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/background.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/background.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/background.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/images/bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/images/success.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/chart.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/images/charts0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/images/charts1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/images/charts2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/images/charts3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/images/charts4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/images/charts5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/emotion.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/emotion.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/emotion.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/0.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/bface.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/cface.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/fface.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/jxface2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/neweditor-tab-bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/tface.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/wface.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/images/yface.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/gmap/gmap.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/image.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/image.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/image.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/alignicon.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/icons.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/progress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/success.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/images/success.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/insertframe/insertframe.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/internal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/link/link.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/map/map.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/map/show.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/preview/preview.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/addimg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/brush.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/delimg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/delimgH.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/empty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/emptyH.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/eraser.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/redo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/redoH.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/scale.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/scaleH.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/size.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/undo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/images/undoH.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/scrawl.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/scrawl.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/scrawl.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/searchreplace/searchreplace.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/searchreplace/searchreplace.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/snapscreen/snapscreen.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/spechars/spechars.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/spechars/spechars.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/dragicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittd.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittip.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/images/bg.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/images/pre0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/images/pre1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/images/pre2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/images/pre3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/images/pre4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/template.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/template.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/template.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/center_focus.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/file-icons.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/file-icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/icons.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/left_focus.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/none_focus.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/progress.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/right_focus.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/success.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/images/success.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/video.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/video.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/video.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/webapp/webapp.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/fClipboard_ueditor.swf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/imageUploader.swf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/tangram.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/wordimage.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/wordimage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/en.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/addimage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/alldeletebtnhoverskin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/alldeletebtnupskin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/deletedisable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/deleteenable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/listbackground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/localimage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/music.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/rotateleftdisable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/rotateleftenable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/rotaterightdisable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/rotaterightenable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/en/images/upload.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/zh-cn/images/copy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/zh-cn/images/localimage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/zh-cn/images/music.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/zh-cn/images/upload.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/lang/zh-cn/zh-cn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/Uploader.class.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_crawler.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_list.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_upload.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/controller.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/css/ueditor.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/css/ueditor.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/dialogbase.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/anchor.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/arrow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/arrow_down.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/arrow_up.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/button-bg.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/cancelbutton.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/charts.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/cursor_h.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/cursor_h.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/cursor_v.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/cursor_v.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/dialog-title-bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/fileScan.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/highlighted.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/icons-all.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/icons.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/loaderror.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/loading.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/lock.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/neweditor-tab-bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/pagebreak.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/scale.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/sortable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/spacer.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/sparator_v.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/table-cell-align.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/tangram-colorpicker.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/toolbar_bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/unhighlighted.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/upload.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/videologo.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/word.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/images/wordpaste.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/iframe.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/SyntaxHighlighter/shCore.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/codemirror/codemirror.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/codemirror/codemirror.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/mootools-adapter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/mootools-adapter.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/prototype-adapter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/prototype-adapter.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/standalone-framework.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/standalone-framework.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts-more.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts-more.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/annotations.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/annotations.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/canvas-tools.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/canvas-tools.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/data.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/drilldown.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/drilldown.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/exporting.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/exporting.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/funnel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/funnel.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/heatmap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/heatmap.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/map.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/map.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/no-data-to-display.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/no-data-to-display.src.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/dark-blue.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/dark-green.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/gray.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/grid.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/skies.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/snapscreen/UEditorSnapscreen.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/font/vjs.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/font/vjs.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/font/vjs.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/font/vjs.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.swf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video.dev.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/Uploader.swf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.custom.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.custom.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.flashonly.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.flashonly.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.html5only.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.html5only.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.withoutimage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.withoutimage.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.swf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.all.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.all.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.parse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.parse.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/templates/ueditor.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/templates/ueditor_old.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/widgets.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/common/base.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/common/resources.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/common/rules.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/django_compat.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/exceptions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/fields.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/formats/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/formats/base_formats.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/instance_loaders.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ar/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ar/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/bg/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/bg/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ca/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ca/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/cs/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/cs/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/de/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/de/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/es/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/es/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/es_AR/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/es_AR/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/fr/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/fr/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/it/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/it/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ja/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ja/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/pl/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/pl/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/pt_BR/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/pt_BR/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ru/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ru/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/sk/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/sk/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/zh_Hans/LC_MESSAGES/django.mo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/zh_Hans/LC_MESSAGES/django.po" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/mixins.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/resources.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/results.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/signals.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/static/import_export/action_formats.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/static/import_export/import.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_export.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_export_item.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import_export.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import_item.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/export.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/import.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templatetags/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templatetags/import_export_tags.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/tmp_storages.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/import_export/widgets.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/actions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/migrations/0001_initial.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/common/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/common/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/common/storage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/common/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/migrations/0002_auto_20190515_1749.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/migrations/0003_auto_20190515_1929.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/migrations/0004_auto_20190515_1943.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/migrations/0005_auto_20190516_0056.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/migrations/0006_auto_20190516_0132.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/info/migrations/0007_auto_20190517_0021.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/500.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/actions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/app_index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/auth/user/add_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/auth/user/change_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/base_site.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/change_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/change_form_object_tools.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/change_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/change_list_object_tools.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/change_list_results.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/date_hierarchy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/delete_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/delete_selected_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/edit_inline/stacked.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/edit_inline/tabular.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/filter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/includes/fieldset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/includes/object_delete_summary.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/invalid_setup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/object_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/pagination.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/popup_response.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/prepopulated_fields_js.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/related_widget_wrapper.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/search_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/submit_line.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/clearable_file_input.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/foreign_key_raw_id.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/many_to_many_raw_id.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/radio.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/related_widget_wrapper.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/split_datetime.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/admin/widgets/url.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/checkin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/logged_out.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_change_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_change_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_reset_complete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_reset_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_reset_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_reset_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/registration/password_reset_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/500.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/password_reset/complete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/password_reset/confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/password_reset/done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/password_reset/email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/password_reset/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/user/add_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/auth/user/change_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/base_site.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/comm.top.setlang.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/comm.top.theme.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/comm.top.topnav.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/modal_list.left_navbar.quickfilter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_form.before_fieldsets.wizard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_form.submit_line.wizard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.nav_form.search_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.nav_menu.bookmarks.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.nav_menu.filters.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.results_bottom.actions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.results_top.charts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.results_top.date_hierarchy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.exports.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.importexport.export.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.importexport.export_member.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.importexport.import.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.layouts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.refresh.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/blocks/model_list.top_toolbar.saveorder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/accordion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/blank.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/one.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/stacked.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/tab.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/edit_inline/tabular.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/char.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/checklist.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/date.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/fk_search.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/number.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/quickfilter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/filters/rel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/forms/transfer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/grids/thumbnails.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/import_export/export_action.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/import_export/import.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/box.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/pagination.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/sitemenu_accordion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/sitemenu_default.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/submit_line.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/toggle_back.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/includes/toggle_menu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/layout/field_value.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/layout/field_value_td.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/layout/fieldset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/layout/input_group.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/layout/td-field.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/app_index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/batch_change_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/invalid_setup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/logged_out.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_delete_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_delete_selected_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_history.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/model_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/quick_detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/quick_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/recover_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/recover_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/revision_diff.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/views/revision_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/widgets/addform.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/widgets/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/widgets/chart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/widgets/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/templates/xadmin/widgets/qbutton.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/~$6：确定入党积极分子等备案.doc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/党员数据表.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/材料12：确定重点发展对象备案表.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/材料13：学生入党积极分子党校培训报名汇总表.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/材料18：拟吸收预备党员名单汇总审批表.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/材料21：接收预备党员备案表.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/材料26：申请转正预备党员名单汇总预审表.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/材料6：确定入党积极分子等备案.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/qrcode/qrcode06d541df00293fa3323acb39d98b6f38.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/qrcode/qrcode320969198b81f4e0cad3a5514ccd15b9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/qrcode/qrcode4adb1da5d4936c2e3ff76c7e9390f11d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/导入模板/学时统计.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../new_party/upload/导入模板/成员信息.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/adminx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/commands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeCombox.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeCombox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/addCustomizeDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/charts.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/charts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/completeDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/completeDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customPluginDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customPluginDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customToolbarDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customToolbarDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customizeDialogPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customizeDialogPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customizeToolbarUIDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/customizeToolbarUIDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/editor_api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/editor_api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/filterRuleDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/filterRuleDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/highlightDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/highlightDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/jqueryCompleteDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/jqueryCompleteDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/jqueryValidation.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/jqueryValidation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/multiDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/multiDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/multiEditorWithOneInstance.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/multiEditorWithOneInstance.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/renderInTable.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/renderInTable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/resetDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/resetDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/sectiondemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/sectiondemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.ashx" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.ashx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.asp" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.asp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/server/getContent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/setWidthHeightDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/setWidthHeightDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/simpleDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/simpleDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/sortableDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/sortableDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/submitFormDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/submitFormDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/textareaDemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/textareaDemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/uparsedemo.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/_examples/uparsedemo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/anchor/anchor.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/anchor/anchor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/attachment/attachment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/background.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/background/background.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/chart.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/chart.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/charts/charts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/emotion.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/emotion/emotion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/gmap/gmap.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/gmap/gmap.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/help/help.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/image.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/image/image.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/insertframe/insertframe.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/insertframe/insertframe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/link/link.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/link/link.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/map/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/map/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/map/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/map/show.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/music/music.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/preview/preview.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/preview/preview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/scrawl.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/scrawl/scrawl.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/searchreplace/searchreplace.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/searchreplace/searchreplace.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/searchreplace/searchreplace.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/searchreplace/searchreplace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/snapscreen/snapscreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/snapscreen/snapscreen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/spechars/spechars.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/spechars/spechars.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/spechars/spechars.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/spechars/spechars.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittd.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittip.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/table/edittip.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/template/template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/video.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/video/video.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/webapp/webapp.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/webapp/webapp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/tangram.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/tangram.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/wordimage.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/dialogs/wordimage/wordimage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/Uploader.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/Uploader.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_crawler.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_crawler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/action_upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/php/controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/css/ueditor.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/css/ueditor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/css/ueditor.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/css/ueditor.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/dialogbase.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/default/dialogbase.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/iframe.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/themes/iframe.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/SyntaxHighlighter/shCore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/SyntaxHighlighter/shCore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/codemirror/codemirror.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/codemirror/codemirror.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/codemirror/codemirror.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/codemirror/codemirror.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/mootools-adapter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/mootools-adapter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/mootools-adapter.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/mootools-adapter.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/prototype-adapter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/prototype-adapter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/prototype-adapter.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/prototype-adapter.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/standalone-framework.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/standalone-framework.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/standalone-framework.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/adapters/standalone-framework.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts-more.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts-more.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts-more.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts-more.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/highcharts.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/annotations.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/annotations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/annotations.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/annotations.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/canvas-tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/canvas-tools.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/canvas-tools.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/canvas-tools.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/data.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/data.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/drilldown.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/drilldown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/drilldown.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/drilldown.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/exporting.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/exporting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/exporting.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/exporting.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/funnel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/funnel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/funnel.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/funnel.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/heatmap.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/heatmap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/heatmap.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/heatmap.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/map.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/map.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/no-data-to-display.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/no-data-to-display.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/no-data-to-display.src.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/modules/no-data-to-display.src.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/dark-blue.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/dark-blue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/dark-green.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/dark-green.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/gray.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/gray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/grid.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/grid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/skies.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/highcharts/themes/skies.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/jquery-1.10.2.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/font/vjs.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/font/vjs.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video-js.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video.dev.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/video-js/video.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.custom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.custom.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.custom.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.flashonly.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.flashonly.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.flashonly.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.flashonly.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.html5only.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.html5only.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.html5only.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.html5only.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.withoutimage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.withoutimage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.withoutimage.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/webuploader/webuploader.withoutimage.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/third-party/zeroclipboard/ZeroClipboard.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.all.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.all.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.all.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.all.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.parse.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.parse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.parse.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/static/ueditor/ueditor.parse.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/DjangoUeditor/templates/ueditor_old.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/DjangoUeditor/templates/ueditor_old.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/common/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/common/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/common/rules.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/common/rules.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/django_compat.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/django_compat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/fields.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/fields.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/formats/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/formats/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/formats/base_formats.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/formats/base_formats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/instance_loaders.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/instance_loaders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ar/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/ar/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/bg/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/bg/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ca/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/ca/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/cs/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/cs/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/de/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/de/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/es/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/es_AR/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/es_AR/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/fr/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/it/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ja/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/ja/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/pl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/pl/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/pt_BR/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/pt_BR/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/ru/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/ru/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/sk/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/sk/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/locale/zh_Hans/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/locale/zh_Hans/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/mixins.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/mixins.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/results.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/static/import_export/action_formats.js" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/static/import_export/action_formats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/static/import_export/import.css" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/static/import_export/import.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_export.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_export.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_export_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_export_item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import_export.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import_export.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/change_list_import_item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/export.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/export.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/import.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templates/admin/import_export/import.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/templatetags/import_export_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/templatetags/import_export_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/tmp_storages.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/tmp_storages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/import_export/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/import_export/widgets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/info/migrations/0002_branch_detail.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/info/migrations/0003_remove_branch_detail.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/resources.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/info/util.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/info/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/info/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/info/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/admin.py" beforeDir="false" />
@@ -1021,23 +802,23 @@
       <change beforePath="$PROJECT_DIR$/../new_party/jet/urls.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/utils.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/jet/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/manage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/mysql/restore.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/new_party/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/new_party/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/admin.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/apps.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/router.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/new_party/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/new_party/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/new_party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/new_party/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/new_party/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/new_party/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/new_party/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/new_party/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/admin.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/tasks.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/urls.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/util.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/notice/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/admin.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/apps.py" beforeDir="false" />
@@ -1047,31 +828,17 @@
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/resources.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/util.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/teaching/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/403.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/email_manager.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/email_member.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/templates/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/党训班报名表.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/入党积极分子.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/学时统计.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/成员信息.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/空白.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/转正.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/重点发展对象.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/预备党员.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/首次组织谈话.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/base_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/validators.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_party/user/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/templates/email_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/templates/email_manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/templates/email_member.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/templates/email_member.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/学时统计.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/学时统计.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/成员信息.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/成员信息.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/upload/Excel模板/首次组织谈话.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/upload/Excel模板/首次组织谈话.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/user/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/user/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/user/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../new_party/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../new_party/user/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/work/apps.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/wxpy/__compat__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/wxpy/__init__.py" beforeDir="false" />
@@ -1111,24 +878,9 @@
       <change beforePath="$PROJECT_DIR$/../new_party/wxpy/utils/puid_map.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../new_party/wxpy/utils/tools.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/tasks.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notice/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/notice/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/party/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/party/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/party/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/bootstrap-table.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teaching/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teaching/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload/Excel模板/首次组织谈话.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/upload/Excel模板/首次组织谈话.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/plugins/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/plugins/filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/static/css/bootstrap-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/static/css/bootstrap-table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/views/list.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xadmin/views/website.py" beforeDir="false" afterPath="$PROJECT_DIR$/xadmin/views/website.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teaching/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/teaching/resources.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -1170,17 +922,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html">
+        <entry file="file://$PROJECT_DIR$/party/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="103" column="38" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
-              <folding>
-                <element signature="e#902#972#0#HTML" expanded="true" />
-                <element signature="e#1493#1564#0#HTML" expanded="true" />
-                <element signature="e#2257#2275#0#HTML" expanded="true" />
-                <element signature="e#2341#2348#0#HTML" expanded="true" />
-                <element signature="e#2687#2707#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="208">
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -1188,8 +933,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/party/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="40" column="43" lean-forward="true" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+            <state relative-caret-position="144">
+              <caret line="45" column="1" lean-forward="true" selection-start-line="33" selection-end-line="45" selection-end-column="1" />
               <folding>
                 <element signature="e#629#639#0" expanded="true" />
               </folding>
@@ -1197,47 +942,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/teaching/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-192">
-              <caret line="22" column="49" lean-forward="true" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xadmin/views/website.py">
+        <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/notice/util.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-145">
-              <caret line="109" column="40" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/notice/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="736">
-              <caret line="130" column="19" lean-forward="true" selection-start-line="130" selection-start-column="19" selection-end-line="130" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="192">
+              <caret line="29" column="38" lean-forward="true" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -1245,8 +954,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="149" column="15" lean-forward="true" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
+            <state relative-caret-position="46">
+              <caret line="381" column="52" selection-start-line="381" selection-start-column="52" selection-end-line="381" selection-end-column="52" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -1254,32 +963,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/party/settings.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/teaching/resources.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2256">
-              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="162" column="58" lean-forward="true" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
+            <state relative-caret-position="256">
+              <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -1375,7 +1075,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/import_export/import.html" />
-        <option value="$PROJECT_DIR$/teaching/resources.py" />
         <option value="$PROJECT_DIR$/common/resources.py" />
         <option value="$PROJECT_DIR$/info/resources.py" />
         <option value="$PROJECT_DIR$/info/util.py" />
@@ -1422,9 +1121,10 @@
         <option value="$PROJECT_DIR$/xadmin/views/website.py" />
         <option value="$PROJECT_DIR$/notice/util.py" />
         <option value="$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html" />
-        <option value="$PROJECT_DIR$/teaching/adminx.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/teaching/adminx.py" />
         <option value="$PROJECT_DIR$/party/settings.py" />
+        <option value="$PROJECT_DIR$/teaching/resources.py" />
       </list>
     </option>
   </component>
@@ -1442,7 +1142,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -1450,10 +1149,22 @@
               <item name="party" type="b2602c69:ProjectViewProjectNode" />
               <item name="party" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="party" type="b2602c69:ProjectViewProjectNode" />
+              <item name="party" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+              <item name="Excel模板" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1739,6 +1450,7 @@
       <workItem from="1558095566337" duration="14274000" />
       <workItem from="1558153753431" duration="6639000" />
       <workItem from="1558171046355" duration="17729000" />
+      <workItem from="1558319909063" duration="6595000" />
     </task>
     <task id="LOCAL-00088" summary="bug">
       <created>1557316763376</created>
@@ -2087,7 +1799,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="967837000" />
+    <option name="totallyTimeSpent" value="974633000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2099,9 +1811,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16944024" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23600605" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -2349,28 +2061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/resources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="65" column="23" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-288" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/xadmin/vendor/bootstrap/css/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -2388,23 +2078,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notice/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/notice/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/notice/tasks.py" />
     <entry file="file://$PROJECT_DIR$/xadmin/views/detail.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -2425,13 +2099,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/plan/firsttalk.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="247" selection-start-line="247" selection-end-line="247" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/plan/firsttalk.html" />
     <entry file="file://$PROJECT_DIR$/xadmin/views/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
@@ -2459,16 +2127,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="162" column="58" lean-forward="true" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xadmin/views/website.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -2486,20 +2144,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="103" column="38" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
-          <folding>
-            <element signature="e#902#972#0#HTML" expanded="true" />
-            <element signature="e#1493#1564#0#HTML" expanded="true" />
-            <element signature="e#2257#2275#0#HTML" expanded="true" />
-            <element signature="e#2341#2348#0#HTML" expanded="true" />
-            <element signature="e#2687#2707#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/notice/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="736">
@@ -2510,46 +2154,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="149" column="15" lean-forward="true" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2256">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/party/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="40" column="43" lean-forward="true" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
-          <folding>
-            <element signature="e#629#639#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/teaching/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-192">
           <caret line="22" column="49" lean-forward="true" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/views/model_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2592">
+          <caret line="162" column="58" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="45" column="1" lean-forward="true" selection-start-line="33" selection-end-line="45" selection-end-column="1" />
+          <folding>
+            <element signature="e#629#639#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="29" column="38" lean-forward="true" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xadmin/templates/xadmin/base_site.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/adminx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="381" column="52" selection-start-line="381" selection-start-column="52" selection-end-line="381" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/party/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teaching/resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
