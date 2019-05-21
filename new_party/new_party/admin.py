@@ -127,6 +127,15 @@ class AdminMixin:
     list_per_page = 15
     formats = base_formats.DEFAULT_FORMATS[2:3]
 
+    def changelist_view(self, request, extra_context=None):
+        model_fields = []
+        for f in self.opts.fields:
+            if f.name not in self.list_exclude:
+                model_fields.append((f.verbose_name, f.name in self.list_display, '?%s=True' % f.name))
+        extra_context = extra_context or {}
+        extra_context['model_fields'] = model_fields
+        return super().changelist_view(request, extra_context)
+
 
 class BaseModelAdmin(AdminMixin, ModelAdmin):
     pass

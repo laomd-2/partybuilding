@@ -132,7 +132,7 @@
                   {% for f, selected, flink in model_fields %}
                     <li><a href="{{ flink }}">
                       {% if selected %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-blank"></i>{% endif %}
-                      {{ f.verbose_name }}</a></li>
+                      {{ f }}</a></li>
                   {% endfor %}
                 </ul>
               </li>

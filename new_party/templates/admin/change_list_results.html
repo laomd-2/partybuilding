@@ -8,7 +8,7 @@
   {% if results %}
     <table id="result_list" class="table table-bordered table-striped table-hover"
            data-toggle="table" data-height="{% with results|length as len %}
-            {% if len > 10 %}421{% else %}{{ len|mul:37|add:51 }}{% endif %}
+            {% if len > 10 %}421{% else %}auto{% endif %}
            {% endwith %}"
     >
       <thead>

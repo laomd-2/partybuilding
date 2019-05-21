@@ -16,7 +16,8 @@ def replace(s, a, b):
 
 @register.simple_tag
 def show(cl):
-    print(cl.__dict__)
+    for r in cl:
+        print(r)
 
 
 @register.simple_tag
