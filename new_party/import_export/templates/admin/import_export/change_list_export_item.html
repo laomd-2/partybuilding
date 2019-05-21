@@ -14,7 +14,7 @@
             {% csrf_token %}
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title">导出 党员发展管理</h4>
+              <h4 class="modal-title">导出 {{ cl.opts.verbose_name }}</h4>
             </div>
             <div class="modal-body">
               <input type="hidden" name="_action_" value="export">

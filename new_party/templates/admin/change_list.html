@@ -79,6 +79,9 @@
     #content-block.full-content {
       margin-left: 0;
     }
+
+    .checkbox-inline { width: auto; padding: 0; margin-left: 10px; }
+    .checkbox-inline>input[type='checkbox'] { margin-left: 0 }
   </style>
 {% endblock %}
 {% block bodyclass %}change-list{% endblock %}
@@ -119,26 +122,36 @@
         {% block object-tools-items %}
         {% block toolbar_column %}
           <div class="btn-group">
-            <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
-              <i class="fa fa-list-alt"></i> 显示列 <span class="caret"></span>
+            <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="modal" href="#display">
+              <i class="fa fa-list-alt"></i> 显示列
             </a>
-            <ul class="dropdown-menu model_fields pull-right" role="menu" aria-labelledby="dLabel">
-              <li><a href="{{ clean_select_field_url }}"><i
-                  class="fa fa-refresh"></i> 恢复显示列</a></li>
-              <li><a href="{{ all_field_url }}"><i class="fa fa-arrows"></i> 选择全部列</a></li>
-              <li class="divider"></li>
-              <li>
-                <ul class="subul-menu">
-                  {% for f, selected, flink in model_fields %}
-                    <li><a href="{{ flink }}">
-                      {% if selected %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-blank"></i>{% endif %}
-                      {{ f }}</a></li>
-                  {% endfor %}
-                </ul>
-              </li>
-            </ul>
+            <div id="display" class="modal fade">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4 class="modal-title">请勾选需要显示的列</h4>
+                    </div>
+                    <div class="modal-body">
+                      {% for f, selected, fname in model_fields %}
+                        <div class="checkbox-inline">
+                          <input type="checkbox" name="list_display" value="{{ fname }}" {% if selected %}checked{% endif %}> {{ f }}
+                        </div>
+                      {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                      <button class="btn btn-primary" type="submit">确认</button>
+                    </div>
+                  </form>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dalog -->
+            </div>
           </div>
         {% endblock toolbar_column %}
+
         {% block toolbar_layouts %}
           <div class="btn-group layout-btns" data-toggle="buttons">
             <label class="btn btn-default btn-sm layout-normal active">

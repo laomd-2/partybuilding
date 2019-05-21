@@ -1,5 +1,5 @@
 {% extends 'admin/base.html' %}
-{% load i18n static admin_list admin_urls %}
+{% load i18n static admin_urls admin_list %}
 
 {% block title %}{{ title }} | {{ site_title }}{% endblock %}
 {% block body %}
@@ -67,17 +67,19 @@
               {% block nav_title %}{% endblock %}
             </a>
           </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              {% block filters %}{% endblock %}
-              {% block search %}{% search_form cl %}{% endblock %}
-              {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
-            </ul>
-            {% block nav_form %}{% endblock %}
-            <div class="navbar-btn pull-right hide-xs">
-              {% block nav_btns %}{% endblock %}
+          {% if opts %}
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                {% block filters %}{% endblock %}
+                {% block search %}{% search_form cl %}{% endblock %}
+                {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+              </ul>
+              {% block nav_form %}{% endblock %}
+              <div class="navbar-btn pull-right hide-xs">
+                {% block nav_btns %}{% endblock %}
+              </div>
             </div>
-          </div>
+          {% endif %}
         </div>
       {% endblock %}
 

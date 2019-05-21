@@ -1,5 +1,5 @@
 {% extends 'admin/base_site.html' %}
-{% load mathfilters i18n %}
+{% load i18n mathfilters %}
 {% block extrastyle %} {{ block.super }}
   <style>
     .fixed-table-border { height: 0!important; }
@@ -27,7 +27,7 @@
       <ul class="list-group">
         {% for phase, num, q, fields in affairs %}
           <li class="list-group-item">
-            <a class="dropdown-toggle disabled" href="/info/member?_cols={{ fields|join:'.' }}&{{ q }}">更新{{ phase }}信息
+            <a class="dropdown-toggle disabled" href="/info/member?{{ q }}">更新{{ phase }}信息
             </a>
             <span class="badge pull-right">{{ num }}</span>
           </li>

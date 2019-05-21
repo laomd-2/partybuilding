@@ -9,12 +9,12 @@ from notice.admin import *
 
 
 class MyAdminSite(AdminSite):
-    index_template = 'admin/index.html'
     index_title = '主页'
     site_header = '数据科学与计算机学院学生党建系统'
     site_title = site_header
 
     def index(self, request, extra_context=None):
+        super().index(request, extra_context)
         extra_context = extra_context or {}
         affairs = []
         plans = []
@@ -129,12 +129,16 @@ class AdminMixin:
 
     def changelist_view(self, request, extra_context=None):
         model_fields = []
+        list_display = self.get_list_display(request)
         for f in self.opts.fields:
             if f.name not in self.list_exclude:
-                model_fields.append((f.verbose_name, f.name in self.list_display, '?%s=True' % f.name))
+                model_fields.append((f.verbose_name, f.name in list_display, f.name))
         extra_context = extra_context or {}
         extra_context['model_fields'] = model_fields
         return super().changelist_view(request, extra_context)
+
+    def get_list_display(self, request):
+        return request.POST.getlist('list_display') or self.list_display
 
 
 class BaseModelAdmin(AdminMixin, ModelAdmin):
