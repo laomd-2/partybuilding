@@ -1,0 +1,10 @@
+{% load i18n %}
+{% load admin_urls %}
+
+{% if has_import_permission %}
+<div class="btn-group">
+  <a class="btn btn-default btn-sm" href='{% url opts|admin_urlname:"import" %}'>
+    <i class="glyphicon glyphicon-import"></i> 导入
+  </a>
+</div>
+{% endif %}

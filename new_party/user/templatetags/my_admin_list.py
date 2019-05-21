@@ -16,7 +16,7 @@ def replace(s, a, b):
 
 @register.simple_tag
 def show(cl):
-    print(list(cl.filter_specs)[0].__dict__)
+    print(cl.__dict__)
 
 
 @register.simple_tag

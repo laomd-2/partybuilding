@@ -3,6 +3,7 @@ from django.contrib.admin import AdminSite, ModelAdmin
 from django.urls import reverse, NoReverseMatch
 from django.utils.text import capfirst
 from import_export.formats import base_formats
+from import_export.admin import ImportExportModelAdmin
 from new_party.forms import DateCheckModelForm
 from notice.admin import *
 
@@ -39,6 +40,11 @@ class MyAdminSite(AdminSite):
         extra_context['plans'] = plans
         extra_context['affairs'] = affairs
         return super().index(request, extra_context)
+
+    def each_context(self, request):
+        context = super().each_context(request)
+        context['app_list'] = context['available_apps']
+        return context
 
     def _build_app_dict(self, request, label=None):
         """
@@ -121,36 +127,10 @@ class AdminMixin:
     list_per_page = 15
     formats = base_formats.DEFAULT_FORMATS[2:3]
 
-    def changelist_view(self, request, extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['app_list'] = site.get_app_list(request)
-        return super().changelist_view(request, extra_context)
-
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['app_list'] = site.get_app_list(request)
-        return super().change_view(request, object_id, form_url, extra_context)
-
-    def add_view(self, request, form_url='', extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['app_list'] = site.get_app_list(request)
-        return super().add_view(request, form_url, extra_context)
-
-    def delete_view(self, request, object_id, extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['app_list'] = site.get_app_list(request)
-        return super().delete_view(request, object_id, extra_context)
-
-    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['app_list'] = site.get_app_list(request)
-        return super().changeform_view(request, object_id, form_url, extra_context)
-
-    def history_view(self, request, object_id, extra_context=None):
-        extra_context = extra_context or {}
-        extra_context['app_list'] = site.get_app_list(request)
-        return super().history_view(request, object_id, extra_context)
-
 
 class BaseModelAdmin(AdminMixin, ModelAdmin):
+    pass
+
+
+class IEModelAdmin(AdminMixin, ImportExportModelAdmin):
     pass

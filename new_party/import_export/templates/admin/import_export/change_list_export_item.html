@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load admin_urls %}
+
+{% if has_export_permission %}
+  <div class="btn-group export">
+    <a id="export-menu" class="dropdown-toggle btn btn-default btn-sm" data-toggle="modal" data-target="#export-modal"
+       href="#">
+      <i class="glyphicon glyphicon-export"></i> 导出
+    </a>
+    <div id="export-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="post" action="{% url opts|admin_urlname:'export' %}{{ cl.get_query_string }}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">导出 党员发展管理</h4>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" name="_action_" value="export">
+              <input type="hidden" name="_selected_actions" value="">
+              <input type="hidden" name="_select_across" value="">
+              <fieldset class="module aligned">
+                <div class="form-row">
+                  <label for="id_file_format">格式:</label>
+                  <select name="file_format" id="id_file_format">
+                    <option value="0">xlsx</option>
+                  </select>
+                </div>
+              </fieldset>
+
+              <label><input name="scope" type="radio" value="current" checked="checked"> 导出当前页</label>
+              <label><input name="scope" type="radio" value="selected"> 导出选中的数据 </label>
+              <label><input name="scope" type="radio" value="all"> 导出全部数据 </label>
+              <label><input name="scope" type="radio" value="header_only"> 导出表头 </label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-export"></i> 导出</button>
+            </div>
+          </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+  </div>
+{% endif %}

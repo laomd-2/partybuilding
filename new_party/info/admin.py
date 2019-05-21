@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models import F
 # from teaching.models import TakePartIn
 from new_party.admin import *
@@ -92,11 +93,9 @@ class BranchAdmin(BaseModelAdmin):
 fields_, phases = Member.get_phases()
 
 
-class MemberBaseAdmin(BaseModelAdmin):
+class MemberBaseAdmin(IEModelAdmin):
     form = InfoForm
-    # list_per_page = 8
-    import_export_args = {'import_resource_class': MemberResource,
-                          'export_resource_class': MemberResource}
+    resource_class = MemberResource
     list_display = fields_[:4] + ['gender', 'application_date', 'activist_date',
                                   'key_develop_person_date', 'first_branch_conference',
                                   'second_branch_conference']
