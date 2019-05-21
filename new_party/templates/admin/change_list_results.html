@@ -1,4 +1,4 @@
-{% load i18n my_admin_list %}
+{% load i18n my_admin_list mathfilters %}
 {% block extrastyle %}
   <style>
     th, td { white-space: nowrap }
@@ -7,7 +7,9 @@
 <div class="results table-responsive" style="width: 100%;">
   {% if results %}
     <table id="result_list" class="table table-bordered table-striped table-hover"
-           data-toggle="table" data-height="auto"
+           data-toggle="table" data-height="{% with results|length as len %}
+            {% if len > 10 %}421{% else %}{{ len|mul:37|add:51 }}{% endif %}
+           {% endwith %}"
     >
       <thead>
       <tr>{% for header in result_headers %}

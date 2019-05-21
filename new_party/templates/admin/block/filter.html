@@ -1,0 +1,26 @@
+{% load my_admin_list %}
+<li class="dropdown">
+  <a id="drop-filter" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+    <i class="fa fa-filter"></i> 过滤器{% used_filter_num cl as num_filters %}{% if num_filters > 0 %} <span class="badge badge-success">{{num_filters}}</span>{% endif %}
+    <span class="caret"></span></a>
+  <ul id="filter-menu" class="dropdown-menu" role="menu" aria-labelledby="drop-filter">
+    {% if num_filters > 0 %}
+      <li><a href="?"><i class="fa fa-trash-o"></i> 清除过滤器</a></li>
+      <li class="divider"></li>
+    {% endif %}
+
+    {% for spec in cl.filter_specs %}
+      <li class="dropdown-submenu">
+        <a><i class="fa fa-filter {% if spec.used_parameters %}text-success{% else %}text-muted{% endif %}"></i>{{ spec.title }}</a>
+        <ul class="dropdown-menu">
+          {% choices cl spec as filter_choices %}
+          {% for choice in filter_choices %}
+            <li{% if choice.selected %} class="active"{% endif %}>
+              <a href="{{ choice.query_string|iriencode }}" title="{{ choice.display }}"> {{ choice.display }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+</li>
