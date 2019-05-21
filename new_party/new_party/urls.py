@@ -24,7 +24,6 @@ from .admin import site
 admin.site = site
 admin.autodiscover()
 
-
 urlpatterns = [
     path('', admin.site.urls),
     path('register/', RegisterView.as_view(), name='register'),

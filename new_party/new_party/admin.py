@@ -130,9 +130,14 @@ class AdminMixin:
     def changelist_view(self, request, extra_context=None):
         model_fields = []
         list_display = self.get_list_display(request)
-        for f in self.opts.fields:
-            if f.name not in self.list_exclude:
-                model_fields.append((f.verbose_name, f.name in list_display, f.name))
+        all_fields = [f.name for f in self.opts.fields]
+        for f in self.list_display:
+            if f not in all_fields:
+                all_fields.append(f)
+        field_verbose = verbose_name(all_fields, self.model)
+        for f, v in zip(all_fields, field_verbose):
+            if f not in self.list_exclude:
+                model_fields.append((v, f in list_display, f))
         extra_context = extra_context or {}
         extra_context['model_fields'] = model_fields
         return super().changelist_view(request, extra_context)

@@ -9,13 +9,13 @@ from info.models import Member
 from user.models import User
 
 
-def verbose_name(fields):
+def verbose_name(fields, model=Member):
     res = []
     for field in fields:
         try:
-            res.append(Member._meta.get_field(field).verbose_name)
+            res.append(model._meta.get_field(field).verbose_name)
         except:
-            res.append(getattr(Member, field).short_description)
+            res.append(getattr(model, field).short_description)
     return res
 
 
