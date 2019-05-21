@@ -1,0 +1,104 @@
+{% extends 'admin/base_site.html' %}
+{% load mathfilters i18n %}
+{% block extrastyle %} {{ block.super }}
+  <style>
+    .fixed-table-border { height: 0!important; }
+    {#.content-navbar { display: none !important; }#}
+  </style>
+{% endblock %}
+{% block bodyclass %}dashboard{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+
+{% block nav_title %}
+  <i class="fa fa-dashboard"></i> {{ title }}
+{% endblock %}
+
+{% block nav_toggles %}
+  {% include "admin/includes/toggle_menu.html" %}
+{% endblock %}
+
+{% block nav_btns %}
+{% endblock %}
+
+{% block content %}
+  {% if affairs %}
+    <div class="panel panel-danger" style="float: left; width: {% if plans %}49%{% else %}100%{% endif %}">
+      <div class="panel-heading"><h3 class="panel-title">业务提醒</h3></div>
+      <ul class="list-group">
+        {% for phase, num, q, fields in affairs %}
+          <li class="list-group-item">
+            <a class="dropdown-toggle disabled" href="/info/member?_cols={{ fields|join:'.' }}&{{ q }}">更新{{ phase }}信息
+            </a>
+            <span class="badge pull-right">{{ num }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if plans %}
+    <div class="panel panel-primary" style="float: right; width: {% if affairs %}49%{% else %}100%{% endif %}">
+      <div class="panel-heading"><h3 class="panel-title">党员发展计划</h3></div>
+      <ul class="list-group">
+        {% for plan, num, phase, headers, results, beian in plans %}
+          <li class="list-group-item">
+            <a class="dropdown-toggle disabled" data-toggle="modal" data-target="#table-{{ phase }}">{{ plan }}
+            </a>
+            <span class="badge pull-right">{{ num }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% for plan, num, phase, headers, results, beian in plans %}
+      <div class="modal fade" id="table-{{ phase }}" tabindex="-1" role="dialog"
+           aria-labelledby="table-{{ phase }}Label" aria-hidden="true">
+        <div class="modal-dialog" style="width: 90%">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+              </button>
+              <h4 class="modal-title" id="table-{{ phase }}Label">
+                {{ plan }}
+              </h4>
+            </div>
+            <div class="modal-body table-responsive" style="width: 100%;">
+              {% block results_fixedcol_grid %}
+                <table class="table table-bordered table-striped table-hover"
+                       data-toggle="table" data-height="{% with results|length as len %}
+                      {% if len > 8 %}{{ 8|mul:37|add:51 }}{% else %}{{ len|mul:37|add:51 }}{% endif %}
+                    {% endwith %}">
+                  {% block results_fixedcol_grid_head %}
+                    <thead>
+                    <tr>{% for o in headers %}
+                      <th>{{ o }}</th>{% endfor %}
+                    </tr>
+                    </thead>
+                  {% endblock results_fixedcol_grid_head %}
+                  {% block results_fixedcol_grid_body %}
+                    <tbody>
+                    {% for row in results %}
+                      <tr class="grid-item">
+                        {% for o in row %}
+                          <td>{{ o }}</td>
+                        {% endfor %}</tr>
+                    {% endfor %}
+                    </tbody>
+                  {% endblock results_fixedcol_grid_body %}
+                </table>
+              {% endblock results_fixedcol_grid %}
+            </div>
+            <div class="modal-footer">
+              {% if can_beian and beian %}
+                <a href="/notice/beian/{{ phase }}" class="btn btn-primary" role="button">下载{{ beian }}</a>
+              {% endif %}
+              <a href="/notice/{{ phase }}" class="btn btn-info" role="button">下载表格</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+

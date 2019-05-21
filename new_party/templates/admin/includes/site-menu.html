@@ -1,0 +1,45 @@
+{% block navbar_md %}
+<ul class="well nav nav-pills nav-stacked nav-sitemenu hide-sm">
+  <li>
+    <a href="{% url 'admin:index' %}"><i class="fa-fw fa fa-home"></i> 主页</a>
+  </li>
+  {% for item in app_list %}
+    <li class="nav-header">
+      {{ item.name }}
+    </li>
+    {% for model in item.models %}
+    <li{% if model.selected %} class="active"{% endif %}>
+      <a href="{{ model.admin_url }}">
+      {% if model.icon %}<i class="fa-fw {{model.icon}}"></i>{%else%}<i class="fa-fw fa fa-circle-o"></i>{% endif %}
+      <span>{{ model.name }}</span></a>
+    </li>
+    {% endfor %}
+  {% endfor %}
+</ul>
+{% endblock navbar_md %}
+
+{% block navbar_sm %}
+  <ul class="well nav nav-list nav-sitemenu show-sm">
+    <li class="app_menu">
+      <a href="{% url 'admin:index' %}"><i class="icon fa-fw fa fa-home"></i></a><hr/>
+    </li>
+    {% for item in app_list %}
+      <li class="app_menu dropdown-submenu {% if item.selected %} active{% endif %}">
+        <a href="#" class="section">
+          {% if item.icon %}<i class="icon fa-fw {{item.icon}}"></i>
+          {% elif item.models.0.icon %}<i class="icon fa-fw {{ item.models.0.icon }}"></i>
+          {%else%}<i class="icon fa-fw fa fa-circle-o"></i>{% endif %}
+        </a><hr/>
+        <ul class="dropdown-menu">
+          {% for sitem in item.models %}
+          <li{% if sitem.selected %} class="active"{% endif %}>
+            {% if sitem.admin_url %}<a href="{{ sitem.admin_url }}">{% endif %}
+            {% if sitem.icon %}<i class="fa-fw {{sitem.icon}}"></i>{%else%}<i class="fa-fw fa fa-circle-o"></i>{% endif %}
+            <span>{{ sitem.name }}</span>{% if sitem.admin_url %}</a>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock navbar_sm %}
