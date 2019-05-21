@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <div id="top-nav" class="navbar navbar-xs navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">数据科学与计算机学院学生党建系统</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-right">
+
+        <li class="dropdown g-theme">
+          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+            <i class="fa fa-magic"></i> <span class="hide-sm">主题 <i class="caret"></i></span></a>
+          <ul id="g-theme-menu" class="dropdown-menu" role="menu">
+
+            <li class="active"><a data-css-href="/static/xadmin/css/themes/bootstrap-xadmin.css">默认</a></li>
+
+            <li><a data-css-href="/static/xadmin/css/themes/bootstrap-theme.css">Bootstrap2</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/cerulean/bootstrap.min.css">Cerulean</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/cosmo/bootstrap.min.css">Cosmo</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/cyborg/bootstrap.min.css">Cyborg</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/darkly/bootstrap.min.css">Darkly</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/flatly/bootstrap.min.css">Flatly</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/journal/bootstrap.min.css">Journal</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/lumen/bootstrap.min.css">Lumen</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/paper/bootstrap.min.css">Paper</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/readable/bootstrap.min.css">Readable</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/sandstone/bootstrap.min.css">Sandstone</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/simplex/bootstrap.min.css">Simplex</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/slate/bootstrap.min.css">Slate</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/spacelab/bootstrap.min.css">Spacelab</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/superhero/bootstrap.min.css">Superhero</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/united/bootstrap.min.css">United</a></li>
+
+            <li><a data-css-href="https://bootswatch.com/3/yeti/bootstrap.min.css">Yeti</a></li>
+
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+            <strong>欢迎， {{ user.username }}</strong> <span
+              class="caret"></span></a>
+          <ul id="g-account-menu" class="dropdown-menu" role="menu">
+            <li><a href="/account/password/"><i class="fa fa-key"></i> 更改密码</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/account/logout"><i class="show-sm fa fa-sign-out"></i><span
+            class="hide-sm">注销</span></a></li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block left-menu %}
+  <div id="left-side" class="col-sm-1 col-md-2">
+    <ul class="well nav nav-pills nav-stacked nav-sitemenu hide-sm">
+      <li>
+        <a href="{% url 'home' %}"><i class="fa-fw fa fa-home"></i> 首页</a>
+      </li>
+
+      {% for app in app_list %}
+        <li class="nav-header ">
+          {{ app.name }}
+        </li>
+
+        {% for model in app.models %}
+          <li>
+            <a href="{{ app.app_label }}/{{ model.object_name|lower }}">
+              <i class="fa-fw {{ model.icon }}"></i>
+              <span>{{ model.name }}</span></a>
+          </li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  <div id="footer">
+    <hr/>
+    <footer class="text-center">
+      <p>&copy; 版权所有@数据科学与计算机学院</p>
+    </footer>
+  </div>
+{% endblock %}
