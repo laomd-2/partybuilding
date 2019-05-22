@@ -1,0 +1,32 @@
+{% load crispy_forms_field %}
+
+<div class="panel panel-default fieldset unsort {% if not fieldset.name %} no_title {% endif %}">
+  <div class="panel-heading"><i class='icon fa fa-chevron-up chevron'></i>
+    <h3 class="panel-title">{{ fieldset.name }}</h3></div>
+  <div class="panel-body ">
+    {% for line in fieldset %}
+      {% for field in line %}
+      {% if field.is_hidden %}
+        {{ field }}
+      {% else %}
+        <div id="div_{{ field.auto_id }}"
+             class="{% if not field.is_checkbox %}form-group{% if 'form-horizontal' in form_class %} row{% endif %}{% else %}form-check{% endif %}{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+          {% if field.is_checkbox %}
+                {{ field.field }}{{ field.label_tag }}
+            {% else %}
+                {{ field.label_tag }}
+                {% if field.is_readonly %}
+                    <div class="readonly">{{ field.contents }}</div>
+                {% else %}
+                    {{ field.field }}
+                {% endif %}
+            {% endif %}
+            {% if field.field.help_text %}
+                <div class="help">{{ field.field.help_text|safe }}</div>
+            {% endif %}
+        </div>
+      {% endif %}
+        {% endfor %}
+    {% endfor %}
+</div>
+</div>

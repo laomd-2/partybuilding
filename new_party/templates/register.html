@@ -1,5 +1,5 @@
-{% extends base_template %}
-{% load i18n xadmin_tags %}
+{% extends 'admin/base_site.html' %}
+{% load i18n %}
 
 {% load crispy_forms_tags %}
 
@@ -43,10 +43,7 @@
             {% endblock %}
           </div>
           <div class="panel-body">
-
-            {% view_block 'form_top' %}
-
-            {#      {% include 'bootstrap3/errors.html' %}#}
+            {% include 'bootstrap3/errors.html' %}
 
             {% block messages %}
               {% if messages %}

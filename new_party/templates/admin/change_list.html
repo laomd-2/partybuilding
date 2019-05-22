@@ -101,19 +101,29 @@
   </button>
 {% endblock %}
 
-{% block filters %}
-  {% if cl.has_filters %}
-    {% include 'admin/block/filter.html' %}
-  {% endif %}
+{% block navbar-collapse %}
+<div class="navbar-collapse collapse">
+  <ul class="nav navbar-nav">
+    {% block filters %}
+      {% if cl.has_filters %}
+        {% include 'admin/block/filter.html' %}
+      {% endif %}
+    {% endblock %}
+    {% block search %}{% search_form cl %}{% endblock %}
+    {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+  </ul>
+  {% block nav_form %}{% endblock %}
+  <div class="navbar-btn pull-right hide-xs">
+    {% block nav_btns %}
+      {% if has_add_permission %}
+        {% url cl.opts|admin_urlname:'add' as add_url %}
+        <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-primary"><i class="fa fa-plus"></i>
+          {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>
+      {% endif %}
+    {% endblock %}
+  </div>
+</div>
 {% endblock %}
-
-{% block nav_btns %}
-  {% if has_add_permission %}
-    {% url cl.opts|admin_urlname:'add' as add_url %}
-    <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-primary"><i class="fa fa-plus"></i>
-      {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>
-  {% endif %}
-{% endblock nav_btns %}
 
 {% block content %}
   {% if cl.result_count > 0 %}

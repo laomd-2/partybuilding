@@ -96,8 +96,8 @@ class Table:
 
 class FirstTalk(Table):
     excel_template = media('Excel模板/首次组织谈话.xlsx')
-    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number',
-              'first_talk_end']
+    fields = ['branch', 'netid', 'name', 'gender', 'birth_date', 'application_date', 'phone_number',]
+              # 'first_talk_end']
     verbose_name = '首次组织谈话'
     phase = verbose_name
 
@@ -113,8 +113,8 @@ class FirstTalk(Table):
 
     @classmethod
     def filter(cls, **kwargs):
-        return super(FirstTalk, cls).filter(**kwargs).extra(
-            select={'first_talk_end': 'DATE_ADD(application_date, INTERVAL 1 MONTH)'})
+        return super(FirstTalk, cls).filter(**kwargs)
+            # .extra(select={'first_talk_end': 'DATE_ADD(application_date, INTERVAL 1 MONTH)'})
 
 
 class Activist(Table):

@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')qw9_w_fwt+@9$8gl-^x-qmpf3vp1p40nt@vc7q&y+np91dh9('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ WSGI_APPLICATION = 'new_party.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'party',
+        'NAME': 'new_party',
         'USER': 'sdcs_party',
         'PASSWORD': 'SDCS2019@party',
     }

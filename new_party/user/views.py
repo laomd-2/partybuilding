@@ -6,10 +6,17 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.views.decorators.cache import never_cache
 from .forms import RegisterForm
 from .models import User
+from new_party.admin import site
 
 
 class RegisterView(LoginView):
     template_name = 'register.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = '注册'
+        context['site_title'] = site.site_title
+        return context
 
     @never_cache
     def post(self, request, *args, **kwargs):
@@ -32,11 +39,11 @@ class RegisterView(LoginView):
             user_profile.username = user_name
 
             member = user_profile.member
-            if member is None:
-                list(messages.get_messages(request))
-                messages.error(request, '您的动态信息未导入系统，因此不能注册。')
-                return self.get(request)
-            user_profile._fullname = member['name']
+            # if member is None:
+            #     list(messages.get_messages(request))
+            #     messages.error(request, '您的动态信息未导入系统，因此不能注册。')
+            #     return self.get(request)
+            # user_profile._fullname = member['name']
             user_profile.email = email
             user_profile.is_active = user_profile.is_staff = True
             # 对保存到数据库的密码加密
