@@ -31,8 +31,9 @@ class InfoForm(DateCheckModelForm):
         else:
             if not eighteen.match(id_card):
                 self.add_error('id_card_number', '身份证号码不规范。')
-            if id_card[6:14] != str(cd.get('birth_date', self.instance.birth_date)).replace('-', ''):
-                self.add_error('id_card_number', '出生日期不对应。')
-            if (int(id_card[-2]) & 1) == (int(cd.get('gender', self.instance.gender) != '男') & 1):
-                self.add_error('id_card_number', '性别不对应。')
+            else:
+                if id_card[6:14] != str(cd.get('birth_date', self.instance.birth_date)).replace('-', ''):
+                    self.add_error('id_card_number', '出生日期不对应。')
+                if (int(id_card[-2]) & 1) == (int(cd.get('gender', self.instance.gender) != '男') & 1):
+                    self.add_error('id_card_number', '性别不对应。')
         return cd
