@@ -1,6 +1,5 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls static admin_modify my_admin_list %}
-{% load crispy_forms_tags %}
 
 {% block extrabody %}
   <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.portal.js"></script>
@@ -46,6 +45,7 @@
       {% for fieldset in adminform %}
         {% include "admin/includes/fieldset.html" %}
       {% endfor %}
+{#      {% crispy adminform.form %}#}
     </div>
   </div>
 {% endblock %}

@@ -7,7 +7,7 @@ from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
 from common.utils import Cache
-from common.models import MyBooleanField
+from xxadmin.models import ToggleBooleanField
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
@@ -163,9 +163,9 @@ class MemberBase(models.Model):
     major_in = models.CharField(max_length=30, verbose_name='当前专业', null=True, blank=True,
                                 help_text='填写当前所在专业的全称。')
     years = models.IntegerField('学年制', default=4, help_text='转专业或休学时可以增加学年制。')
-    youth_league_member = MyBooleanField(verbose_name='是否团员', default=True, help_text='非团员发展时采用党员推荐方式。')
+    youth_league_member = ToggleBooleanField(verbose_name='是否团员', default=True, help_text='非团员发展时采用党员推荐方式。')
     constitution_group_date = NullableDateField(verbose_name='参加党章学习小组时间')
-    is_sysu = MyBooleanField(verbose_name='是否在中山大学发展', help_text='在中山大学发展的党员，其录入的信息需严格遵循'
+    is_sysu = ToggleBooleanField(verbose_name='是否在中山大学发展', help_text='在中山大学发展的党员，其录入的信息需严格遵循'
                                                                  '相关流程依赖。', default=True)
 
     application_date = NullableDateField(verbose_name='递交入党申请书时间', help_text='与入党申请书落款时间一致，需保证年满18周岁。')

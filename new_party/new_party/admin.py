@@ -4,7 +4,7 @@ from django.urls import reverse, NoReverseMatch
 from django.utils.text import capfirst
 from import_export.formats import base_formats
 from import_export.admin import ImportExportModelAdmin
-from new_party.forms import DateCheckModelForm
+from xxadmin.forms import DateCheckModelForm
 from notice.admin import *
 
 

@@ -16,7 +16,10 @@ def replace(s, a, b):
 
 @register.simple_tag
 def show(cl):
-    print(cl.__dict__)
+    from django.forms.boundfield import BoundField
+    from django.contrib.admin.helpers import AdminField
+    if not isinstance(cl, dict):
+        print(type(cl), cl.__dict__)
 
 
 @register.simple_tag
