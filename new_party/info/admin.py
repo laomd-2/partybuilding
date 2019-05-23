@@ -23,7 +23,7 @@ class SchoolAdmin(BaseModelAdmin):
 
 class BranchAdmin(BaseModelAdmin):
     my_export = True
-    # actions = [MergeBranchAction]
+    actions = ['merge_branch']
     list_display = ['branch_name', 'get_leaders',
                     'num_members', 'num_full_members',
                     'num_pre_members', 'num_key',
@@ -38,6 +38,33 @@ class BranchAdmin(BaseModelAdmin):
         if is_school_admin(request.user):
             return ['branch_name']
         return []
+
+    def merge_branch(self, request, queryset):
+        if is_school_admin(request.user):
+            t_branch = None
+            target = None
+            cur = -1
+            # 迁移的目标支部默认是人数最多的
+            for b in queryset:
+                num_members = b.member_set.all().count()
+                if target is None or num_members > cur:
+                    target = b.id
+                    t_branch = b
+                    cur = num_members
+            queryset = queryset.exclude(id=target)
+            for branch in queryset:
+                # 将旧支部的所有东西迁移到新支部
+                branch.member_set.update(branch_id=target)
+                branch.oldmember_set.update(branch_id=target)
+                branch.note_set.update(branch_id=target)
+                branch.rule_set.update(branch_id=target)
+                for atv in branch.activity_set.all():
+                    atv.branch.remove(branch)
+                    atv.branch.add(t_branch)
+                    atv.save()
+            queryset.delete()
+    merge_branch.short_description = '合并所选的 党支部'
+    merge_branch.allowed_permissions = ['delete']
 
     # @property
     # def detail_charts(self):
@@ -213,11 +240,33 @@ class DependencyAdmin(BaseModelAdmin):
 
 class MemberAdmin(MemberBaseAdmin):
     model_icon = 'fa fa-info'
+    # actions = ['add_activist', 'add_key_person', 'add_premember', 'add_member']
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         if db_field.name == 'branch':
             kwargs["queryset"] = get_visual_branch(request.user)
         return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+    def add_activist(self, request, queryset):
+        queryset.filter(activist_date__isnull=True).update(activist_date=datetime.date.today())
+    add_activist.short_description = '确定为入党积极分子'
+
+    def add_key_person(self, request, queryset):
+        queryset.filter(key_develop_person_date__isnull=True) \
+                .update(key_develop_person_date=datetime.date.today())
+    add_key_person.short_description = '确定为发展对象'
+
+    def add_premember(self, request, queryset):
+        queryset.filter(first_branch_conference__isnull=True) \
+                .update(first_branch_conference=datetime.date.today())
+    add_premember.short_description = '确定为预备党员'
+
+    def add_member(self, request, queryset):
+        queryset.filter(second_branch_conference__isnull=True) \
+                .update(second_branch_conference=datetime.date.today())
+    add_member.short_description = '确定为正式党员'
+    add_activist.allowed_permissions = add_key_person.allowed_permissions \
+        = add_premember.allowed_permissions = add_member.allowed_permissions = ['add']
 
 
 class OldMemberAdmin(MemberBaseAdmin):

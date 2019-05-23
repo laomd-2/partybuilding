@@ -8,7 +8,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
 from common.utils import Cache
 from xxadmin.models import ToggleBooleanField
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
 
@@ -269,18 +269,6 @@ class MemberBase(models.Model):
              update_fields=None):
         if self.phone_number and not str(self.phone_number).startswith('+86'):
             self.phone_number = '+86' + self.phone_number
-        if self.second_branch_conference:
-            self.phase = 5
-        elif self.first_branch_conference:
-            self.phase = 4
-        elif self.key_develop_person_date:
-            self.phase = 3
-        elif self.activist_date:
-            self.phase = 2
-        elif self.application_date:
-            self.phase = 1
-        else:
-            self.phase = 0
         super().save(force_insert, force_update, using, update_fields)
 
 
