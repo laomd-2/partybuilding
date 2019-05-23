@@ -2,10 +2,14 @@
 {% load i18n admin_urls static admin_list my_admin_list %}
 
 {% block extrastyle %}
+  <link href="/static/xadmin/css/xadmin.plugin.importexport.css" type="text/css" media="screen" rel="stylesheet">
+  <link href="/static/xadmin/vendor/bootstrap-datepicker/css/datepicker.css" type="text/css" media="screen" rel="stylesheet">
   <style type="text/css">
     .btn-toolbar {
       margin-top: 0;
     }
+
+    div.content-toolbar.btn-toolbar>:not(.pagination) { float: right}
 
     .subul-menu {
       padding: 0;
@@ -82,9 +86,17 @@
 
     .checkbox-inline { width: auto; padding: 0; margin-left: 10px; }
     .checkbox-inline>input[type='checkbox'] { margin-left: 0 }
+    .pagination { margin: 0 !important; left: 0}
   </style>
 {% endblock %}
+
 {% block bodyclass %}change-list{% endblock %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+        <li>{{ opts.verbose_name_plural|capfirst }}</li>
+    </ul>
+{% endblock %}
 
 {% block nav_title %}{% if cl.model_icon %}<i class="{{ cl.model_icon }}"></i> {% endif %}
   {{ cl.opts.verbose_name_plural }}{% endblock %}
@@ -127,57 +139,58 @@
 
 {% block content %}
   {% if cl.result_count > 0 %}
-  <div class="content-toolbar btn-toolbar pull-right clearfix">
+  <div class="content-toolbar btn-toolbar clearfix">
+    {% block pagination %}{% pagination cl %}{% endblock %}
     {% block object-tools %}
         {% block object-tools-items %}
-        {% block toolbar_column %}
-          <div class="btn-group">
-            <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="modal" href="#display">
-              <i class="fa fa-list-alt"></i> 显示列
-            </a>
-            <div id="display" class="modal fade">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <form method="post" action="">
-                    {% csrf_token %}
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h4 class="modal-title">请勾选需要显示的列</h4>
-                    </div>
-                    <div class="modal-body">
-                      {% for f, selected, fname in model_fields %}
-                        <div class="checkbox-inline">
-                          <input type="checkbox" name="list_display" value="{{ fname }}" {% if selected %}checked{% endif %}> {{ f }}
-                        </div>
-                      {% endfor %}
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                      <button class="btn btn-primary" type="submit">确认</button>
-                    </div>
-                  </form>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dalog -->
+          {% block toolbar_fullscreen %}
+            <div class="btn-group layout-btns" data-toggle="buttons-checkbox">
+              <button type="button" class="btn btn-default btn-sm layout-full"><i class="fa fa-expand"></i></button>
             </div>
-          </div>
-        {% endblock toolbar_column %}
+          {% endblock toolbar_fullscreen %}
 
-        {% block toolbar_layouts %}
-          <div class="btn-group layout-btns" data-toggle="buttons">
-            <label class="btn btn-default btn-sm layout-normal active">
-              <input type="radio"> <i class="fa fa-th-large"></i>
-            </label>
-            <label class="btn btn-default btn-sm layout-condensed">
-              <input type="radio"> <i class="fa fa-th"></i>
-            </label>
-          </div>
-        {% endblock toolbar_layouts %}
+          {% block toolbar_layouts %}
+            <div class="btn-group layout-btns" data-toggle="buttons">
+              <label class="btn btn-default btn-sm layout-normal active">
+                <input type="radio"> <i class="fa fa-th-large"></i>
+              </label>
+              <label class="btn btn-default btn-sm layout-condensed">
+                <input type="radio"> <i class="fa fa-th"></i>
+              </label>
+            </div>
+          {% endblock toolbar_layouts %}
 
-        {% block toolbar_fullscreen %}
-          <div class="btn-group layout-btns" data-toggle="buttons-checkbox">
-            <button type="button" class="btn btn-default btn-sm layout-full"><i class="fa fa-expand"></i></button>
-          </div>
-        {% endblock toolbar_fullscreen %}
+          {% block toolbar_column %}
+            <div class="btn-group">
+              <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="modal" href="#display">
+                <i class="fa fa-list-alt"></i> 显示列
+              </a>
+              <div id="display" class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <form method="post" action="">
+                      {% csrf_token %}
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">请勾选需要显示的列</h4>
+                      </div>
+                      <div class="modal-body">
+                        {% for f, selected, fname in model_fields %}
+                          <div class="checkbox-inline">
+                            <input type="checkbox" name="list_display" value="{{ fname }}" {% if selected %}checked{% endif %}> {{ f }}
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button class="btn btn-primary" type="submit">确认</button>
+                      </div>
+                    </form>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dalog -->
+              </div>
+            </div>
+          {% endblock toolbar_column %}
         {% endblock %}
     {% endblock %}
   </div>
@@ -193,17 +206,16 @@
         {% result_list cl %}
         {% if action_form and actions_on_bottom and cl.show_admin_actions %}{% admin_actions %}{% endif %}
     {% endblock %}
-    {% block pagination %}{% pagination cl %}{% endblock %}
   </form>
 
   {% block extrabody %}
     <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.importexport.js"></script>
-    <script type="text/javascript" src="/static/xadmin/vendor/selectize/selectize.min.js"></script>
-    <script type="text/javascript" src="/static/xadmin/vendor/select2/select2.min.js"></script>
-    <script type="text/javascript" src="/static/xadmin/vendor/select2/select2_locale_zh-hans.js"></script>
     <script type="text/javascript" src="/static/xadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.filters.js"></script>
+    <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.details.js"></script>
+    <script type="text/javascript" src="/static/xadmin/js/xadmin.widget.datetime.js"></script>
+    <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.actions.js"></script>
     <script type="text/javascript" src="/static/xadmin/js/xadmin.page.list.js"></script>
-<script type="text/javascript" src="/static/xadmin/js/xadmin.page.form.js"></script>
+    <script type="text/javascript" src="/static/xadmin/js/xadmin.page.form.js"></script>
   {% endblock %}
 {% endblock %}
