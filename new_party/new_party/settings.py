@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'info.apps.InfoConfig',
     'work.apps.NoteConfig',
     'mathfilters',
+    'xxadmin',
     'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
