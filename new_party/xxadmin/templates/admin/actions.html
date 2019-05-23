@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n my_admin_list %}
 <div class="form-actions well well-sm">
   <input type="hidden" id="action" name="action" value=""/>
   <input type="hidden" id="select-across" name="select_across" value=""/>
@@ -8,9 +8,19 @@
     <span class="action-counter">{{ selection_note }}</span>
     <span class="all" style="display: none;">{{ selection_note_all }}</span>
     <span class="caret"></span></a>
+
     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-      {% for name, descr, icon in action_choices %}
-        <li><a onclick="$.do_action('{{name}}');"><i class="{{icon}}"></i> {{descr}}</a></li>
+{#      {% for name, descr, icon in action_choices %}#}
+{#        <li><a onclick="$.do_action('{{name}}');"><i class="{{icon}}"></i> {{descr}}</a></li>#}
+{#      {% endfor %}#}
+      {% for field in action_form %}
+        {% if field.label %}
+          {% for name, desc in field.field.choices %}
+            {% if name %}
+              <li><a onclick="$.do_action('{{name}}');"><i class="fa fa-tasks"></i> {{desc}}</a></li>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
       {% endfor %}
     </ul>
   </div>
