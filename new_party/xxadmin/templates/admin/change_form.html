@@ -1,15 +1,37 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls static admin_modify my_admin_list %}
 
+{% block extrahead %}{{ block.super }}
+{{ media }}
+{% endblock %}
+
 {% block extrabody %}
-  <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.portal.js"></script>
-  <script type="text/javascript" src="/static/xadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-  <script type="text/javascript" src="/static/xadmin/js/xadmin.widget.datetime.js"></script>
-  <script type="text/javascript" src="/static/xadmin/js/xadmin.page.form.js"></script>
+<script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.portal.js"></script>
+<script type="text/javascript" src="/static/xadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/xadmin/js/xadmin.widget.datetime.js"></script>
+<script type="text/javascript" src="/static/xadmin/vendor/selectize/selectize.min.js"></script>
+<script type="text/javascript" src="/static/xadmin/vendor/select2/select2.min.js"></script>
+<script type="text/javascript" src="/static/xadmin/vendor/select2/select2_locale_zh-hans.js"></script>
+<script type="text/javascript" src="/static/xadmin/js/xadmin.widget.select.js"></script>
+<script type="text/javascript" src="/static/xadmin/js/xadmin.page.form.js"></script>
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}
   <link href="/static/xadmin/vendor/bootstrap-datepicker/css/datepicker.css" type="text/css" media="screen" rel="stylesheet">
+  <link href="/static/xadmin/vendor/select2/select2.css" type="text/css" media="screen" rel="stylesheet">
+  <link href="/static/xadmin/vendor/selectize/selectize.css" type="text/css" media="screen" rel="stylesheet">
+  <link href="/static/xadmin/vendor/selectize/selectize.bootstrap3.css" type="text/css" media="screen" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+  <style>
+    .vTextField {
+      width: auto;
+    }
+    .vDateField {
+      width: auto;
+      float: left;
+    }
+    select { width: auto!important;}
+  </style>
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}

@@ -171,7 +171,7 @@ CRISPY_CLASS_CONVERTERS = {
     "textinput": "textinput textInput form-control",
     "fileinput": "fileinput fileUpload form-control",
     "passwordinput": "textinput textInput form-control",
-    'vTextField': 'text-field'
+    'admindatewidget': 'date-field'
 }
 
 DEBUG_TOOLBAR_CONFIG = {
