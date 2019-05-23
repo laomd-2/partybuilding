@@ -16,7 +16,7 @@ def replace(s, a, b):
 
 @register.simple_tag
 def show(cl):
-    print(cl)
+    print(cl.__dict__)
 
 
 @register.simple_tag
@@ -26,3 +26,15 @@ def used_filter_num(cl):
         if f.used_parameters:
             cnt += 1
     return cnt
+
+
+@register.simple_tag
+def get_fields(fieldline):
+    form = fieldline.form
+    fields = []
+    for f in fieldline.fields:
+        try:
+            fields.append(form[f])
+        except:
+            pass
+    return fields

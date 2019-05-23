@@ -23,10 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')qw9_w_fwt+@9$8gl-^x-qmpf3vp1p40nt@vc7q&y+np91dh9('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -45,6 +47,12 @@ INSTALLED_APPS = [
     'crispy_forms'
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [
+        'template_timings_panel',
+        'debug_toolbar'
+    ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,6 +62,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
 ROOT_URLCONF = 'new_party.urls'
 
@@ -124,13 +135,9 @@ AUTH_USER_MODEL = 'user.User'
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'zh-hans'
-
 TIME_ZONE = 'Asia/Shanghai'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
@@ -158,3 +165,20 @@ HOST_IP = '222.200.185.71:8080'
 
 
 LOGIN_REDIRECT_URL = '/'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_CLASS_CONVERTERS = {
+    "textinput": "textinput textInput form-control",
+    "fileinput": "fileinput fileUpload form-control",
+    "passwordinput": "textinput textInput form-control",
+}
+
+DEBUG_TOOLBAR_CONFIG = {
+    "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
+}
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+]

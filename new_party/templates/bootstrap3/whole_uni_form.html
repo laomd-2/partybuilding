@@ -5,7 +5,6 @@
     {% if form_method|lower == 'post' and not disable_csrf %}
         {% csrf_token %}
     {% endif %}
-
     {% include "bootstrap3/display_form.html" %}
 
     {% include "bootstrap3/inputs.html" %}

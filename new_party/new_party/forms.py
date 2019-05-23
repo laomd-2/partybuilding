@@ -1,3 +1,4 @@
+from crispy_forms.helper import FormHelper
 from django.forms import CheckboxInput, BooleanField
 from django.forms import ModelForm
 from datetime import datetime
@@ -17,16 +18,19 @@ class ToggleField(BooleanField):
 
 
 class DateCheckModelForm(ModelForm):
-    pass
-    # def clean(self):
-    #     cd = super().clean()
-    #     model = type(self.instance)
-    #     for f in model._meta.fields:
-    #         if 'Date' in f.get_internal_type():
-    #             d = cd.get(f.name)
-    #             if d:
-    #                 if isinstance(d, date):
-    #                     d = datetime.combine(d, datetime.min.time())
-    #                 if d > datetime.now():
-    #                     self.add_error(f.name, '您穿越了？')
-    #     return cd
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+    def clean(self):
+        cd = super().clean()
+        model = type(self.instance)
+        for f in model._meta.fields:
+            if 'Date' in f.get_internal_type():
+                d = cd.get(f.name)
+                if d:
+                    if isinstance(d, date):
+                        d = datetime.combine(d, datetime.min.time())
+                    if d > datetime.now():
+                        self.add_error(f.name, '您穿越了？')
+        return cd

@@ -90,9 +90,6 @@ class BranchAdmin(BaseModelAdmin):
         return super().has_delete_permission(request, obj) and (obj is None or obj.id != 106)
 
 
-fields_, phases = Member.get_phases()
-
-
 class MemberBaseAdmin(IEModelAdmin):
     form = InfoForm
     resource_class = MemberResource
@@ -117,15 +114,12 @@ class MemberBaseAdmin(IEModelAdmin):
                 'activist_date', 'netid']
     # wizard_form_list = phases.items()
 
-    # form_layout = (
-    #     Main(
-    #         *[Fieldset((('阶段%d：' % i) if i else '') + k, *v) for i, (k, v) in enumerate(phases.items())]
-    #     ),
-    #     Side(
-    #         Fieldset('关系转出', 'out_type', 'out_date', 'out_place'),
-    #         Fieldset('其他信息', 'remarks')
-    #     )
-    # )
+    fieldsets = [
+        ((('阶段%d：' % i) if i else '') + k, {
+            'fields': v,
+        })
+        for i, (k, v) in enumerate(phases.items())
+    ]
 
     def get_search_fields(self, request):
         if is_admin(request.user):

@@ -32,3 +32,7 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', static.serve,
         {'document_root': settings.MEDIA_ROOT}, name='media'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append((path('__debug__/', include(debug_toolbar.urls))))

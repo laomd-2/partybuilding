@@ -9,6 +9,9 @@ from common.utils import *
 from info.models import Member, Branch, Dependency
 
 
+fields_, phases = Member.get_phases()
+
+
 def get_end_time(days):
     now = datetime.datetime.now()
     delta = datetime.timedelta(days=days)

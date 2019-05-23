@@ -1,11 +1,11 @@
 from new_party.forms import DateCheckModelForm
-from .util import check_fields
-import re
+from .util import *
 
 eighteen = re.compile(r'^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$')
 
 
 class InfoForm(DateCheckModelForm):
+
     def is_valid(self):
         if super(InfoForm, self).is_valid():
             self.save(commit=False)
