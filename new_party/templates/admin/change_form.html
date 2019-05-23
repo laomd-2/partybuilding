@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static admin_modify %}
+{% load i18n admin_urls static admin_modify my_admin_list %}
 {% load crispy_forms_tags %}
 
 {% block extrabody %}
@@ -43,12 +43,9 @@
 {% block field_sets %}
   <div class="form-container row clearfix">
     <div class="formColumn column form-column full col col-sm-12 form-horizontal"  span="12" horizontal>
-      <div class="panel panel-default fieldset unsort no_title">
-        <div class="panel-heading"><i class="icon fa fa-chevron-up chevron"></i><h3 class="panel-title"></h3></div>
-        <div class="panel-body ">
-          {% crispy adminform.form 'bootstrap3' %}
-        </div>
-      </div>
+      {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" %}
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
