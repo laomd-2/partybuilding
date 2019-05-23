@@ -125,6 +125,8 @@ class AdminMixin:
     list_export = []
     list_exclude = ['id']
     list_per_page = 15
+    actions_on_bottom = True
+    actions_on_top = False
     formats = base_formats.DEFAULT_FORMATS[2:3]
 
     def changelist_view(self, request, extra_context=None):
