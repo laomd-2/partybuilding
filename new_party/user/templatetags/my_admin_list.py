@@ -15,9 +15,18 @@ def replace(s, a, b):
 
 
 @register.simple_tag
+def class_transform(s):
+    class_mapping = {
+        'vTextField': 'text-field admintextinputwidget form-control',
+        'vDateField': 'date-field admindateinputwidget form-control'
+    }
+    for k, v in class_mapping.items():
+        s = s.replace(k, v)
+    return mark_safe(s)
+
+
+@register.simple_tag
 def show(cl):
-    from django.forms.boundfield import BoundField
-    from django.contrib.admin.helpers import AdminField
     if not isinstance(cl, dict):
         print(type(cl), cl.__dict__)
 

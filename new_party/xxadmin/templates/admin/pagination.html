@@ -1,6 +1,6 @@
 {% load admin_list %}
 {% load i18n %}
-<ul class="pagination">
+<ul class="pagination pagination-sm pagination-left pagination-inline">
   <li><span><span class="text-success">{{ cl.result_count }}</span> {{ cl.opts.verbose_name }}</span></li>
   {% if pagination_required %}
     {% for i in page_range %}

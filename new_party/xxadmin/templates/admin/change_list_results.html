@@ -1,9 +1,18 @@
 {% load i18n my_admin_list mathfilters %}
 {% block extrastyle %}
+  {{ media.css }}
   <style>
-    th, td { white-space: nowrap }
+    th, td {
+      white-space: nowrap
+    }
   </style>
 {% endblock %}
+{% if result_hidden_fields %}
+  <div class="hiddenfields">
+    {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+  </div>
+{% endif %}
+{% if results %}
 <div class="results table-responsive" style="width: 100%;">
   {% if results %}
     <table id="result_list" class="table table-bordered table-striped table-hover"
@@ -26,11 +35,10 @@
 {#              </div>#}
 {#            {% endif %}#}
 {#          {% endif %}#}
-{#          <div class="text">#}
-{#            {% if header.sortable %}#}
-{#            <a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>{% else %}#}
-            <span>{{ header.text|capfirst }}</span>
-{#            {% endif %}</div>#}
+          <div class="text">{% if header.sortable %}
+            <a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>{% else %}
+            <span>{{ header.text|capfirst }}</span>{% endif %}</div>
+          <div class="clear"></div>
           <div class="clear"></div>
         </th>{% endfor %}
       </tr>
@@ -41,7 +49,7 @@
           {% if '<th' in item %}
             {% replace item 'th' 'td' %}
           {% else %}
-            {{ item }}
+            {% class_transform item %}
           {% endif %}
         {% endfor %}</tr>
       {% endfor %}
@@ -51,3 +59,4 @@
     <p class="well">{% trans "哦豁，没有数据。" %}</p>
   {% endif %}
 </div>
+{% endif %}
