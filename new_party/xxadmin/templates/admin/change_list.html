@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static admin_list %}
+{% load i18n admin_urls static admin_list my_admin_list %}
 
 {% block extrastyle %}
   {{ block.super }}
@@ -13,7 +13,9 @@
   {{ media.css }}
   {% if not actions_on_top and not actions_on_bottom %}
     <style>
-      #changelist table thead th:first-child {width: inherit}
+      #changelist table thead th:first-child {
+        width: inherit
+      }
     </style>
   {% endif %}
   <style>
@@ -21,22 +23,29 @@
       max-height: 25em;
       overflow-y: auto;
     }
-    td, th { text-align: center; white-space: nowrap }
-    div.content-toolbar.btn-toolbar>:not(.pagination) { float: right}
+
+    td, th {
+      text-align: center;
+      white-space: nowrap
+    }
+
+    div.content-toolbar.btn-toolbar > :not(.pagination) {
+      float: right
+    }
   </style>
 {% endblock %}
 
 {% block extrahead %}
-{{ block.super }}
-{{ media.js }}
+  {{ block.super }}
+  {{ media.js }}
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
-        <li>{{ opts.verbose_name_plural|capfirst }}</li>
-    </ul>
+  <ul class="breadcrumb">
+    <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+    <li>{{ opts.verbose_name_plural|capfirst }}</li>
+  </ul>
 {% endblock %}
 
 {% block nav_title %}{% if cl.model_icon %}<i class="{{ cl.model_icon }}"></i> {% endif %}
@@ -55,27 +64,28 @@
 {% endblock %}
 
 {% block navbar-collapse %}
-<div class="navbar-collapse collapse">
-  <ul class="nav navbar-nav">
-    {% block filters %}
-      {% if cl.has_filters %}
-        {% include 'admin/block/filter.html' %}
-      {% endif %}
-    {% endblock %}
-    {% block search %}{% search_form cl %}{% endblock %}
-    {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
-  </ul>
-  {% block nav_form %}{% endblock %}
-  <div class="navbar-btn pull-right hide-xs">
-    {% block nav_btns %}
-      {% if has_add_permission %}
-        {% url cl.opts|admin_urlname:'add' as add_url %}
-        <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-primary"><i class="fa fa-plus"></i>
-          {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>
-      {% endif %}
-    {% endblock %}
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      {% block filters %}
+        {% if cl.has_filters %}
+          {% include 'admin/block/filter.html' %}
+        {% endif %}
+      {% endblock %}
+      {% block search %}{% search_form cl %}{% endblock %}
+      {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
+    </ul>
+    {% block nav_form %}{% endblock %}
+    <div class="navbar-btn pull-right hide-xs">
+      {% block nav_btns %}
+        {% if has_add_permission %}
+          {% url cl.opts|admin_urlname:'add' as add_url %}
+          <a href="{% add_preserved_filters add_url is_popup to_field %}" class="btn btn-primary"><i
+              class="fa fa-plus"></i>
+            {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}</a>
+        {% endif %}
+      {% endblock %}
+    </div>
   </div>
-</div>
 {% endblock %}
 
 {% block extrabody %}
@@ -83,7 +93,7 @@
   <script type="text/javascript" src="/static/xadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
   <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.filters.js"></script>
   <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.details.js"></script>
-{#    <script type="text/javascript" src="/static/xadmin/js/xadmin.widget.datetime.js"></script>#}
+  {#    <script type="text/javascript" src="/static/xadmin/js/xadmin.widget.datetime.js"></script>#}
   {% if action_form %}
     <script type="text/javascript" src="/static/xadmin/js/xadmin.plugin.actions.js"></script>
   {% endif %}
@@ -97,45 +107,73 @@
   <div id="content-main">
     <div class="content-toolbar btn-toolbar clearfix pull-right">
       {% block object-tools %}
-{#        <ul class="object-tools">#}
+        {#        <ul class="object-tools">#}
         {% block object-tools-items %}
           {% change_list_object_tools %}
         {% endblock %}
-{#        </ul>#}
+        {#        </ul>#}
       {% endblock %}
     </div>
     {% block pagination %}{% pagination cl %}{% endblock %}
     {% if cl.formset.errors %}
       <p class="errornote">
-      {% if cl.formset.total_error_count == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+        {% if cl.formset.total_error_count == 1 %}{% trans "Please correct the error below." %}{% else %}
+          {% trans "Please correct the errors below." %}{% endif %}
       </p>
       {{ cl.formset.non_form_errors }}
     {% endif %}
     <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
-{#      {% block search %}{% search_form cl %}{% endblock %}#}
-{#      {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}#}
+      {#      {% block search %}{% search_form cl %}{% endblock %}#}
+      {#      {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}#}
 
-{#      {% block filters %}#}
-{#        {% if cl.has_filters %}#}
-{#          <div id="changelist-filter">#}
-{#            <h2>{% trans 'Filter' %}</h2>#}
-{#            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}#}
-{#          </div>#}
-{#        {% endif %}#}
-{#      {% endblock %}#}
+      {#      {% block filters %}#}
+      {#        {% if cl.has_filters %}#}
+      {#          <div id="changelist-filter">#}
+      {#            <h2>{% trans 'Filter' %}</h2>#}
+      {#            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}#}
+      {#          </div>#}
+      {#        {% endif %}#}
+      {#      {% endblock %}#}
 
-      <form id="changelist-form" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>{% csrf_token %}
-      {% if cl.formset %}
-        <div>{{ cl.formset.management_form }}</div>
-      {% endif %}
+      <form id="changelist-form" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %}
+            novalidate>{% csrf_token %}
+        {% if cl.formset %}
+          <div>{{ cl.formset.management_form }}</div>
+        {% endif %}
 
-      {% block result_list %}
+        {% block result_list %}
           {% if action_form and actions_on_top and cl.show_admin_actions %}{% admin_actions %}{% endif %}
-          {% result_list cl %}
+          {% my_result_list cl %}
           {% if action_form and actions_on_bottom and cl.show_admin_actions %}{% admin_actions %}{% endif %}
-      {% endblock %}
-      {% if cl.formset and cl.result_count %}<input type="submit" name="_save" class="default" value="{% trans 'Save' %}">{% endif %}
+        {% endblock %}
+        {% if cl.formset and cl.result_count %}
+          <input type="submit" name="_save" class="default" value="{% trans 'Save' %}">{% endif %}
       </form>
     </div>
   </div>
+
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 id="myModel-title" class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <p>Loading...</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      $('#myModal').on('show.bs.modal', function (e) {
+          const loadurl = e.relatedTarget.dataset.loadUrl;
+          console.log(e.relatedTarget.getAttribute('title'));
+          $('#myModel-title').text(e.relatedTarget.getAttribute('title'));
+          $(this).find('.modal-body').load(loadurl + ' #fields-content');
+      });
+  </script>
 {% endblock %}

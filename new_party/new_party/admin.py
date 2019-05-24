@@ -2,6 +2,8 @@ from django.apps import apps
 from django.contrib.admin import AdminSite, ModelAdmin
 from django.urls import reverse, NoReverseMatch
 from django.utils.text import capfirst
+from django.views.generic import ListView
+
 from import_export.formats import base_formats
 from import_export.admin import ImportExportModelAdmin
 from xxadmin.forms import DateCheckModelForm
@@ -147,6 +149,15 @@ class AdminMixin:
     def get_list_display(self, request):
         return request.POST.getlist('list_display') or self.list_display
 
+    def get_foreign_fields(self):
+        for field in self.opts.fields:
+            if field.get_internal_type() == 'ForeignKey':
+                yield field.column_name
+
+    def get_foreign_link(self, obj):
+        model = type(obj)
+        return '/%s/%s/%d/change' % (model._meta.app_label, model._meta.model_name, obj.pk)
+
 
 class BaseModelAdmin(AdminMixin, ModelAdmin):
     pass
@@ -154,3 +165,6 @@ class BaseModelAdmin(AdminMixin, ModelAdmin):
 
 class IEModelAdmin(AdminMixin, ImportExportModelAdmin):
     pass
+
+
+ListView

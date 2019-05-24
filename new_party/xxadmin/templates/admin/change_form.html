@@ -62,7 +62,7 @@
 {% endif %}
 
 {% block field_sets %}
-  <div class="form-container row clearfix">
+  <div id="fields-content" class="form-container row clearfix">
     <div class="formColumn column form-column full col col-sm-12 form-horizontal"  span="12" horizontal>
       {% for fieldset in adminform %}
         {% include "admin/includes/fieldset.html" %}
