@@ -17,6 +17,11 @@
     </style>
   {% endif %}
   <style>
+    #filter-menu > li.dropdown-submenu:not(.filter-date) > ul {
+      max-height: 25em;
+      overflow-y: auto;
+    }
+    td, th { text-align: center; white-space: nowrap }
     div.content-toolbar.btn-toolbar>:not(.pagination) { float: right}
   </style>
 {% endblock %}
