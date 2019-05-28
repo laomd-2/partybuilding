@@ -18,10 +18,12 @@ def get_branch_managers():
     branch_managers = dict()
     for manager in managers:
         try:
-            member = Member.objects.filter(netid=int(manager['username'])).values('branch_id', 'name')[0]
-            branch_managers.setdefault(member['branch_id'], [])
+            member = Member.objects.filter(netid=int(manager['username'])).extra(select={
+                'branch_name': 'info_branch.branch_name'
+            }).values('branch_name', 'name')[0]
+            branch_managers.setdefault(member['branch_name'], [])
             manager['name'] = member['name']
-            branch_managers[member['branch_id']].append(manager)
+            branch_managers[member['branch_name']].append(manager)
         except IndexError:
             pass
     return branch_managers
@@ -118,7 +120,7 @@ class Branch(models.Model):
         return leaders
 
     def get_leaders(self):
-        managers = self.branch_leaders().get(self.id, [])
+        managers = self.branch_leaders().get(self.branch_name, [])
         members = list(map(lambda x: x['name'], managers))
         return ','.join(members) if members else '无'
 
@@ -269,18 +271,6 @@ class MemberBase(models.Model):
              update_fields=None):
         if self.phone_number and not str(self.phone_number).startswith('+86'):
             self.phone_number = '+86' + self.phone_number
-        if self.second_branch_conference:
-            self.phase = 5
-        elif self.first_branch_conference:
-            self.phase = 4
-        elif self.key_develop_person_date:
-            self.phase = 3
-        elif self.activist_date:
-            self.phase = 2
-        elif self.application_date:
-            self.phase = 1
-        else:
-            self.phase = 0
         super().save(force_insert, force_update, using, update_fields)
 
 

@@ -14,6 +14,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
+from common.utils import get_headers
 from xadmin.util import lookup_field, display_for_field, label_for_field, boolean_icon
 
 from .base import ModelAdminView, filter_hook, inclusion_tag, csrf_protect_m
@@ -77,6 +78,10 @@ class ResultItem(object):
         return text
 
     @property
+    def tagattrs(self):
+        return mark_safe(' '.join(self.tag_attrs))
+
+    @property
     def first_talk_endttrs(self):
         return mark_safe(
             '%s%s' % ((self.tag_attrs and ' '.join(self.tag_attrs) or ''),
@@ -88,7 +93,7 @@ class ResultHeader(ResultItem):
     def __init__(self, field_name, row):
         super(ResultHeader, self).__init__(field_name, row)
         self.tag = 'th'
-        self.tag_attrs = ['scope="col"']
+        self.tag_attrs = ['scope="col"', 'data-field="%s"' % field_name]
         self.sortable = False
         self.allow_tags = True
         self.sorted = False
@@ -110,6 +115,7 @@ class ListAdminView(ModelAdminView):
     list_per_page = 50
     list_max_show_all = 200
     list_exclude = ()
+    row_span_fields = []
     search_fields = ()
     button_pull_left = False
     num_fixed_cols = 0
@@ -129,7 +135,7 @@ class ListAdminView(ModelAdminView):
 
         self.pk_attname = self.opts.pk.attname
         self.lookup_opts = self.opts
-        self.list_display = self.get_list_display()
+        self._list_display = self.get_list_display()
         self.list_display_links = self.get_list_display_links()
 
         # Get page number parameters from the query string.
@@ -153,8 +159,9 @@ class ListAdminView(ModelAdminView):
         """
         Return a sequence containing the fields to be displayed on the list.
         """
-        self.base_list_display = (COL_LIST_VAR in self.request.GET and self.request.GET[COL_LIST_VAR] != "" and
-                                  self.request.GET[COL_LIST_VAR].split('.')) or self.list_display
+        self.base_list_display = (COL_LIST_VAR in self.request.POST and self.request.POST.getlist(COL_LIST_VAR)) \
+                                 or COL_LIST_VAR in self.request.GET and self.request.GET.get(COL_LIST_VAR).split('.') \
+                                 or self.list_display
         return list(self.base_list_display)
 
     @filter_hook
@@ -164,11 +171,11 @@ class ListAdminView(ModelAdminView):
         on the changelist. The list_display parameter is the list of fields
         returned by get_list_display().
         """
-        if self.list_display_links or not self.list_display:
+        if self.list_display_links or not self._list_display:
             return self.list_display_links
         else:
             # Use only the first item in list_display as link
-            return list(self.list_display)[:1]
+            return list(self._list_display)[:1]
 
     def make_result_list(self):
         # Get search parameters from the query string.
@@ -222,7 +229,7 @@ class ListAdminView(ModelAdminView):
                 queryset = queryset.select_related()
             elif self.list_select_related is None:
                 related_fields = []
-                for field_name in self.list_display:
+                for field_name in self._list_display:
                     try:
                         field = self.opts.get_field(field_name)
                     except models.FieldDoesNotExist:
@@ -335,7 +342,7 @@ class ListAdminView(ModelAdminView):
                     order_type = 'desc'
                 else:
                     order_type = 'asc'
-                for attr in self.list_display:
+                for attr in self._list_display:
                     if self.get_ordering_field(attr) == field:
                         ordering_fields[field] = order_type
                         break
@@ -388,30 +395,38 @@ class ListAdminView(ModelAdminView):
         Prepare the context for templates.
         """
         self.title = _('%s List') % force_text(self.opts.verbose_name)
-        model_fields = [(f, f.name in self.list_display, self.get_check_field_url(f))
-                        for f in (list(self.opts.fields) + self.get_model_method_fields()) if f.name not in self.list_exclude]
-        all_field_url = [f.name for f in self.model._meta.fields if f.name not in self.list_exclude]
-        for f in model_fields:
-            for f2 in f[2][7:].split('.'):
-                if f2 not in all_field_url:
-                    all_field_url.append(f2)
-
+        model_fields = []
+        all_fields = [f.name for f in self.opts.fields]
+        for f in self.list_display:
+            if f not in all_fields:
+                all_fields.append(f)
+        field_verbose = get_headers(all_fields, self.model, self)
+        for f, v in zip(all_fields, field_verbose):
+            if f not in self.list_exclude:
+                model_fields.append((v, f in self._list_display, f))
         headers = self.result_headers()
         results = self.results()
-        height = len(results)
-        if height > 10:
-            height = 10
-        num_fixed_cols = self.num_fixed_cols
-        if headers and num_fixed_cols:
-            o = headers.cells[0]
-            if '<input type="checkbox"' in o.label:
-                num_fixed_cols += 1
+        row_spans = []
+        for row_span_field in self.row_span_fields:
+            if row_span_field in self._list_display:
+                i = self._list_display.index(row_span_field)
+                last = None
+                cnt = 1
+                for row in results:
+                    if last is not None and row.cells[i].label == last.cells[i].label:
+                        cnt += 1
+                    else:
+                        if last is not None:
+                            row_spans.append(cnt)
+                        last = row
+                        cnt = 1
+                if last is not None:
+                    row_spans.append(cnt)
         new_context = {
             'model_name': force_text(self.opts.verbose_name_plural),
             'title': self.title,
             'cl': self,
             'model_fields': model_fields,
-            'all_field_url': '?_cols=' + '.'.join(all_field_url),
             'clean_select_field_url': self.get_query_string(remove=[COL_LIST_VAR]),
             'has_add_permission': self.has_add_permission(),
             'app_label': self.app_label,
@@ -421,8 +436,8 @@ class ListAdminView(ModelAdminView):
             'result_headers': headers,
             'results': results,
             'placeholder': self.get_placeholder(),
-            'num_fixed_cols': num_fixed_cols,
-            'height': height * 37 + 39 + 19
+            'rowspan_fields': self.row_span_fields,
+            'rowspan_offset': row_spans
         }
 
         context = super(ListAdminView, self).get_context()
@@ -562,7 +577,7 @@ class ListAdminView(ModelAdminView):
         row = ResultRow()
         row['num_sorted_fields'] = 0
         row.cells = [self.result_header(
-            field_name, row) for field_name in self.list_display]
+            field_name, row) for field_name in self._list_display]
         return row
 
     @filter_hook
@@ -628,7 +643,7 @@ class ListAdminView(ModelAdminView):
         row['is_display_first'] = True
         row['object'] = obj
         row.cells = [self.result_item(
-            obj, field_name, row) for field_name in self.list_display]
+            obj, field_name, row) for field_name in self._list_display]
         return row
 
     @filter_hook

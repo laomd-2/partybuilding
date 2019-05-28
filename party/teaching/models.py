@@ -1,3 +1,4 @@
+import datetime
 import os
 from django.conf import settings
 from django.db import models
@@ -49,6 +50,22 @@ class Phase(models.Model):
         return self.name
 
 
+def get_activity_start_date():
+    now = datetime.date.today()
+    year, month = now.year, now.month
+    if month < 2:
+        year -= 1
+    return datetime.date(year, 2, 1)
+
+
+class ActivityManager(models.Manager):
+    def all(self):
+        return super().all().exclude(date__lt=get_activity_start_date())
+
+    def filter(self, *args, **kwargs):
+        return super().filter(*args, **kwargs).exclude(date__lt=get_activity_start_date())
+
+
 class Activity(models.Model):
     name = models.CharField('活动主题', max_length=100)
     date = models.DateTimeField('开展时间', default=timezone.now)
@@ -72,6 +89,7 @@ class Activity(models.Model):
         ordering = ('-date', 'name')
         verbose_name = '会议和活动'
         verbose_name_plural = verbose_name
+    objects = ActivityManager()
 
     def get_branches(self):
         return ','.join([str(b) for b in self.branch.all()])
@@ -88,6 +106,12 @@ class Activity(models.Model):
         super().save(force_insert, force_update, using, update_fields)
 
 
+class TakeBaseManager(models.Manager):
+
+    def filter(self, *args, **kwargs):
+        return super().filter(*args, **kwargs).exclude(activity__date__lt=get_activity_start_date())
+
+
 class TakeBase(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name='学号')
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='活动主题')
@@ -96,6 +120,7 @@ class TakeBase(models.Model):
         unique_together = ('activity', 'member')
         ordering = ('member', '-activity')
         abstract = True
+    objects = TakeBaseManager()
 
     def get_member_branch(self):
         return self.member.branch

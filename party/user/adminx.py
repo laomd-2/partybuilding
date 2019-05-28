@@ -1,8 +1,11 @@
+from django.contrib.auth.models import Permission
 from django.db.models import Q
 
 from common.base import AdminObject
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from xadmin.plugins.auth import GroupAdmin
 from .models import User
 from info.models import Member, Branch
 import xadmin
@@ -98,8 +101,37 @@ class UserAdmin(AdminObject):
         return False
 
 
+class MyGroupAdmin(GroupAdmin):
+    list_display = list_display_links = ['name']
+    visual_models = ['group', 'user',
+                     'branch', 'member', 'oldmember', 'dependency',
+                     'activity', 'takepartin', 'takepartin2',
+                     'files', 'note', 'rule']
+
+    def get_readonly_fields(self):
+        if self.org_obj is None:
+            return []
+        if self.request.user.is_superuser:
+            return []
+        return ['name']
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'permissions' and is_school_manager(self.request.user):
+            where = None
+            for model in self.visual_models:
+                if where is None:
+                    where = Q(codename__iendswith=model)
+                else:
+                    where |= Q(codename__iendswith=model)
+            kwargs["queryset"] = Permission.objects.filter(where)
+        return super().formfield_for_dbfield(db_field, **kwargs)
+
+
 xadmin.site.unregister(User)
+xadmin.site.unregister(Group)
 xadmin.site.register(User, UserAdmin)
+Group._meta.verbose_name = Group._meta.verbose_name_plural = '角色'
+xadmin.site.register(Group, MyGroupAdmin)
 
 
 @xadmin.sites.register(views.CommAdminView)

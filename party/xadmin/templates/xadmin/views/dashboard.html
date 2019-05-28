@@ -36,12 +36,26 @@
   {% if affairs %}
     <div class="panel panel-danger" style="float: left; width: {% if plans %}49%{% else %}100%{% endif %}">
       <div class="panel-heading"><h3 class="panel-title">业务提醒</h3></div>
+      <div class="panel-body">
+        <p>请点击以下链接更新动态信息，如有延迟发展，请在<code>备注</code>中说明原因。<br />
+          格式：（阶段）延迟发展-原因。
+          <ul>
+            <li>入党积极分子延迟发展-xx</li>
+            <li>重点发展对象延迟发展-xx</li>
+            <li>预备党员延迟发展-xx</li>
+            <li>正式党员延迟发展-xx</li>
+          </ul>
+        </p>
+      </div>
       <ul class="list-group">
         {% for phase, num, q, fields in affairs %}
           <li class="list-group-item">
-            <a class="dropdown-toggle disabled" href="/info/member?_cols={{ fields|join:'.' }}&{{ q }}">更新{{ phase }}信息
-            </a>
-            <span class="badge pull-right">{{ num }}</span>
+            <form id="form_{{ forloop.counter0 }}" method="post" action="/info/member/?_cols={{ fields|join:'.' }}">
+              {% csrf_token %}
+              <input type="hidden" name="netid__in" value="{{ q }}" />
+              <a class="dropdown-toggle disabled" onclick="document.getElementById('form_{{ forloop.counter0 }}').submit();">更新{{ phase }}信息</a>
+              <span class="badge pull-right">{{ num }}</span>
+            </form>
           </li>
         {% endfor %}
       </ul>
@@ -69,6 +83,12 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                 &times;
               </button>
+              {% if can_send_email %}
+                <form action="/notice/email/{{ phase }}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary pull-right" style="margin-right: 1em"><i class="fa fa-send"></i> 发送邮件</button>
+                </form>
+              {% endif %}
               <h4 class="modal-title" id="table-{{ phase }}Label">
                 {{ plan }}
               </h4>

@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import socket
+
+
+def get_host_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+
+    return ip
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +48,7 @@ INSTALLED_APPS = [
     'info.apps.InfoConfig',
     'teaching.apps.TeachingConfig',
     'work.apps.NoteConfig',
+    'notice.apps.NoticeConfig',
     'mathfilters',
     'import_export',
     'django.contrib.admin',
@@ -70,14 +84,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#         'LOCATION': [
-#             '127.0.0.1:11211',
-#         ]
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': [
+            '127.0.0.1:11211',
+        ]
+    }
+}
 
 # if DEBUG:
 #     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
@@ -173,7 +187,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SESSION_COOKIE_AGE = 60 * 30  # 30分钟
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
-HOST_IP = '222.200.185.71:8080'
+HOST_IP = '%s:8080' % get_host_ip()
 
 # DEBUG_TOOLBAR_CONFIG = {
 #     "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',

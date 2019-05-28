@@ -10,8 +10,6 @@ from .dashboard import Dashboard
 from xadmin.forms import AdminAuthenticationForm
 from xadmin.models import UserSettings
 from xadmin.layout import FormHelper
-from notice.admin import *
-from notice.util import verbose_name, queryset
 
 
 class IndexView(Dashboard):
@@ -20,33 +18,6 @@ class IndexView(Dashboard):
 
     def get_page_id(self):
         return 'home'
-
-    def get_context(self):
-        context = super(IndexView, self).get_context()
-        affairs = []
-        plans = []
-        today = datetime.date.today()
-        for model in [FirstTalk, Activist, KeyDevelop, LearningClass, PreMember, FullMember]:
-            query = queryset(self.request, model)
-            num_plan = len(query)
-            if num_plan > 0:
-                fields = model.fields
-                headers = verbose_name(fields)
-                results = [[m[f] for f in fields] for m in query]
-                beian_template = model.beian_template.split('/')[-1]
-                if beian_template.endswith('.docx'):
-                    beian_template = beian_template[:-5]
-                plans.append((model.verbose_name, num_plan, model.__name__.lower(), headers, results, beian_template))
-                daiban = model.check(today, query)
-                num_daiban = len(daiban)
-                if num_daiban > 0:
-                    affairs.append((model.phase, num_daiban,
-                                    '_p_netid__in=' + ','.join(map(lambda x: str(x), daiban)),
-                                    model.fields))
-        context['can_beian'] = is_admin(self.request.user)
-        context['plans'] = plans
-        context['affairs'] = affairs
-        return context
 
 
 class UserSettingView(BaseAdminView):

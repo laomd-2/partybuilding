@@ -217,9 +217,7 @@ class ImportMixin(ImportExportMixinBase):
         return self.get_context_data(**kwargs)
 
     def get_context_data(self, **kwargs):
-        return {
-            'excel': self.resource_class.excel_template
-        }
+        return {}
 
     def get_import_form(self):
         '''

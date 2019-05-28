@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.admin.views.main import ChangeList
 from django.template import Library
 from django.utils import six
 from django.utils.safestring import mark_safe
@@ -96,3 +97,11 @@ def set_var(parser, token):
         raise template.TemplateSyntaxError("'set' tag must be of the form: {% set <var_name> = <var_value> %}")
 
     return SetVarNode(parts[1], parts[3])
+
+
+@register.simple_tag
+def get_height(result_count):
+    if result_count > 15:
+        return 10 * 37 + 60
+    else:
+        return 'auto'

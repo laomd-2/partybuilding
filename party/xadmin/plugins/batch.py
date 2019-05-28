@@ -68,7 +68,7 @@ class BatchChangeAction(BaseActionView):
 
     model_perm = 'change'
 
-    batch_fields = []
+    # batch_fields = []
 
     def change_models(self, queryset, cleaned_data):
         n = queryset.count()
@@ -110,7 +110,7 @@ class BatchChangeAction(BaseActionView):
             raise PermissionDenied
 
         change_fields = [f for f in self.request.POST.getlist(BATCH_CHECKBOX_NAME) if f in self.batch_fields]
-
+        print(self.action_name, self.last_date, self.batch_fields)
         if change_fields and self.request.POST.get('post'):
             self.form_obj = self.get_change_form(True, change_fields)(
                 data=self.request.POST, files=self.request.FILES)

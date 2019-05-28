@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load i18n %}
+{% load i18n static %}
 
 {% load xadmin_tags %}
 
@@ -81,8 +81,8 @@
     #content-block.full-content {
       margin-left: 0;
     }
-  </style>
 
+  </style>
 {% endblock %}
 {% block bodyclass %}change-list{% endblock %}
 
@@ -108,28 +108,40 @@
 {% block content %}
   <div class="content-toolbar btn-toolbar pull-right clearfix">
     {% view_block 'top_toolbar' %}
+
     {% block toolbar_column %}
       <div class="btn-group">
-        <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
-          <i class="fa fa-list-alt"></i> {% trans "Columns" %} <span class="caret"></span>
+        <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="modal" href="#display">
+          <i class="fa fa-list-alt"></i> 显示列
         </a>
-        <ul class="dropdown-menu model_fields pull-right" role="menu" aria-labelledby="dLabel">
-          <li><a href="{{ clean_select_field_url }}"><i
-              class="fa fa-refresh"></i> {% trans "Restore Selected" %}</a></li>
-          <li><a href="{{ all_field_url }}"><i class="fa fa-arrows"></i> 选择全部列</a></li>
-          <li class="divider"></li>
-          <li>
-            <ul class="subul-menu">
-              {% for f, selected, flink in model_fields %}
-                <li><a href="{{ flink }}">
-                  {% if selected %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-blank"></i>{% endif %}
-                  {{ f.verbose_name }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
+        <div id="display" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form method="get" action="">
+                {% csrf_token %}
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">请勾选需要显示的列</h4>
+                </div>
+                <div class="modal-body">
+                  {% for f, selected, fname in model_fields %}
+                    <div class="checkbox-inline">
+                      <input id="{{ fname }}" type="checkbox" name="_cols" value="{{ fname }}" {% if selected %}checked{% endif %}>
+                      <label for="{{ fname }}"> {{ f }}</label>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                  <button class="btn btn-primary" type="submit">确认</button>
+                </div>
+              </form>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dalog -->
+        </div>
       </div>
     {% endblock toolbar_column %}
+
     {% block toolbar_layouts %}
       <div class="btn-group layout-btns" data-toggle="buttons">
         <label class="btn btn-default btn-sm layout-normal active">
@@ -160,8 +172,7 @@
       {% if results %}
         {% block results_fixedcol_grid %}
           <table id="results" class="table table-bordered table-striped table-hover" style="position: relative;"
-            data-toggle="table" data-height="{{ height }}"
-          >
+            data-toggle="table" data-height="{% get_height cl.result_count %}">
             {% block results_fixedcol_grid_head %}
               <thead>
               <tr>{% for o in result_headers.cells %}
@@ -232,6 +243,13 @@
               </tbody>
             {% endblock results_fixedcol_grid_body %}
           </table>
+          <script>
+            $('#results').on('post-body.bs.table', function (data) {
+                console.log('lalala');
+                const cellFileds = ["get_member_id","get_member_name"];
+                $('#results').bootstrapTable('mergeCells', {index: 1, field: 'get_member_name', rowspan: 3});
+            });
+          </script>
         {% endblock results_fixedcol_grid %}
       {% else %}
         <p class="well">{% trans "Empty list" %}</p>

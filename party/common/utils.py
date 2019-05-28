@@ -7,6 +7,19 @@ from django.core.files.temp import NamedTemporaryFile
 from openpyxl.styles import Font, Alignment
 
 
+def get_headers(fields, model, modeladmin):
+    res = []
+    for field in fields:
+        try:
+            res.append(model._meta.get_field(field).verbose_name)
+        except:
+            if hasattr(model, field):
+                res.append(getattr(model, field).short_description)
+            else:
+                res.append(getattr(modeladmin, field).short_description)
+    return res
+
+
 def set_font(wb, fontname, begin_row=1):
     font = Font(name=fontname)
     for i, row in enumerate(wb.active.iter_rows()):

@@ -224,7 +224,7 @@ class XLSX(TablibFormat):
     def can_import(self):
         return XLSX_IMPORT
 
-    def create_dataset(self, in_stream, ignore_rows=0):
+    def create_dataset(self, in_stream):
         """
         Create dataset from first sheet.
         """
@@ -237,8 +237,6 @@ class XLSX(TablibFormat):
 
         # obtain generator
         rows = sheet.rows
-        for _ in range(ignore_rows):
-            rows = next(rows)
         dataset.headers = [cell.value for cell in next(rows)]
 
         for row in rows:

@@ -1,11 +1,8 @@
-import datetime
-import io
 import os
 from collections import OrderedDict
-
 from django.conf import settings
-from django.contrib import messages
-from django.core.files.temp import NamedTemporaryFile
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.encoding import escape_uri_path
@@ -15,7 +12,10 @@ from openpyxl.styles import Border, Side, PatternFill
 from common.base import get_old, get_chinese
 from common.rules import *
 from common.utils import set_font, set_align, to_bytes
-from info.models import Member, Branch, Dependency
+from info.models import *
+
+
+fields_, phases = Member.get_phases()
 
 
 def get_end_time(days):
@@ -27,8 +27,8 @@ def get_end_time(days):
 def group_by_branch(appers):
     groups = dict()
     for apper in appers:
-        groups.setdefault(apper['branch_id'], [])
-        groups[apper['branch_id']].append(apper)
+        groups.setdefault(apper['branch'], [])
+        groups[apper['branch']].append(apper)
     return groups
 
 
@@ -134,7 +134,10 @@ def when_dangxiao(member):
         return 'F' if 4 < date_key_person.month < 10 else 'S'
 
 
+@login_required(login_url='/')
 def export_statistics(request):
+    if not is_school_admin(request.user):
+        raise PermissionDenied
     members = get_visuable_members(Member, request.user)
     columns = ['支部人数', '党员比例',
                '正式党员数', '预备党员数', '积极分子比例', '入党积极分子数',
@@ -316,3 +319,16 @@ def get_list_chart(request):
     if not objects.exists():
         return None
     return make_chart(objects, scope)
+
+
+def field_range(last, next):
+    res = []
+    try:
+        begin = fields_.index(last) + 1
+        while fields_[begin] != next:
+            res.append(fields_[begin])
+            begin += 1
+        res.append(fields_[begin])
+    except IndexError:
+        pass
+    return res

@@ -20,7 +20,7 @@ def producer():
 
 
 def wechat():
-    bot = wxpy.Bot(cache_path='/home/party/party/wxpk.pkl', console_qr=2)
+    bot = wxpy.Bot(console_qr=2)
     daka = bot.groups().search('计二党支部')
     test = bot.groups().search('测试群')
     bot.file_helper.send('我启动啦！')

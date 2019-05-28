@@ -14,34 +14,32 @@ def get_season(now):
 
 
 def get_visual_activities(user):
-    qs = Activity.objects.distinct().prefetch_related('branch')
+    qs = Activity.objects
     if not is_school_admin(user):  # 判断是否是党辅
         m = user.member
         if m is None:
             return qs.none()
         return qs.filter(Q(visualable_others=True)
-                         | Q(branch__id__contains=m['branch_id']))
-    return qs.all()
+                         | Q(branch__id__contains=m['branch_id'])).distinct().prefetch_related('branch')
+    return qs.all().distinct().prefetch_related('branch')
 
 
 def get_visual_credit(user, model=TakePartIn):
-    qs = model.objects.select_related('member', 'activity')
+    qs = model.objects
     if user.is_superuser:
         return 0, qs.all()
     now = datetime.datetime.today()
     year, month = now.year, now.month
     if month < 2:
         year -= 1
-    qs = qs.filter(activity__date__gte=datetime.date(year, 2, 1),
-                   activity__date__lt=datetime.date(year + 1, 2, 1))
 
     if is_school_manager(user):
-        return year, qs.filter(member__branch__school_id=int(user.username[0]))
+        return year, qs.filter(member__branch__school_id=int(user.username[0])).select_related('member', 'activity')
     m = user.member
     if m is None:
         return year, qs.none()
     else:
-        return year, qs.filter(member__branch_id=m['branch_id'])
+        return year, qs.filter(member__branch_id=m['branch_id']).select_related('member', 'activity')
 
 
 def get_monthly_credit(all_take):

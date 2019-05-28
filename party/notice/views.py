@@ -6,11 +6,9 @@ from django.shortcuts import render
 from django.utils.encoding import escape_uri_path
 
 from notice.util import _queryset
-from xadmin.views import ListAdminView
-
 from info.models import get_branch_managers
 from info.util import group_by_branch
-from notice.admin import *
+from notice.adminx import *
 from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import qn
@@ -37,7 +35,7 @@ class PlanView(ListAdminView):
             query = self.result_list = _queryset(request, model)
             self.ordering_field_columns = model.fields
             context = self.get_context()
-            # context['headers'] = verbose_name(model.fields)
+            # context['headers'] = get_headers(model.fields)
             # context['results'] = [[m[f] for f in model.fields] for m in query]
             return render(request, 'plan/%s.html' % phase, context)
 
@@ -113,14 +111,18 @@ class EmailView(PlanView):
         branch_managers = get_branch_managers()
         fields = model.fields
         mails = []
+        success = []
         for branch, appers in groups.items():
             appers = list(appers)
             if branch in branch_managers:
-                mails.append(make_email_to_managers(branch_managers[branch], manager_title, appers,
-                                                    fields, phase))
-            mails.extend(make_email_to_appliers(member_title, appers, fields))
+                email = make_email_to_managers(branch_managers[branch], manager_title, appers,
+                                                    fields, phase)
+                if email:
+                    mails.append(email)
+                    success.append(branch)
+            # mails.extend(make_email_to_appliers(member_title, appers, fields))
         connection = mail.get_connection()  # Use default email connection
         connection.fail_silently = True
         cnt = connection.send_messages(mails)
-        messages.success(request, '%s：成功发送%d封邮件！' % (manager_title, cnt))
-        return HttpResponseRedirect('')
+        messages.success(request, '%s：向%s发送邮件，%d封发送成功！' % (manager_title, ','.join(success), cnt))
+        return HttpResponseRedirect('/')

@@ -5,6 +5,7 @@ from django.utils.encoding import smart_text
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.template.loader import get_template
+from django.template.context import Context
 from django.utils import six
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, format_html
@@ -450,7 +451,7 @@ class MultiSelectFieldListFilter(ListFieldFilter):
     """ Delegates the filter to the default filter and ors the results of each
 
     Lists the distinct values of each field as a checkbox
-    Uses the default spec for each 
+    Uses the default spec for each
 
     """
     template = 'xadmin/filters/checklist.html'
@@ -570,43 +571,3 @@ class AllValuesFieldListFilter(ListFieldFilter):
                                                   [self.lookup_exact_name]),
                 'display': EMPTY_CHANGELIST_VALUE,
             }
-
-
-class ChoicesBaseFilter(BaseFilter):
-    parameter_name = None
-
-    def __init__(self, request, params, model, admin_view):
-        super(ChoicesBaseFilter, self).__init__(request, params, model, admin_view)
-
-        lookup_choices = self.lookups(request, admin_view)
-        if lookup_choices is None:
-            lookup_choices = ()
-        self.lookup_choices = list(lookup_choices)
-
-    def lookups(self, request, admin_view):
-        u'''配置选项 eg [ ('1', '上个月'), ('2', '下个月') ]'''
-        raise NotImplementedError
-
-    def choices(self):
-        yield {
-            'selected': self.value() is None,
-            'query_string': self.query_string({}, ['_p_' + self.parameter_name]),
-            'display': _('All'),
-        }
-        for lookup, title in self.lookup_choices:
-            yield {
-                'selected': self.value() == lookup,
-                'query_string': self.query_string({'_p_' + self.parameter_name: lookup, }, []),
-                'display': title,
-            }
-
-    def get_context(self):
-        context = super(ChoicesBaseFilter, self).get_context()
-        context['choices'] = list(self.choices())
-        return context
-
-    def has_output(self):
-        return len(self.lookup_choices) > 0
-
-    def value(self):
-        return self.used_params.get(self.parameter_name, None)

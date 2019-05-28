@@ -3,20 +3,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from common.base import wrap
 from common.rules import *
+from common.utils import get_headers
+from info.adminx import MemberAdmin
 from work.models import Files
 from email.header import make_header
 from info.models import Member
 from user.models import User
-
-
-def verbose_name(fields):
-    res = []
-    for field in fields:
-        try:
-            res.append(Member._meta.get_field(field).verbose_name)
-        except:
-            res.append(getattr(Member, field).short_description)
-    return res
 
 
 def get_infos(fields, appers):
@@ -27,7 +19,7 @@ def make_email_to_managers(users, title, appers, fields, phase):
     to_emails = [user['email'] for user in users if user['email']]
     if not to_emails:
         return
-    branch_name = appers[0]['branch'].branch_name
+    branch_name = appers[0]['branch']
     subject = title
     text_content = ''
 
@@ -35,7 +27,7 @@ def make_email_to_managers(users, title, appers, fields, phase):
     context = {
         'branch_name': branch_name,
         'title': title,
-        'headers': verbose_name(fields),
+        'headers': get_headers(fields, Member, MemberAdmin),
         'appliers': get_infos(fields, appers),
         'root_url': settings.HOST_IP
     }
@@ -61,7 +53,7 @@ def make_email_to_appliers(title, appliers, fields, template='email_member.html'
     infos = get_infos(fields, appliers)
     context = {
         'title': title,
-        'headers': verbose_name(fields),
+        'headers': get_headers(fields, Member, MemberAdmin),
         'root_url': settings.HOST_IP,
     }
 

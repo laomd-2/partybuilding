@@ -25,7 +25,7 @@ from user.views import RegisterView
 from django.conf import urls, settings
 from . import views
 from info.util import export_statistics
-from teaching.views import CheckInView
+from teaching.views import checkin
 
 
 xadmin.autodiscover()
@@ -38,7 +38,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('info/member/export_statistics', export_statistics),
     path('notice/', include('notice.urls')),
-    path('checkin', CheckInView.as_view()),
+    path('checkin', checkin),
     url(r'^static/(?P<path>.*)$', static.serve,
         {'document_root': settings.STATIC_ROOT}, name='static'),
     url(r'^media/(?P<path>.*)$', static.serve,

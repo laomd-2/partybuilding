@@ -1,8 +1,7 @@
-from django.contrib import messages
 from django.contrib.auth import get_permission_codename
 from django.db.models import F
-
 from teaching.models import TakePartIn
+from xadmin.views import BaseAdminPlugin, IndexView, ListAdminView
 from .util import *
 from info.resources import MemberResource
 import xadmin
@@ -98,9 +97,6 @@ class BranchAdmin(AdminObject):
         codename = get_permission_codename('delete', Branch._meta)
         has = self.user.has_perm('%s.%s' % (Branch._meta.app_label, codename))
         return has and (obj is None or obj.id != 106)
-
-
-fields_, phases = Member.get_phases()
 
 
 class MemberBaseAdmin(AdminObject):
@@ -239,6 +235,7 @@ class DependencyAdmin(AdminObject):
 @xadmin.sites.register(Member)
 class MemberAdmin(MemberBaseAdmin):
     model_icon = 'fa fa-info'
+    batch_fields = ['activist_date']
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'branch':
