@@ -172,7 +172,8 @@
       {% if results %}
         {% block results_fixedcol_grid %}
           <table id="results" class="table table-bordered table-striped table-hover" style="position: relative;"
-            data-toggle="table" data-height="{% get_height cl.result_count %}">
+{#            data-toggle="table" data-height="{% get_height cl.result_count %}"#}
+          >
             {% block results_fixedcol_grid_head %}
               <thead>
               <tr>{% for o in result_headers.cells %}

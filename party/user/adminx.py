@@ -78,10 +78,14 @@ class UserAdmin(AdminObject):
         if super().has_change_permission(obj):
             if obj is None or self.request.user == obj.username or is_school_admin(self.request.user):
                 return True
+            m = self.request.user.member
+            m2 = obj.member
+            if m is None or m2 is None:
+                return False
             if is_branch_manager(self.request.user):
-                m = self.request.user.member
-                m2 = obj.member
-                return m is not None and m2 is not None and m['branch_id'] == m2['branch_id']
+                return m['branch_id'] == m2['branch_id']
+            else:
+                return m['netid'] == m2['netid']
         return False
 
     def has_delete_permission(self, request=None, obj=None):

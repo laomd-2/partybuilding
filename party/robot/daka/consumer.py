@@ -1,7 +1,7 @@
 ﻿import datetime
 import os
 import time
-
+import threading
 from django.conf import settings
 import logging
 import wxpy
@@ -13,6 +13,7 @@ import re
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+lock = threading.Lock()
 
 
 def get_activity(title, now):
@@ -20,7 +21,7 @@ def get_activity(title, now):
     for pattern, activity in important:
         if re.match(pattern, title):
             try:
-                return Activity.objects.get(name=activity, date__lte=now, end_time__gte=now)
+                return Activity.objects.filter(name=activity, date__lte=now).first()
             except Activity.DoesNotExist:
                 pass
     return None
@@ -29,7 +30,8 @@ def get_activity(title, now):
 def consumer():
     while True:
         try:
-            consume()
+            with lock:
+                consume()
         except Exception as e:
             logger.info(e)
             time.sleep(2)
