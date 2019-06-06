@@ -50,16 +50,5 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns.extend([
-        # (path('__debug__/', include(debug_toolbar.urls)))
+        (path('__debug__/', include(debug_toolbar.urls)))
     ])
-
-# ignore = ['makemigrations', 'migrate', 'collectstatic']
-# for i in ignore:
-#     if i in sys.argv:
-#         break
-# else:
-#     from robot.daka import producer, consumer
-#     import threading
-#
-#     threading.Thread(target=producer.producer).start()
-#     threading.Thread(target=consumer.consumer).start()

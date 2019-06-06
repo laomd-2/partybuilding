@@ -18,3 +18,4 @@ openpyxl
 python-docx
 python-memcached
 qrcode
+django-crontab

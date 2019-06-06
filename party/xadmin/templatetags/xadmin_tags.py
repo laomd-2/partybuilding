@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from django import template
 from django.contrib.admin.views.main import ChangeList
 from django.template import Library
@@ -105,3 +106,14 @@ def get_height(result_count):
         return 10 * 37 + 60
     else:
         return 'auto'
+
+
+@register.simple_tag
+def active_next_href(menus):
+    i = -1
+    for i, li in enumerate(menus):
+        if '<li class="active">' in li:
+            break
+    else:
+        i = -1
+    return BeautifulSoup(menus[i + 1], 'html.parser').find('a')['href']

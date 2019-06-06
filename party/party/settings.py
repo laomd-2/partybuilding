@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'teaching.apps.TeachingConfig',
     'work.apps.NoteConfig',
     'notice.apps.NoticeConfig',
+    'robot.apps.RobotConfig',
     'mathfilters',
     'import_export',
     'django.contrib.admin',
@@ -57,17 +58,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'xadmin',
     'crispy_forms',
     'DjangoUeditor',
     'rules',
 ]
 
-# if DEBUG:
-#     INSTALLED_APPS += [
-#         'template_timings_panel',
-#         'debug_toolbar'
-#     ]
+if DEBUG:
+    INSTALLED_APPS += [
+        'template_timings_panel',
+        'debug_toolbar'
+    ]
 
 AUTHENTICATION_BACKENDS = (
     'rules.permissions.ObjectPermissionBackend',
@@ -93,8 +95,8 @@ CACHES = {
     }
 }
 
-# if DEBUG:
-#     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
+if DEBUG:
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
 ROOT_URLCONF = 'party.urls'
 
@@ -175,6 +177,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 MEDIA_URL = '/media/'  # 这个是在浏览器上访问该上传文件的url的前缀
 
+CRONJOBS = (
+    ('* */30 * * *', 'robot.tasks.wechat'),
+)
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
@@ -189,13 +195,13 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
 HOST_IP = '%s:8080' % get_host_ip()
 
-# DEBUG_TOOLBAR_CONFIG = {
-#     "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
-# }
+DEBUG_TOOLBAR_CONFIG = {
+    "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
+}
 
-# DEBUG_TOOLBAR_PANELS = [
-#     'debug_toolbar.panels.timer.TimerPanel',
-#     'debug_toolbar.panels.sql.SQLPanel',
-#     'debug_toolbar.panels.templates.TemplatesPanel',
-#     'template_timings_panel.panels.TemplateTimings.TemplateTimings',
-# ]
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+]

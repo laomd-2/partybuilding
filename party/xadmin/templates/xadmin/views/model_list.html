@@ -117,7 +117,7 @@
         <div id="display" class="modal fade">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form method="get" action="">
+              <form method="post" action="">
                 {% csrf_token %}
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -172,7 +172,7 @@
       {% if results %}
         {% block results_fixedcol_grid %}
           <table id="results" class="table table-bordered table-striped table-hover" style="position: relative;"
-{#            data-toggle="table" data-height="{% get_height cl.result_count %}"#}
+            data-toggle="table" data-height="{% get_height cl.result_count %}"
           >
             {% block results_fixedcol_grid_head %}
               <thead>
@@ -185,21 +185,16 @@
                         {% endfor %}
                       </div>
                     {% endif %}
-                    {% if o.menus %}
-                      <div class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"
-                           {% if o.btns %}style="padding-right: {{ o.btns|length }}em"{% endif %}>
-                          {{ o.label }}
+                    <div {% if o.btns %}style="padding-right: {{ o.btns|length }}em" {% endif %}>
+                      {% if o.menus %}
+                        <a href="{% active_next_href o.menus %}">
+                      {% endif %}
+                      {{ o.label }}
+                      {% if o.menus %}
                         </a>
-                        <ul class="dropdown-menu" role="menu">
-                          {% for m in o.menus %}
-                            {{ m|safe }}
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    {% else %}
-                      <div {% if o.btns %}style="padding-right: {{ o.btns|length }}em" {% endif %}>{{ o.label }}</div>
-                    {% endif %}
+                      {% endif %}
+                    </div>
+
                   </th>{% endfor %}
               </tr>
               {% view_block 'result_head' %}

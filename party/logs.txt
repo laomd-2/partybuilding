@@ -1,5 +1,5 @@
  
-*** Starting uWSGI 2.0.18 (64bit) on [Thu May 30 14:05:47 2019] ***
+*** Starting uWSGI 2.0.18 (64bit) on [Thu Jun  6 03:42:21 2019] ***
 compiled with version: 7.4.0 on 07 May 2019 06:16:06
 os: Linux-4.15.0-48-generic #51-Ubuntu SMP Wed Apr 3 08:28:49 UTC 2019
 nodename: ubuntu-server
@@ -17,30 +17,30 @@ lock engine: pthread robust mutexes
 thunder lock: disabled (you can enable it with --thunder-lock)
 uwsgi socket 0 bound to TCP address :12000 fd 3
 Python version: 3.6.7 (default, Oct 22 2018, 11:32:17)  [GCC 8.2.0]
-Python main interpreter initialized at 0x5615f955aaf0
+Python main interpreter initialized at 0x55598f7caaf0
 python threads support enabled
 your server socket listen backlog is limited to 100 connections
 your mercy for graceful operations on workers is 60 seconds
 mapped 312672 bytes (305 KB) for 8 cores
 *** Operational MODE: preforking+threaded ***
-WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x5615f955aaf0 pid: 79787 (default app)
-*** uWSGI is running in multiple interpreter mode ***
-spawned uWSGI master process (pid: 79787)
-spawned uWSGI worker 1 (pid: 79789, cores: 4)
-spawned uWSGI worker 2 (pid: 79793, cores: 4)
-█[pid: 79789|app: 0|req: 1/1] 172.26.58.153 () {46 vars in 1033 bytes} [Thu May 30 22:05:51 2019] GET /teaching/sharing/ => generated 55851 bytes in 827 msecs (HTTP/1.1 200) 8 headers in 485 bytes (1 switches on core 0)
-[pid: 79789|app: 0|req: 2/2] 172.26.58.153 () {42 vars in 832 bytes} [Thu May 30 22:05:52 2019] GET /jsi18n/ => generated 7684 bytes in 10 msecs (HTTP/1.1 200) 5 headers in 221 bytes (1 switches on core 3)
-[pid: 79789|app: 0|req: 3/3] 172.26.58.153 () {46 vars in 929 bytes} [Thu May 30 22:05:52 2019] GET /favicon.ico => generated 0 bytes in 7 msecs (HTTP/1.1 302) 5 headers in 235 bytes (1 switches on core 2)
-2019-05-30 22:05:54,092 - wxpy.api.bot - INFO - <Bot: λ>: started
-2019-05-30 22:05:54,092 - wxpy.api.chats.group - INFO - updating <Group: 计二党支部党员> (members_details=False)
-2019-05-30 22:05:54,262 - wxpy.api.chats.group - INFO - updating <Group: 计二党支部👉学习群> (members_details=False)
-2019-05-30 22:05:54,519 - wxpy.api.chats.group - INFO - updating <Group: 至二407> (members_details=False)
-2019-05-30 22:05:54,645 - wxpy.api.chats.group - INFO - updating <Group: 学霸来了> (members_details=False)
-2019-05-30 22:05:54,777 - wxpy.api.chats.group - INFO - updating <Group: 创新赛最强小组> (members_details=False)
-2019-05-30 22:05:54,925 - wxpy.api.chats.group - INFO - updating <Group: 计2党支部> (members_details=False)
-2019-05-30 22:05:55,157 - wxpy.api.chats.group - INFO - updating <Group: 2016超级无敌NB高三(11)班> (members_details=False)
-2019-05-30 22:05:55,517 - wxpy.api.chats.group - INFO - updating <Group: 数据院本科生党支部> (members_details=False)
-2019-05-30 22:05:55,779 - wxpy.api.chats.chat - INFO - sending msg to <Chat: 文件传输助手>:
+█2019-06-06 11:42:23,032 - wxpy.api.bot - INFO - <Bot: λ>: started
+2019-06-06 11:42:23,034 - wxpy.api.chats.group - INFO - updating <Group: None> (members_details=False)
+2019-06-06 11:42:23,035 - wxpy.api.chats.group - INFO - updating <Group: None> (members_details=False)
+2019-06-06 11:42:23,143 - wxpy.api.chats.chat - INFO - sending msg to <Chat: 文件传输助手>:
 我启动啦！
-2019-05-30 22:05:55,946 - wxpy.api.messages.message_config - INFO - <MessageConfig: λ: on_msg (Enabled, Async)>
-2019-05-30 22:05:55,946 - wxpy.api.bot - INFO - <Bot: λ>: joined
+2019-06-06 11:42:24,126 - wxpy.api.messages.message_config - INFO - <MessageConfig: λ: on_msg (Enabled, Async)>
+WSGI app 0 (mountpoint='') ready in 3 seconds on interpreter 0x55598f7caaf0 pid: 90890 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 90890)
+spawned uWSGI worker 1 (pid: 90898, cores: 4)
+spawned uWSGI worker 2 (pid: 90899, cores: 4)
+[pid: 90898|app: 0|req: 1/1] 172.19.59.239 () {44 vars in 1002 bytes} [Thu Jun  6 11:42:27 2019] GET /teaching/sharing/ => generated 61315 bytes in 625 msecs (HTTP/1.1 200) 8 headers in 485 bytes (1 switches on core 0)
+[pid: 90899|app: 0|req: 1/2] 172.19.59.239 () {42 vars in 832 bytes} [Thu Jun  6 11:42:28 2019] GET /jsi18n/ => generated 7722 bytes in 300 msecs (HTTP/1.1 200) 5 headers in 221 bytes (1 switches on core 0)
+2019-06-06 11:42:40,091 - robot.daka.producer - INFO - receive a message of type TEXT。
+2019-06-06 11:42:40,091 - robot.daka.producer - INFO - 劳马东 打卡。（马克思主义不仅深刻改变了世界，也深刻改变了中国。中国共产党人既是坚持马克思主义的典范，也是发展马克思主义的典范。中国的伟大实践充分证明，历史和人民选择马克思主义是完全正确的。1）
+2019-06-06 11:42:40,095 - robot.daka.consumer - INFO - receive a message of type TEXT。
+2019-06-06 11:42:40,106 - robot.daka.producer - INFO - receive a message of type SHARING。
+2019-06-06 11:42:40,106 - robot.daka.producer - INFO - 劳马东 打卡。（历史和人民选择了马克思主义）
+2019-06-06 11:42:40,116 - robot.daka.consumer - WARNING - 劳马东
+2019-06-06 11:42:40,116 - robot.daka.consumer - INFO - receive a message of type SHARING。
+2019-06-06 11:42:40,122 - robot.daka.consumer - WARNING - 劳马东

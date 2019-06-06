@@ -10,17 +10,17 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 
 
+# def producer():
+#     while True:
+#         try:
+#             wechat()
+#         except Exception as e:
+#             logger.info(e)
+#             time.sleep(2)
+
+
 def producer():
-    while True:
-        try:
-            wechat()
-        except Exception as e:
-            logger.info(e)
-            time.sleep(2)
-
-
-def wechat():
-    bot = wxpy.Bot(console_qr=2)
+    bot = wxpy.Bot(console_qr=2, cache_path='/home/party/party/robot/daka/wechat.pkl')
     daka = bot.groups().search('计二党支部')
     test = bot.groups().search('测试群')
     bot.file_helper.send('我启动啦！')
@@ -44,5 +44,4 @@ def wechat():
         else:
             logger.info("%s 打卡。（%s）" % (from_user, msg.text))
             put(from_user, now, 0, msg_type, msg.text)
-
-    bot.join()
+    # bot.join()

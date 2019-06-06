@@ -3,6 +3,7 @@ import os
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.encoding import smart_str
 import qrcode
@@ -176,20 +177,23 @@ class Sharing(models.Model):
     when = models.DateTimeField('时间', default=timezone.now)
     title = models.CharField('标题', max_length=100, null=True)
     impression = models.TextField('学习心得', default='')
+    impression_digest = models.CharField(max_length=255, null=True, editable=False)
     added = models.BooleanField('审核通过', default=False)
 
     class Meta:
         ordering = ('-when',)
+        unique_together = ('member', 'title')
         verbose_name = '学习打卡'
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return '%s %s' % (self.member, self.title)
 
-    def validate_unique(self, exclude=None):
-        if self.pk is None:
-            if Sharing.objects.filter(member=self.member, title=self.title):
-                raise ValidationError("%s已经学习过%s。" % (self.member, self.title))
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.impression:
+            self.impression_digest = md5(self.impression)
+        super(Sharing, self).save(force_insert, force_update, using, update_fields)
 
 
 # 防止代签的表
