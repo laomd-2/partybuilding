@@ -3,6 +3,7 @@ import os
 import time
 import threading
 from django.conf import settings
+from django.db import connections
 import logging
 import wxpy
 from info.models import Member
@@ -10,6 +11,8 @@ from robot.msg_queue import get
 from teaching.models import Activity, Sharing, TakePartIn2
 import json
 import re
+import traceback
+
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -27,18 +30,25 @@ def get_activity(title, now):
     return None
 
 
+def close_old_connections():
+    for conn in connections.all():
+        conn.close_if_unusable_or_obsolete()
+
+
 def consumer():
     while True:
         try:
             with lock:
                 consume()
-        except Exception as e:
-            logger.info(e)
+        except Exception:
+            logger.info(traceback.format_exc())
             time.sleep(2)
 
 
 def consume():
     user, time, revoke, msg_type, content = get()
+    # mysql连接时间大于超时时间，会自动断开，此时需要关闭这些连接，让django建立新的连接
+    close_old_connections()
     now = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
     if revoke:
         logger.warning("%s 撤回了一条消息。（%s）" % (user, content))
@@ -80,7 +90,11 @@ def consume():
             try:
                 m = Member.objects.get(name=user)
                 obj = Sharing(member=m, when=now)
+            except Member.MultipleObjectsReturned:
+                logger.error('multiple user named ' + user)
+                return
             except Member.DoesNotExist:
+                logger.error('user named ' + user + ' doesnot exist.')
                 return
 
         if msg_type == wxpy.SHARING:

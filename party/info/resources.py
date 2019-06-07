@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from tablib import Dataset
 
@@ -6,6 +8,9 @@ from common.base import wrap
 from common.rules import is_school_admin
 from info.util import check_fields
 from .models import Member, Branch
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class MemberResource(resources.MyResource):
@@ -46,22 +51,26 @@ class MemberResource(resources.MyResource):
         _data = []
         for row in dataset:
             row = list(row)
-            row[bi] = Branch.objects.get(branch_name=row[bi]).id
-            if j >= 0 and row[j]:
-                row[j] = '+86' + str(row[j])
-            data = dict(zip(header, row))
-            self.before_import_row(data)
-            new_obj = Member()
-            super(MemberResource, self).import_obj(new_obj, data, dry_run)
-            if school_ad or (m is not None and new_obj.branch_id == m['branch_id']):
-                error = []
-                if check_fields(new_obj, error):
-                    _data.append(tuple(row))
+            try:
+                row[bi] = Branch.objects.get(branch_name=row[bi]).id
+                if j >= 0 and row[j]:
+                    row[j] = '+86' + str(row[j])
+                data = dict(zip(header, row))
+                self.before_import_row(data)
+                new_obj = Member()
+                super(MemberResource, self).import_obj(new_obj, data, dry_run)
+                if school_ad or (m is not None and new_obj.branch_id == m['branch_id']):
+                    error = []
+                    if check_fields(new_obj, error):
+                        _data.append(tuple(row))
+                    else:
+                        for e in error:
+                            messages.error(request, e)
                 else:
-                    for e in error:
-                        messages.warning(request, e)
-            else:
-                messages.warning(request, '您无权限修改/添加%s的成员%s。' % (str(new_obj.branch), str(new_obj)))
+                    messages.warning(request, '您无权限修改/添加%s的成员%s。' % (str(new_obj.branch), str(new_obj)))
+            except Branch.DoesNotExist:
+                logger.warning(row[bi])
+                pass
         dataset._data = _data
 
     def export_resource(self, obj):

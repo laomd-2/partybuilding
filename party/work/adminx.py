@@ -58,6 +58,7 @@ class NoteAdminBase(AdminObject):
 
 @xadmin.sites.register(Note)
 class NoteAdmin(NoteAdminBase):
+    object_list_template = 'article_list.html'
     model_icon = 'fa fa-book'
     style_fields = {"content": "ueditor"}
     list_display_links = ['title']

@@ -44,4 +44,8 @@ def producer():
         else:
             logger.info("%s 打卡。（%s）" % (from_user, msg.text))
             put(from_user, now, 0, msg_type, msg.text)
+
+    @bot.register([bot.file_helper], [wxpy.TEXT], except_self=False)
+    def ask(msg):
+        return '亲，我还在线哦！'
     # bot.join()

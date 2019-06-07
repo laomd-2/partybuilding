@@ -145,6 +145,9 @@ class MemberBaseManager(models.Manager):
     def all(self):
         return super().all().exclude(branch_id=106)
 
+    def filter(self, *args, **kwargs):
+        return super().filter(*args, **kwargs).exclude(branch_id=106)
+
 
 class MemberBase(models.Model):
     phases = [
