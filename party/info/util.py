@@ -324,7 +324,7 @@ def get_list_chart(request):
 def field_range(last, next):
     res = []
     try:
-        begin = fields_.index(last) + 1
+        begin = fields_.index(last)
         while fields_[begin] != next:
             res.append(fields_[begin])
             begin += 1

@@ -224,7 +224,7 @@ class KeyDevelop(Table):
 
     @classmethod
     def get_update_fields(cls):
-        return field_range('activist_date', 'key_develop_person_date')
+        return field_range('activist_date', 'graduated_party_school_date')
 
     @classmethod
     def complete_beian(cls, member):
@@ -474,9 +474,13 @@ class PlanPlugin(BaseAdminPlugin):
                 daiban = model.check(now, query)
                 num_daiban = len(daiban)
                 if num_daiban > 0:
+                    update_fields = ['branch'] if is_school_admin(self.request.user) else []
+                    update_fields += ['netid', 'name']
+                    update_fields.extend(model.get_update_fields())
+                    update_fields.append('remarks')
                     affairs.append((model.phase, num_daiban,
                                     ','.join(map(lambda x: str(x), daiban)),
-                                    model.fields + model.get_update_fields() + ['remarks']))
+                                    update_fields))
         if is_admin(self.request.user):
             fields, graduation = get_graduation(self.request)
             affairs.append(('毕业生组织关系', len(graduation),

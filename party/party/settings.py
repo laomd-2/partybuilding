@@ -181,7 +181,10 @@ CRONJOBS = (
     ('* */30 * * *', 'robot.tasks.wechat'),
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
@@ -193,7 +196,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SESSION_COOKIE_AGE = 60 * 30  # 30分钟
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
-HOST_IP = '%s:8080' % get_host_ip()
+IP = '222.200.185.71'
+HOST_IP = '%s:8080' % IP
 
 DEBUG_TOOLBAR_CONFIG = {
     "JQUERY_URL": '//cdn.bootcss.com/jquery/2.2.4/jquery.min.js',
