@@ -400,7 +400,7 @@ class ListAdminView(ModelAdminView):
         for f in self.list_display:
             if f not in all_fields:
                 all_fields.append(f)
-        field_verbose = get_headers(all_fields, self.model, self)
+        field_verbose = get_headers(all_fields, self.model)
         for f, v in zip(all_fields, field_verbose):
             if f not in self.list_exclude:
                 model_fields.append((v, f in self._list_display, f))

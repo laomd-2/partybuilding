@@ -15,14 +15,7 @@ cache_dict = dict()
 
 
 def branch_in(branch, activity, branches):
-    cache = cache_dict.get((branch, activity))
-    if cache is None:
-        cache = cache_dict[(branch, activity)] = Cache(5)
-    res = cache.get()
-    if res is None:
-        res = branches.all().filter(branch_name=Branch.objects.get(id=branch).branch_name).exists()
-        cache.set(res)
-    return res
+    return branches.filter(id=branch).exists()
 
 
 @xadmin.sites.register(Activity)
@@ -286,18 +279,21 @@ class CreditAdmin2(CreditAdminBase):
     @property
     def list_charts(self):
         m = self.request.user.member
-        if m is None or m['branch_id'] != 85:
+        if m is None:
             return None
+        # if m is None or m['branch_id'] != 85:
+        #     return None
         my_charts = {}
         year, all_take = get_visual_credit(self.request.user, self.model)
 
         season = get_season(datetime.datetime.today())
         kaocha = all_take.filter(activity__date__gte=season[0],
-                                 activity__date__lt=season[1])
+                                 activity__date__lt=season[1],
+                                 member__first_branch_conference__isnull=True)
         members = Member.objects.filter(branch_id=m['branch_id'], first_branch_conference__isnull=True)
         if kaocha.count():
             my_charts['kaocha'] = {
-                'title': '%d月-%d月考察学时排行榜' % (season[0].month, season[1].month),
+                'title': '%d月-%d月非党员学时排行榜' % (season[0].month, season[1].month),
                 'option': get_credit(kaocha, members)
             }
             my_charts['kaocha']['option']['color'] = ['#3398DB']
@@ -372,7 +368,7 @@ class SharingAdmin(AdminObject):
             if self.request.user.is_superuser:
                 return True
             m = self.request.user.member
-            return m is not None and m['branch_id'] == 85
+            return m is not None  # and m['branch_id'] == 85
         return False
 
 

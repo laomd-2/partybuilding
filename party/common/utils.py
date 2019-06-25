@@ -1,13 +1,13 @@
 import datetime
 import io
 import os
-
+import xadmin
 from django.conf import settings
 from django.core.files.temp import NamedTemporaryFile
 from openpyxl.styles import Font, Alignment
 
 
-def get_headers(fields, model, modeladmin):
+def get_headers(fields, model):
     res = []
     for field in fields:
         try:
@@ -16,6 +16,7 @@ def get_headers(fields, model, modeladmin):
             if hasattr(model, field):
                 res.append(getattr(model, field).short_description)
             else:
+                modeladmin = xadmin.site._registry[model]
                 res.append(getattr(modeladmin, field).short_description)
     return res
 

@@ -4,7 +4,6 @@ from django.template.loader import render_to_string
 from common.base import wrap
 from common.rules import *
 from common.utils import get_headers
-from info.adminx import MemberAdmin
 from work.models import Files
 from email.header import make_header
 from info.models import Member
@@ -27,7 +26,7 @@ def make_email_to_managers(users, title, appers, fields, phase):
     context = {
         'branch_name': branch_name,
         'title': title,
-        'headers': get_headers(fields, Member, MemberAdmin),
+        'headers': get_headers(fields, Member),
         'appliers': get_infos(fields, appers),
         'root_url': settings.HOST_IP
     }
@@ -53,7 +52,7 @@ def make_email_to_appliers(title, appliers, fields, template='email_member.html'
     infos = get_infos(fields, appliers)
     context = {
         'title': title,
-        'headers': get_headers(fields, Member, MemberAdmin),
+        'headers': get_headers(fields, Member),
         'root_url': settings.HOST_IP,
     }
 

@@ -3,6 +3,7 @@ from copy import copy
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.encoding import smart_str
 from phonenumber_field.modelfields import PhoneNumberField
 from collections import OrderedDict
@@ -54,9 +55,11 @@ class Branch(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name='学院')
     branch_name = models.CharField('名称', max_length=50)
     date_create = NullableDateField('成立日期')
+    branch_type = models.CharField('支部类型', default='无', max_length=50,
+                                   choices=[(t, t) for t in ['本科生', '研究生', '无']])
 
     class Meta:
-        ordering = ('id',)
+        ordering = ('branch_type', 'branch_name')
         verbose_name = '组织管理'
         verbose_name_plural = verbose_name
 
@@ -210,7 +213,7 @@ class MemberBase(models.Model):
 
     out_date = NullableDateField('关系转出时间')
     out_type = models.CharField('转出类型', null=True, blank=True, max_length=20, choices=[
-        (c, c) for c in ['C.出国境升学', 'D.就业', 'E.暂缓就业', 'F.延毕', 'G.境内升学', 'Z.无']
+        (c, c) for c in ['本校升学', '境内升学', '境外升学', '就业', '未落实工作单位', '延毕', '']
     ])
     out_place = models.CharField('去向单位', blank=True, null=True, max_length=50)
     remarks = models.TextField('备注', blank=True, null=True, help_text='填写各阶段延期发展的原因，或其他重要信息。')
@@ -284,20 +287,20 @@ class Member(MemberBase):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, ignore_check=False):
-        if self.out_type != 'Z.无' and self.out_place:
-            if self.out_type == 'D.就业' or self.out_type == 'G.境内升学':  # mysql视图自动保存到历史党员中
-                self.out_date = datetime.date.today()
-            elif self.out_type == 'C.出国境升学':
-                self.out_date = datetime.date.today()
-                try:
-                    abroad_branch = Branch.objects.filter(branch_name='出国留学党支部').values('id')[0]['id']
-                except IndexError:
+        if self.out_type:
+            if '本院升学' in self.out_type:
+                self.out_type = self.out_place = None
+                self.branch_id = Branch.objects.get(branch_name='短期挂靠人员党支部').id
+            if self.out_place:
+                if '就业' in self.out_type or '境内升学' in self.out_type:  # mysql视图自动保存到历史党员中
+                    self.out_date = datetime.date.today()
+                elif '境外升学' in self.out_type:
+                    self.out_date = datetime.date.today()
                     try:
-                        abroad_branch = Branch.objects.filter(branch_name='临时党支部').values('id')[0]['id']
+                        abroad_branch = Branch.objects.filter(branch_name='出国留学党支部').values('id')[0]['id']
+                        self.branch_id = abroad_branch
                     except IndexError:
-                        abroad_branch = None
-                if abroad_branch is not None:
-                    self.branch_id = abroad_branch
+                        pass
         super().save(force_insert, force_update, using, update_fields)
 
     def get_identity(self):
@@ -326,7 +329,7 @@ class Dependency(models.Model):
     all_dates = {f.name: f.verbose_name for f in MemberBase._meta.fields if isinstance(f, models.DateField)}
     days_mapping = dict([(30, '1个月'), (60, '2个月'),
                          (90, '3个月'), (180, '半年'),
-                         (365, '1年'), (18 * 365, '18年')] +
+                         (360, '1年'), (18 * 365, '18年')] +
                         [(d + 1, "%d天" % (d + 1)) for d in range(10)])
     from_1 = models.CharField('从', choices=all_dates.items(), max_length=50)
     to = models.CharField('到', choices=all_dates.items(), max_length=50)

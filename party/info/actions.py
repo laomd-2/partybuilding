@@ -1,17 +1,15 @@
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db import models
-from django.db.models import Q
 from django.forms import modelform_factory
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext as _
-from info.models import Dependency
-from info.util import field_range
+from notice.adminx import *
 from xadmin.defs import ACTION_CHECKBOX_NAME
 from xadmin.dutils import force_text
 from xadmin.layout import FormHelper, Layout, Fieldset, Container, Col
 from xadmin.plugins.batch import BaseActionView, ChangeFieldWidgetWrapper, BATCH_CHECKBOX_NAME
-from datetime import date, timedelta
+from datetime import date
 
 from xadmin.util import model_ngettext
 from xadmin.views import ModelFormAdminView, filter_hook
@@ -19,12 +17,12 @@ from xadmin.views import ModelFormAdminView, filter_hook
 
 class MyBatchChangeAction(BaseActionView):
     batch_change_form_template = 'batch_change_form.html'
-    last_date = ''
+    model: Table = None
     phase = ''
 
     @property
     def related_fields(self):
-        return field_range(self.last_date, self.phase)
+        return self.model.get_update_fields()
 
     @filter_hook
     def get_media(self):
@@ -54,16 +52,7 @@ class MyBatchChangeAction(BaseActionView):
         return context
     
     def filter_valid(self, queryset, field, value):
-        try:
-            days = Dependency.objects.get(Q(scope=0) | Q(scope=1), from_1=self.last_date, to=self.phase).days
-            end = value - timedelta(days=days)
-            queryset = queryset.filter(**{
-                self.last_date + "__lt": end
-            })
-        except Exception as e:
-            print(e)
-            pass
-        return queryset
+        return queryset.filter(self.model.get_filters())
 
     def change_models(self, queryset, cleaned_data):
         data = {}
@@ -92,7 +81,7 @@ class MyBatchChangeAction(BaseActionView):
     def do_action(self, queryset):
         if not self.has_add_permission():
             raise PermissionDenied
-        queryset = self.filter_valid(queryset.filter(is_sysu=True, **{
+        queryset = self.filter_valid(queryset.filter(**{
             self.phase + "__isnull": True
         }), self.phase, date.today())
         if queryset.exists():
@@ -143,7 +132,7 @@ class ActivistAction(MyBatchChangeAction):
     action_name = u'add_activist'
     model_perm = 'add'
     description = '确定为入党积极分子'
-    last_date = 'application_date'
+    model = Activist
 
     @property
     def phase(self):
@@ -154,7 +143,7 @@ class KeyPersonAction(MyBatchChangeAction):
     action_name = u'add_key_person'
     model_perm = 'add'
     description = '确定为重点发展对象'
-    last_date = 'activist_date'
+    model = KeyDevelop
 
     @property
     def phase(self):
@@ -165,7 +154,7 @@ class PrememberAction(MyBatchChangeAction):
     action_name = u'add_premember'
     model_perm = 'add'
     description = '确定为预备党员'
-    last_date = 'key_develop_person_date'
+    model = PreMember
 
     @property
     def phase(self):
@@ -176,7 +165,7 @@ class MemberAction(MyBatchChangeAction):
     action_name = u'add_member'
     model_perm = 'add'
     description = '确定为正式党员'
-    last_date = 'first_branch_conference'
+    model = FullMember
 
     @property
     def phase(self):

@@ -178,7 +178,7 @@ class Activist(Table):
         year, month = get_ym(3, 9)
         end = datetime.date(year, month, 30)
         try:
-            days = Dependency.objects.get(from_1='application_date', to='activist_date').days
+            days = Dependency.objects.get(scope=1, from_1='application_date', to='activist_date').days
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
@@ -238,7 +238,7 @@ class KeyDevelop(Table):
         year, month = get_ym(3, 9)
         end = datetime.date(year, month, 30)
         try:
-            days = Dependency.objects.get(from_1='activist_date', to='key_develop_person_date').days
+            days = Dependency.objects.get(scope=1, from_1='activist_date', to='key_develop_person_date').days
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
@@ -283,7 +283,7 @@ class LearningClass(Table):
         year, month = get_ym(4, 10)
         end = datetime.date(year, month - 1, 30)
         try:
-            days = Dependency.objects.get(from_1='activist_date', to='key_develop_person_date').days
+            days = Dependency.objects.get(scope=1, from_1='activist_date', to='key_develop_person_date').days
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
@@ -367,7 +367,7 @@ class PreMember(Table):
         year, month = get_ym(6, 12)
         end = datetime.date(year, month, 30)
         try:
-            days = Dependency.objects.get(from_1='key_develop_person_date', to='first_branch_conference').days
+            days = Dependency.objects.get(scope=1, from_1='key_develop_person_date', to='first_branch_conference').days
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
@@ -420,7 +420,7 @@ class FullMember(Table):
         year, month = get_ym(6, 12)
         end = datetime.date(year, month, 30)
         try:
-            days = Dependency.objects.get(from_1='first_branch_conference', to='second_branch_conference').days
+            days = Dependency.objects.get(scope=1, from_1='first_branch_conference', to='second_branch_conference').days
             end = end - datetime.timedelta(days=days)
         except Dependency.DoesNotExist:
             pass
@@ -465,7 +465,7 @@ class PlanPlugin(BaseAdminPlugin):
             num_plan = len(query)
             if num_plan > 0:
                 fields = model.fields
-                headers = get_headers(fields, Member, MemberAdmin)
+                headers = get_headers(fields, Member)
                 results = [[m[f] for f in fields] for m in query]
                 beian_template = model.beian_template.split('/')[-1]
                 if beian_template.endswith('.docx'):

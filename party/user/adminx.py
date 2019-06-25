@@ -137,10 +137,12 @@ xadmin.site.register(User, UserAdmin)
 Group._meta.verbose_name = Group._meta.verbose_name_plural = '角色'
 xadmin.site.register(Group, MyGroupAdmin)
 
+title = "数据科学与计算机学院学生党建系统"
+
 
 @xadmin.sites.register(views.CommAdminView)
 class GlobalSettings(object):
-    site_title = "数据科学与计算机学院学生党建系统"
+    site_title = title
     # 系统名称
     site_footer = "版权所有@数据科学与计算机学院"
     # 底部版权栏

@@ -21,16 +21,15 @@ logger = logging.getLogger(__name__)
 
 def producer():
     bot = wxpy.Bot(console_qr=2, cache_path='/home/party/party/robot/daka/wechat.pkl')
-    daka = bot.groups().search('计二党支部')
-    test = bot.groups().search('测试群')
+    daka = bot.groups().search('打卡群')
     bot.file_helper.send('我启动啦！')
 
-    @bot.register(daka + test, [wxpy.SHARING, wxpy.TEXT, wxpy.NOTE], except_self=False)
+    @bot.register(daka, [wxpy.SHARING, wxpy.TEXT, wxpy.NOTE], except_self=False)
     def on_msg(msg):
         msg_type = msg.type
         from_user = msg.member.name
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        logger.info("receive a message of type %s。" % ('SHARING' if msg_type == wxpy.SHARING else 'TEXT'))
+        logger.info("receive a message of type %s。" % msg_type)
         # 处理撤回的消息
         if msg_type == wxpy.NOTE:
             revoked = ETree.fromstring(msg.raw['Content'].replace('&lt;', '<').replace('&gt;', '>')).find('revokemsg')

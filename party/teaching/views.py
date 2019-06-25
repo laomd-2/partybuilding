@@ -1,9 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from teaching.models import *
-from user.adminx import GlobalSettings
+from user.adminx import title
 
 
 def checkin(request):
@@ -20,34 +19,35 @@ def checkin(request):
     except ValueError:
         return HttpResponseNotFound('会议或活动有误。')
     context = {
-        'site_title': GlobalSettings.site_title,
+        'site_title': title,
         'title': '签到'
     }
-    try:
-        member = request.user.member
-        context['netid'] = member['netid']
-        if member.is_party_member():
-            model = TakePartIn
-        else:
-            model = TakePartIn2
+    if request.POST:
         try:
-            take = model.objects.get(member_id=member['netid'], activity_id=activity_id)
-            if activity['is_cascade']:
-                messages.info(request, '您已签到成功，请勿重复签到。')
+            netid = request.POST.get('username')
+            member = Member.objects.get(netid=netid)
+            if member.is_party_member():
+                model = TakePartIn
             else:
-                take.credit += activity['credit']
+                model = TakePartIn2
+            try:
+                take = model.objects.get(member_id=netid, activity_id=activity_id)
+                if activity['is_cascade']:
+                    messages.info(request, '您已签到成功，请勿重复签到。')
+                else:
+                    take.credit += activity['credit']
+                    take.save()
+                    # 从缺席名单中删除
+                    AskForLeave.objects.filter(activity_id=activity_id, member_id=netid).delete()
+                    messages.success(request, '签到成功。')
+            except model.DoesNotExist:
+                take = model(member_id=netid, activity_id=activity_id, credit=activity['credit'])
                 take.save()
                 # 从缺席名单中删除
-                AskForLeave.objects.filter(activity_id=activity_id, member_id=member['netid']).delete()
+                AskForLeave.objects.filter(activity_id=activity_id, member_id=netid).delete()
                 messages.success(request, '签到成功。')
-        except model.DoesNotExist:
-            take = model(member_id=member['netid'], activity_id=activity_id, credit=activity['credit'])
-            take.save()
-            # 从缺席名单中删除
-            AskForLeave.objects.filter(activity_id=activity_id, member_id=member['netid']).delete()
-            messages.success(request, '签到成功。')
-        context['credit'] = take.credit
-    except Exception as e:
-        messages.error(request, '未找到您的动态信息。')
+            context['credit'] = take.credit
+        except Exception as e:
+            messages.error(request, '未找到您的动态信息。')
     context.update(**activity)
     return render(request, 'checkin.html', context=context)

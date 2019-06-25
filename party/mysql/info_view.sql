@@ -9,11 +9,10 @@ where id = 6
 create view info_oldmember as
 select *
 from info_member_all
-where (out_type = 'unknown' or
-       out_place is not null and out_place != '' and (out_type = 'D.就业' or out_type = 'G.境内升学'));
+where branch_id != (select id from info_branch where branch_name='出国留学党支部') and (out_type = 'unknown' or out_type is not null and out_type != '' and
+       out_place is not null and out_place != '' and out_type != '延毕');
 create view info_member as
 select *
 from info_member_all
-where out_type is null
-   or not (out_type = 'unknown' or
-           out_place is not null and out_place != '' and (out_type = 'D.就业' or out_type = 'G.境内升学'));
+where branch_id = (select id from info_branch where branch_name='出国留学党支部') or (out_type is null or out_type = '') or
+  (out_place is null or out_place = '') or out_type = '延毕';

@@ -42,19 +42,18 @@ class MemberResource(resources.MyResource):
         m = request.user.member
         school_ad = is_school_admin(request.user)
         header = dataset.headers
-        bi = header.index('branch')
         try:
-            j = header.index('phone_number')
+            bi = header.index('branch')
         except ValueError:
-            j = -1
+            bi = -1
+        logger.info(bi)
 
         _data = []
         for row in dataset:
             row = list(row)
             try:
-                row[bi] = Branch.objects.get(branch_name=row[bi]).id
-                if j >= 0 and row[j]:
-                    row[j] = '+86' + str(row[j])
+                if bi >= 0 and row[bi]:
+                    row[bi] = Branch.objects.get(branch_name=row[bi]).id
                 data = dict(zip(header, row))
                 self.before_import_row(data)
                 new_obj = Member()
@@ -68,8 +67,8 @@ class MemberResource(resources.MyResource):
                             messages.error(request, e)
                 else:
                     messages.warning(request, '您无权限修改/添加%s的成员%s。' % (str(new_obj.branch), str(new_obj)))
-            except Branch.DoesNotExist:
-                logger.warning(row[bi])
+            except Exception as e:
+                logger.warning(str(row[1]) + str(e))
                 pass
         dataset._data = _data
 

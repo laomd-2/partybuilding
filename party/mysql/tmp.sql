@@ -1,0 +1,1 @@
+select id from info_branch where branch_name='出国留学党支部';
