@@ -160,7 +160,7 @@ class MemberBase(models.Model):
     branch = models.ForeignKey(Branch, on_delete=models.SET(106), verbose_name='党支部名称', db_index=True)
     netid = models.IntegerField('学号', primary_key=True)
     name = models.CharField('姓名', max_length=20, db_index=True)
-    birth_date = models.DateField(max_length=10, verbose_name='出生时间')
+    birth_date = models.CharField(max_length=10, verbose_name='出生年月', null=False, blank=False)
     gender = models.CharField(max_length=1, verbose_name='性别', choices=[('男', '男'), ('女', '女')], default='男')
     group = models.CharField(max_length=20, verbose_name='民族', default='汉')
     jiguan = models.CharField(max_length=50, verbose_name='籍贯', null=True, blank=True)
