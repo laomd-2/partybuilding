@@ -17,7 +17,7 @@ class AbstractBaseUser(models.Model):
     username = models.CharField(
         '学号',
         max_length=50,
-        primary_key=True,
+        unique=True,
         help_text='中山大学NetID，至多8位数字。',
         validators=[username_validator],
         error_messages={
@@ -123,7 +123,3 @@ class AbstractBaseUser(models.Model):
     @classmethod
     def normalize_username(cls, username):
         return unicodedata.normalize('NFKC', username) if isinstance(username, str) else username
-
-    @property
-    def id(self):
-        return int(self.username)
