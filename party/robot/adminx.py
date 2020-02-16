@@ -3,6 +3,6 @@ from .daka.consumer import consumer
 import threading
 
 
-if wechat():
-    threading.Thread(target=consumer).start()
+# if wechat():
+    # threading.Thread(target=consumer).start()
 
