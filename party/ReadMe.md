@@ -1,7 +1,7 @@
 一、全量修改
 1. drop database party;
 2. create database party;
-3. rm -r $(find . -name migrations) $(find . -name __pycache__)
+3. rm -r $(find . -name migrations) $(find . -name \_\_pycache\_\_)
 4. python manage.py makemigrations --empty info user teaching xadmin work notice
 5. python manage.py makemigrations
 6. python manage.py migrate user
