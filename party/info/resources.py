@@ -52,7 +52,9 @@ class MemberResource(resources.MyResource):
         for row in dataset:
             row = list(row)
             try:
-                if bi >= 0 and row[bi]:
+                if bi >= 0:
+                    if row[bi] is None:
+                        continue
                     row[bi] = Branch.objects.get(branch_name=row[bi]).id
                 data = dict(zip(header, row))
                 self.before_import_row(data)
@@ -68,7 +70,7 @@ class MemberResource(resources.MyResource):
                 else:
                     messages.warning(request, '您无权限修改/添加%s的成员%s。' % (str(new_obj.branch), str(new_obj)))
             except Exception as e:
-                logger.warning(str(row[1]) + str(e))
+                logger.warning(str(row) + str(e))
                 pass
         dataset._data = _data
 

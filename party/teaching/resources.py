@@ -58,7 +58,7 @@ def _group_to_dict(dataset):
 
 class CreditResource(resources.MyResource):
     excel_template = 'Excel模板/学时统计.xlsx'
-    import_excel = '导入模板/学时统计.xlsx'
+    import_excel = 'Excel模板/学时导入.xlsx'
 
     class Meta:
         model = TakePartIn
